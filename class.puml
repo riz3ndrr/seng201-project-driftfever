@@ -1,0 +1,102 @@
+@startuml
+
+Class Car {
+    String name
+    float speed
+    float handling  
+    float reliability
+    float fuelEconomy
+    ArrayList<Part> upgrades
+
+    String toString()
+
+    
+}
+
+Interface Item {
+    float buyingPrice
+    float sellPrice
+    
+}
+'find special arrow for interace
+
+Item <|-- Car
+Item <|-- Part
+
+Class Player {
+    String name
+    float moneyBalance
+    
+}
+
+Class GameManagement {
+    String gameDifficulty
+    Int seasonLength
+
+}
+
+Class Shop {
+    ArrayList<Item> availableItems
+
+    void purchase(Item)
+    void equip(Item)
+    void sell(Item)
+}
+
+Class Garage {
+    ArrayList<Car> garage
+    ArrayList<Part> availableParts
+    
+    void equipCar(Car car)
+}
+
+Garage "1" --* "many" Car
+Garage "1" --* "many" Part
+Shop "1" --* "many" Item
+
+Player "1" --- "1" Garage
+
+Enum PartCarType{
+    ENGINE
+    BRAKES
+    WHEELS
+
+}
+
+Class Part {
+    float installCost
+    PartCarType carType
+
+    void installPart()
+    void improveCarAttribute(carType)
+    void uninstallPart()
+
+    String toString()
+}
+
+Part "1" --- "1" PartCarType
+
+Class RaceManagement {
+    ArrayList<Race> races
+
+    Race selectRace()
+}
+
+RaceManagement "1" --* "many" Race
+
+Class Race {
+    String name
+    int hours
+    int routes
+    float prizeMoney
+    int entries
+    int numFuelStops
+    int difficulty
+    float raceDistance
+    int numOpponents
+
+    String toString()
+}
+
+
+@enduml
