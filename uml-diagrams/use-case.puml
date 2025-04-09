@@ -1,0 +1,35 @@
+@startuml
+'Alt + D to preview
+
+skin rose
+left to right direction
+
+:Player: as Player
+
+rectangle GameSystem {
+
+Player --> (Choose a name)
+Player --> (Select season length)
+Player --> (Choose difficulty)
+Player --> (Buy up to 3 cars)
+Player --> (View game statistics)
+
+Player --> (View garage)  
+(View garage) <|.. (Add car enhancements) : <extends>
+(View garage) <|.. (Change car) : <extends>
+
+Player --> (View shop)
+(View shop) <|.. (Purchase items) : <extends>
+(View shop) <|.. (Sell items) : <extends>
+(Purchase items) <|.. (Equip item) : <extends>
+
+Player --> (Start race / Play)
+(Start race / Play) <|.. (Select race type) : <include>
+
+}
+
+
+
+
+
+@enduml
