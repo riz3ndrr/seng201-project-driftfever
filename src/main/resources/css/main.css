@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+
+/*.root {*/
+/*    -fx-background-image: url("../designs/chooseMenuBG.png");*/
+/*}*/
+
+Label, Text {
+    -fx-font-family: "Jersey 15", sans-serif;
+}
+
+#title {
+    -fx-font-size: 60px;
+}
+
+#diffLabel {
+    -fx-font-size: 40px;
+}
+
+#gameDesc{
+    -fx-font-size: 30px;
+}
+
+#diffDesc {
+    -fx-font-size: 30px;
+}

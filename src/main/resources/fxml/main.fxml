@@ -1,12 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.MainController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.SetupScreenController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="164.60001220703126" minHeight="0.0" prefHeight="45.59999618530273" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="310.40001220703124" minHeight="10.0" prefHeight="58.19998168945312" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="297.5999702453613" minHeight="10.0" prefHeight="207.19996948242186" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="194.19997253417966" minHeight="0.0" prefHeight="91.20003051757811" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <Label layoutX="234.0" layoutY="92.0" text="Welcome To JavaFX!" />
-      <Label fx:id="defaultLabel" alignment="CENTER" layoutX="264.0" layoutY="122.0" prefHeight="16.0" prefWidth="73.0" AnchorPane.leftAnchor="264.0" AnchorPane.topAnchor="122.0" />
-      <Button fx:id="defaultButton" layoutX="264.0" layoutY="153.0" onMouseClicked="#onButtonClicked" text="Click Me" AnchorPane.leftAnchor="264.0" AnchorPane.topAnchor="153.0" />
+      <Label id="title" fx:id="gameTitle" alignment="CENTER" prefHeight="45.0" prefWidth="370.0" text="DRIFT FEVER" textAlignment="JUSTIFY" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      </Label>
+      <Label id="gameDesc" fx:id="gameDesc" alignment="CENTER" prefHeight="57.0" prefWidth="473.0" text="Every legend starts with a choice" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      </Label>
+      <Text id="diffLabel" fx:id="diffLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty" textAlignment="CENTER" wrappingWidth="273.37628173828125" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+
+      </Text>
+      <ImageView fx:id="easyPic" fitHeight="70.0" fitWidth="70.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <image>
+            <Image url="@../designs/difficulty/easy.png" />
+         </image>
+         <GridPane.margin>
+            <Insets bottom="40.0" />
+         </GridPane.margin>
+      </ImageView>
+      <ImageView fx:id="medPic" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <image>
+            <Image url="@../designs/difficulty/med.png" />
+         </image>
+         <GridPane.margin>
+            <Insets bottom="40.0" />
+         </GridPane.margin>
+      </ImageView>
+      <ImageView fx:id="hardPic" fitHeight="80.0" fitWidth="80.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <image>
+            <Image url="@../designs/difficulty/hard.png" />
+         </image>
+         <GridPane.margin>
+            <Insets bottom="40.0" />
+         </GridPane.margin>
+      </ImageView>
+      <Label id="diffDesc" fx:id="diffDesc" alignment="CENTER" prefHeight="62.0" prefWidth="526.0" text="&lt;Chosen Difficulty Description&gt;" textAlignment="CENTER" wrapText="true" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Slider fx:id="diffSlider" blockIncrement="1.0" max="4.0" min="1.0" showTickMarks="true" value="2.5" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="50.0" />
+         </GridPane.margin>
+      </Slider>
    </children>
-</AnchorPane>
+</GridPane>
