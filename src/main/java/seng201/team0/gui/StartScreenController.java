@@ -5,25 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import seng201.team0.models.GameStats;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.*;
 
-public class SetupScreenController {
+public class StartScreenController {
     @FXML
     private Label gameTitle;
     @FXML
@@ -70,6 +66,9 @@ public class SetupScreenController {
     private GridPane chooseSeasonLengthGridPane;
     @FXML
     private GridPane chooseNameGridPane;
+
+    @FXML
+    private Button finishStartScreenBtn;
 
     private Stage stage;
     private Scene scene;
@@ -131,6 +130,11 @@ public class SetupScreenController {
     private void updateSeasonCount(int newRaceCount) {
         raceCount = newRaceCount;
         seasonCountLabel.setText("Number of races: " + raceCount);
+        System.out.println(raceCount);
+    }
+
+    public int getRaceCount() {
+        return raceCount;
     }
 
     private void updateDifficulty(int newDiffLevel) {
@@ -171,11 +175,16 @@ public class SetupScreenController {
 
     }
 
-    public void bruh(MouseEvent mouseEvent) {
-        System.out.println("BRUH");
-    }
 
     public void switchToScene2(javafx.event.ActionEvent event) throws IOException {
+        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
+        // Proceed to the next scene
+
+        GameStats gameDB = GameStats.getInstance();
+        gameDB.setRaceCount(getRaceCount());
+        gameDB.setRaceDifficulty(getChosenDifficulty());
+        gameDB.setUserName(inputNameArea.getText());
+
         FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/showStats.fxml"));
         Parent root = baseLoader.load();
 
@@ -183,5 +192,10 @@ public class SetupScreenController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        DummyController baseController = baseLoader.getController();
+        baseController.initialize(stage);
+
+
+
     }
 }

@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
+import javafx.stage.Stage;
+import seng201.team0.models.GameStats;
 
 import java.util.*;
 
@@ -25,7 +27,13 @@ public class DummyController {
     @FXML
     private Label numRaceLabel;
 
-    public void initialize() {
+
+    public void initialize(Stage stage) {
+        GameStats gameDB = GameStats.getInstance();
+        diffLabel.setText(gameDB.getRaceDifficulty());
+        numRaceLabel.setText(Integer.toString(gameDB.getRaceCount()));
+        nameLabel.setText(gameDB.getUserName());
+
 
     }
 }
