@@ -1,14 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-/*.root {*/
-/*    -fx-background-image: url("../designs/chooseMenuBG.png");*/
-/*}*/
+.root {
+    -fx-background-image: url("../designs/BG2.png");
+}
 
 Label, Text {
     -fx-font-family: "Jersey 15", sans-serif;
 }
 
-#title {
+@keyframes float {
+    0% {
+        -fx-translate-y: 0px;
+    }
+    50% {
+        -fx-translate-y: 60px;
+    }
+    100% {
+        -fx-translate-y: 0px;
+    }
+}
+#medPic {
+
+    animation: float 6s ease-in-out infinite;
+}
+
+#gameTitle {
     -fx-font-size: 60px;
 }
 
