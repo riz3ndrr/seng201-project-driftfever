@@ -51,6 +51,7 @@ Class Garage {
 }
 
 Garage "1" --* "many" Car
+Car "1" --* "many" Part
 Garage "1" --* "many" Part
 Shop "1" --* "many" Item
 

@@ -1,6 +1,10 @@
 package seng201.team0.gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
@@ -10,7 +14,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.*;
 
 public class SetupScreenController {
@@ -61,6 +71,10 @@ public class SetupScreenController {
     @FXML
     private GridPane chooseNameGridPane;
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
 
 
     static private Map<String, String> difficulties = Map.of(
@@ -98,7 +112,6 @@ public class SetupScreenController {
         optionIndex--;
         showNewOptionSlide();
     }
-
 
     static private String chosenDifficulty = "Regular";
 
@@ -160,5 +173,15 @@ public class SetupScreenController {
 
     public void bruh(MouseEvent mouseEvent) {
         System.out.println("BRUH");
+    }
+
+    public void switchToScene2(javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/showStats.fxml"));
+        Parent root = baseLoader.load();
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
