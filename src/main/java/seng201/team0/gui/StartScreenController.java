@@ -185,14 +185,14 @@ public class StartScreenController {
         gameDB.setRaceDifficulty(getChosenDifficulty());
         gameDB.setUserName(inputNameArea.getText());
 
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/showStats.fxml"));
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
         Parent root = baseLoader.load();
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        DummyController baseController = baseLoader.getController();
+        ShopController baseController = baseLoader.getController();
         baseController.initialize(stage);
 
 

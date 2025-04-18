@@ -7,9 +7,17 @@ public class GameStats {
     private int raceCount = 3;
     private String userName;
     private String raceDifficulty;
+    private float bal = 5000F;
 
     public static GameStats getInstance() {
         return instance;
+    }
+
+    public void setBal(float bal) {
+        this.bal = bal;
+    }
+    public float getBal() {
+        return bal;
     }
 
     public void setRaceCount(int raceCount) {

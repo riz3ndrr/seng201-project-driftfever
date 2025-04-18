@@ -8,17 +8,6 @@ Label, Text {
     -fx-font-family: "Jersey 15", sans-serif;
 }
 
-@keyframes float {
-    0% {
-        -fx-translate-y: 0px;
-    }
-    50% {
-        -fx-translate-y: 60px;
-    }
-    100% {
-        -fx-translate-y: 0px;
-    }
-}
 #medPic {
 
     animation: float 6s ease-in-out infinite;
