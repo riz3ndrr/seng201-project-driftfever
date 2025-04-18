@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
+import seng201.team0.models.Item;
 
 import java.util.ArrayList;
 
@@ -39,11 +40,21 @@ public class ShopController {
     private Label carFuelEcoLabel;
 
     @FXML
+    private Label buyItem;
+    @FXML
+    private Label sellItem;
+
+    @FXML
     private GridPane shopGridPane;
 
     private ArrayList<Car> Cars = new ArrayList<>();
 
+    private Item selectedItem;
 
+
+    public void bruh() {
+        System.out.println("bruh");
+    }
 
     public void createCars() {
 
@@ -67,6 +78,8 @@ public class ShopController {
         Cars.add(car8);
         Cars.add(car9);
     }
+
+
 
     public void selectCar(MouseEvent event) {
         ImageView clickedCar = (ImageView) event.getSource();
@@ -122,6 +135,8 @@ public class ShopController {
         carHandlingLabel.setText("Handling: " + Integer.toString(car.getHandling()));
         carReliabilityLabel.setText("Reliability: " + Integer.toString(car.getReliability()));
         carFuelEcoLabel.setText("Fuel Economy: " + Integer.toString(car.getFuelEconomy()));
+        buyItem.setText("Buy item for $" + car.getBuyingPrice());
+        sellItem.setText("Sell item for $" + car.getSellingPrice());
 
     }
 

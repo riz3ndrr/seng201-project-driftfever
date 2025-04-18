@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-.root {
-    -fx-background-image: url("../designs/BG2.png");
-}
+/*.root {*/
+/*    -fx-background-image: url("../designs/BG2.png");*/
+/*}*/
 
 Label, Text {
     -fx-font-family: "Jersey 15", sans-serif;
+}
+
+#buyItem, #sellItem {
+    -fx-font-size: 17px;
+    -fx-background-color: #b8b6b2;
+    /*-fx-border-radius: 3px;*/
+    -fx-label-padding: 5px;
+
+}
+#buyItem:hover, #sellItem:hover {
+    -fx-font-size: 20px;
+
 }
 
 #medPic {
