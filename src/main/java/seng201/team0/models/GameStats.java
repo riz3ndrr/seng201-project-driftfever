@@ -1,6 +1,8 @@
 package seng201.team0.models;
 
 
+import java.util.ArrayList;
+
 public class GameStats {
     private static final GameStats instance = new GameStats();
 
@@ -8,6 +10,26 @@ public class GameStats {
     private String userName;
     private String raceDifficulty;
     private float bal = 5000F;
+
+    private ArrayList<Car> carCollection = new ArrayList<>();
+
+    public void addCar(Car car) {
+        carCollection.add(car);
+    }
+    public void removeCar(Car car) {
+        carCollection.remove(car);
+    }
+
+    public boolean selectedCarInCollection(Car car) {
+        return carCollection.contains(car);
+    }
+
+    public void printCars() {
+        System.out.println("You have these cars in your collection");
+        for (Car car : carCollection) {
+            System.out.println(car.getName());
+        }
+    }
 
     public static GameStats getInstance() {
         return instance;

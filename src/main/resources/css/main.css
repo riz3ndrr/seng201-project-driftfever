@@ -10,7 +10,7 @@ Label, Text {
 
 #buyItem, #sellItem {
     -fx-font-size: 17px;
-    -fx-background-color: #b8b6b2;
+    -fx-background-color: #ababab;
     /*-fx-border-radius: 3px;*/
     -fx-label-padding: 5px;
 
@@ -18,6 +18,10 @@ Label, Text {
 #buyItem:hover, #sellItem:hover {
     -fx-font-size: 20px;
 
+}
+
+#buyItem:pressed, #sellItem:pressed {
+    -fx-background-color: #969696;
 }
 
 #medPic {

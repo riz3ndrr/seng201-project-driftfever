@@ -10,6 +10,7 @@ import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Item;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class ShopController {
@@ -45,11 +46,59 @@ public class ShopController {
     private Label sellItem;
 
     @FXML
+    private Label purchaseConfirmationLabel;
+
+    @FXML
     private GridPane shopGridPane;
 
     private ArrayList<Car> Cars = new ArrayList<>();
 
     private Item selectedItem;
+
+    // Player/Game Database
+    GameStats gameDB = GameStats.getInstance();
+
+    public Item getSelectedItem() {
+        return selectedItem;
+    }
+
+    public void buyItem(MouseEvent mouseEvent) {
+        // check if need to use get method
+        if (gameDB.selectedCarInCollection((Car) selectedItem)) {
+            purchaseConfirmationLabel.setText("You already own this car");
+        }
+        else {
+
+            if (gameDB.getBal() >= selectedItem.getBuyingPrice()) {
+                gameDB.setBal(gameDB.getBal() - selectedItem.getBuyingPrice());
+                balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+                gameDB.addCar((Car) selectedItem);
+
+                purchaseConfirmationLabel.setText("Purchase Successful!");
+            }
+            else {
+                purchaseConfirmationLabel.setText("Insufficient funds!");
+            }
+        }
+
+        gameDB.printCars();
+
+    }
+
+    public void sellItem(MouseEvent mouseEvent) {
+        // update later
+        if (gameDB.selectedCarInCollection((Car) selectedItem)) {
+            gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
+            balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+            purchaseConfirmationLabel.setText("Sold successfully!");
+            gameDB.removeCar((Car) selectedItem);
+        }
+        else {
+            purchaseConfirmationLabel.setText("You do not own this car");
+        }
+
+
+    }
 
 
     public void bruh() {
@@ -87,39 +136,48 @@ public class ShopController {
 
         switch (carID) {
             case "car1Select":
-                displayCarAttributes(Cars.get(0));  // Display attributes of car 1
+                selectedItem = Cars.get(0);
+                displayCarAttributes(Cars.get(0));
                 break;
 
             case "car2Select":
-                displayCarAttributes(Cars.get(1));  // Display attributes of car 2
+                selectedItem = Cars.get(1);
+                displayCarAttributes(Cars.get(1));
                 break;
 
             case "car3Select":
-                displayCarAttributes(Cars.get(2));  // Display attributes of car 3
+                selectedItem = Cars.get(2);
+                displayCarAttributes(Cars.get(2));
                 break;
 
             case "car4Select":
-                displayCarAttributes(Cars.get(3));  // Display attributes of car 4
+                selectedItem = Cars.get(3);
+                displayCarAttributes(Cars.get(3));
                 break;
 
             case "car5Select":
-                displayCarAttributes(Cars.get(4));  // Display attributes of car 5
+                selectedItem = Cars.get(4);
+                displayCarAttributes(Cars.get(4));
                 break;
 
             case "car6Select":
-                displayCarAttributes(Cars.get(5));  // Display attributes of car 6
+                selectedItem = Cars.get(5);
+                displayCarAttributes(Cars.get(5));
                 break;
 
             case "car7Select":
-                displayCarAttributes(Cars.get(6));  // Display attributes of car 7
+                selectedItem = Cars.get(6);
+                displayCarAttributes(Cars.get(6));
                 break;
 
             case "car8Select":
-                displayCarAttributes(Cars.get(7));  // Display attributes of car 8
+                selectedItem = Cars.get(7);
+                displayCarAttributes(Cars.get(7));
                 break;
 
             case "car9Select":
-                displayCarAttributes(Cars.get(8));  // Display attributes of car 9
+                selectedItem = Cars.get(8);
+                displayCarAttributes(Cars.get(8));
                 break;
 
             default:
@@ -136,12 +194,11 @@ public class ShopController {
         carReliabilityLabel.setText("Reliability: " + Integer.toString(car.getReliability()));
         carFuelEcoLabel.setText("Fuel Economy: " + Integer.toString(car.getFuelEconomy()));
         buyItem.setText("Buy item for $" + car.getBuyingPrice());
-        sellItem.setText("Sell item for $" + car.getSellingPrice());
+        sellItem.setText("Sell item for $" + car.getSellingPrice() + " ");
 
     }
 
     public void initialize(Stage stage) {
-        GameStats gameDB = GameStats.getInstance();
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
@@ -149,4 +206,6 @@ public class ShopController {
         createCars();
 
     }
+
+
 }
