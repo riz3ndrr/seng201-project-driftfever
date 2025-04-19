@@ -14,7 +14,6 @@ public class GameStats {
     private ArrayList<Car> carCollection = new ArrayList<>();
 
 
-    // check if this is ok
     public boolean selectedCarInCollection(Car car) {
         for (Car c : carCollection) {
             if (c.getName().equals(car.getName())) {
@@ -23,6 +22,7 @@ public class GameStats {
         }
         return false;
     }
+
 
 
     public ArrayList<Car> getCarCollection() {
@@ -37,13 +37,20 @@ public class GameStats {
         carCollection.add(car);
     }
     public void removeCar(Car car) {
-        carCollection.remove(car);
+        boolean removed = false;
+        int i = 0;
+        while (i < carCollection.size() || !removed) {
+            if (carCollection.get(i).getName().equals(car.getName())) {
+                carCollection.remove(i);
+                removed = true;
+            }
+            i++;
+        }
     }
 
     public Car searchCarAtIndex(int i) {
         return carCollection.get(i);
     }
-
 
 
     public void printCars() {

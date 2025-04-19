@@ -21,10 +21,10 @@ public class MainWindow extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/startScreen.fxml"));
         Parent root = baseLoader.load();
 
-        SetupScreenController baseController = baseLoader.getController();
+        StartScreenController baseController = baseLoader.getController();
         baseController.initialize(primaryStage);
 
         primaryStage.setTitle("Drift Fever");

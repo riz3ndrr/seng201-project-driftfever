@@ -147,16 +147,22 @@ public class ShopController {
     public void switchToGarageScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
+        if (gameDB.getCarCollectionSize() < 3) {
+            purchaseConfirmationLabel.setText("You must select 3 cars first");
+        }
+        else {
+            FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/garage.fxml"));
+            Parent root = baseLoader.load();
 
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/garage.fxml"));
-        Parent root = baseLoader.load();
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            GarageController baseController = baseLoader.getController();
+            baseController.initialize(stage);
+        }
 
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        GarageController baseController = baseLoader.getController();
-        baseController.initialize(stage);
+
 
 
 
@@ -164,14 +170,14 @@ public class ShopController {
 
     public void createCars() {
 
-        Car car1 = new Car(1300, 600, true, "The Stallion", 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0);
-        Car car2 = new Car(2000, 1000, true, "Silverline", 4, 4, 5, 5, "A smooth ride with good stability and moderate handling.", 1);
-        Car car3 = new Car(3000, 1500, true, "Nightfall", 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 2);
-        Car car4 = new Car(4000, 2000, true, "Driftwood", 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3);
-        Car car5 = new Car(2500, 1200, true, "Ironclad", 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4);
+        Car car1 = new Car(1600, 800, true, "The Stallion", 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0);
+        Car car2 = new Car(1550, 850, true, "Silverline", 4, 4, 5, 5, "A smooth ride with good stability and moderate handling.", 1);
+        Car car3 = new Car(1500, 850, true, "Nightfall", 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 2);
+        Car car4 = new Car(1400, 700, true, "Driftwood", 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3);
+        Car car5 = new Car(1300, 750, true, "Ironclad", 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4);
         Car car6 = new Car(3600, 1600, false, "Crosswind", 8, 9, 9, 7, "High-performance with fast acceleration and responsive handling.", 5);
         Car car7 = new Car(4200, 1800, false, "Phantom", 8, 9, 7, 8, "Fast and agile, designed for quick maneuvers and high speeds.", 6);
-        Car car8 = new Car(4600, 1400, false, "Redstone", 9, 8, 8, 7, "A powerhouse car with aggressive handling and speed.", 7);
+        Car car8 = new Car(4600, 1400, false, "Icarus' Wings", 15, 3, 4, 3, "The world's fastest car. Although not renowned for its stability.", 7);
         Car car9 = new Car(5000, 1300, false, "Bumblebee", 10, 10, 9, 9, "Legend says this car has a mind of its own", 8);
 
 
@@ -263,7 +269,6 @@ public class ShopController {
 
         createCars();
 
-        gameDB.printCars();
 
     }
 
