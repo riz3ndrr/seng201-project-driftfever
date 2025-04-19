@@ -170,7 +170,7 @@
                   <Insets bottom="50.0" />
                </GridPane.margin>
             </Slider>
-            <Button fx:id="finishStartScreenBtn" mnemonicParsing="false" onAction="#switchToScene2" prefHeight="50.0" prefWidth="195.0" text="Let's ride!" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button fx:id="finishStartScreenBtn" mnemonicParsing="false" onAction="#switchToShopScene" prefHeight="50.0" prefWidth="195.0" text="Let's ride!" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>

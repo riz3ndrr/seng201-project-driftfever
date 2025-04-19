@@ -13,6 +13,26 @@ public class GameStats {
 
     private ArrayList<Car> carCollection = new ArrayList<>();
 
+
+    // check if this is ok
+    public boolean selectedCarInCollection(Car car) {
+        for (Car c : carCollection) {
+            if (c.getName().equals(car.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public ArrayList<Car> getCarCollection() {
+        return carCollection;
+    }
+
+    public int getCarCollectionSize() {
+        return carCollection.size();
+    }
+
     public void addCar(Car car) {
         carCollection.add(car);
     }
@@ -20,9 +40,11 @@ public class GameStats {
         carCollection.remove(car);
     }
 
-    public boolean selectedCarInCollection(Car car) {
-        return carCollection.contains(car);
+    public Car searchCarAtIndex(int i) {
+        return carCollection.get(i);
     }
+
+
 
     public void printCars() {
         System.out.println("You have these cars in your collection");

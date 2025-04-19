@@ -18,7 +18,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Pane prefHeight="400.0" prefWidth="155.0">
+            <Pane fx:id="navBar" prefHeight="400.0" prefWidth="155.0">
                <children>
                   <Label layoutX="18.0" layoutY="171.0" prefHeight="22.0" prefWidth="123.0" text="Select Race">
                      <font>
@@ -30,7 +30,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label layoutX="18.0" layoutY="292.0" prefHeight="22.0" prefWidth="123.0" text="View Garage">
+                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="292.0" onMouseClicked="#switchToGarageScene" prefHeight="22.0" prefWidth="123.0" text="View Garage">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -55,8 +55,8 @@
             </Pane>
             <GridPane fx:id="shopGridPane">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="408.800048828125" minWidth="10.0" prefWidth="179.39998779296874" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.4" minWidth="10.0" prefWidth="245.00001220703123" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="408.800048828125" minWidth="10.0" prefWidth="168.79998779296875" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.4" minWidth="10.0" prefWidth="256.8000122070313" />
                   <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
@@ -65,11 +65,11 @@
                 <RowConstraints maxHeight="127.00000610351563" minHeight="10.0" prefHeight="87.19999999999999" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane gridLinesVisible="true" prefHeight="167.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <GridPane gridLinesVisible="true" prefHeight="202.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.79997253417969" minWidth="10.0" prefWidth="86.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.40002441406251" minWidth="10.0" prefWidth="86.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.39996337890625" minWidth="10.0" prefWidth="86.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -77,52 +77,52 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <GridPane.margin>
-                        <Insets right="30.0" />
+                        <Insets right="10.0" />
                      </GridPane.margin>
                      <children>
-                        <ImageView fx:id="car1Select" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true">
+                        <ImageView fx:id="car1Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../designs/car-icon/car1.jpeg" />
+                              <Image url="@../designs/car-icon/car1.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car2Select" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.columnIndex="1">
+                        <ImageView fx:id="car2Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                            <image>
-                              <Image url="@../designs/car-icon/car2.jpeg" />
+                              <Image url="@../designs/car-icon/car2.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car3Select" fitHeight="83.0" fitWidth="73.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.columnIndex="2">
+                        <ImageView fx:id="car3Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                            <image>
-                              <Image url="@../designs/car-icon/car3.jpeg" />
+                              <Image url="@../designs/car-icon/car3.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car4Select" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.rowIndex="1">
+                        <ImageView fx:id="car4Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@../designs/car-icon/car4.jpeg" />
+                              <Image url="@../designs/car-icon/car4.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car5Select" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ImageView fx:id="car5Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@../designs/car-icon/car5.jpeg" />
+                              <Image url="@../designs/car-icon/car5.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car6Select" fitHeight="83.0" fitWidth="71.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <ImageView fx:id="car6Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@../designs/car-icon/car6.jpeg" />
+                              <Image url="@../designs/car-icon/car6.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car7Select" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.rowIndex="2">
+                        <ImageView fx:id="car7Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@../designs/car-icon/car7.jpeg" />
+                              <Image url="@../designs/car-icon/car7.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car8Select" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <ImageView fx:id="car8Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@../designs/car-icon/car8.jpeg" />
+                              <Image url="@../designs/car-icon/car8.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="car9Select" fitHeight="83.0" fitWidth="73.0" onMouseClicked="#selectCar" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <ImageView fx:id="car9Img" fitHeight="83.0" fitWidth="85.0" onMouseClicked="#selectCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@../designs/car-icon/car9.jpeg" />
+                              <Image url="@../designs/car-icon/car9.png" />
                            </image>
                         </ImageView>
                      </children>

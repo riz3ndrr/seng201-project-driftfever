@@ -130,7 +130,6 @@ public class StartScreenController {
     private void updateSeasonCount(int newRaceCount) {
         raceCount = newRaceCount;
         seasonCountLabel.setText("Number of races: " + raceCount);
-        System.out.println(raceCount);
     }
 
     public int getRaceCount() {
@@ -176,7 +175,7 @@ public class StartScreenController {
     }
 
 
-    public void switchToScene2(javafx.event.ActionEvent event) throws IOException {
+    public void switchToShopScene(javafx.event.ActionEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
 
