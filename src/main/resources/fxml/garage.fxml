@@ -17,7 +17,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Pane prefHeight="400.0" prefWidth="155.0">
+            <Pane prefHeight="400.0" prefWidth="137.0">
                <children>
                   <Label layoutX="18.0" layoutY="171.0" prefHeight="22.0" prefWidth="123.0" text="Select Race">
                      <font>
@@ -49,7 +49,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Line endX="-20.20001220703125" endY="386.0" layoutX="177.0" layoutY="14.0" startX="-20.20001220703125" startY="-14.00000286102295" />
+                  <Line endX="-36.20001220703125" endY="386.0" layoutX="177.0" layoutY="14.0" startX="-36.20001220703125" startY="-14.000006675720215" />
                </children>
             </Pane>
             <GridPane prefHeight="386.0" prefWidth="448.0">
@@ -83,7 +83,11 @@
                         <Insets bottom="20.0" />
                      </GridPane.margin>
                   </Line>
-                  <Label prefHeight="173.0" prefWidth="115.0" text="LOREM IPSUM SDJFNDSFJDSNFJ" wrapText="true" GridPane.rowIndex="1" />
+                  <Label fx:id="speedLabel" prefHeight="26.0" prefWidth="104.0" text="Speed: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
                   <ImageView fx:id="car1Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/car-icon/car1.png" />
@@ -129,6 +133,53 @@
                         <Image url="@../designs/car-icon/car9.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="carNameLabel" text="Car Name" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets top="-10.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="carNameLabel1" text="Car Stats:" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="handlingLabel" prefHeight="26.0" prefWidth="104.0" text="Handling: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="25.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="reliabilityLabel" prefHeight="26.0" prefWidth="104.0" text="Reliability: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="fuelEcoLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Economy: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="75.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="garageTitle" text="Garage:" GridPane.columnSpan="3" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="37.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="garageSubHeader" text="Can only hold a maximum of 5 cars at once" GridPane.columnSpan="3">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>

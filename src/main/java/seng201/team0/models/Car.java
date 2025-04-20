@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class Car extends Item {
     // CHECK IF STATIC IS APPROPRIATE HERE
-    private final String name;
+
     private int speed;          // Changed to int
     private int handling;       // Changed to int
     private int reliability;    // Changed to int
@@ -13,9 +13,8 @@ public class Car extends Item {
     private final String desc;
     private final int carID;
 
-    public Car(int buyingPrice, int sellingPrice, boolean isAvailableToBuy, String name, int speed, int handling, int reliability, int fuelEconomy, String desc, int carID) {
-        super(buyingPrice, sellingPrice, isAvailableToBuy);
-        this.name = name;
+    public Car(String name, int buyingPrice, int sellingPrice, boolean isAvailableToBuy, int speed, int handling, int reliability, int fuelEconomy, String desc, int carID) {
+        super(name, buyingPrice, sellingPrice, isAvailableToBuy);
         this.speed = speed;
         this.handling = handling;
         this.reliability = reliability;
@@ -28,9 +27,7 @@ public class Car extends Item {
         return carID;
     }
 
-    public String getName() {
-        return name;
-    }
+
 
 
     public String getDesc() {

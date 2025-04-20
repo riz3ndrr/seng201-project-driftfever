@@ -6,10 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
@@ -63,6 +61,20 @@ public class GarageController {
     @FXML
     private ImageView car9Img;
 
+    @FXML
+    private Label carNameLabel;
+
+    @FXML
+    private Label speedLabel;
+
+    @FXML
+    private Label handlingLabel;
+
+    @FXML
+    private Label reliabilityLabel;
+
+    @FXML
+    private Label fuelEcoLabel;
 
 
 
@@ -95,6 +107,12 @@ public class GarageController {
         Car selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
         ImageView selectedCarImg = carImageList.get(selectedCar.getCarID());
         selectedCarImg.setVisible(displayImg);
+
+        carNameLabel.setText(selectedCar.getName());
+        speedLabel.setText(String.format("Speed: %d", selectedCar.getSpeed()));
+        handlingLabel.setText(String.format("Handling: %d", selectedCar.getHandling()));
+        reliabilityLabel.setText(String.format("Reliability: %d", selectedCar.getReliability()));
+        fuelEcoLabel.setText(String.format("Fuel Economy: %d", selectedCar.getFuelEconomy()));
     }
 
 
