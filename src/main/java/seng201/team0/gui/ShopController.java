@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Item;
+import seng201.team0.models.Upgrade;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class ShopController {
 
     private ArrayList<Car> Cars = new ArrayList<>();
     private ArrayList<Car> availableCars = new ArrayList<>();
+    private ArrayList<Upgrade> Upgrades = new ArrayList<>();
 
     private Item selectedItem;
 
@@ -122,6 +124,7 @@ public class ShopController {
 
     }
 
+
     public void sellItem(MouseEvent mouseEvent) {
         // update later
 
@@ -145,6 +148,8 @@ public class ShopController {
 
     @FXML
     private Label viewGarage;
+
+
 
 
 
@@ -232,6 +237,16 @@ public class ShopController {
         Cars.add(car9);
     }
 
+    public void createUpgrades() {
+        Upgrade rocketFuel = new Upgrade("Rocket Fuel", 100, 70, true, 10, -2, -2, -3, "Fuel to make your car go ZOOOOM!", 0);
+        Upgrade grippyTyres = new Upgrade("Grippy Tyres", 500, 300, true, 0, 8, 0, 0, "Improved traction for tighter turns and better control at high speeds.", 1);
+        Upgrade carbonFibrePlating = new Upgrade("Carbon Fibre Plating", 1000, 800, true, 2, 0, 7, 7, "Lightweight yet durable—improves speed without sacrificing reliability.", 2);
+
+        Upgrades.add(rocketFuel);
+        Upgrades.add(grippyTyres);
+        Upgrades.add(carbonFibrePlating);
+    }
+
     private int selectedCarIndex = 0;
 
     public void displaySelectedCar(boolean displayImg) {
@@ -282,12 +297,17 @@ public class ShopController {
         }
     }
 
+    public void viewUpgrades() {
+
+    }
+
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
 
         createCars();
+        createUpgrades();
         createListOfAvailableCars();
         displaySelectedCar(true);
 
