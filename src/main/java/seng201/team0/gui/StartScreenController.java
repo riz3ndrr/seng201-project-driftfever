@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng201.team0.models.GameStats;
@@ -69,6 +70,9 @@ public class StartScreenController {
 
     @FXML
     private Button finishStartScreenBtn;
+
+
+
 
     private Stage stage;
     private Scene scene;

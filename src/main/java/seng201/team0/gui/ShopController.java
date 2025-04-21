@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
@@ -84,6 +85,12 @@ public class ShopController {
 
     @FXML
     private ImageView car9Img;
+
+    @FXML
+    private HBox upgradeLayer;
+
+    @FXML
+    private HBox carLayer;
 
     private ArrayList<Car> Cars = new ArrayList<>();
     private ArrayList<Car> availableCars = new ArrayList<>();
@@ -298,7 +305,13 @@ public class ShopController {
     }
 
     public void viewUpgrades() {
+        upgradeLayer.setVisible(true);
+        carLayer.setVisible(false);
+    }
 
+    public void viewCars() {
+        upgradeLayer.setVisible(false);
+        carLayer.setVisible(true);
     }
 
     public void initialize(Stage stage) {
