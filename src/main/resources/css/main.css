@@ -15,13 +15,21 @@ Label, Text {
     -fx-label-padding: 5px;
 
 }
+#viewUpgradesLabel, #viewCarsLabel {
+    -fx-background-color: #ababab;
+}
+
+#viewCarsLabel:hover, #viewUpgradesLabel:hover {
+    -fx-font-size: 30px;
+}
+
 #buyItem:hover, #sellItem:hover {
     -fx-font-size: 20px;
 
 }
 
-#buyItem:pressed, #sellItem:pressed {
-    -fx-background-color: #969696;
+#buyItem:pressed, #sellItem:pressed, #viewUpgradesLabel:pressed, #viewCarsLabel:pressed {
+    -fx-background-color: #969696
 }
 
 #medPic {

@@ -218,7 +218,7 @@
                         <Insets bottom="20.0" left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="itemDescLabel" alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="332.0" text="Car Description" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label fx:id="itemDescLabel" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="340.0" text="Car Description" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -234,12 +234,12 @@
                         <Insets left="10.0" top="60.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="viewUpgrades" onMouseClicked="#viewUpgrades" text="View Upgrades" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <Label id="viewUpgradesLabel" fx:id="viewUpgradesLabel" alignment="CENTER" onMouseClicked="#viewUpgrades" prefHeight="30.0" prefWidth="318.0" text="View Upgrades" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="viewCars" onMouseClicked="#viewCars" text="View Cars" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label id="viewCarsLabel" fx:id="viewCarsLabel" alignment="CENTER" onMouseClicked="#viewCars" prefHeight="30.0" prefWidth="318.0" text="View Cars" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="26.0" />
                      </font>

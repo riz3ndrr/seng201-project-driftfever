@@ -95,6 +95,11 @@ public class ShopController {
     @FXML
     private ImageView upgrade3;
 
+    @FXML
+    private Label viewCarsLabel;
+    @FXML
+    private Label viewUpgradesLabel;
+
 
 
     @FXML
@@ -337,6 +342,8 @@ public class ShopController {
         selectedItemIndex = 0;
         showCarOrUpgrade = "Upgrade";
         shopSubtitle.setText("Purchase car parts which can be equipped to your car to modify its stats");
+        viewCarsLabel.setVisible(true);
+        viewUpgradesLabel.setVisible(false);
         itemStatsLabel.setText("Upgrade Stats:");
         displaySelectedItem(true);
 
@@ -347,6 +354,8 @@ public class ShopController {
         selectedItemIndex = 0;
         showCarOrUpgrade = "Car";
         shopSubtitle.setText("FInd a new vehicle to drive you to victory");
+        viewCarsLabel.setVisible(false);
+        viewUpgradesLabel.setVisible(true);
         itemStatsLabel.setText("Car Stats:");
         displaySelectedItem(true);
     }
