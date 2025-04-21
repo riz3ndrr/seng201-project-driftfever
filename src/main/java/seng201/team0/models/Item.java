@@ -12,15 +12,21 @@ public class Item {
     private int reliability;
     private int fuelEconomy;
     private String desc;
-    private int upgradeID;
+    private int itemID;
 
-
-    Item(String name, int buyingPrice, int sellingPrice, boolean availableToBuy, int speed, int handling, int reliability, int fuelEconomy, String desc) {
+    Item(String name, int buyingPrice, int sellingPrice, boolean availableToBuy, int speed, int handling, int reliability, int fuelEconomy, String desc, int itemID) {
         this.name = name;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;
         this.availableToBuy = availableToBuy;
         this.isPurchased = false;
+        this.speed = speed;
+        this.handling = handling;
+        this.reliability = reliability;
+        this.fuelEconomy = fuelEconomy;
+        this.desc = desc;
+        this.itemID = itemID;
+
     }
     public String getName() {
         return name;
@@ -30,10 +36,6 @@ public class Item {
     }
     public float getSellingPrice() {
         return sellingPrice;
-    }
-
-    public int getCarID() {
-        return upgradeID;
     }
 
     public String getDesc() {
@@ -63,5 +65,8 @@ public class Item {
 
     public void setPurchased(boolean isPurchased) { this.isPurchased = isPurchased;}
 
+    public int getItemID() {
+        return itemID;
+    }
 }
 

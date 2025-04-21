@@ -34,19 +34,21 @@ public class ShopController {
     private Label shopItem;
     @FXML
     private Label shopCar;
+    @FXML
+    private Label itemStatsLabel;
 
     @FXML
-    private Label carNameLabel;
+    private Label itemNameLabel;
     @FXML
-    private Label carDescLabel;
+    private Label itemDescLabel;
     @FXML
-    private Label carSpeedLabel;
+    private Label itemSpeedLabel;
     @FXML
-    private Label carHandlingLabel;
+    private Label itemHandlingLabel;
     @FXML
-    private Label carReliabilityLabel;
+    private Label itemReliabilityLabel;
     @FXML
-    private Label carFuelEcoLabel;
+    private Label itemFuelEcoLabel;
 
     @FXML
     private Label buyItem;
@@ -85,9 +87,15 @@ public class ShopController {
 
     @FXML
     private ImageView car9Img;
-
+    
     @FXML
-    private HBox upgradeLayer;
+    private ImageView upgrade1;
+    @FXML
+    private ImageView upgrade2;
+    @FXML
+    private ImageView upgrade3;
+
+
 
     @FXML
     private HBox carLayer;
@@ -95,8 +103,12 @@ public class ShopController {
     private ArrayList<Car> Cars = new ArrayList<>();
     private ArrayList<Car> availableCars = new ArrayList<>();
     private ArrayList<Upgrade> Upgrades = new ArrayList<>();
+    private ArrayList<Upgrade> availableUpgrades = new ArrayList<Upgrade>();
 
     private Item selectedItem;
+
+    // determines which section of the shop to display
+    private String showCarOrUpgrade = "Car";
 
     // Player/Game Database
     GameStats gameDB = GameStats.getInstance();
@@ -183,40 +195,61 @@ public class ShopController {
 
 
     }
-    public void moveRight() {
-        // hide the current car
-        displaySelectedCar(false);
-        if ((selectedCarIndex + 1) == availableCars.size()) {
-            selectedCarIndex = 0;
-        }
-        else {
-            selectedCarIndex++;
-        }
-        // then display the new car
-        displaySelectedCar(true);
-    }
+
+    int selectedItemIndex = 0;
+
     public void moveRight(MouseEvent event) {
         // hide the current car
-        displaySelectedCar(false);
-        if ((selectedCarIndex + 1) == availableCars.size()) {
-            selectedCarIndex = 0;
+        displaySelectedItem(false);
+
+        // change the variables depending on if we're shopping cars or upgrades
+
+        int availableItemsLength;
+
+        if (showCarOrUpgrade == "Car") {
+            availableItemsLength = availableCars.size();
         }
         else {
-            selectedCarIndex++;
+            availableItemsLength = availableUpgrades.size();
         }
-        // then display the new car
-        displaySelectedCar(true);
+
+
+        if ((selectedItemIndex + 1) == availableItemsLength) {
+            selectedItemIndex = 0;
+        }
+        else {
+            selectedItemIndex++;
+        }
+
+        // then display the new item
+        displaySelectedItem(true);
     }
 
     public void moveLeft(MouseEvent event) {
-        displaySelectedCar(false);
-        if ((selectedCarIndex) == 0) {
-            selectedCarIndex = availableCars.size() - 1;
+        // hide the current car
+        displaySelectedItem(false);
+
+        // change the variables depending on if we're shopping cars or upgrades
+
+        int availableItemsLength;
+
+        if (showCarOrUpgrade == "Car") {
+            availableItemsLength = availableCars.size();
         }
         else {
-            selectedCarIndex--;
+            availableItemsLength = availableUpgrades.size();
         }
-        displaySelectedCar(true);
+
+
+        if ((selectedItemIndex) == 0) {
+            selectedItemIndex = availableItemsLength - 1;
+        }
+        else {
+            selectedItemIndex--;
+        }
+
+        // then display the new item
+        displaySelectedItem(true);
     }
 
 
@@ -254,9 +287,8 @@ public class ShopController {
         Upgrades.add(carbonFibrePlating);
     }
 
-    private int selectedCarIndex = 0;
 
-    public void displaySelectedCar(boolean displayImg) {
+    public void displaySelectedItem(boolean displayImg) {
 
         List<ImageView> carImageList = Arrays.asList(
                 car1Img,
@@ -269,32 +301,56 @@ public class ShopController {
                 car8Img,
                 car9Img
         );
-        selectedItem = availableCars.get(selectedCarIndex);
-        Car selectedCar = availableCars.get(selectedCarIndex);
-        ImageView selectedCarImg = carImageList.get(selectedCar.getCarID());
-        selectedCarImg.setVisible(displayImg);
 
-        carNameLabel.setText(selectedCar.getName());
-        carSpeedLabel.setText(String.format("Speed: %d", selectedCar.getSpeed()));
-        carHandlingLabel.setText(String.format("Handling: %d", selectedCar.getHandling()));
-        carReliabilityLabel.setText(String.format("Reliability: %d", selectedCar.getReliability()));
-        carFuelEcoLabel.setText(String.format("Fuel Economy: %d", selectedCar.getFuelEconomy()));
-        carDescLabel.setText(selectedCar.getDesc());
-        buyItem.setText(String.format("Buy Item for $%.2f", selectedCar.getBuyingPrice()));
-        sellItem.setText(String.format("Sell Item for $%.2f", selectedCar.getSellingPrice()));
+        List<ImageView> upgradeImageList = Arrays.asList(
+                upgrade1,
+                upgrade2,
+                upgrade3
+        );
+
+        if (showCarOrUpgrade == "Car") {
+            selectedItem = availableCars.get(selectedItemIndex);
+
+            ImageView selectedCarImg = carImageList.get(selectedItem.getItemID() );
+            selectedCarImg.setVisible(displayImg);
+        }
+        else {
+            selectedItem = availableUpgrades.get(selectedItemIndex);
+
+            ImageView selectedUpgradeImg = upgradeImageList.get(selectedItem.getItemID() );
+            selectedUpgradeImg.setVisible(displayImg);
+        }
+
+
+        itemNameLabel.setText(selectedItem.getName());
+        itemSpeedLabel.setText(String.format("Speed: %d", selectedItem.getSpeed()));
+        itemHandlingLabel.setText(String.format("Handling: %d", selectedItem.getHandling()));
+        itemReliabilityLabel.setText(String.format("Reliability: %d", selectedItem.getReliability()));
+        itemFuelEcoLabel.setText(String.format("Fuel Economy: %d", selectedItem.getFuelEconomy()));
+        itemDescLabel.setText(selectedItem.getDesc());
+        buyItem.setText(String.format("Buy Item for $%.2f", selectedItem.getBuyingPrice()));
+        sellItem.setText(String.format("Sell Item for $%.2f", selectedItem.getSellingPrice()));
     }
 
-    public void displayCarAttributes(Car car) {
-        carNameLabel.setText(car.getName());
-        carDescLabel.setText(car.getDesc());
-        carSpeedLabel.setText("Speed: " + Integer.toString(car.getSpeed()));
-        carHandlingLabel.setText("Handling: " + Integer.toString(car.getHandling()));
-        carReliabilityLabel.setText("Reliability: " + Integer.toString(car.getReliability()));
-        carFuelEcoLabel.setText("Fuel Economy: " + Integer.toString(car.getFuelEconomy()));
-        buyItem.setText("Buy item for $" + car.getBuyingPrice());
-        sellItem.setText("Sell item for $" + car.getSellingPrice() + " ");
+    public void viewUpgrades() {
+        displaySelectedItem(false);
+        selectedItemIndex = 0;
+        showCarOrUpgrade = "Upgrade";
+        shopSubtitle.setText("Purchase car parts which can be equipped to your car to modify its stats");
+        itemStatsLabel.setText("Upgrade Stats:");
+        displaySelectedItem(true);
 
     }
+
+    public void viewCars() {
+        displaySelectedItem(false);
+        selectedItemIndex = 0;
+        showCarOrUpgrade = "Car";
+        shopSubtitle.setText("FInd a new vehicle to drive you to victory");
+        itemStatsLabel.setText("Car Stats:");
+        displaySelectedItem(true);
+    }
+
 
     public void createListOfAvailableCars() {
         for (Car car : Cars) {
@@ -303,16 +359,15 @@ public class ShopController {
             }
         }
     }
-
-    public void viewUpgrades() {
-        upgradeLayer.setVisible(true);
-        carLayer.setVisible(false);
+    public void createListOfAvailableUpgrades() {
+        for (Upgrade upgrade : Upgrades) {
+            if (upgrade.isAvailableToBuy() && !upgrade.isPurchased()) {
+                availableUpgrades.add(upgrade);
+            }
+        }
     }
 
-    public void viewCars() {
-        upgradeLayer.setVisible(false);
-        carLayer.setVisible(true);
-    }
+
 
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
@@ -322,7 +377,10 @@ public class ShopController {
         createCars();
         createUpgrades();
         createListOfAvailableCars();
-        displaySelectedCar(true);
+        createListOfAvailableUpgrades();
+        displaySelectedItem(true);
+
+
 
 
     }

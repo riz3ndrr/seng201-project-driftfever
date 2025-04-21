@@ -105,7 +105,7 @@ public class GarageController {
         );
 
         Car selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
-        ImageView selectedCarImg = carImageList.get(selectedCar.getCarID());
+        ImageView selectedCarImg = carImageList.get(selectedCar.getItemID());
         selectedCarImg.setVisible(displayImg);
 
         carNameLabel.setText(selectedCar.getName());

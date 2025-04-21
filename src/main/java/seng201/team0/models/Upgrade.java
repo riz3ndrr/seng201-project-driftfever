@@ -7,7 +7,7 @@ public class Upgrade extends Item {
     private int upgradeID;
 
     public Upgrade(String name, int buyingPrice, int sellingPrice, boolean isAvailableToBuy, int speed, int handling, int reliability, int fuelEconomy, String desc, int upgradeID) {
-        super(name, buyingPrice, sellingPrice, isAvailableToBuy, speed, handling, reliability, fuelEconomy, desc);
+        super(name, buyingPrice, sellingPrice, isAvailableToBuy, speed, handling, reliability, fuelEconomy, desc, upgradeID);
         this.isEquipped = false;
         this.upgradeID = upgradeID;
     }
