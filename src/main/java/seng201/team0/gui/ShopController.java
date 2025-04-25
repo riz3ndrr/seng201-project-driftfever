@@ -100,14 +100,19 @@ public class ShopController {
     @FXML
     private Label viewUpgradesLabel;
 
+    @FXML
+    private Label currentlyOwnLabel;
+
 
 
     @FXML
     private HBox carLayer;
 
-    private ArrayList<Car> Cars = new ArrayList<>();
+    private List<Car> Cars = Car.getCars();
+    private List<Upgrade> Upgrades = Upgrade.getUpgrades();
+
+
     private ArrayList<Car> availableCars = new ArrayList<>();
-    private ArrayList<Upgrade> Upgrades = new ArrayList<>();
     private ArrayList<Upgrade> availableUpgrades = new ArrayList<Upgrade>();
 
     private Item selectedItem;
@@ -118,24 +123,44 @@ public class ShopController {
     // Player/Game Database
     GameStats gameDB = GameStats.getInstance();
 
+    public boolean checkItemOwned(Item item) {
+        return item.isPurchased();
+    }
+
 
     public void buyItem(MouseEvent mouseEvent) {
         // check if need to use get method
-        if (gameDB.selectedCarInCollection( (Car) selectedItem) ) {
-            shopSubtitle.setText("You already own this car");
+        if (checkItemOwned(selectedItem) && showCarOrUpgrade.equals("Car")) {
+            // You can buy multiple upgrades but only one car
+            shopSubtitle.setText("You already own this item");
         }
         else {
             if (gameDB.getBal() >= selectedItem.getBuyingPrice()) {
+                // If you have enough mony
                 gameDB.setBal(gameDB.getBal() - selectedItem.getBuyingPrice());
                 balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
 
-                selectedItem.setPurchased(true);
-                gameDB.addCar((Car) selectedItem);
+
                 shopSubtitle.setText("Purchased " + selectedItem.getName() + " Successfully!");
-                //availableCars.remove((Car) selectedItem);
-                //moveRight();
 
 
+                if (showCarOrUpgrade.equals("Car")) {
+                    // if buying item is a car
+                    gameDB.addItem((Car) selectedItem);
+                }
+                else {
+                    // if buying item is an upgrade
+
+                    if (checkItemOwned(selectedItem)) {
+                        ((Upgrade) selectedItem).incrementNumPurchased();
+                    }
+                    else {
+                        gameDB.addItem((Upgrade) selectedItem);
+                        ((Upgrade) selectedItem).incrementNumPurchased();
+                    }
+                    currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
+                }
+                selectedItem.setPurchased(true);
 
 
             }
@@ -145,6 +170,8 @@ public class ShopController {
         }
 
         gameDB.printCars();
+        System.out.println();
+        gameDB.printUpgrades();
 
     }
 
@@ -152,15 +179,29 @@ public class ShopController {
     public void sellItem(MouseEvent mouseEvent) {
         // update later
 
-        if (gameDB.selectedCarInCollection( (Car) selectedItem) ) {
+        if (checkItemOwned(selectedItem)) {
             gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
             balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
             shopSubtitle.setText("Sold successfully!");
-            gameDB.removeCar((Car) selectedItem);
+            if (showCarOrUpgrade.equals("Car")) {
+                gameDB.removeItem((Car) selectedItem);
+            }
+            else {
+
+                ((Upgrade) selectedItem).decrementNumPurchased();
+
+                if (((Upgrade) selectedItem).getNumPurchased() == 0) {
+                    selectedItem.setPurchased(false);
+                    gameDB.removeItem((Upgrade) selectedItem);
+                }
+                currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
+            }
             gameDB.printCars();
+            System.out.println();
+            gameDB.printUpgrades();
         }
         else {
-            shopSubtitle.setText("You do not own this car");
+            shopSubtitle.setText("You do not own this item");
         }
 
 
@@ -172,10 +213,6 @@ public class ShopController {
 
     @FXML
     private Label viewGarage;
-
-
-
-
 
     public void switchToGarageScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
@@ -211,7 +248,7 @@ public class ShopController {
 
         int availableItemsLength;
 
-        if (showCarOrUpgrade == "Car") {
+        if (showCarOrUpgrade.equals("Car")) {
             availableItemsLength = availableCars.size();
         }
         else {
@@ -238,7 +275,7 @@ public class ShopController {
 
         int availableItemsLength;
 
-        if (showCarOrUpgrade == "Car") {
+        if (showCarOrUpgrade.equals("Car")) {
             availableItemsLength = availableCars.size();
         }
         else {
@@ -257,40 +294,6 @@ public class ShopController {
         displaySelectedItem(true);
     }
 
-
-    public void createCars() {
-
-        Car car1 = new Car("Purple Car", 1600, 800, true, 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0);
-        Car car2 = new Car("Lightning McQueen", 1550, 850, true, 4, 4, 5, 5, "A smooth ride with good stability and moderate handling.", 1);
-        Car car3 = new Car("Lime Wheels", 1500, 850, true, 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 2);
-        Car car4 = new Car("Yellow Car", 1400, 700, true, 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3);
-        Car car5 = new Car("Azure", 1300, 750, true, 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4);
-        Car car6 = new Car("Crosswind", 3600, 1600, false, 8, 9, 9, 7, "High-performance with fast acceleration and responsive handling.", 5);
-        Car car7 = new Car("Phantom", 4200, 1800, false, 8, 9, 7, 8, "Fast and agile, designed for quick maneuvers and high speeds.", 6);
-        Car car8 = new Car("Icarus' Wings", 4600, 1400, false, 15, 3, 4, 3, "The world's fastest car. Although not renowned for its stability.", 7);
-        Car car9 = new Car("Bumblebee", 5000, 1300, false, 10, 10, 9, 9, "Legend says this car has a mind of its own", 8);
-
-
-        Cars.add(car1);
-        Cars.add(car2);
-        Cars.add(car3);
-        Cars.add(car4);
-        Cars.add(car5);
-        Cars.add(car6);
-        Cars.add(car7);
-        Cars.add(car8);
-        Cars.add(car9);
-    }
-
-    public void createUpgrades() {
-        Upgrade rocketFuel = new Upgrade("Rocket Fuel", 100, 70, true, 10, -2, -2, -3, "Fuel to make your car go ZOOOOM!", 0);
-        Upgrade grippyTyres = new Upgrade("Grippy Tyres", 500, 300, true, 0, 8, 0, 0, "Improved traction for tighter turns and better control at high speeds.", 1);
-        Upgrade carbonFibrePlating = new Upgrade("Carbon Fibre Plating", 1000, 800, true, 2, 0, 7, 7, "Lightweight yet durable—improves speed without sacrificing reliability.", 2);
-
-        Upgrades.add(rocketFuel);
-        Upgrades.add(grippyTyres);
-        Upgrades.add(carbonFibrePlating);
-    }
 
 
     public void displaySelectedItem(boolean displayImg) {
@@ -313,20 +316,20 @@ public class ShopController {
                 upgrade3
         );
 
-        if (showCarOrUpgrade == "Car") {
-            selectedItem = availableCars.get(selectedItemIndex);
+        ImageView selectedItemImg;
 
-            ImageView selectedCarImg = carImageList.get(selectedItem.getItemID() );
-            selectedCarImg.setVisible(displayImg);
+        if (showCarOrUpgrade.equals("Car")) {
+            selectedItem = availableCars.get(selectedItemIndex);
+            selectedItemImg = carImageList.get(selectedItem.getItemID() );
+
         }
         else {
             selectedItem = availableUpgrades.get(selectedItemIndex);
-
-            ImageView selectedUpgradeImg = upgradeImageList.get(selectedItem.getItemID() );
-            selectedUpgradeImg.setVisible(displayImg);
+            selectedItemImg = upgradeImageList.get(selectedItem.getItemID() );
+            currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
         }
 
-
+        selectedItemImg.setVisible(displayImg);
         itemNameLabel.setText(selectedItem.getName());
         itemSpeedLabel.setText(String.format("Speed: %d", selectedItem.getSpeed()));
         itemHandlingLabel.setText(String.format("Handling: %d", selectedItem.getHandling()));
@@ -346,6 +349,7 @@ public class ShopController {
         viewUpgradesLabel.setVisible(false);
         itemStatsLabel.setText("Upgrade Stats:");
         displaySelectedItem(true);
+        currentlyOwnLabel.setVisible(true);
 
     }
 
@@ -358,6 +362,7 @@ public class ShopController {
         viewUpgradesLabel.setVisible(true);
         itemStatsLabel.setText("Car Stats:");
         displaySelectedItem(true);
+        currentlyOwnLabel.setVisible(false);
     }
 
 
@@ -370,7 +375,7 @@ public class ShopController {
     }
     public void createListOfAvailableUpgrades() {
         for (Upgrade upgrade : Upgrades) {
-            if (upgrade.isAvailableToBuy() && !upgrade.isPurchased()) {
+            if (upgrade.isAvailableToBuy()) {
                 availableUpgrades.add(upgrade);
             }
         }
@@ -381,10 +386,8 @@ public class ShopController {
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
-        racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
+        racesLeftLabel.setText("Races left: " + gameDB.getRaceCount());
 
-        createCars();
-        createUpgrades();
         createListOfAvailableCars();
         createListOfAvailableUpgrades();
         displaySelectedItem(true);

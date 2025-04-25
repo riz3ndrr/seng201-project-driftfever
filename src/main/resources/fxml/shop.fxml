@@ -268,6 +268,14 @@
                         <Insets bottom="80.0" />
                      </GridPane.margin>
                   </ImageView>
+                  <Label fx:id="currentlyOwnLabel" alignment="CENTER" prefHeight="22.0" prefWidth="279.0" text="You currently own: x0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="15.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
             </GridPane>
          </children>

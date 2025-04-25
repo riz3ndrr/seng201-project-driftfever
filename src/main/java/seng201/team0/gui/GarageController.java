@@ -6,11 +6,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
+import seng201.team0.models.Upgrade;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -76,6 +81,12 @@ public class GarageController {
     @FXML
     private Label fuelEcoLabel;
 
+    @FXML
+    private Pane upgradesLayer;
+
+    @FXML
+    private HBox carsLayer;
+
 
 
 
@@ -85,10 +96,20 @@ public class GarageController {
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
         displaySelectedCar(true);
+        displayAvailableUpgrades();
 
     }
 
     private int selectedCarIndex = 0;
+    private Car selectedCar;
+
+    public void displayCarStats(Car car) {
+        carNameLabel.setText(car.getName());
+        speedLabel.setText(String.format("Speed: %d", car.getSpeed()));
+        handlingLabel.setText(String.format("Handling: %d", car.getHandling()));
+        reliabilityLabel.setText(String.format("Reliability: %d", car.getReliability()));
+        fuelEcoLabel.setText(String.format("Fuel Economy: %d", car.getFuelEconomy()));
+    }
 
     public void displaySelectedCar(boolean displayImg) {
 
@@ -104,15 +125,11 @@ public class GarageController {
                 car9Img
         );
 
-        Car selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
+        selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
         ImageView selectedCarImg = carImageList.get(selectedCar.getItemID());
         selectedCarImg.setVisible(displayImg);
 
-        carNameLabel.setText(selectedCar.getName());
-        speedLabel.setText(String.format("Speed: %d", selectedCar.getSpeed()));
-        handlingLabel.setText(String.format("Handling: %d", selectedCar.getHandling()));
-        reliabilityLabel.setText(String.format("Reliability: %d", selectedCar.getReliability()));
-        fuelEcoLabel.setText(String.format("Fuel Economy: %d", selectedCar.getFuelEconomy()));
+        displayCarStats(selectedCar);
     }
 
 
@@ -138,6 +155,146 @@ public class GarageController {
             selectedCarIndex--;
         }
         displaySelectedCar(true);
+    }
+
+    @FXML
+    private ImageView upgr0;
+
+    @FXML
+    private ImageView upgr1;
+    @FXML
+    private ImageView upgr2;
+
+
+    @FXML
+    private Label upgradeSpeedLabel;
+    @FXML
+    private Label upgradeHandlingLabel;
+    @FXML
+    private Label upgradeReliabilityLabel;
+    @FXML
+    private Label upgradeFuelEcoLabel;
+
+    @FXML
+    private Label currentlySelectedLabel;
+
+    @FXML
+    private Label equipUpgrade;
+
+
+    @FXML
+    private GridPane upgradesGridPane;
+
+    public void equipUpgrade(MouseEvent event) {
+        if (selectedCar.checkIfUpgradeEquipped(selectedUpgrade)) {
+            // update later
+            System.out.println("Upgrade already equipped");
+        }
+        else {
+            selectedCar.addEquippedUpgrade(selectedUpgrade);
+            selectedUpgrade.decrementNumPurchased();
+
+            if (selectedUpgrade.getNumPurchased() == 0) {
+
+                gameDB.removeItem(selectedUpgrade);
+                displayAvailableUpgrades();
+
+                upgradeSpeedLabel.setText("");
+                upgradeHandlingLabel.setText("");
+                upgradeReliabilityLabel.setText("");
+                upgradeFuelEcoLabel.setText("");
+
+            }
+
+            selectedCar.changeSpeed(selectedUpgrade.getSpeed());
+            selectedCar.changeHandling(selectedUpgrade.getHandling());
+            selectedCar.changeReliability(selectedUpgrade.getReliability());
+            selectedCar.changeFuelEconomy(selectedUpgrade.getFuelEconomy());
+
+            displayCarStats(selectedCar);
+
+            System.out.println("How much is left: " + selectedUpgrade.getNumPurchased());
+            selectedCar.printEquippedUpgrades();
+            System.out.println("AAAHH  " + selectedUpgrade.getNumPurchased());
+            gameDB.printUpgrades();
+
+        }
+
+
+
+
+    }
+
+    public void displaySelectedUpgrade(Upgrade selectedUpgrade) {
+        upgradeSpeedLabel.setText(String.format("(%d)", selectedUpgrade.getSpeed()));
+        upgradeHandlingLabel.setText(String.format("(%d)", selectedUpgrade.getHandling()));
+        upgradeReliabilityLabel.setText(String.format("(%d)", selectedUpgrade.getReliability()));
+        upgradeFuelEcoLabel.setText(String.format("(%d)", selectedUpgrade.getFuelEconomy()));
+        //currentlySelectedLabel.setText(selectedUpgrade.getName());
+
+        Car selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
+        System.out.println("CURRENTLY SELECTING " + selectedCar.getName());
+
+    }
+
+    private Upgrade selectedUpgrade;
+    public void selectUpgrade(MouseEvent event) {
+
+        ImageView clickedUpgrade = (ImageView) event.getSource();
+        String upgradeID = clickedUpgrade.getId();
+
+        switch (upgradeID) {
+            case "upgr0":
+                selectedUpgrade = Upgrade.getUpgradeAtIndex(0);
+                displaySelectedUpgrade(selectedUpgrade);
+                break;
+
+            case "upgr1":
+                selectedUpgrade = Upgrade.getUpgradeAtIndex(1);
+                displaySelectedUpgrade(selectedUpgrade);
+                break;
+
+            case "upgr2":
+                selectedUpgrade = Upgrade.getUpgradeAtIndex(2);
+                displaySelectedUpgrade(selectedUpgrade);
+                break;
+        }
+
+
+
+
+
+    }
+
+    public void displayAvailableUpgrades() {
+        List<Upgrade> availableUpgrades = gameDB.getUpgradeCollection();
+
+        List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2);
+
+        // maybe optimise this later, used when upgrade is no longer available
+        for (ImageView image : upgradeImageList) {
+            image.setVisible(false);
+        }
+
+        int rowIndex = 0;
+        int colIndex = 0;
+
+
+        for (Upgrade u : availableUpgrades) {
+            if (colIndex == 2) {
+
+                colIndex = 0;
+                rowIndex++;
+            }
+
+            ImageView currUpgradeImage = upgradeImageList.get(u.getItemID());
+            upgradesGridPane.setColumnIndex(currUpgradeImage, colIndex);
+            upgradesGridPane.setRowIndex(currUpgradeImage, rowIndex);
+            currUpgradeImage.setVisible(true);
+            colIndex++;
+
+
+        }
     }
 
     public void switchToShopScene(MouseEvent event) throws IOException {

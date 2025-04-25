@@ -28,6 +28,23 @@ public class Item {
         this.itemID = itemID;
 
     }
+
+    public void changeSpeed(int additional_speed) {
+        this.speed += additional_speed;
+    }
+
+    public void changeHandling(int additional_handling) {
+        this.handling += additional_handling;
+    }
+
+    public void changeReliability(int additional_reliability) {
+        this.reliability += additional_reliability;
+    }
+
+    public void changeFuelEconomy(int additional_fuelEconomy) {
+        this.fuelEconomy += additional_fuelEconomy;
+    }
+
     public String getName() {
         return name;
     }
@@ -56,7 +73,7 @@ public class Item {
     }
 
 
-    // determines if will be shown in shop if not already purchased
+    // determines if will be shown in shop if not already purchased (at least for Cars)
     public boolean isAvailableToBuy() {
         return availableToBuy;
     }

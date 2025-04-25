@@ -2,6 +2,7 @@ package seng201.team0.models;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameStats {
     private static final GameStats instance = new GameStats();
@@ -12,9 +13,22 @@ public class GameStats {
     private float bal = 5000F;
 
     private ArrayList<Car> carCollection = new ArrayList<>();
+    private ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
+
+    public List<Upgrade> getUpgradeCollection() {
+        return upgradeCollection;
+    }
 
 
-    public boolean selectedCarInCollection(Car car) {
+    public boolean selectedItemInCollection(Upgrade upgrade) {
+        for (Upgrade u : upgradeCollection) {
+            if (u.getName().equals(u.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean selectedItemInCollection(Car car) {
         for (Car c : carCollection) {
             if (c.getName().equals(car.getName())) {
                 return true;
@@ -24,24 +38,31 @@ public class GameStats {
     }
 
 
-
-    public ArrayList<Car> getCarCollection() {
-        return carCollection;
-    }
-
     public int getCarCollectionSize() {
         return carCollection.size();
     }
 
-    public void addCar(Car car) {
-        carCollection.add(car);
-    }
-    public void removeCar(Car car) {
+
+    public void addItem(Car car) {carCollection.add(car);}
+    public void addItem(Upgrade upgrade) {upgradeCollection.add(upgrade);}
+
+    public void removeItem(Car car) {
         boolean removed = false;
         int i = 0;
         while (i < carCollection.size() || !removed) {
             if (carCollection.get(i).getName().equals(car.getName())) {
                 carCollection.remove(i);
+                removed = true;
+            }
+            i++;
+        }
+    }
+    public void removeItem(Upgrade upgrade) {
+        boolean removed = false;
+        int i = 0;
+        while (i < upgradeCollection.size() || !removed) {
+            if (upgradeCollection.get(i).getName().equals(upgrade.getName())) {
+                upgradeCollection.remove(i);
                 removed = true;
             }
             i++;
@@ -56,7 +77,14 @@ public class GameStats {
     public void printCars() {
         System.out.println("You have these cars in your collection");
         for (Car car : carCollection) {
-            System.out.println(car.getName());
+            System.out.println(car.getName() + " is purchased: " + car.isPurchased());
+        }
+    }
+
+    public void printUpgrades() {
+        System.out.println("You have purchased these upgrades");
+        for (Upgrade upgrade : upgradeCollection) {
+            System.out.println(upgrade.getName() + " quantity: " + String.format("%d", upgrade.getNumPurchased()) );
         }
     }
 
