@@ -144,6 +144,11 @@ public class GarageController {
         }
         // then display the new car
         displaySelectedCar(true);
+
+        if (showEquippedItems) {
+            //update the list of equipped items as it will change from car to car
+            displayAvailableUpgrades();
+        }
     }
 
     public void moveLeft(MouseEvent event) {
@@ -155,6 +160,12 @@ public class GarageController {
             selectedCarIndex--;
         }
         displaySelectedCar(true);
+
+        if (showEquippedItems) {
+            System.out.println("AHHH");
+            //update the list of equipped items as it will change from car to car
+            displayAvailableUpgrades();
+        }
     }
 
     @FXML
@@ -292,15 +303,16 @@ public class GarageController {
 
     }
 
-    private boolean showEquippedItems = true;
+    private boolean showEquippedItems = false;
 
     public void displayAvailableUpgrades() {
         List<Upgrade> availableUpgrades;
         if (showEquippedItems) {
-             availableUpgrades = gameDB.getUpgradeCollection();
+            availableUpgrades = selectedCar.getEquippedUpgrades();
+
         }
         else {
-            availableUpgrades = selectedCar.getEquippedUpgrades();
+            availableUpgrades = gameDB.getUpgradeCollection();
         }
 
 
