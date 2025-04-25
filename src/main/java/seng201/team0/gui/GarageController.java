@@ -181,9 +181,34 @@ public class GarageController {
     @FXML
     private Label equipUpgrade;
 
+    @FXML
+    private Label switchUpgradesLabel;
+
+    @FXML
+    private Label upgradesHeaderLabel;
+
 
     @FXML
     private GridPane upgradesGridPane;
+
+    public void switchUpgrades(MouseEvent event) {
+        if (showEquippedItems) {
+            showEquippedItems = false;
+            switchUpgradesLabel.setText("Show Equipped Items");
+            upgradesHeaderLabel.setText("Available Upgrades:");
+        }
+        else {
+            showEquippedItems = true;
+            switchUpgradesLabel.setText("Show Unequipped Items");
+            upgradesHeaderLabel.setText("Equipped Upgrades:");
+        }
+        displayAvailableUpgrades();
+    }
+
+    public void unequipUpgrade(MouseEvent event) {
+        //filler
+        System.out.println("Unequipped upgrade");
+    }
 
     public void equipUpgrade(MouseEvent event) {
         if (selectedCar.checkIfUpgradeEquipped(selectedUpgrade)) {
@@ -233,7 +258,8 @@ public class GarageController {
         //currentlySelectedLabel.setText(selectedUpgrade.getName());
 
         Car selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
-        System.out.println("CURRENTLY SELECTING " + selectedCar.getName());
+        //System.out.println("CURRENTLY SELECTING " + selectedCar.getName());
+        System.out.println("CURRENTLY SELECTING " + selectedUpgrade.getName());
 
     }
 
@@ -266,8 +292,17 @@ public class GarageController {
 
     }
 
+    private boolean showEquippedItems = true;
+
     public void displayAvailableUpgrades() {
-        List<Upgrade> availableUpgrades = gameDB.getUpgradeCollection();
+        List<Upgrade> availableUpgrades;
+        if (showEquippedItems) {
+             availableUpgrades = gameDB.getUpgradeCollection();
+        }
+        else {
+            availableUpgrades = selectedCar.getEquippedUpgrades();
+        }
+
 
         List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2);
 

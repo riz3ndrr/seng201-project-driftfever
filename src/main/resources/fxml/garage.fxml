@@ -193,12 +193,12 @@
                               <Image url="@../designs/upgrade-icons/rocketFuel.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="upgr1" fitHeight="78.0" fitWidth="104.0" onMouseClicked="#selectUpgrade" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="CENTER">
+                        <ImageView fx:id="upgr2" fitHeight="78.0" fitWidth="104.0" onMouseClicked="#selectUpgrade" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="CENTER">
                            <image>
                               <Image url="@../designs/upgrade-icons/carbonFibre.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="upgr2" fitHeight="80.0" fitWidth="89.0" onMouseClicked="#selectUpgrade" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="CENTER">
+                        <ImageView fx:id="upgr1" fitHeight="80.0" fitWidth="89.0" onMouseClicked="#selectUpgrade" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="CENTER">
                            <image>
                               <Image url="@../designs/upgrade-icons/betterTyres.png" />
                            </image>
@@ -228,7 +228,7 @@
                         <Insets left="20.0" top="75.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="garageSubHeader1" prefHeight="26.0" prefWidth="257.0" text="Available Upgrades:" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
+                  <Label fx:id="upgradesHeaderLabel" prefHeight="26.0" prefWidth="257.0" text="Unequipped Upgrades:" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -241,9 +241,14 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
-                  <Label text="DEQUIP" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                  <Label fx:id="unequipUpgrade" onMouseClicked="#unequipUpgrade" text="UNEQUIP" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <font>
                         <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="switchUpgradesLabel" onMouseClicked="#switchUpgrades" prefHeight="38.0" prefWidth="188.0" text="Show equipped items" GridPane.columnIndex="3">
+                     <font>
+                        <Font size="17.0" />
                      </font>
                   </Label>
                </children>

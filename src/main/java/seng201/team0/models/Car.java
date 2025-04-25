@@ -23,6 +23,10 @@ public class Car extends Item {
 
     private ArrayList<Upgrade> equippedUpgrades = new ArrayList<>();
 
+    public ArrayList<Upgrade> getEquippedUpgrades() {
+        return equippedUpgrades;
+    }
+
     public void addEquippedUpgrade(Upgrade upgrade) {
         equippedUpgrades.add(upgrade);
     }
