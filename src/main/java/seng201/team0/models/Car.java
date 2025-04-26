@@ -31,6 +31,10 @@ public class Car extends Item {
         equippedUpgrades.add(upgrade);
     }
 
+    public void removeEquippedUpgrade(Upgrade upgrade) {
+        equippedUpgrades.remove(upgrade);
+    }
+
     public boolean checkIfUpgradeEquipped(Upgrade selectedUpgrade) {
         for (Upgrade upgrade : equippedUpgrades) {
             if (upgrade.getName().equals(selectedUpgrade.getName())) {

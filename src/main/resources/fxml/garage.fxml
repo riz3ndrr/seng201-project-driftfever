@@ -205,7 +205,7 @@
                         </ImageView>
                      </children>
                      <GridPane.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="50.0" />
                      </GridPane.margin>
                   </GridPane>
                   <Label fx:id="upgradeSpeedLabel" prefHeight="25.0" prefWidth="65.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
@@ -236,20 +236,40 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="equipUpgrade" onMouseClicked="#equipUpgrade" text="EQUIP" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                  <Label id="equipUpgrade" fx:id="equipUpgrade" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#equipUpgrade" prefHeight="50.0" prefWidth="138.0" text="EQUIP" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                      <font>
-                        <Font size="28.0" />
+                        <Font size="32.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="unequipUpgrade" onMouseClicked="#unequipUpgrade" text="UNEQUIP" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                  <Label id="unequipUpgrade" fx:id="unequipUpgrade" alignment="CENTER" onMouseClicked="#unequipUpgrade" prefHeight="50.0" prefWidth="138.0" text="UNEQUIP" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                      <font>
-                        <Font size="28.0" />
+                        <Font size="31.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="switchUpgradesLabel" onMouseClicked="#switchUpgrades" prefHeight="38.0" prefWidth="188.0" text="Show equipped items" GridPane.columnIndex="3">
+                  <Label id="switchUpgradesLabel" fx:id="switchUpgradesLabel" alignment="CENTER" onMouseClicked="#switchUpgrades" prefHeight="38.0" prefWidth="188.0" text="Show equipped items" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="17.0" />
                      </font>
+                  </Label>
+                  <Label fx:id="resultEquipMessage" alignment="CENTER" prefHeight="46.0" prefWidth="248.0" text="Upgrade not selected" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="70.0" />
+                     </GridPane.margin>
                   </Label>
                </children>
             </GridPane>

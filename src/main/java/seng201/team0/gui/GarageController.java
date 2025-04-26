@@ -134,6 +134,9 @@ public class GarageController {
 
 
     public void moveRight(MouseEvent event) {
+        // get rid of unnecessary text
+        resultEquipMessage.setVisible(false);
+
         // hide the current car
         displaySelectedCar(false);
         if ((selectedCarIndex + 1) == gameDB.getCarCollectionSize()) {
@@ -152,6 +155,9 @@ public class GarageController {
     }
 
     public void moveLeft(MouseEvent event) {
+        // get rid of unnecessary text
+        resultEquipMessage.setVisible(false);
+
         displaySelectedCar(false);
         if ((selectedCarIndex) == 0) {
             selectedCarIndex = gameDB.getCarCollectionSize() - 1;
@@ -193,6 +199,9 @@ public class GarageController {
     private Label equipUpgrade;
 
     @FXML
+    private Label unequipUpgrade;
+
+    @FXML
     private Label switchUpgradesLabel;
 
     @FXML
@@ -202,31 +211,96 @@ public class GarageController {
     @FXML
     private GridPane upgradesGridPane;
 
+    @FXML
+    private Label resultEquipMessage;
+
     public void switchUpgrades(MouseEvent event) {
+
+
         if (showEquippedItems) {
+            // going to show available items
             showEquippedItems = false;
             switchUpgradesLabel.setText("Show Equipped Items");
             upgradesHeaderLabel.setText("Available Upgrades:");
+            equipUpgrade.setVisible(true);
+            unequipUpgrade.setVisible(false);
         }
         else {
+            // going to show equipped items
             showEquippedItems = true;
             switchUpgradesLabel.setText("Show Unequipped Items");
             upgradesHeaderLabel.setText("Equipped Upgrades:");
+            equipUpgrade.setVisible(false);
+            unequipUpgrade.setVisible(true);
         }
         displayAvailableUpgrades();
     }
 
     public void unequipUpgrade(MouseEvent event) {
+        if (selectedUpgrade == null) {
+            resultEquipMessage.setText("No upgrade is selected");
+            resultEquipMessage.setStyle("-fx-text-fill: red");
+            resultEquipMessage.setVisible(true);
+            return;
+        }
+
+        resultEquipMessage.setText("Unequipped " + selectedUpgrade.getName() + " successfully!");
+        selectedCar.removeEquippedUpgrade(selectedUpgrade);
+
+        if (selectedUpgrade.getNumPurchased() == 0) {
+            gameDB.addItem(selectedUpgrade);
+        }
+        selectedUpgrade.incrementNumPurchased();
+
+
+        resultEquipMessage.setVisible(true);
+
+        selectedCar.changeSpeed(-selectedUpgrade.getSpeed());
+        selectedCar.changeHandling(-selectedUpgrade.getHandling());
+        selectedCar.changeReliability(-selectedUpgrade.getReliability());
+        selectedCar.changeFuelEconomy(-selectedUpgrade.getFuelEconomy());
+
+        displayCarStats(selectedCar);
+
+        System.out.println();
+
+        System.out.println("How much is left: " + selectedUpgrade.getNumPurchased());
+        selectedCar.printEquippedUpgrades();
+        System.out.println("AAAHH  " + selectedUpgrade.getNumPurchased());
+        gameDB.printUpgrades();
+
+        displayAvailableUpgrades();
+
         //filler
         System.out.println("Unequipped upgrade");
     }
 
+
+
     public void equipUpgrade(MouseEvent event) {
+
+
+        if (selectedUpgrade == null) {
+            // If no upgrade is selected
+            resultEquipMessage.setText("No upgrade is selected");
+            resultEquipMessage.setStyle("-fx-text-fill: red");
+            resultEquipMessage.setVisible(true);
+            return;
+        }
+
         if (selectedCar.checkIfUpgradeEquipped(selectedUpgrade)) {
-            // update later
-            System.out.println("Upgrade already equipped");
+            // If upgrade is already equipped
+            resultEquipMessage.setText("Upgrade already equipped");
+            resultEquipMessage.setStyle("-fx-text-fill: red");
+            resultEquipMessage.setVisible(true);
         }
         else {
+            // If upgrade is not equipped
+            resultEquipMessage.setStyle("-fx-text-fill: green");
+            resultEquipMessage.setText("Equipped " + selectedUpgrade.getName() + " successfully!");
+            resultEquipMessage.setVisible(true);
+
+
             selectedCar.addEquippedUpgrade(selectedUpgrade);
             selectedUpgrade.decrementNumPurchased();
 
@@ -234,7 +308,6 @@ public class GarageController {
 
                 gameDB.removeItem(selectedUpgrade);
                 displayAvailableUpgrades();
-
                 upgradeSpeedLabel.setText("");
                 upgradeHandlingLabel.setText("");
                 upgradeReliabilityLabel.setText("");
@@ -242,17 +315,19 @@ public class GarageController {
 
             }
 
+
             selectedCar.changeSpeed(selectedUpgrade.getSpeed());
             selectedCar.changeHandling(selectedUpgrade.getHandling());
             selectedCar.changeReliability(selectedUpgrade.getReliability());
             selectedCar.changeFuelEconomy(selectedUpgrade.getFuelEconomy());
-
             displayCarStats(selectedCar);
 
-            System.out.println("How much is left: " + selectedUpgrade.getNumPurchased());
-            selectedCar.printEquippedUpgrades();
-            System.out.println("AAAHH  " + selectedUpgrade.getNumPurchased());
-            gameDB.printUpgrades();
+            selectedUpgrade = null;
+
+//            System.out.println("How much is left: " + selectedUpgrade.getNumPurchased());
+//            selectedCar.printEquippedUpgrades();
+//            System.out.println("AAAHH  " + selectedUpgrade.getNumPurchased());
+//            gameDB.printUpgrades();
 
         }
 
@@ -275,9 +350,11 @@ public class GarageController {
     }
 
     private Upgrade selectedUpgrade;
+
     public void selectUpgrade(MouseEvent event) {
 
         ImageView clickedUpgrade = (ImageView) event.getSource();
+
         String upgradeID = clickedUpgrade.getId();
 
         switch (upgradeID) {
@@ -295,6 +372,9 @@ public class GarageController {
                 selectedUpgrade = Upgrade.getUpgradeAtIndex(2);
                 displaySelectedUpgrade(selectedUpgrade);
                 break;
+
+            default:
+                System.out.println("Not selected upgrade");
         }
 
 
@@ -304,6 +384,8 @@ public class GarageController {
     }
 
     private boolean showEquippedItems = false;
+
+
 
     public void displayAvailableUpgrades() {
         List<Upgrade> availableUpgrades;

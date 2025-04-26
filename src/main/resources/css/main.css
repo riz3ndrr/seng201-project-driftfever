@@ -15,7 +15,7 @@ Label, Text {
     -fx-label-padding: 5px;
 
 }
-#viewUpgradesLabel, #viewCarsLabel {
+#viewUpgradesLabel, #viewCarsLabel, #equipUpgrade, #unequipUpgrade, #switchUpgradesLabel {
     -fx-background-color: #ababab;
 }
 
