@@ -337,6 +337,16 @@ public class GarageController {
     }
 
     public void displaySelectedUpgrade(Upgrade selectedUpgrade) {
+        if (showEquippedItems) {
+            resultEquipMessage.setText("Selecting " + selectedUpgrade.getName());
+        }
+        else {
+            resultEquipMessage.setText(String.format("Selecting %s, quantity: x%d", selectedUpgrade.getName(), selectedUpgrade.getNumPurchased()));
+        }
+
+        resultEquipMessage.setStyle("-fx-text-fill: grey");
+        resultEquipMessage.setVisible(true);
+
         upgradeSpeedLabel.setText(String.format("(%d)", selectedUpgrade.getSpeed()));
         upgradeHandlingLabel.setText(String.format("(%d)", selectedUpgrade.getHandling()));
         upgradeReliabilityLabel.setText(String.format("(%d)", selectedUpgrade.getReliability()));
