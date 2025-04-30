@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -136,8 +137,12 @@ public class StartScreenController {
         return raceCount;
     }
 
+    @FXML
+    private ImageView difficultyPic;
+
     private void updateDifficulty(int newDiffLevel) {
         GameStats.Difficulty diff;
+        String selectedDiffImgDirectory = "";
 
         if (newDiffLevel < 2) {
             diff = GameStats.Difficulty.EASY;
@@ -150,21 +155,24 @@ public class StartScreenController {
         setDifficulty(diff);
         GameStats.getInstance().setRaceDifficulty(diff);
 
-        if (diff == GameStats.Difficulty.EASY) {
-            easyPic.setOpacity(1);
-            medPic.setOpacity(0);
-            hardPic.setOpacity(0);
+        switch(diff) {
+            case EASY:
+                selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/easy.png";
+                break;
+
+                case REGULAR:
+                    selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/med.png";
+                    break;
+
+                    case HARD:
+                        selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/hard.png";
+                        break;
+
         }
-        else if (diff == GameStats.Difficulty.REGULAR) {
-            easyPic.setOpacity(0);
-            medPic.setOpacity(1);
-            hardPic.setOpacity(0);
-        }
-        else {
-            easyPic.setOpacity(0);
-            medPic.setOpacity(0);
-            hardPic.setOpacity(1);
-        }
+
+        Image newDiffImg = new Image(selectedDiffImgDirectory);
+        System.out.println(newDiffImg);
+        difficultyPic.setImage(newDiffImg);
 
     }
 

@@ -93,25 +93,9 @@
                </image>
             </ImageView>
             <Text fx:id="diffLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty" textAlignment="CENTER" wrappingWidth="273.37628173828125" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <ImageView fx:id="easyPic" fitHeight="70.0" fitWidth="70.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../designs/difficulty/easy.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets bottom="40.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fx:id="medPic" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <ImageView fx:id="difficultyPic" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../designs/difficulty/med.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets bottom="40.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fx:id="hardPic" fitHeight="80.0" fitWidth="80.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../designs/difficulty/hard.png" />
                </image>
                <GridPane.margin>
                   <Insets bottom="40.0" />
