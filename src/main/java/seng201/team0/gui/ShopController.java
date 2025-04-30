@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -62,32 +63,8 @@ public class ShopController {
     private GridPane shopGridPane;
 
     @FXML
-    private ImageView car1Img;
+    private ImageView itemImg;
 
-    @FXML
-    private ImageView car2Img;
-
-    @FXML
-    private ImageView car3Img;
-
-    @FXML
-    private ImageView car4Img;
-
-    @FXML
-    private ImageView car5Img;
-
-    @FXML
-    private ImageView car6Img;
-
-    @FXML
-    private ImageView car7Img;
-
-    @FXML
-    private ImageView car8Img;
-
-    @FXML
-    private ImageView car9Img;
-    
     @FXML
     private ImageView upgrade1;
     @FXML
@@ -214,6 +191,24 @@ public class ShopController {
     @FXML
     private Label viewGarage;
 
+    public void switchToSelectRaceScene(MouseEvent event) throws IOException {
+        if (gameDB.getCarCollectionSize() < 3) {
+            shopSubtitle.setText("You must select 3 cars first");
+        }
+        else {
+            FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
+            Parent root = baseLoader.load();
+
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            SelectRaceController baseController = baseLoader.getController();
+            baseController.initialize(stage);
+        }
+
+    }
+
     public void switchToGarageScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
@@ -297,39 +292,35 @@ public class ShopController {
 
 
     public void displaySelectedItem(boolean displayImg) {
-
-        List<ImageView> carImageList = Arrays.asList(
-                car1Img,
-                car2Img,
-                car3Img,
-                car4Img,
-                car5Img,
-                car6Img,
-                car7Img,
-                car8Img,
-                car9Img
-        );
-
-        List<ImageView> upgradeImageList = Arrays.asList(
-                upgrade1,
-                upgrade2,
-                upgrade3
-        );
-
-        ImageView selectedItemImg;
+        String selectedItemImgDirectory = "";
+        int imgWidth;
+        int imgHeight;
 
         if (showCarOrUpgrade.equals("Car")) {
             selectedItem = availableCars.get(selectedItemIndex);
-            selectedItemImg = carImageList.get(selectedItem.getItemID() );
+
+            selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedItemIndex + 1) + ".png" ;
+            imgWidth = 200;
+            imgHeight = 100;
 
         }
         else {
             selectedItem = availableUpgrades.get(selectedItemIndex);
-            selectedItemImg = upgradeImageList.get(selectedItem.getItemID() );
+            selectedItemImgDirectory = "file:src/main/resources/designs/upgrade-icons/upgrade" + (selectedItemIndex + 1) + ".png" ;
             currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
+            imgWidth = 100;
+            imgHeight = 100;
+
         }
 
-        selectedItemImg.setVisible(displayImg);
+
+        Image newItemImg = new Image(selectedItemImgDirectory);
+        itemImg.setFitWidth(imgWidth);
+        itemImg.setFitHeight(imgHeight);
+        itemImg.setImage(newItemImg);
+
+
+        //selectedItemImg.setVisible(displayImg);
         itemNameLabel.setText(selectedItem.getName());
         itemSpeedLabel.setText(String.format("Speed: %d", selectedItem.getSpeed()));
         itemHandlingLabel.setText(String.format("Handling: %d", selectedItem.getHandling()));
@@ -383,6 +374,8 @@ public class ShopController {
 
 
 
+
+
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
@@ -391,6 +384,7 @@ public class ShopController {
         createListOfAvailableCars();
         createListOfAvailableUpgrades();
         displaySelectedItem(true);
+
 
 
 

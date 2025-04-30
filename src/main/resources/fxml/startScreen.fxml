@@ -55,7 +55,7 @@
             <RowConstraints maxHeight="194.19997253417966" minHeight="0.0" prefHeight="141.59999694824222" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="RArrow" fitHeight="119.0" fitWidth="108.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <ImageView fx:id="RArrow" fitHeight="119.0" fitWidth="108.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../designs/arrowright.png" />
                </image>

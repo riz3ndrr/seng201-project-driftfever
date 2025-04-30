@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 public class GarageController {
 
     @FXML
@@ -62,6 +64,8 @@ public class GarageController {
 
     @FXML
     private ImageView car8Img;
+
+
 
     @FXML
     private ImageView car9Img;
@@ -111,23 +115,18 @@ public class GarageController {
         fuelEcoLabel.setText(String.format("Fuel Economy: %d", car.getFuelEconomy()));
     }
 
+    @FXML
+    private ImageView carImg;
+
     public void displaySelectedCar(boolean displayImg) {
-
-        List<ImageView> carImageList = Arrays.asList(
-                car1Img,
-                car2Img,
-                car3Img,
-                car4Img,
-                car5Img,
-                car6Img,
-                car7Img,
-                car8Img,
-                car9Img
-        );
-
+        
+        String selectedItemImgDirectory = "";
         selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
-        ImageView selectedCarImg = carImageList.get(selectedCar.getItemID());
-        selectedCarImg.setVisible(displayImg);
+
+        selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;
+        Image newItemImg = new Image(selectedItemImgDirectory);
+        carImg.setImage(newItemImg);
+
 
         displayCarStats(selectedCar);
     }
@@ -436,9 +435,28 @@ public class GarageController {
         }
     }
 
-    public void switchToShopScene(MouseEvent event) throws IOException {
+    public void switchToSelectRaceScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
+
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
+        Parent root = baseLoader.load();
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        SelectRaceController baseController = baseLoader.getController();
+        baseController.initialize(stage);
+
+
+
+    }
+
+    public void switchToShopScene(MouseEvent event) throws IOException {
+        // Update the selected car in the GameStats DB for the race
+
+        gameDB.setSelectedCar(selectedCar);
 
         FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
         Parent root = baseLoader.load();

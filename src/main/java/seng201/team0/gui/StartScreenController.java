@@ -71,6 +71,9 @@ public class StartScreenController {
     @FXML
     private Button finishStartScreenBtn;
 
+    @FXML
+    private ImageView RArrow;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -111,6 +114,7 @@ public class StartScreenController {
             optionIndex++;
             showNewOptionSlide();
         }
+
     }
 
     public void moveLeft(MouseEvent mouseEvent) {
@@ -180,6 +184,7 @@ public class StartScreenController {
 
     public void initialize(Stage stage) {
         finishStartScreenBtn.setDisable(true);
+
         diffDesc.setText(getDifficultyDesc());
         showNewOptionSlide();
         diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -191,17 +196,21 @@ public class StartScreenController {
 
         // Live validation on name inpt
         inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
-           if (isValidName(newText)) {
-               whatNameLabel.setText("Looks good!");
-               whatNameLabel.setStyle("-fx-fill: green;");
-               finishStartScreenBtn.setDisable(false);
-           } else {
-               String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
-               String color = newText.isEmpty() ? "white" : "gray";
-               whatNameLabel.setText(caption);
-               whatNameLabel.setStyle("-fx-fill: " + color);
-               finishStartScreenBtn.setDisable(true);
-           }
+            if (isValidName(newText)) {
+                whatNameLabel.setText("Looks good!");
+                whatNameLabel.setStyle("-fx-fill: green;");
+                finishStartScreenBtn.setDisable(false);
+                RArrow.setVisible(true);
+            }
+            else {
+                String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
+                String color = newText.isEmpty() ? "white" : "gray";
+                whatNameLabel.setText(caption);
+                whatNameLabel.setStyle("-fx-fill: " + color);
+
+                finishStartScreenBtn.setDisable(true);
+                RArrow.setVisible(false);
+            }
         });
 
 

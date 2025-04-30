@@ -19,7 +19,7 @@
          <children>
             <Pane prefHeight="400.0" prefWidth="137.0">
                <children>
-                  <Label layoutX="18.0" layoutY="171.0" prefHeight="22.0" prefWidth="123.0" text="Select Race">
+                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" prefHeight="22.0" prefWidth="123.0" text="Select Race">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -91,73 +91,9 @@
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </Line>
-                  <ImageView fx:id="car1Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ImageView fx:id="itemImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../designs/car-icon/car1.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car2Img" fitHeight="150.0" fitWidth="200.0" layoutX="187.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car2.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car3Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car3.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car4Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car4.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car5Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car5.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car6Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car6.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car7Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car7.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car8Img" fitHeight="150.0" fitWidth="200.0" opacity="1.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car8.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="car9Img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <image>
-                        <Image url="@../designs/car-icon/car9.png" />
                      </image>
                      <GridPane.margin>
                         <Insets bottom="50.0" />
@@ -246,7 +182,7 @@
                   </Label>
                   <ImageView fx:id="upgrade1" fitHeight="99.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../designs/upgrade-icons/rocketFuel.png" />
+                        <Image url="@../designs/upgrade-icons/upgrade1.png" />
                      </image>
                      <GridPane.margin>
                         <Insets bottom="80.0" />
@@ -254,7 +190,7 @@
                   </ImageView>
                   <ImageView fx:id="upgrade2" fitHeight="99.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../designs/upgrade-icons/betterTyres.png" />
+                        <Image url="@../designs/upgrade-icons/upgrade2.png" />
                      </image>
                      <GridPane.margin>
                         <Insets bottom="80.0" />
@@ -262,7 +198,7 @@
                   </ImageView>
                   <ImageView fx:id="upgrade3" fitHeight="99.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../designs/upgrade-icons/carbonFibre.png" />
+                        <Image url="@../designs/upgrade-icons/upgrade3.png" />
                      </image>
                      <GridPane.margin>
                         <Insets bottom="80.0" />

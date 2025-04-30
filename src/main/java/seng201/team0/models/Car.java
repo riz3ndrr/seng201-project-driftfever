@@ -1,5 +1,6 @@
 package seng201.team0.models;
 
+import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,6 +21,13 @@ public class Car extends Item {
                         new Car("Icarus' Wings", 4600, 1400, false, 15, 3, 4, 3, "The world's fastest car. Although not renowned for its stability.", 7),
                         new Car("Bumblebee", 5000, 1300, false, 10, 10, 9, 9, "Legend says this car has a mind of its own", 8)
 );
+
+
+
+
+
+
+
 
     private ArrayList<Upgrade> equippedUpgrades = new ArrayList<>();
 
