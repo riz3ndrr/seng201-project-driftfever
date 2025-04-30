@@ -106,9 +106,11 @@ public class StartScreenController {
     }
 
     public void moveRight(MouseEvent mouseEvent) {
-        System.out.println("MOVING RIGHT");
-        optionIndex++;
-        showNewOptionSlide();
+        if (!finishStartScreenBtn.isDisabled()) {
+            System.out.println("MOVING RIGHT");
+            optionIndex++;
+            showNewOptionSlide();
+        }
     }
 
     public void moveLeft(MouseEvent mouseEvent) {
@@ -177,6 +179,7 @@ public class StartScreenController {
     }
 
     public void initialize(Stage stage) {
+        finishStartScreenBtn.setDisable(true);
         diffDesc.setText(getDifficultyDesc());
         showNewOptionSlide();
         diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -193,8 +196,10 @@ public class StartScreenController {
                whatNameLabel.setStyle("-fx-fill: green;");
                finishStartScreenBtn.setDisable(false);
            } else {
-               whatNameLabel.setText("Enter 3-15 alphanumeric characters.");
-               whatNameLabel.setStyle("-fx-fill: gray;");
+               String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
+               String color = newText.isEmpty() ? "white" : "gray";
+               whatNameLabel.setText(caption);
+               whatNameLabel.setStyle("-fx-fill: " + color);
                finishStartScreenBtn.setDisable(true);
            }
         });
