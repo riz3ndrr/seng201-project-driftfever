@@ -71,20 +71,20 @@ public class StartScreenController {
     @FXML
     private Button finishStartScreenBtn;
 
-
-
-
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    private GameStats.Difficulty chosenDifficulty = GameStats.Difficulty.REGULAR;
 
 
-    static private Map<String, String> difficulties = Map.of(
-            "Easy", "Take the easy route and start with more resources",
-            "Regular", "Not too easy, not too forgiving",
-            "Hard", "For the racers with something to prove"
-    );
+    private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
+            new EnumMap<>(GameStats.Difficulty.class);
+    static {
+        difficultyDescriptions.put(GameStats.Difficulty.EASY, "Take the easy route and start with more resources");
+        difficultyDescriptions.put(GameStats.Difficulty.REGULAR, "Not too easy, not too forgiving");
+        difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove");
+    }
 
 
     private int raceCount = 3;
@@ -117,20 +117,9 @@ public class StartScreenController {
         showNewOptionSlide();
     }
 
-    static private String chosenDifficulty = "Regular";
-
     public String getDifficultyDesc() {
-        return difficulties.get(chosenDifficulty);
+        return difficultyDescriptions.get(chosenDifficulty);
     }
-
-    public void setDifficulty(String newDiff) {
-        chosenDifficulty = newDiff;
-    }
-
-    public String getChosenDifficulty() {
-        return chosenDifficulty;
-    }
-
 
     private void updateSeasonCount(int newRaceCount) {
         raceCount = newRaceCount;
@@ -142,29 +131,50 @@ public class StartScreenController {
     }
 
     private void updateDifficulty(int newDiffLevel) {
-        String newDiff;
-        if (newDiffLevel >= 1 && newDiffLevel < 2) {
-            newDiff = "Easy";
+        GameStats.Difficulty diff;
+
+        if (newDiffLevel < 2) {
+            diff = GameStats.Difficulty.EASY;
+        } else if (newDiffLevel < 3) {
+            diff = GameStats.Difficulty.REGULAR;
+        } else {
+            diff = GameStats.Difficulty.HARD;
+        }
+
+        setDifficulty(diff);
+        GameStats.getInstance().setRaceDifficulty(diff);
+
+        if (diff == GameStats.Difficulty.EASY) {
             easyPic.setOpacity(1);
             medPic.setOpacity(0);
             hardPic.setOpacity(0);
         }
-        else if (newDiffLevel >= 2 && newDiffLevel < 3) {
-            newDiff = "Regular";
+        else if (diff == GameStats.Difficulty.REGULAR) {
             easyPic.setOpacity(0);
             medPic.setOpacity(1);
             hardPic.setOpacity(0);
         }
         else {
-            newDiff = "Hard";
             easyPic.setOpacity(0);
             medPic.setOpacity(0);
             hardPic.setOpacity(1);
         }
-        setDifficulty(newDiff);
-        diffDesc.setText(getDifficultyDesc());
+
     }
 
+    // Helper to validate name len and no special chars
+    private boolean isValidName(String name) {
+        return name != null && name.matches("^[A-Za-z0-9]{3,15}$");
+    }
+
+    public void setDifficulty(GameStats.Difficulty diff) {
+        this.chosenDifficulty = diff;
+        diffDesc.setText(difficultyDescriptions.get(diff));
+    }
+
+    private GameStats.Difficulty getChosenDifficulty() {
+        return chosenDifficulty;
+    }
 
     public void initialize(Stage stage) {
         diffDesc.setText(getDifficultyDesc());
@@ -176,9 +186,21 @@ public class StartScreenController {
             updateSeasonCount(newValue.intValue());
         });
 
+        // Live validation on name inpt
+        inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
+           if (isValidName(newText)) {
+               whatNameLabel.setText("Looks good!");
+               whatNameLabel.setStyle("-fx-fill: green;");
+               finishStartScreenBtn.setDisable(false);
+           } else {
+               whatNameLabel.setText("Enter 3-15 alphanumeric characters.");
+               whatNameLabel.setStyle("-fx-fill: gray;");
+               finishStartScreenBtn.setDisable(true);
+           }
+        });
+
 
     }
-
 
     public void switchToShopScene(javafx.event.ActionEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"

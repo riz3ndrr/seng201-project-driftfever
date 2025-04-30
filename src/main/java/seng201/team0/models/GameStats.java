@@ -5,15 +5,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameStats {
+
+    public enum Difficulty {
+        EASY(5500F, 1.2),
+        REGULAR(5000F, 1.0),
+        HARD(4500F, 0.8);
+
+        private final float startingBalance;
+        private final double winningsMultiplier;
+
+        Difficulty(float startingBalance, double winningsMultiplier) {
+            this.startingBalance = startingBalance;
+            this.winningsMultiplier = winningsMultiplier;
+        }
+
+        public float getStartingBalance() {
+            return startingBalance;
+        }
+
+        public double getWinningsMultiplier() {
+            return winningsMultiplier;
+        }
+    }
     private static final GameStats instance = new GameStats();
 
     private int raceCount = 3;
     private String userName;
-    private String raceDifficulty;
-    private float bal = 5000F;
+    private Difficulty raceDifficulty = Difficulty.REGULAR;
+    private float bal = raceDifficulty.getStartingBalance();
 
-    private ArrayList<Car> carCollection = new ArrayList<>();
-    private ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
+    private final ArrayList<Car> carCollection = new ArrayList<>();
+    private final ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
 
     public List<Upgrade> getUpgradeCollection() {
         return upgradeCollection;
@@ -99,6 +121,10 @@ public class GameStats {
         return bal;
     }
 
+        public double getAdjustedWinnings(double baseCost) {
+            return baseCost * raceDifficulty.getWinningsMultiplier();
+        }
+
     public void setRaceCount(int raceCount) {
         this.raceCount = raceCount;
     }
@@ -113,10 +139,12 @@ public class GameStats {
         return userName;
     }
 
-    public void setRaceDifficulty(String raceDifficulty) {
-        this.raceDifficulty = raceDifficulty;
+    public void setRaceDifficulty(Difficulty difficulty) {
+        this.raceDifficulty = difficulty;
+        this.bal = difficulty.getStartingBalance();
     }
-    public String getRaceDifficulty() {
+
+    public Difficulty getRaceDifficulty() {
         return raceDifficulty;
     }
 
