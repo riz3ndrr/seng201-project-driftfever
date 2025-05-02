@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Upgrade;
@@ -35,7 +36,7 @@ public class GarageController {
     @FXML
     private Label viewShop;
     // Player/Game Database
-    GameStats gameDB = GameStats.getInstance();
+    GameStats gameDB = GameManager.getGameStats();
 
     private Stage stage;
     private Scene scene;
@@ -237,6 +238,7 @@ public class GarageController {
 
     public void unequipUpgrade(MouseEvent event) {
         if (selectedUpgrade == null) {
+            // if not selecting anything
             resultEquipMessage.setText("No upgrade is selected");
             resultEquipMessage.setStyle("-fx-text-fill: red");
             resultEquipMessage.setVisible(true);
@@ -261,17 +263,8 @@ public class GarageController {
 
         displayCarStats(selectedCar);
 
-        System.out.println();
-
-        System.out.println("How much is left: " + selectedUpgrade.getNumPurchased());
-        selectedCar.printEquippedUpgrades();
-        System.out.println("AAAHH  " + selectedUpgrade.getNumPurchased());
-        gameDB.printUpgrades();
-
         displayAvailableUpgrades();
 
-        //filler
-        System.out.println("Unequipped upgrade");
     }
 
 
@@ -323,10 +316,6 @@ public class GarageController {
 
             selectedUpgrade = null;
 
-//            System.out.println("How much is left: " + selectedUpgrade.getNumPurchased());
-//            selectedCar.printEquippedUpgrades();
-//            System.out.println("AAAHH  " + selectedUpgrade.getNumPurchased());
-//            gameDB.printUpgrades();
 
         }
 
@@ -352,9 +341,6 @@ public class GarageController {
         upgradeFuelEcoLabel.setText(String.format("(%d)", selectedUpgrade.getFuelEconomy()));
         //currentlySelectedLabel.setText(selectedUpgrade.getName());
 
-        Car selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
-        //System.out.println("CURRENTLY SELECTING " + selectedCar.getName());
-        System.out.println("CURRENTLY SELECTING " + selectedUpgrade.getName());
 
     }
 
@@ -368,17 +354,17 @@ public class GarageController {
 
         switch (upgradeID) {
             case "upgr0":
-                selectedUpgrade = Upgrade.getUpgradeAtIndex(0);
+                selectedUpgrade = GameManager.getUpgradeAtIndex(0);
                 displaySelectedUpgrade(selectedUpgrade);
                 break;
 
             case "upgr1":
-                selectedUpgrade = Upgrade.getUpgradeAtIndex(1);
+                selectedUpgrade = GameManager.getUpgradeAtIndex(1);
                 displaySelectedUpgrade(selectedUpgrade);
                 break;
 
             case "upgr2":
-                selectedUpgrade = Upgrade.getUpgradeAtIndex(2);
+                selectedUpgrade = GameManager.getUpgradeAtIndex(2);
                 displaySelectedUpgrade(selectedUpgrade);
                 break;
 

@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import seng201.team0.GameManager;
 import seng201.team0.models.GameStats;
 
 import java.io.IOException;
@@ -153,7 +154,10 @@ public class StartScreenController {
         }
 
         setDifficulty(diff);
-        GameStats.getInstance().setRaceDifficulty(diff);
+        // Player/Game Database
+        GameStats gameDB = GameManager.getGameStats();
+
+        gameDB.setRaceDifficulty(diff);
 
         switch(diff) {
             case EASY:
@@ -228,7 +232,9 @@ public class StartScreenController {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
 
-        GameStats gameDB = GameStats.getInstance();
+        // Player/Game Database
+        GameStats gameDB = GameManager.getGameStats();
+
         gameDB.setRaceCount(getRaceCount());
         gameDB.setRaceDifficulty(getChosenDifficulty());
         gameDB.setUserName(inputNameArea.getText());

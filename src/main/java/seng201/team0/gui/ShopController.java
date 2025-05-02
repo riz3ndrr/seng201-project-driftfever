@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Item;
@@ -85,8 +86,8 @@ public class ShopController {
     @FXML
     private HBox carLayer;
 
-    private List<Car> Cars = Car.getCars();
-    private List<Upgrade> Upgrades = Upgrade.getUpgrades();
+    private List<Car> Cars = GameManager.getCars();
+    private List<Upgrade> Upgrades = GameManager.getUpgrades();
 
 
     private ArrayList<Car> availableCars = new ArrayList<>();
@@ -98,7 +99,7 @@ public class ShopController {
     private String showCarOrUpgrade = "Car";
 
     // Player/Game Database
-    GameStats gameDB = GameStats.getInstance();
+    GameStats gameDB = GameManager.getGameStats();
 
     public boolean checkItemOwned(Item item) {
         return item.isPurchased();
@@ -364,6 +365,7 @@ public class ShopController {
             }
         }
     }
+
     public void createListOfAvailableUpgrades() {
         for (Upgrade upgrade : Upgrades) {
             if (upgrade.isAvailableToBuy()) {
