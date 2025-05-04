@@ -42,9 +42,17 @@ public class GameStats {
     private float bal = raceDifficulty.getStartingBalance();
 
     public Car selectedCar;
+    public Race selectedRace;
+
+    public void setSelectedRace(Race selectedRace) {
+        this.selectedRace = selectedRace;
+    }
 
     public void setSelectedCar(Car car) {
         this.selectedCar = car;
+    }
+    public Car getSelectedCar() {
+        return selectedCar;
     }
 
 

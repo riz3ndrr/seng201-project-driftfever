@@ -340,22 +340,20 @@ public class GarageController {
         switch (upgradeID) {
             case "upgr0":
                 selectedUpgrade = GameManager.getUpgradeAtIndex(0);
-                displaySelectedUpgrade(selectedUpgrade);
                 break;
 
             case "upgr1":
                 selectedUpgrade = GameManager.getUpgradeAtIndex(1);
-                displaySelectedUpgrade(selectedUpgrade);
                 break;
 
             case "upgr2":
                 selectedUpgrade = GameManager.getUpgradeAtIndex(2);
-                displaySelectedUpgrade(selectedUpgrade);
                 break;
 
             default:
                 System.out.println("Not selected upgrade");
         }
+        displaySelectedUpgrade(selectedUpgrade);
 
 
 

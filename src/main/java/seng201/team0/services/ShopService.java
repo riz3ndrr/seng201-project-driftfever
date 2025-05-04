@@ -37,7 +37,12 @@ public class ShopService {
             if (showCarOrUpgrade.equals("Car")) {
                 // If buying item is a car
                 gameDB.addItem((Car) selectedItem);
-                gameDB.setSelectedCar((Car) selectedItem);
+
+                // If no car has been previously selected (via the Garage), will set the selected car for racing
+                // to be the first purchased car
+                if (gameDB.getSelectedCar() == null) {
+                    gameDB.setSelectedCar((Car) selectedItem);
+                }
             }
             else {
                 // If buying item is an upgrade

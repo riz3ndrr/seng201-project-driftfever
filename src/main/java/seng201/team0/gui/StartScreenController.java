@@ -164,13 +164,13 @@ public class StartScreenController {
                 selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/easy.png";
                 break;
 
-                case REGULAR:
-                    selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/med.png";
-                    break;
+            case REGULAR:
+                selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/med.png";
+                break;
 
-                    case HARD:
-                        selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/hard.png";
-                        break;
+            case HARD:
+                selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/hard.png";
+                break;
 
         }
 

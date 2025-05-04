@@ -10,13 +10,48 @@ public class Race {
     private int num_gas_stops;
     private ArrayList<Integer> gas_stop_distances;
     private String raceDesc;
+    private float prizeMoney;
+    private int timeLimit;
+    private String name;
 
-    public Race(float distance, int curviness, int num_gas_stops, String raceDesc) {
+    public Race(float distance, int curviness, int num_gas_stops, String raceDesc, float prizeMoney, int timeLimit, String name) {
         this.distance = distance;
         this.curviness = curviness;
         this.num_gas_stops = num_gas_stops;
         this.raceDesc = raceDesc;
+        this.prizeMoney = prizeMoney;
+        this.timeLimit = timeLimit;
+        this.name = name;
         gas_stop_distances = initialise_gas_stops();
+
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public int getCurviness() {
+        return curviness;
+    }
+
+    public int getNumGasStops() {
+        return num_gas_stops;
+    }
+
+    public String getRaceDesc() {
+        return raceDesc;
+    }
+
+    public float getPrizeMoney() {
+        return prizeMoney;
+    }
+
+    public int getTimeLimit() {
+        return timeLimit;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public ArrayList<Integer> initialise_gas_stops() {

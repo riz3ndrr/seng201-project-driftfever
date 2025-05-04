@@ -40,17 +40,23 @@ public class GameManager {
     }
 
     private static List<Race> raceArray = Arrays.asList(
-            new Race(50, 5, 4, "This race has an insane amount of twists and turns!"),
-            new Race(80, 2, 2, "A long, mostly straight race through open countryside."),
-            new Race(30, 3, 1, "A short, moderately curvy track perfect for quick sprints."),
-            new Race(100, 4, 3, "A challenging endurance race with frequent turns and pit stops."),
-            new Race(60, 1, 0, "A smooth ride with almost no curves and no gas stops.")
+            new Race(50, 5, 4, "This race has an insane amount of twists and turns!", 1000, 300, "Serpent's Spiral"),
+            new Race(80, 2, 2, "A long, mostly straight race through open countryside.", 800, 300, "Sunset Sprint"),
+            new Race(30, 3, 1, "A short, moderately curvy track perfect for quick sprints.", 500, 300, "Turbo Loop"),
+            new Race(100, 4, 3, "A challenging endurance race with frequent turns and pit stops.", 1500, 300, "The Iron Road"),
+            new Race(60, 1, 0, "A smooth ride with almost no curves and no gas stops.", 700, 300, "Featherline Cruise")
     );
+
+
+
+    public static Race getRaceAtIndex(int index) {
+        return raceArray.get(index);
+    }
 
 
     private static List<Car> carsArray =
             Arrays.asList( new Car("Purple Car", 1600, 800, true, 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0),
-                    new Car("Lightning McQueen", 1550, 850, true, 4, 4, 5, 5, "A smooth ride with good stability and moderate handling.", 1),
+                    new Car("Lightning McQueen", 1550, 850, true, 4, 4, 5, 5, "Kachow!", 1),
                     new Car("Lime Wheels", 1500, 850, true, 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 2),
                     new Car("Yellow Car", 1400, 700, true, 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3),
                     new Car("Azure", 1300, 750, true, 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4),

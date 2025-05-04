@@ -130,15 +130,7 @@ public class ShopController {
         }
     }
 
-    public void debug(MouseEvent mouseEvent) {
-        System.out.println("BOUGHT ITEMS");
-        for (Upgrade upr : gameDB.getUpgradeCollection()) {
-            System.out.println(upr.getName());
-        }
-        System.out.println(gameDB.getUpgradeCollection().size());
-        System.out.println(gameDB.getCarCollectionSize());
 
-    }
 
 
     /**
@@ -294,6 +286,13 @@ public class ShopController {
         displaySelectedItem();
     }
 
+    public void debug(MouseEvent mouseEvent) {
+        System.out.println("Available cars:");
+        for (Car car: availableCars) {
+            System.out.println(car.getName());
+        }
+    }
+
     /**
      * When this function is called, it will first determine if the shown item is of type car or upgrade, and proceed
      * to set the displayed Image to the corresponding selected item along with changing the image's dimensions to better
@@ -308,14 +307,14 @@ public class ShopController {
         if (showCarOrUpgrade.equals("Car")) {
             selectedItem = availableCars.get(selectedItemIndex);
 
-            selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedItemIndex + 1) + ".png" ;
+            selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedItem.getItemID() + 1) + ".png" ;
             imgWidth = 200;
             imgHeight = 100;
 
         }
         else {
             selectedItem = availableUpgrades.get(selectedItemIndex);
-            selectedItemImgDirectory = "file:src/main/resources/designs/upgrade-icons/upgrade" + (selectedItemIndex + 1) + ".png" ;
+            selectedItemImgDirectory = "file:src/main/resources/designs/upgrade-icons/upgrade" + (selectedItem.getItemID()+ 1) + ".png" ;
             currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
             imgWidth = 100;
             imgHeight = 100;
