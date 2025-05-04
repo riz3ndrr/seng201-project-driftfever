@@ -15,11 +15,12 @@ Label, Text {
     -fx-label-padding: 5px;
 
 }
-#viewUpgradesLabel, #viewCarsLabel, #equipUpgrade, #unequipUpgrade, #switchUpgradesLabel {
+
+#viewUpgradesLabel, #viewCarsLabel, #equipUpgrade, #unequipUpgrade, #switchUpgradesLabel, #fillTankLabel {
     -fx-background-color: #ababab;
 }
 
-#viewCarsLabel:hover, #viewUpgradesLabel:hover {
+#viewCarsLabel:hover, #viewUpgradesLabel:hover, #fillTankLabel:hover {
     -fx-font-size: 30px;
 }
 
@@ -28,7 +29,7 @@ Label, Text {
 
 }
 
-#buyItem:pressed, #sellItem:pressed, #viewUpgradesLabel:pressed, #viewCarsLabel:pressed {
+#buyItem:pressed, #sellItem:pressed, #viewUpgradesLabel:pressed, #viewCarsLabel:pressed, #fillTankLabel:pressed {
     -fx-background-color: #969696
 }
 

@@ -231,6 +231,22 @@
                         <Insets top="70.0" />
                      </GridPane.margin>
                   </Label>
+                  <Label fx:id="fuelMeterLabel" prefHeight="31.0" prefWidth="226.0" text="Fuel" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="31.0" prefWidth="185.0" text="Fill Tank for $3 per %" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
             </GridPane>
          </children>

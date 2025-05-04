@@ -3,6 +3,7 @@ package seng201.team0;
 import seng201.team0.gui.MainWindow;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
+import seng201.team0.models.Race;
 import seng201.team0.models.Upgrade;
 
 import java.util.Arrays;
@@ -37,6 +38,15 @@ public class GameManager {
     public static List<Upgrade> getUpgrades() {
         return upgradeArray;
     }
+
+    private static List<Race> raceArray = Arrays.asList(
+            new Race(50, 5, 4, "This race has an insane amount of twists and turns!"),
+            new Race(80, 2, 2, "A long, mostly straight race through open countryside."),
+            new Race(30, 3, 1, "A short, moderately curvy track perfect for quick sprints."),
+            new Race(100, 4, 3, "A challenging endurance race with frequent turns and pit stops."),
+            new Race(60, 1, 0, "A smooth ride with almost no curves and no gas stops.")
+    );
+
 
     private static List<Car> carsArray =
             Arrays.asList( new Car("Purple Car", 1600, 800, true, 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0),

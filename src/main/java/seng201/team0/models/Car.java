@@ -51,13 +51,13 @@ public class Car extends Item {
 
 
 
-    private int fuelMeter = 100;
+    private float fuelMeter = 76.78F;
 
-    public void setFuel (int fuel) {
+    public void setFuel (float fuel) {
         this.fuelMeter = fuel;
     }
 
-    public int getFuel () {
+    public float getFuel () {
         return fuelMeter;
     }
 

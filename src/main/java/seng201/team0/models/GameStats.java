@@ -7,9 +7,9 @@ import java.util.List;
 public class GameStats {
 
     public enum Difficulty {
-        EASY(5500F, 1.2),
+        EASY(5500F, 0.8),
         REGULAR(5000F, 1.0),
-        HARD(4500F, 0.8);
+        HARD(4700F, 1.2);
 
         private final float startingBalance;
         private final double winningsMultiplier;
@@ -27,15 +27,35 @@ public class GameStats {
             return winningsMultiplier;
         }
     }
-    private static final GameStats instance = new GameStats();
+
+    public GameStats() {
+
+    }
+
+
+
+
 
     private int raceCount = 3;
     private String userName;
     private Difficulty raceDifficulty = Difficulty.REGULAR;
     private float bal = raceDifficulty.getStartingBalance();
 
-    private final ArrayList<Car> carCollection = new ArrayList<>();
-    private final ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
+    public Car selectedCar;
+
+    public void setSelectedCar(Car car) {
+        this.selectedCar = car;
+    }
+
+
+    private ArrayList<Car> carCollection = new ArrayList<>();
+    private ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
+
+    public double getAdjustedWinnings(double baseCost) {
+        return baseCost * raceDifficulty.getWinningsMultiplier();
+    }
+
+
 
     public List<Upgrade> getUpgradeCollection() {
         return upgradeCollection;
@@ -110,9 +130,7 @@ public class GameStats {
         }
     }
 
-    public static GameStats getInstance() {
-        return instance;
-    }
+
 
     public void setBal(float bal) {
         this.bal = bal;
@@ -120,10 +138,6 @@ public class GameStats {
     public float getBal() {
         return bal;
     }
-
-        public double getAdjustedWinnings(double baseCost) {
-            return baseCost * raceDifficulty.getWinningsMultiplier();
-        }
 
     public void setRaceCount(int raceCount) {
         this.raceCount = raceCount;
@@ -142,8 +156,8 @@ public class GameStats {
     public void setRaceDifficulty(Difficulty difficulty) {
         this.raceDifficulty = difficulty;
         this.bal = difficulty.getStartingBalance();
-    }
 
+    }
     public Difficulty getRaceDifficulty() {
         return raceDifficulty;
     }
