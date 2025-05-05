@@ -43,7 +43,7 @@ public class GameManager {
             new Race(50, 5, 4, "This race has an insane amount of twists and turns!", 1000, 300, "Serpent's Spiral"),
             new Race(80, 2, 2, "A long, mostly straight race through open countryside.", 800, 300, "Sunset Sprint"),
             new Race(30, 3, 1, "A short, moderately curvy track perfect for quick sprints.", 500, 300, "Turbo Loop"),
-            new Race(100, 4, 3, "A challenging endurance race with frequent turns and pit stops.", 1500, 300, "The Iron Road"),
+            new Race(100, 4, 3, "A challenging endurance race with frequent turns and pit stops.", 3000, 300, "The Iron Road"),
             new Race(60, 1, 0, "A smooth ride with almost no curves and no gas stops.", 700, 300, "Featherline Cruise")
     );
 
@@ -61,7 +61,7 @@ public class GameManager {
                     new Car("Yellow Car", 1400, 700, true, 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3),
                     new Car("Azure", 1300, 750, true, 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4),
                     new Car("Crosswind", 3600, 1600, false, 8, 9, 9, 7, "High-performance with fast acceleration and responsive handling.", 5),
-                    new Car("Phantom", 4200, 1800, false, 8, 9, 7, 8, "Fast and agile, designed for quick maneuvers and high speeds.", 6),
+                    new Car("Thunder McKing", 5200, 3200, true, 12, 9, 6, 6, "Was used to win 7 Piston Cups. Kablow!", 6),
                     new Car("Icarus' Wings", 4600, 1400, false, 15, 3, 4, 3, "The world's fastest car. Although not renowned for its stability.", 7),
                     new Car("Bumblebee", 5000, 1300, false, 10, 10, 9, 9, "Legend says this car has a mind of its own", 8)
             );
@@ -69,6 +69,8 @@ public class GameManager {
     public static List<Car> getCars() {
         return carsArray;
     }
+
+    public static List<Race> getRaces() {return raceArray;}
 
 
 }

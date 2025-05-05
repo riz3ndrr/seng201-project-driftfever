@@ -214,6 +214,7 @@
                      </GridPane.margin>
                   </Label>
                   <Button fx:id="debug" mnemonicParsing="false" onMouseClicked="#debug" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onMouseClicked="#end" text="end" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                </children>
             </GridPane>
          </children>

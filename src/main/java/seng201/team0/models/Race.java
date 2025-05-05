@@ -41,6 +41,10 @@ public class Race {
     public String getRaceDesc() {
         return raceDesc;
     }
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
     public float getPrizeMoney() {
         return prizeMoney;

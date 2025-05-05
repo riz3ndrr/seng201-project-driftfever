@@ -102,6 +102,7 @@ public class StartScreenController {
         GridPane newPaneToShow = chooseOptions.get(optionIndex);
 
         newPaneToShow.setVisible(true);
+        // can make this more efficient
         for(GridPane option : chooseOptions) {
             if (option != newPaneToShow) {
                 option.setVisible(false);

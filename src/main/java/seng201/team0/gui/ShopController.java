@@ -192,6 +192,26 @@ public class ShopController {
 
     }
 
+    public void end(MouseEvent event) throws IOException {
+        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
+        // Proceed to the next scene
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/endScreen.fxml"));
+        Parent root = baseLoader.load();
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        EndScreenController baseController = baseLoader.getController();
+        baseController.initialize(stage);
+
+
+
+
+
+
+    }
+
     /**When the "show garage" button is clicked, it will switch to the "garage" scene
      * if the user has selected 3 cars as that is the minimum number of cars a user will need
      * to purchase before proceeding with the rest of the game.

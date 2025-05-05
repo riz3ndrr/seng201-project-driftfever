@@ -1,11 +1,16 @@
 package seng201.team0.gui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +20,7 @@ import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Race;
 
+import javax.swing.event.ChangeEvent;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -86,32 +92,6 @@ public class SelectRaceController {
         raceTimeLimitLabel.setText("Time Limit: " + String.format("%d", selectedRace.getTimeLimit()) + "s");
     }
 
-    public void selectRace(MouseEvent event) {
-        Label clickedRace = (Label) event.getSource();
-        String raceID = clickedRace.getId();
-
-        switch (raceID) {
-            case "race0":
-                selectedRace = GameManager.getRaceAtIndex(0);
-                break;
-            case "race1":
-                selectedRace = GameManager.getRaceAtIndex(1);
-                break;
-            case "race2":
-                selectedRace = GameManager.getRaceAtIndex(2);
-                break;
-            case "race3":
-                selectedRace = GameManager.getRaceAtIndex(3);
-                break;
-            case "race4":
-                selectedRace = GameManager.getRaceAtIndex(4);
-                break;
-        }
-
-        displaySelectedRace();
-        beginRaceLabel.setVisible(true);
-
-    }
 
     public void beginRace() {
         gameDB.setSelectedRace(selectedRace);
@@ -138,7 +118,27 @@ public class SelectRaceController {
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
         System.out.println(selectedCar.getName());
+
+        raceListView.setItems(FXCollections.observableArrayList(GameManager.getRaces()));
+        raceListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Race>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Race> observableValue, Race race, Race t1) {
+                selectedRace = raceListView.getSelectionModel().getSelectedItem();
+                displaySelectedRace();
+                beginRaceLabel.setVisible(true);
+
+            }
+        });
     }
+
+
+
+    @FXML
+    private ListView<Race> raceListView;
+    @FXML
+    private Label bruhLabel;
+
 
 
 

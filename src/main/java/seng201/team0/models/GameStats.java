@@ -36,13 +36,23 @@ public class GameStats {
 
 
 
-    private int raceCount = 3;
+    private int raceCount;
     private String userName;
+    private int racesDone = 0;
+
     private Difficulty raceDifficulty = Difficulty.REGULAR;
     private float bal = raceDifficulty.getStartingBalance();
+    private float prizeMoneyWon = 0;
 
     public Car selectedCar;
     public Race selectedRace;
+
+    public int getRacesDone() {
+        return racesDone;
+    }
+    public float getPrizeMoneyWon() {
+        return prizeMoneyWon;
+    }
 
     public void setSelectedRace(Race selectedRace) {
         this.selectedRace = selectedRace;

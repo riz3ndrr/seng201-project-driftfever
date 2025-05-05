@@ -97,6 +97,50 @@ public class GarageController {
     private HBox carsLayer;
 
 
+    @FXML
+    private ImageView upgr0;
+
+    @FXML
+    private ImageView upgr1;
+    @FXML
+    private ImageView upgr2;
+
+
+    @FXML
+    private Label upgradeSpeedLabel;
+    @FXML
+    private Label upgradeHandlingLabel;
+    @FXML
+    private Label upgradeReliabilityLabel;
+    @FXML
+    private Label upgradeFuelEcoLabel;
+
+    @FXML
+    private Label currentlySelectedLabel;
+
+    @FXML
+    private Label equipUpgrade;
+
+    @FXML
+    private Label unequipUpgrade;
+
+    @FXML
+    private Label switchUpgradesLabel;
+
+    @FXML
+    private Label upgradesHeaderLabel;
+
+    @FXML
+    private Label selectedCarTitle;
+
+
+    @FXML
+    private GridPane upgradesGridPane;
+
+    @FXML
+    private Label resultEquipMessage;
+
+    GarageService garageService = new GarageService();
 
 
 
@@ -129,17 +173,25 @@ public class GarageController {
 
     @FXML
     private ImageView carImg;
+    @FXML
+    private Label selectCarLabel;
+
 
     public void displaySelectedCar(boolean displayImg) {
         
         String selectedItemImgDirectory = "";
         selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
-        gameDB.setSelectedCar(selectedCar);
 
         selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;
         Image newItemImg = new Image(selectedItemImgDirectory);
         carImg.setImage(newItemImg);
 
+        if ((gameDB.getSelectedCar().getName()).equals(selectedCar.getName())) {
+            selectedCarTitle.setVisible(true);
+        }
+        else {
+            selectedCarTitle.setVisible(false);
+        }
 
         displayCarStats(selectedCar);
     }
@@ -148,6 +200,7 @@ public class GarageController {
     public void moveRight(MouseEvent event) {
         // get rid of unnecessary text
         resultEquipMessage.setVisible(false);
+
 
         // hide the current car
         displaySelectedCar(false);
@@ -186,47 +239,6 @@ public class GarageController {
         }
     }
 
-    @FXML
-    private ImageView upgr0;
-
-    @FXML
-    private ImageView upgr1;
-    @FXML
-    private ImageView upgr2;
-
-
-    @FXML
-    private Label upgradeSpeedLabel;
-    @FXML
-    private Label upgradeHandlingLabel;
-    @FXML
-    private Label upgradeReliabilityLabel;
-    @FXML
-    private Label upgradeFuelEcoLabel;
-
-    @FXML
-    private Label currentlySelectedLabel;
-
-    @FXML
-    private Label equipUpgrade;
-
-    @FXML
-    private Label unequipUpgrade;
-
-    @FXML
-    private Label switchUpgradesLabel;
-
-    @FXML
-    private Label upgradesHeaderLabel;
-
-
-    @FXML
-    private GridPane upgradesGridPane;
-
-    @FXML
-    private Label resultEquipMessage;
-
-    GarageService garageService = new GarageService();
 
     public void switchUpgrades(MouseEvent event) {
 
@@ -307,6 +319,11 @@ public class GarageController {
                 displayCarStats(selectedCar);
                 selectedUpgrade = null;
         }
+    }
+
+    public void updateSelectedCar() {
+        gameDB.setSelectedCar(selectedCar);
+        selectedCarTitle.setVisible(true);
     }
 
     public void displaySelectedUpgrade(Upgrade selectedUpgrade) {
@@ -430,7 +447,7 @@ public class GarageController {
     public void switchToShopScene(MouseEvent event) throws IOException {
         // Update the selected car in the GameStats DB for the race
 
-        gameDB.setSelectedCar(selectedCar);
+
 
         FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
         Parent root = baseLoader.load();
