@@ -38,6 +38,10 @@ public class GarageService {
 
     }
 
+    public void updateSelectedCar(Car car) {
+        gameDB.setSelectedCar(car);
+    }
+
     public equipResult equipUpgrade (Upgrade selectedUpgrade, Car selectedCar) {
         if (selectedUpgrade == null) {
             return equipResult.UPGRADE_NOT_SELECTED;

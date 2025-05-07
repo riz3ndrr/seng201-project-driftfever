@@ -62,6 +62,8 @@ public class StartScreenController {
     @FXML
     private GridPane chooseDifficultyGridPane;
     @FXML
+    private GridPane startMenuGridPane;
+    @FXML
     private GridPane chooseCarGridPane;
     @FXML
     private GridPane finalSelectScreenGridPane;
@@ -75,6 +77,9 @@ public class StartScreenController {
 
     @FXML
     private ImageView RArrow;
+
+    @FXML
+    private Label startLabel;
 
     private Stage stage;
     private Scene scene;
@@ -97,8 +102,14 @@ public class StartScreenController {
 
 
     static int optionIndex = 0;
+
+    public void startGame() {
+        optionIndex = 1;
+        showNewOptionSlide();
+    }
+
     public void showNewOptionSlide() {
-        List<GridPane> chooseOptions = Arrays.asList(chooseNameGridPane, chooseDifficultyGridPane,chooseSeasonLengthGridPane);
+        List<GridPane> chooseOptions = Arrays.asList(startMenuGridPane, chooseNameGridPane, chooseDifficultyGridPane,chooseSeasonLengthGridPane);
         GridPane newPaneToShow = chooseOptions.get(optionIndex);
 
         newPaneToShow.setVisible(true);

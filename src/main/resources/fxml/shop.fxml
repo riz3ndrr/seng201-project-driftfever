@@ -171,9 +171,9 @@
                         <Insets left="10.0" top="60.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="viewUpgradesLabel" fx:id="viewUpgradesLabel" alignment="CENTER" onMouseClicked="#viewUpgrades" prefHeight="30.0" prefWidth="318.0" text="View Upgrades" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label id="viewUpgradesLabel" fx:id="viewUpgradesLabel" alignment="CENTER" onMouseClicked="#viewUpgrades" prefHeight="30.0" prefWidth="155.0" text="View Upgrades" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
-                        <Font size="23.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
                   <Label id="viewCarsLabel" fx:id="viewCarsLabel" alignment="CENTER" onMouseClicked="#viewCars" prefHeight="30.0" prefWidth="318.0" text="View Cars" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">

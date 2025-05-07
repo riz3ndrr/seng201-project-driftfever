@@ -223,15 +223,7 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="resultEquipMessage" alignment="CENTER" prefHeight="46.0" prefWidth="248.0" text="Upgrade not selected" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets top="70.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="fuelMeterLabel" prefHeight="31.0" prefWidth="226.0" text="Fuel" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label fx:id="fuelMeterLabel" prefHeight="31.0" prefWidth="190.0" text="Fuel" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -239,13 +231,13 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="31.0" prefWidth="202.0" text="Fill Tank for $3 per %" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
+                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="31.0" prefWidth="154.0" text="Fill Tank for $3 per %" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
                   </Label>
                   <Label id="equipUpgrade" fx:id="selectCarLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#updateSelectedCar" prefHeight="50.0" prefWidth="138.0" text="SELECT CAR" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
@@ -256,6 +248,14 @@
                      </padding>
                      <GridPane.margin>
                         <Insets left="20.0" top="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="resultEquipMessage" alignment="CENTER" prefHeight="46.0" prefWidth="248.0" text="Upgrade not selected" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="10.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="selectedCarTitle" text="Selected car for racing" textFill="#11ac30" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP">

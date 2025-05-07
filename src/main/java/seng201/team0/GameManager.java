@@ -1,13 +1,12 @@
 package seng201.team0;
 
 import seng201.team0.gui.MainWindow;
-import seng201.team0.models.Car;
-import seng201.team0.models.GameStats;
-import seng201.team0.models.Race;
-import seng201.team0.models.Upgrade;
+import seng201.team0.models.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameManager {
     static GameStats gameDB = new GameStats();
@@ -56,8 +55,8 @@ public class GameManager {
 
     private static List<Car> carsArray =
             Arrays.asList( new Car("Purple Car", 1600, 800, true, 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0),
-                    new Car("Lightning McQueen", 1550, 850, true, 4, 4, 5, 5, "Kachow!", 1),
-                    new Car("Lime Wheels", 1500, 850, true, 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 2),
+                    new Car("Lime Wheels", 1500, 850, true, 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 1),
+                    new Car("Lightning McQueen", 1550, 850, true, 4, 4, 5, 5, "Kachow!", 2),
                     new Car("Yellow Car", 1400, 700, true, 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3),
                     new Car("Azure", 1300, 750, true, 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4),
                     new Car("Crosswind", 3600, 1600, false, 8, 9, 9, 7, "High-performance with fast acceleration and responsive handling.", 5),
@@ -65,6 +64,22 @@ public class GameManager {
                     new Car("Icarus' Wings", 4600, 1400, false, 15, 3, 4, 3, "The world's fastest car. Although not renowned for its stability.", 7),
                     new Car("Bumblebee", 5000, 1300, false, 10, 10, 9, 9, "Legend says this car has a mind of its own", 8)
             );
+
+    public static boolean canBeBought(Item item) {
+        return !item.isPurchased() && item.isAvailableToBuy();
+    }
+
+    private static ArrayList<Car> availableCarsArray = new ArrayList<>(carsArray.stream().filter(GameManager::canBeBought).collect(Collectors.toList()));
+
+    private static ArrayList<Upgrade> availableUpgradesArray = new ArrayList<>(upgradeArray.stream().filter(GameManager::canBeBought).collect(Collectors.toList()));
+
+    public static ArrayList<Car> getAvailableCars() {
+        return availableCarsArray;
+    }
+
+    public static ArrayList<Upgrade> getAvailableUpgrades() {
+        return availableUpgradesArray;
+    }
 
     public static List<Car> getCars() {
         return carsArray;

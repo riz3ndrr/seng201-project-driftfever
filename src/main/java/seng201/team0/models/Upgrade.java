@@ -18,6 +18,10 @@ public class Upgrade extends Item {
         numPurchased--;
     }
 
+    public void resetNumPurchased() {
+        numPurchased = 0;
+    }
+
     public int getNumPurchased() {
         return numPurchased;
     }

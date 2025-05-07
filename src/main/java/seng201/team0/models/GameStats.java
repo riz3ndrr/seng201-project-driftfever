@@ -69,6 +69,21 @@ public class GameStats {
     private ArrayList<Car> carCollection = new ArrayList<>();
     private ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
 
+    public void clearCarCollection() {
+        for (Car car : carCollection) {
+            car.setPurchased(false);
+        }
+        carCollection.clear();
+
+    }
+    public void clearUpgradeCollection() {
+        for (Upgrade upgrade : upgradeCollection) {
+            upgrade.setPurchased(false);
+            upgrade.resetNumPurchased();
+        }
+        upgradeCollection.clear();
+    }
+
     public double getAdjustedWinnings(double baseCost) {
         return baseCost * raceDifficulty.getWinningsMultiplier();
     }
@@ -88,6 +103,9 @@ public class GameStats {
         }
         return false;
     }
+
+
+
     public boolean selectedItemInCollection(Car car) {
         for (Car c : carCollection) {
             if (c.getName().equals(car.getName())) {

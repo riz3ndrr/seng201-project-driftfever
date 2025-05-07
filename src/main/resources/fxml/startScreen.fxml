@@ -40,6 +40,41 @@
             <Label fx:id="gameDesc" alignment="CENTER" prefHeight="57.0" prefWidth="473.0" text="Every legend starts with a choice" textFill="WHITE" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
          </children>
       </GridPane>
+      <GridPane fx:id="startMenuGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/css/main.css">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.39996337890625" minWidth="10.0" prefWidth="20.79998779296875" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="310.4000244140625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.39996337890625" minWidth="3.0" prefWidth="24.5999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="164.60001220703126" minHeight="0.0" prefHeight="45.59999618530273" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="310.40001220703124" minHeight="10.0" prefHeight="58.19998168945312" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="297.5999702453613" minHeight="10.0" prefHeight="156.0000030517578" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.19997253417966" minHeight="0.0" prefHeight="141.59999694824222" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView fx:id="RArrow1" fitHeight="119.0" fitWidth="108.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../designs/arrowright.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="whatNameLabel1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready to race?" textAlignment="CENTER" wrappingWidth="273.37628173828125" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Label id="startLabel" fx:id="startLabel" alignment="CENTER" onMouseClicked="#startGame" prefHeight="62.0" prefWidth="176.0" text="Start" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="48.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="90.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
       <GridPane fx:id="chooseNameGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/css/main.css" visible="false">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -116,7 +151,7 @@
             </Slider>
          </children>
       </GridPane>
-      <GridPane fx:id="chooseSeasonLengthGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/css/main.css">
+      <GridPane fx:id="chooseSeasonLengthGridPane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/css/main.css" visible="false">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

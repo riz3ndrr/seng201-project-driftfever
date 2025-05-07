@@ -91,8 +91,8 @@ public class ShopController {
     private List<Upgrade> Upgrades = GameManager.getUpgrades();
 
 
-    private ArrayList<Car> availableCars = new ArrayList<>();
-    private ArrayList<Upgrade> availableUpgrades = new ArrayList<Upgrade>();
+    private ArrayList<Car> availableCars = GameManager.getAvailableCars();
+    private ArrayList<Upgrade> availableUpgrades = GameManager.getAvailableUpgrades();
 
     public Item selectedItem;
 
@@ -383,24 +383,6 @@ public class ShopController {
     }
 
 
-    public void createListOfAvailableCars() {
-        for (Car car : Cars) {
-            if (car.isAvailableToBuy() && !car.isPurchased()) {
-                availableCars.add(car);
-            }
-        }
-    }
-
-    public void createListOfAvailableUpgrades() {
-        for (Upgrade upgrade : Upgrades) {
-            if (upgrade.isAvailableToBuy()) {
-                availableUpgrades.add(upgrade);
-            }
-        }
-    }
-
-
-
 
 
     public void initialize(Stage stage) {
@@ -408,8 +390,7 @@ public class ShopController {
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + gameDB.getRaceCount());
 
-        createListOfAvailableCars();
-        createListOfAvailableUpgrades();
+
         displaySelectedItem();
 
 

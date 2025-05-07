@@ -188,9 +188,11 @@ public class GarageController {
 
         if ((gameDB.getSelectedCar().getName()).equals(selectedCar.getName())) {
             selectedCarTitle.setVisible(true);
+            selectCarLabel.setVisible(false);
         }
         else {
             selectedCarTitle.setVisible(false);
+            selectCarLabel.setVisible(true);
         }
 
         displayCarStats(selectedCar);
@@ -260,6 +262,7 @@ public class GarageController {
             unequipUpgrade.setVisible(true);
         }
         displayAvailableUpgrades();
+
     }
 
     public void unequipUpgrade() {
@@ -322,8 +325,9 @@ public class GarageController {
     }
 
     public void updateSelectedCar() {
-        gameDB.setSelectedCar(selectedCar);
+        garageService.updateSelectedCar(selectedCar);
         selectedCarTitle.setVisible(true);
+        selectCarLabel.setVisible(false);
     }
 
     public void displaySelectedUpgrade(Upgrade selectedUpgrade) {
