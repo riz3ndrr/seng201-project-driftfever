@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.SelectRaceController">
+   <children>
+      <HBox fx:id="carsLayer" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Pane prefHeight="400.0" prefWidth="137.0">
+               <children>
+                  <Label layoutX="18.0" layoutY="171.0" prefHeight="22.0" prefWidth="123.0" text="Select Race">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="shopLabel" layoutX="18.0" layoutY="238.0" onMouseClicked="#switchToShopScene" prefHeight="22.0" prefWidth="123.0" text="View Shop">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="292.0" onMouseClicked="#switchToGarageScene" prefHeight="22.0" prefWidth="123.0" text="View Garage">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="130.0" text="Name">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="balLabel" layoutX="14.0" layoutY="51.0" prefHeight="26.0" prefWidth="130.0" text="Balance: X$">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="racesLeftLabel" layoutX="14.0" layoutY="90.0" prefHeight="26.0" prefWidth="130.0" text="Races left: X">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="-36.20001220703125" endY="386.0" layoutX="177.0" layoutY="14.0" startX="-36.20001220703125" startY="-14.000006675720215" />
+               </children>
+            </Pane>
+            <GridPane prefHeight="386.0" prefWidth="448.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.79998016357422" minWidth="10.0" prefWidth="17.200010299682617" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.79996337890628" minWidth="10.0" prefWidth="179.19996337890626" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0000366210937" minWidth="6.79998779296875" prefWidth="252.00003662109376" />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="111.19999160766602" minHeight="10.0" prefHeight="53.60000839233399" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="216.799991607666" minHeight="10.0" prefHeight="193.59998779296873" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="144.60001220703128" minHeight="10.0" prefHeight="57.60001220703123" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="154.39998779296877" minHeight="10.0" prefHeight="93.60000000000002" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="carSpeedLabel" prefHeight="26.0" prefWidth="104.0" text="Speed: " wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView fx:id="car1Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="selectedCarImg" fitHeight="81.0" fitWidth="146.0" layoutX="187.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car2.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fx:id="car3Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="car4Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="car5Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car5.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="car6Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car6.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="car7Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car7.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="car8Img" fitHeight="81.0" fitWidth="146.0" opacity="1.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car8.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="car9Img" fitHeight="81.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../designs/car-icon/car9.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="carNameLabel1" text="Car Stats:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="carHandlingLabel" prefHeight="26.0" prefWidth="104.0" text="Handling: " wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="25.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="carReliabilityLabel" prefHeight="26.0" prefWidth="104.0" text="Reliability: " wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="carFuelEcoLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Economy: " wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="75.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="garageTitle" prefHeight="46.0" prefWidth="306.0" text="Select Race:" GridPane.columnSpan="3" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="37.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="carNameLabel" text="Car Name" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fuelMeterLabel" prefHeight="31.0" prefWidth="157.0" text="Fuel" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <GridPane prefHeight="202.0" prefWidth="234.0" GridPane.columnIndex="2" GridPane.rowSpan="2">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="115.20000762939452" minHeight="10.0" prefHeight="52.59998779296874" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="93.59998168945313" minHeight="9.200013732910165" prefHeight="31.20001831054688" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="88.0000015258789" minHeight="10.0" prefHeight="28.40003204345703" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="130.59998168945313" minHeight="10.0" prefHeight="32.799987792968764" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="105.60001831054689" minHeight="10.0" prefHeight="80.00001220703126" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="raceDescLabel" alignment="TOP_CENTER" prefHeight="111.0" prefWidth="226.0" wrapText="true" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="raceNameLabel" prefHeight="46.0" prefWidth="306.0" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="racePrizeLabel" prefHeight="48.0" prefWidth="236.0" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="raceDistanceLabel" prefHeight="34.0" prefWidth="205.0" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="raceTimeLimitLabel" prefHeight="34.0" prefWidth="205.0" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="beginRaceLabel" onMouseClicked="#beginRace" prefHeight="45.0" prefWidth="179.0" text="LET'S RACE!" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </GridPane>
+                  <ListView fx:id="raceListView" prefHeight="194.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
+                  </ListView>
+                  <Line endX="994.71484375" endY="420.3716125488281" startX="547.4219360351562" startY="419.47869873046875" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+   </children>
+</StackPane>
