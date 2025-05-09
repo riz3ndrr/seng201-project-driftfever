@@ -51,6 +51,11 @@ public class GarageService {
         }
         else {
             selectedUpgrade.decrementNumPurchased();
+
+            if (selectedUpgrade.getNumPurchased() == 0) {
+                gameDB.removeItem(selectedUpgrade);
+            }
+
             selectedCar.addEquippedUpgrade(selectedUpgrade);
             selectedCar.changeSpeed(selectedUpgrade.getSpeed());
             selectedCar.changeHandling(selectedUpgrade.getHandling());

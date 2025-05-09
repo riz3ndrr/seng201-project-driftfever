@@ -310,8 +310,6 @@ public class GarageController {
                 resultEquipMessage.setText("Equipped " + selectedUpgrade.getName() + " successfully!");
                 resultEquipMessage.setVisible(true);
                 if (selectedUpgrade.getNumPurchased() == 0) {
-
-                    gameDB.removeItem(selectedUpgrade);
                     displayAvailableUpgrades();
                     upgradeSpeedLabel.setText("");
                     upgradeHandlingLabel.setText("");

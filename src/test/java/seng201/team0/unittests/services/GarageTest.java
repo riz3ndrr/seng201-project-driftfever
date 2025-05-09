@@ -69,7 +69,7 @@ public class GarageTest {
     }
 
     @Test
-    void fillTank() {
+    void fillTankWhenHaveSufficientMoney() {
         gameDB.setBal(200);
         selectedCar = gameDB.getSelectedCar();
         selectedCar.setFuel(40);
@@ -80,7 +80,17 @@ public class GarageTest {
     }
 
     @Test
-    void equipUpgrade() {
+    void fillTankWhenYouDontHaveEnoughMoneyToFullyFill() {
+        gameDB.setBal(60);
+        selectedCar = gameDB.getSelectedCar();
+        selectedCar.setFuel(40);
+        garageService.fillTank(selectedCar);
+        assertEquals(selectedCar.getFuel(), 60);
+        assertEquals(gameDB.getBal(), 0);
+    }
+
+    @Test
+    void equipUpgradeWhenPurchasedMultipleOfSameUpgrade() {
         // Selecting rocket fuel
         selectedCar = gameDB.getSelectedCar();
         Upgrade selectedUpgrade = gameManager.getUpgradeAtIndex(0);
@@ -88,6 +98,22 @@ public class GarageTest {
         assertEquals(result, GarageService.equipResult.SUCCESS);
         assertTrue(selectedCar.getEquippedUpgrades().contains(selectedUpgrade));
         assertEquals(selectedUpgrade.getNumPurchased(), 1);
+        assertTrue(gameManager.getAvailableUpgrades().contains(selectedUpgrade));
+    }
+
+    @Test
+    void equipUpgradeWhenOnlyOwnOneInstanceOfAnUpgrade() {
+        selectedCar = gameDB.getSelectedCar();
+        Upgrade selectedUpgrade = gameManager.getUpgradeAtIndex(1);
+        GarageService.equipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
+
+
+        assertEquals(result, GarageService.equipResult.SUCCESS);
+        assertEquals(selectedUpgrade.getNumPurchased(), 0);
+
+        assertTrue(selectedCar.getEquippedUpgrades().contains(selectedUpgrade));
+        assertFalse(gameDB.getUpgradeCollection().contains(selectedUpgrade));
+
     }
 
     @Test
