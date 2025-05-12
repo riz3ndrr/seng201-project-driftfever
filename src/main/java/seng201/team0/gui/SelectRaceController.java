@@ -82,7 +82,7 @@ public class SelectRaceController {
 //    private Label race4;
 //    List<Label> listOfRaceLabels = Arrays.asList(race0, race1, race2, race3, race4);
 
-    Race selectedRace;
+    private Race selectedRace;
 
     public void displaySelectedRace() {
         raceNameLabel.setText(selectedRace.getName());

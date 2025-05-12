@@ -94,7 +94,7 @@ public class ShopController {
     private ArrayList<Car> availableCars = GameManager.getAvailableCars();
     private ArrayList<Upgrade> availableUpgrades = GameManager.getAvailableUpgrades();
 
-    public Item selectedItem;
+    private Item selectedItem;
 
     // determines which section of the shop to display
     private String showCarOrUpgrade = "Car";

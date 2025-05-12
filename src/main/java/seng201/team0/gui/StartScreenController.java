@@ -122,7 +122,7 @@ public class StartScreenController {
 
     }
 
-    public void moveRight(MouseEvent mouseEvent) {
+    public void moveRight() {
         if (!finishStartScreenBtn.isDisabled()) {
             System.out.println("MOVING RIGHT");
             optionIndex++;
@@ -131,7 +131,7 @@ public class StartScreenController {
 
     }
 
-    public void moveLeft(MouseEvent mouseEvent) {
+    public void moveLeft() {
         System.out.println("MOVING LEFT");
         optionIndex--;
         showNewOptionSlide();
