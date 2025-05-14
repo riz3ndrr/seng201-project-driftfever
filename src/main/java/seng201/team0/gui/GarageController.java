@@ -85,6 +85,9 @@ public class GarageController {
     private Label fuelConsumptionLabel;
 
     @FXML
+    private Label fuelTankCapacityLabel;
+
+    @FXML
     private Label fuelMeterLabel;
 
     @FXML
@@ -106,16 +109,6 @@ public class GarageController {
     private ImageView upgr2;
     @FXML
     private ImageView upgr3;
-
-
-    @FXML
-    private Label upgradeSpeedLabel;
-    @FXML
-    private Label upgradeHandlingLabel;
-    @FXML
-    private Label upgradeReliabilityLabel;
-    @FXML
-    private Label upgradeFuelEcoLabel;
 
     @FXML
     private Label currentlySelectedLabel;
@@ -168,7 +161,7 @@ public class GarageController {
         handlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
         reliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
         fuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
-        //TODO add a label "Tank Capcacity: " for car.calculateFuelTankCapacity() (same as in ShopController)
+        fuelTankCapacityLabel.setText(String.format("Fuel tank: %.0f L", car.calculateFuelTankCapacity()));
     }
 
     public void fillTank() {
@@ -317,17 +310,8 @@ public class GarageController {
         else {
             resultEquipMessage.setText(String.format("Selecting %s, quantity: x%d", selectedUpgrade.getName(), selectedUpgrade.getNumPurchased()));
         }
-
         resultEquipMessage.setStyle("-fx-text-fill: grey");
         resultEquipMessage.setVisible(true);
-
-        //TODO set to blank because the car stats now have the cumulative effect of upgrades,
-        // remove these labels from the ui later as they're no longer needed
-        upgradeSpeedLabel.setText("");
-        upgradeHandlingLabel.setText("");
-        upgradeReliabilityLabel.setText("");
-        upgradeFuelEcoLabel.setText("");
-        //currentlySelectedLabel.setText(selectedUpgrade.getName());
     }
 
     private Upgrade selectedUpgrade;

@@ -52,6 +52,8 @@ public class ShopController {
     private Label itemReliabilityLabel;
     @FXML
     private Label itemFuelEcoLabel;
+    @FXML
+    private Label itemFuelTankCapacityLabel;
 
     @FXML
     private Label buyItem;
@@ -320,18 +322,19 @@ public class ShopController {
         buyItem.setText(String.format("Buy Item for $%.2f", selectedItem.getBuyingPrice()));
         sellItem.setText(String.format("Sell Item for $%.2f", selectedItem.getSellingPrice()));
         if (isCar) {
-            //TODO add a label "Tank Capcacity: " for car.calculateFuelTankCapacity() (same as in GarageController)
             Car car = (Car) selectedItem;
             itemSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
             itemHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
             itemReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
             itemFuelEcoLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
+            itemFuelTankCapacityLabel.setText(String.format("Fuel tank: %.0f L", car.calculateFuelTankCapacity()));
         } else {
             Upgrade upgrade = (Upgrade) selectedItem;
             itemSpeedLabel.setText("Speed: " + upgrade.displayForMultiplier(upgrade.getSpeedMultiplier()));
             itemHandlingLabel.setText("Handling: " + upgrade.displayForMultiplier(upgrade.getHandlingMultiplier()));
             itemReliabilityLabel.setText("Reliability: " + upgrade.displayForMultiplier(upgrade.getReliabilityMultiplier()));
             itemFuelEcoLabel.setText("Fuel efficiency: " + upgrade.displayForMultiplier(upgrade.getFuelConsumptionMultiplier()));
+            itemFuelTankCapacityLabel.setText("Fuel tank: " + upgrade.displayForMultiplier(upgrade.getFuelTankCapacityMultiplier()));
         }
     }
 

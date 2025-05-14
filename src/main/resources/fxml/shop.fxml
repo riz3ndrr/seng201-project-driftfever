@@ -131,6 +131,11 @@
                         <Insets left="10.0" top="75.0" />
                      </GridPane.margin>
                   </Label>
+                  <Label fx:id="itemFuelTankCapacityLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Tank Capacity: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="100.0" />
+                     </GridPane.margin>
+                  </Label>
                   <Label fx:id="shopTitle" text="Shop:" GridPane.columnSpan="3" GridPane.valignment="TOP">
                      <font>
                         <Font size="37.0" />
