@@ -3,68 +3,76 @@ package seng201.team0.models;
 import java.util.ArrayList;
 
 public class Race {
-    // distance in km
-    private float distance;
-    // curviness ranges from 1 to 5
-    private int curviness;
-    private int num_gas_stops;
-    private ArrayList<Integer> gas_stop_distances;
-    private String raceDesc;
-    private float prizeMoney;
-    private int timeLimit;
+    // Properties
     private String name;
+    private String desc;
+    private float distanceKilometers;
+    private double curvinessScaleFactor; // 0 = straight, 1 = max curves
+    private int numGasStops;
+    private ArrayList<Integer> gasStopDistances;
+    private float prizeMoney;
+    private int timeLimitHours;
+    private ArrayList<RaceParticipant> participants;
 
-    public Race(float distance, int curviness, int num_gas_stops, String raceDesc, float prizeMoney, int timeLimit, String name) {
-        this.distance = distance;
-        this.curviness = curviness;
-        this.num_gas_stops = num_gas_stops;
-        this.raceDesc = raceDesc;
-        this.prizeMoney = prizeMoney;
-        this.timeLimit = timeLimit;
+
+    // Constructor
+    public Race(String name, String desc, float distance, double curviness, int numGasStops, float prizeMoney, int timeLimit) {
         this.name = name;
-        gas_stop_distances = initialise_gas_stops();
-
+        this.desc = desc;
+        this.distanceKilometers = distance;
+        this.curvinessScaleFactor = curviness;
+        this.numGasStops = numGasStops;
+        this.gasStopDistances = setNumGasStops(numGasStops);
+        this.prizeMoney = prizeMoney;
+        this.timeLimitHours = timeLimit;
+        this.participants = new ArrayList<>();
     }
 
-    public float getDistance() {
-        return distance;
-    }
 
-    public int getCurviness() {
-        return curviness;
+    // Getters and setters
+    public float getDistanceKilometers() {
+        return distanceKilometers;
     }
-
+    public double getCurviness() {
+        return curvinessScaleFactor;
+    }
     public int getNumGasStops() {
-        return num_gas_stops;
+        return numGasStops;
     }
-
-    public String getRaceDesc() {
-        return raceDesc;
-    }
+    public String getDesc() { return desc; }
     @Override
     public String toString() {
         return this.name;
     }
-
     public float getPrizeMoney() {
         return prizeMoney;
     }
-
-    public int getTimeLimit() {
-        return timeLimit;
+    public int getTimeLimitHours() {
+        return timeLimitHours;
     }
-
     public String getName() {
         return name;
     }
+    public ArrayList<RaceParticipant> getParticipants() { return participants; }
 
-    public ArrayList<Integer> initialise_gas_stops() {
+
+    // Logic
+    public ArrayList<Integer> setNumGasStops(int numStops) {
+        //TODO randomise spacing of gas stops
+        numGasStops = numStops;
         ArrayList<Integer> result = new ArrayList<>();
-        int distance_between_stops = (int) (distance / (num_gas_stops + 1));
-        for (int i = 0; i < num_gas_stops; i++) {
+        int distance_between_stops = (int) (distanceKilometers / (numGasStops + 1));
+        for (int i = 0; i < numGasStops; i++) {
             result.add(distance_between_stops * (i + 1));
         }
-
         return result;
+    }
+
+    public void addParticipant(RaceParticipant participant) {
+        participants.add(participant);
+    }
+
+    public void clearParticipants() {
+        participants.clear();
     }
 }

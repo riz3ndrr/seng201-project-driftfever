@@ -115,7 +115,7 @@
                         <Insets left="10.0" top="50.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="fuelEcoLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Economy: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                  <Label fx:id="fuelConsumptionLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Economy: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" top="75.0" />
                      </GridPane.margin>
@@ -161,6 +161,11 @@
                         <ImageView fx:id="upgr1" fitHeight="80.0" fitWidth="89.0" onMouseClicked="#selectUpgrade" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="CENTER">
                            <image>
                               <Image url="@../designs/upgrade-icons/upgrade2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="upgr3" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#selectUpgrade" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.halignment="CENTER">
+                           <image>
+                              <Image url="@../designs/upgrade-icons/upgrade4.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -231,7 +236,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="31.0" prefWidth="154.0" text="Fill Tank for $3 per %" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="31.0" prefWidth="154.0" text="[Fill cost placeholder]" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>

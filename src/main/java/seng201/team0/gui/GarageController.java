@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-
-
 public class GarageController {
-
     @FXML
     private Label nameLabel;
     @FXML
@@ -85,10 +82,14 @@ public class GarageController {
     private Label reliabilityLabel;
 
     @FXML
-    private Label fuelEcoLabel;
+    private Label fuelConsumptionLabel;
 
     @FXML
     private Label fuelMeterLabel;
+
+    @FXML
+    private Label fillTankLabel;
+
 
     @FXML
     private Pane upgradesLayer;
@@ -99,11 +100,12 @@ public class GarageController {
 
     @FXML
     private ImageView upgr0;
-
     @FXML
     private ImageView upgr1;
     @FXML
     private ImageView upgr2;
+    @FXML
+    private ImageView upgr3;
 
 
     @FXML
@@ -143,39 +145,42 @@ public class GarageController {
     GarageService garageService = new GarageService();
 
 
-
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
         displaySelectedCar(true);
         displayAvailableUpgrades();
-
     }
 
     private int selectedCarIndex = 0;
     private Car selectedCar;
 
     public void displayCarStats(Car car) {
+        String buttonCaption = String.format("Fill tank for $%.2f", garageService.payableCostToFillTank(selectedCar));
+        double fuelPercentage = car.calculateFuelPercentage();
+        if (fuelPercentage >= 100.0) { buttonCaption = "Tank full"; }
+
         carNameLabel.setText(car.getName());
-        speedLabel.setText(String.format("Speed: %d", car.getSpeed()));
-        handlingLabel.setText(String.format("Handling: %d", car.getHandling()));
-        reliabilityLabel.setText(String.format("Reliability: %d", car.getReliability()));
-        fuelEcoLabel.setText(String.format("Fuel Economy: %d", car.getFuelEconomy()));
-        fuelMeterLabel.setText("Fuel Tank: " + String.format("%.2f", car.getFuel()) + "%");
+        fuelMeterLabel.setText(String.format("Fuel level: %.0f%%", fuelPercentage));
+        fillTankLabel.setText(buttonCaption);
+        speedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
+        handlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
+        reliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
+        fuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
+        //TODO add a label "Tank Capcacity: " for car.calculateFuelTankCapacity() (same as in ShopController)
     }
 
     public void fillTank() {
         garageService.fillTank(selectedCar);
-        fuelMeterLabel.setText("Fuel Tank: " + String.format("%.2f", selectedCar.getFuel()) + "%");
-        balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+        balLabel.setText(String.format("Balance: $%.2f", gameDB.getBal()));
+        displayCarStats(selectedCar);
     }
 
     @FXML
     private ImageView carImg;
     @FXML
     private Label selectCarLabel;
-
 
     public void displaySelectedCar(boolean displayImg) {
         
@@ -194,10 +199,8 @@ public class GarageController {
             selectedCarTitle.setVisible(false);
             selectCarLabel.setVisible(true);
         }
-
         displayCarStats(selectedCar);
     }
-
 
     public void moveRight(MouseEvent event) {
         // get rid of unnecessary text
@@ -241,10 +244,7 @@ public class GarageController {
         }
     }
 
-
     public void switchUpgrades(MouseEvent event) {
-
-
         if (showEquippedItems) {
             // going to show available items
             showEquippedItems = false;
@@ -262,11 +262,10 @@ public class GarageController {
             unequipUpgrade.setVisible(true);
         }
         displayAvailableUpgrades();
-
     }
 
     public void unequipUpgrade() {
-        GarageService.unequipResult result = garageService.unequipUpgrade(selectedUpgrade, selectedCar);
+        GarageService.UnequipResult result = garageService.unequipUpgrade(selectedUpgrade, selectedCar);
 
         switch (result) {
             case SUCCESS:
@@ -282,15 +281,10 @@ public class GarageController {
                 resultEquipMessage.setVisible(true);
                 break;
         }
-
-
-
     }
 
-
-
     public void equipUpgrade() {
-        GarageService.equipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
+        GarageService.EquipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
 
         switch (result) {
             case UPGRADE_NOT_SELECTED:
@@ -309,14 +303,6 @@ public class GarageController {
                 resultEquipMessage.setStyle("-fx-text-fill: green");
                 resultEquipMessage.setText("Equipped " + selectedUpgrade.getName() + " successfully!");
                 resultEquipMessage.setVisible(true);
-                if (selectedUpgrade.getNumPurchased() == 0) {
-                    displayAvailableUpgrades();
-                    upgradeSpeedLabel.setText("");
-                    upgradeHandlingLabel.setText("");
-                    upgradeReliabilityLabel.setText("");
-                    upgradeFuelEcoLabel.setText("");
-
-                }
                 displayCarStats(selectedCar);
                 selectedUpgrade = null;
         }
@@ -339,13 +325,13 @@ public class GarageController {
         resultEquipMessage.setStyle("-fx-text-fill: grey");
         resultEquipMessage.setVisible(true);
 
-        upgradeSpeedLabel.setText(String.format("(%d)", selectedUpgrade.getSpeed()));
-        upgradeHandlingLabel.setText(String.format("(%d)", selectedUpgrade.getHandling()));
-        upgradeReliabilityLabel.setText(String.format("(%d)", selectedUpgrade.getReliability()));
-        upgradeFuelEcoLabel.setText(String.format("(%d)", selectedUpgrade.getFuelEconomy()));
+        //TODO set to blank because the car stats now have the cumulative effect of upgrades,
+        // remove these labels from the ui later as they're no longer needed
+        upgradeSpeedLabel.setText("");
+        upgradeHandlingLabel.setText("");
+        upgradeReliabilityLabel.setText("");
+        upgradeFuelEcoLabel.setText("");
         //currentlySelectedLabel.setText(selectedUpgrade.getName());
-
-
     }
 
     private Upgrade selectedUpgrade;
@@ -358,31 +344,28 @@ public class GarageController {
 
         switch (upgradeID) {
             case "upgr0":
-                selectedUpgrade = GameManager.getUpgradeAtIndex(0);
+                selectedUpgrade = GameManager.getUpgradeWithID(0);
                 break;
 
             case "upgr1":
-                selectedUpgrade = GameManager.getUpgradeAtIndex(1);
+                selectedUpgrade = GameManager.getUpgradeWithID(1);
                 break;
 
             case "upgr2":
-                selectedUpgrade = GameManager.getUpgradeAtIndex(2);
+                selectedUpgrade = GameManager.getUpgradeWithID(2);
+                break;
+
+            case "upgr3":
+                selectedUpgrade = GameManager.getUpgradeWithID(3);
                 break;
 
             default:
                 System.out.println("Not selected upgrade");
         }
         displaySelectedUpgrade(selectedUpgrade);
-
-
-
-
-
     }
 
     private boolean showEquippedItems = false;
-
-
 
     public void displayAvailableUpgrades() {
         List<Upgrade> availableUpgrades;
@@ -400,7 +383,7 @@ public class GarageController {
         }
 
 
-        List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2);
+        List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2, upgr3);
 
         // maybe optimise this later, used when upgrade is no longer available
         for (ImageView image : upgradeImageList) {
@@ -423,8 +406,6 @@ public class GarageController {
             upgradesGridPane.setRowIndex(currUpgradeImage, rowIndex);
             currUpgradeImage.setVisible(true);
             colIndex++;
-
-
         }
     }
 
@@ -441,16 +422,10 @@ public class GarageController {
         stage.show();
         SelectRaceController baseController = baseLoader.getController();
         baseController.initialize(stage);
-
-
-
     }
 
     public void switchToShopScene(MouseEvent event) throws IOException {
         // Update the selected car in the GameStats DB for the race
-
-
-
         FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
         Parent root = baseLoader.load();
 
@@ -460,10 +435,5 @@ public class GarageController {
         stage.show();
         ShopController baseController = baseLoader.getController();
         baseController.initialize(stage);
-
-
-
     }
-
-
 }

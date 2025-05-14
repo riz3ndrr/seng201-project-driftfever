@@ -1,18 +1,15 @@
 package seng201.team0.unittests.services;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng201.team0.GameManager;
-import seng201.team0.gui.GarageController;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
-import seng201.team0.models.Item;
+import seng201.team0.models.Purchasable;
 import seng201.team0.models.Upgrade;
 import seng201.team0.services.GarageService;
 import seng201.team0.services.ShopService;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +23,7 @@ public class GarageTest {
     GarageService garageService = new GarageService();
     GameManager gameManager = new GameManager();
     Car selectedCar;
-    Item selectedItem;
+    Purchasable selectedItem;
     //  select car test
 
     @BeforeEach
@@ -42,15 +39,15 @@ public class GarageTest {
 
         gameDB.setBal(10000);
 
-        shopService.buyItem(Cars.get(0), "Car");
-        shopService.buyItem(Cars.get(1), "Car");
-        shopService.buyItem(Cars.get(2), "Car");
+        shopService.buyItem(Cars.get(0));
+        shopService.buyItem(Cars.get(1));
+        shopService.buyItem(Cars.get(2));
 
         //selectedItem = Upgrades.get(0);
 
-        shopService.buyItem(Upgrades.get(0), "Upgrade");
-        shopService.buyItem(Upgrades.get(0), "Upgrade");
-        shopService.buyItem(Upgrades.get(1), "Upgrade");
+        shopService.buyItem(Upgrades.get(0));
+        shopService.buyItem(Upgrades.get(0));
+        shopService.buyItem(Upgrades.get(1));
 
         System.out.println();
         gameDB.printUpgrades();
@@ -72,10 +69,10 @@ public class GarageTest {
     void fillTankWhenHaveSufficientMoney() {
         gameDB.setBal(200);
         selectedCar = gameDB.getSelectedCar();
-        selectedCar.setFuel(40);
+        selectedCar.setFuelInTank(40.0);
         garageService.fillTank(selectedCar);
 
-        assertEquals(selectedCar.getFuel(), 100);
+        assertEquals(selectedCar.calculateFuelPercentage(), 100);
         assertEquals(gameDB.getBal(), 20);
     }
 
@@ -83,9 +80,9 @@ public class GarageTest {
     void fillTankWhenYouDontHaveEnoughMoneyToFullyFill() {
         gameDB.setBal(60);
         selectedCar = gameDB.getSelectedCar();
-        selectedCar.setFuel(40);
+        selectedCar.setFuelInTank(40);
         garageService.fillTank(selectedCar);
-        assertEquals(selectedCar.getFuel(), 60);
+        assertEquals(selectedCar.calculateFuelPercentage(), 60);
         assertEquals(gameDB.getBal(), 0);
     }
 
@@ -94,8 +91,8 @@ public class GarageTest {
         // Selecting rocket fuel
         selectedCar = gameDB.getSelectedCar();
         Upgrade selectedUpgrade = gameManager.getUpgradeAtIndex(0);
-        GarageService.equipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
-        assertEquals(result, GarageService.equipResult.SUCCESS);
+        GarageService.EquipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
+        assertEquals(result, GarageService.EquipResult.SUCCESS);
         assertTrue(selectedCar.getEquippedUpgrades().contains(selectedUpgrade));
         assertEquals(selectedUpgrade.getNumPurchased(), 1);
         assertTrue(gameManager.getAvailableUpgrades().contains(selectedUpgrade));
@@ -105,10 +102,10 @@ public class GarageTest {
     void equipUpgradeWhenOnlyOwnOneInstanceOfAnUpgrade() {
         selectedCar = gameDB.getSelectedCar();
         Upgrade selectedUpgrade = gameManager.getUpgradeAtIndex(1);
-        GarageService.equipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
+        GarageService.EquipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
 
 
-        assertEquals(result, GarageService.equipResult.SUCCESS);
+        assertEquals(result, GarageService.EquipResult.SUCCESS);
         assertEquals(selectedUpgrade.getNumPurchased(), 0);
 
         assertTrue(selectedCar.getEquippedUpgrades().contains(selectedUpgrade));
@@ -120,8 +117,8 @@ public class GarageTest {
     void equipUpgradeWhenNoUpgradeSelected() {
         selectedCar = gameDB.getSelectedCar();
         Upgrade selectedUpgrade = null;
-        GarageService.equipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
-        assertEquals(result, GarageService.equipResult.UPGRADE_NOT_SELECTED);
+        GarageService.EquipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
+        assertEquals(result, GarageService.EquipResult.UPGRADE_NOT_SELECTED);
 
     }
 
@@ -130,15 +127,15 @@ public class GarageTest {
         // equipping rocket fuel
         selectedCar = gameDB.getSelectedCar();
         Upgrade selectedUpgrade = gameManager.getUpgradeAtIndex(0);
-        GarageService.equipResult equipResult = garageService.equipUpgrade(selectedUpgrade, selectedCar);
-        assertEquals(equipResult, GarageService.equipResult.SUCCESS);
+        GarageService.EquipResult equipResult = garageService.equipUpgrade(selectedUpgrade, selectedCar);
+        assertEquals(equipResult, GarageService.EquipResult.SUCCESS);
         assertTrue(selectedCar.getEquippedUpgrades().contains(selectedUpgrade));
         assertEquals(selectedUpgrade.getNumPurchased(), 1);
 
         // unequipping it
 
-        GarageService.unequipResult unequipResult = garageService.unequipUpgrade(selectedUpgrade, selectedCar);
-        assertEquals(unequipResult, GarageService.unequipResult.SUCCESS);
+        GarageService.UnequipResult unequipResult = garageService.unequipUpgrade(selectedUpgrade, selectedCar);
+        assertEquals(unequipResult, GarageService.UnequipResult.SUCCESS);
         assertFalse(selectedCar.getEquippedUpgrades().contains(selectedUpgrade));
         assertEquals(selectedUpgrade.getNumPurchased(), 2);
 

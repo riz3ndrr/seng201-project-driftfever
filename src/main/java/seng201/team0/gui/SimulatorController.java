@@ -1,0 +1,134 @@
+package seng201.team0.gui;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import seng201.team0.GameManager;
+import seng201.team0.models.Car;
+import seng201.team0.models.GameStats;
+import seng201.team0.models.Race;
+import seng201.team0.models.RaceParticipant;
+import seng201.team0.services.SimulatorService;
+
+public class SimulatorController {
+
+    @FXML
+    private Label raceNameLabel;
+    @FXML
+    private Label raceDistanceLabel;
+    @FXML
+    private Label raceTimeLimitLabel;
+    @FXML
+    private Label racePrizePoolLabel;
+    @FXML
+    private Label carNameLabel;
+    @FXML
+    private Label carEntryNumberLabel;
+    @FXML
+    private Label carSpeedLabel;
+    @FXML
+    private Label carFuelCurrentLabel;
+    @FXML
+    private Label carFuelConsumptionLabel;
+    @FXML
+    private Label carHandlingLabel;
+    @FXML
+    private Label carReliabilityLabel;
+    @FXML
+    private Label carUpgradesLabel;
+    @FXML
+    private VBox raceAreaVBox;
+    @FXML
+    private TextArea commentaryTextArea;
+
+
+    // Properties
+    GameStats gameDB = GameManager.getGameStats();
+    Race race = gameDB.getSelectedRace();
+    RaceParticipant player = new RaceParticipant(gameDB.getSelectedCar(), 1);
+    SimulatorService simulatorService = new SimulatorService();
+
+
+
+    // Logic
+    public void initialize(Stage stage) {
+        player.setDistanceTraveledKilometers(40);
+        simulatorService.prepareRace(race, player);
+        createRaceArea();
+        raceNameLabel.setText("Name: " + race.getName());
+        raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + "km");
+        raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours());
+        racePrizePoolLabel.setText("Prize Pool: " + race.getPrizeMoney());
+        displayParticipantStats(player);
+        positionCars();
+    }
+
+    private void createRaceArea() {
+        for (RaceParticipant participant : race.getParticipants()) {
+            Pane raceLine = createRaceLineUI(participant.getCar());
+            raceAreaVBox.getChildren().add(raceLine);
+        }
+    }
+
+    private Pane createRaceLineUI(Car car) {
+        int height = 40;
+        Pane pane = new Pane();
+        pane.setPrefHeight(height);
+        pane.setMinHeight(Region.USE_COMPUTED_SIZE);
+        pane.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        pane.setStyle("-fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1 0;");
+
+        // Load the image
+        String carIcon = "car" + (car.getItemID() + 1) + ".png";
+        String iconFolder = "file:src/main/resources/designs/car-icon/";
+        Image image = new Image(iconFolder + carIcon); // Adjust path if needed
+
+        // Create the ImageView
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(height / 2);
+        imageView.setFitWidth(height);
+        imageView.setPreserveRatio(true);
+        imageView.setPickOnBounds(true);
+        imageView.setY(height / 4);
+
+        // Add the image to the pane
+        pane.getChildren().add(imageView);
+        return pane;
+    }
+
+    private void displayParticipantStats(RaceParticipant participant) {
+        Car car = participant.getCar();
+        carNameLabel.setText("Name: " + car.getName());
+        carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
+        carSpeedLabel.setText(String.format("Top Speed: %.0f km/h", car.calculateSpeed()));
+        carFuelCurrentLabel.setText(String.format("Fuel: %.0f%% of %.0fL tank", car.calculateFuelPercentage(), car.calculateFuelTankCapacity()));
+        carFuelConsumptionLabel.setText("Fuel Consumption: " + car.calculateFuelConsumption());
+        carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
+        carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
+        carUpgradesLabel.setText("Upgrades: " + car.upgradesToString());
+    }
+
+    private void positionCars() {
+        double paneWidth = raceAreaVBox.getWidth();
+        double carWidth = 40;
+        double areaWidth = paneWidth - carWidth;
+        double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
+        for (int i = 0; i < race.getParticipants().size(); i++) {
+            RaceParticipant participant = race.getParticipants().get(i);
+            Pane raceLinePane = (Pane) raceAreaVBox.getChildren().get(i);
+            ImageView carImageView = (ImageView) raceLinePane.getChildren().getFirst();
+            double pixelPositionX = participant.getDistanceTraveledKilometers() * pixelsPerKilometre;
+            carImageView.setX(pixelPositionX);
+        }
+    }
+
+    private void addCommentary(RaceParticipant participant, String commentary) {
+          commentaryTextArea.appendText(String.format("%s\n") );
+    }
+}

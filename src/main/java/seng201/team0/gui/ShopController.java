@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
-import seng201.team0.models.Item;
+import seng201.team0.models.Purchasable;
 import seng201.team0.models.Upgrade;
 import seng201.team0.services.ShopService;
 
@@ -82,43 +82,36 @@ public class ShopController {
     @FXML
     private Label currentlyOwnLabel;
 
-
-
     @FXML
     private HBox carLayer;
 
-    private List<Car> Cars = GameManager.getCars();
-    private List<Upgrade> Upgrades = GameManager.getUpgrades();
 
-
-    private ArrayList<Car> availableCars = GameManager.getAvailableCars();
-    private ArrayList<Upgrade> availableUpgrades = GameManager.getAvailableUpgrades();
-
-    public Item selectedItem;
-
-    // determines which section of the shop to display
-    private String showCarOrUpgrade = "Car";
-
-    // Player/Game Database
+    // Properties
     GameStats gameDB = GameManager.getGameStats();
-
     ShopService shopService = new ShopService();
+    private ArrayList<Car> availableCars = GameManager.getCars();
+    private ArrayList<Upgrade> availableUpgrades = GameManager.getUpgrades();
+    private String showCarOrUpgrade = "Car"; // determines which section of the shop to display
+    private int selectedItemIndex = 0;
+    private Purchasable selectedItem = availableCars.get(selectedItemIndex);
 
 
+    // Logic
     /**
      * Buy a selected item and updates the GUI depending on if the
      * item is successfully purchased or not.
      */
     public void buyItem() {
-        // revise this import
-        ShopService.purchaseResult result = shopService.buyItem(selectedItem, showCarOrUpgrade);
+        boolean isCar = selectedItem instanceof Car;
+        ShopService.purchaseResult result = shopService.buyItem(selectedItem);
 
         switch (result) {
             case SUCCESS:
                 balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
                 shopSubtitle.setText("Purchased " + selectedItem.getName() + " Successfully!");
-                if (showCarOrUpgrade.equals("Upgrade")) {
-                    currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
+                if (!isCar) {
+                    Upgrade upgrade = (Upgrade) selectedItem;
+                    currentlyOwnLabel.setText(String.format("You currently own %d", upgrade.getNumPurchased()));
                 }
                 break;
             case ALREADY_OWNED:
@@ -130,33 +123,27 @@ public class ShopController {
         }
     }
 
-
-
-
     /**
      * Tries to sell the selected item and updates the GUI depending on if the
      * item is able to sold or not.
      */
 
     public void sellItem() {
-        // update later
-        ShopService.sellResult result = shopService.sellItem(selectedItem, showCarOrUpgrade);
+        boolean isCar = selectedItem instanceof Car;
+        ShopService.sellResult result = shopService.sellItem(selectedItem);
         switch (result) {
             case SUCCESS:
                 balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
                 shopSubtitle.setText("Sold " + selectedItem.getName() + " Successfully!");
 
-                if (showCarOrUpgrade.equals("Upgrade")) {
-                    currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
+                if (!isCar) {
+                    Upgrade upgrade = (Upgrade) selectedItem;
+                    currentlyOwnLabel.setText(String.format("You currently own %d", upgrade.getNumPurchased()));
                 }
-
                 break;
             case ITEM_NOT_OWNED:
                 shopSubtitle.setText("You do not own this item");
         }
-
-
-
     }
 
     private Stage stage;
@@ -204,12 +191,6 @@ public class ShopController {
         stage.show();
         EndScreenController baseController = baseLoader.getController();
         baseController.initialize(stage);
-
-
-
-
-
-
     }
 
     /**When the "show garage" button is clicked, it will switch to the "garage" scene
@@ -236,15 +217,7 @@ public class ShopController {
             GarageController baseController = baseLoader.getController();
             baseController.initialize(stage);
         }
-
-
-
-
-
     }
-
-    int selectedItemIndex = 0;
-
     /**
      * When the right arrow is clicked, it will update the index of the selected item by 1 (i.e., move
      * to the next item) and display its corresponding image and attributes. When the final item is reached and the
@@ -258,17 +231,20 @@ public class ShopController {
 
         if (showCarOrUpgrade.equals("Car")) {
             availableItemsLength = availableCars.size();
-        }
-        else {
+        } else {
             availableItemsLength = availableUpgrades.size();
         }
 
-
         if ((selectedItemIndex + 1) == availableItemsLength) {
             selectedItemIndex = 0;
-        }
-        else {
+        } else {
             selectedItemIndex++;
+        }
+
+        if (showCarOrUpgrade.equals("Car")) {
+            selectedItem = availableCars.get(selectedItemIndex);
+        } else {
+            selectedItem = availableUpgrades.get(selectedItemIndex);
         }
 
         displaySelectedItem();
@@ -281,28 +257,27 @@ public class ShopController {
      * user calls this function, the index will be set such that the final item in the list of available item is shown.
      */
     public void moveLeft(MouseEvent event) {
-
-
         // change the variables depending on if we're shopping cars or upgrades
 
         int availableItemsLength;
 
         if (showCarOrUpgrade.equals("Car")) {
             availableItemsLength = availableCars.size();
-        }
-        else {
+        } else {
             availableItemsLength = availableUpgrades.size();
         }
 
-
         if ((selectedItemIndex) == 0) {
             selectedItemIndex = availableItemsLength - 1;
-        }
-        else {
+        } else {
             selectedItemIndex--;
         }
 
-        // then display the new item
+        if (showCarOrUpgrade.equals("Car")) {
+            selectedItem = availableCars.get(selectedItemIndex);
+        } else {
+            selectedItem = availableUpgrades.get(selectedItemIndex);
+        }
         displaySelectedItem();
     }
 
@@ -320,47 +295,49 @@ public class ShopController {
      * displayed attributes such as the item's name, speed, etc.
      */
     public void displaySelectedItem() {
+        boolean isCar = selectedItem instanceof Car;
         String selectedItemImgDirectory = "";
         int imgWidth;
         int imgHeight;
-
-        if (showCarOrUpgrade.equals("Car")) {
-            selectedItem = availableCars.get(selectedItemIndex);
-
+        if (isCar) {
             selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedItem.getItemID() + 1) + ".png" ;
             imgWidth = 200;
             imgHeight = 100;
-
-        }
-        else {
-            selectedItem = availableUpgrades.get(selectedItemIndex);
+        } else {
             selectedItemImgDirectory = "file:src/main/resources/designs/upgrade-icons/upgrade" + (selectedItem.getItemID()+ 1) + ".png" ;
-            currentlyOwnLabel.setText("You currently own: x" + ((Upgrade) selectedItem).getNumPurchased());
+            Upgrade upgrade = (Upgrade) selectedItem;
+            currentlyOwnLabel.setText(String.format("You currently own %d", upgrade.getNumPurchased()));
             imgWidth = 100;
             imgHeight = 100;
-
         }
-
-
         Image newItemImg = new Image(selectedItemImgDirectory);
         itemImg.setFitWidth(imgWidth);
         itemImg.setFitHeight(imgHeight);
         itemImg.setImage(newItemImg);
-
-
         //selectedItemImg.setVisible(displayImg);
         itemNameLabel.setText(selectedItem.getName());
-        itemSpeedLabel.setText(String.format("Speed: %d", selectedItem.getSpeed()));
-        itemHandlingLabel.setText(String.format("Handling: %d", selectedItem.getHandling()));
-        itemReliabilityLabel.setText(String.format("Reliability: %d", selectedItem.getReliability()));
-        itemFuelEcoLabel.setText(String.format("Fuel Economy: %d", selectedItem.getFuelEconomy()));
         itemDescLabel.setText(selectedItem.getDesc());
         buyItem.setText(String.format("Buy Item for $%.2f", selectedItem.getBuyingPrice()));
         sellItem.setText(String.format("Sell Item for $%.2f", selectedItem.getSellingPrice()));
+        if (isCar) {
+            //TODO add a label "Tank Capcacity: " for car.calculateFuelTankCapacity() (same as in GarageController)
+            Car car = (Car) selectedItem;
+            itemSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
+            itemHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
+            itemReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
+            itemFuelEcoLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
+        } else {
+            Upgrade upgrade = (Upgrade) selectedItem;
+            itemSpeedLabel.setText("Speed: " + upgrade.displayForMultiplier(upgrade.getSpeedMultiplier()));
+            itemHandlingLabel.setText("Handling: " + upgrade.displayForMultiplier(upgrade.getHandlingMultiplier()));
+            itemReliabilityLabel.setText("Reliability: " + upgrade.displayForMultiplier(upgrade.getReliabilityMultiplier()));
+            itemFuelEcoLabel.setText("Fuel efficiency: " + upgrade.displayForMultiplier(upgrade.getFuelConsumptionMultiplier()));
+        }
     }
 
     public void viewUpgrades() {
         selectedItemIndex = 0;
+        selectedItem = availableUpgrades.get(selectedItemIndex);
         showCarOrUpgrade = "Upgrade";
         shopSubtitle.setText("Purchase car parts which can be equipped to your car to modify its stats");
         viewCarsLabel.setVisible(true);
@@ -368,11 +345,11 @@ public class ShopController {
         itemStatsLabel.setText("Upgrade Stats:");
         displaySelectedItem();
         currentlyOwnLabel.setVisible(true);
-
     }
 
     public void viewCars() {
         selectedItemIndex = 0;
+        selectedItem = availableCars.get(selectedItemIndex);
         showCarOrUpgrade = "Car";
         shopSubtitle.setText("FInd a new vehicle to drive you to victory");
         viewCarsLabel.setVisible(false);
@@ -382,21 +359,12 @@ public class ShopController {
         currentlyOwnLabel.setVisible(false);
     }
 
-
-
-
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + gameDB.getRaceCount());
 
-
         displaySelectedItem();
-
-
-
-
-
     }
 
 

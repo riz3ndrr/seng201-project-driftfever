@@ -8,8 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,11 +19,9 @@ import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Race;
+import seng201.team0.services.SimulatorService;
 
-import javax.swing.event.ChangeEvent;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class SelectRaceController {
     // Player/Game Database
@@ -39,7 +37,7 @@ public class SelectRaceController {
     @FXML
     private Label carReliabilityLabel;
     @FXML
-    private Label carFuelEcoLabel;
+    private Label carFuelConsumptionLabel;
     @FXML
     private Label carNameLabel;
     @FXML
@@ -61,7 +59,7 @@ public class SelectRaceController {
     private Label raceTimeLimitLabel;
 
     @FXML
-    private Label beginRaceLabel;
+    private Button beginRaceLabel;
 
     @FXML
     private Label nameLabel;
@@ -82,35 +80,33 @@ public class SelectRaceController {
 //    private Label race4;
 //    List<Label> listOfRaceLabels = Arrays.asList(race0, race1, race2, race3, race4);
 
-    Race selectedRace;
+    private Race selectedRace;
 
     public void displaySelectedRace() {
         raceNameLabel.setText(selectedRace.getName());
-        raceDescLabel.setText(selectedRace.getRaceDesc());
+        raceDescLabel.setText(selectedRace.getDesc());
         racePrizeLabel.setText("Prize for 1st: " + String.format("$%.2f", selectedRace.getPrizeMoney()));
-        raceDistanceLabel.setText("Distance: " + String.format("%.2f", selectedRace.getDistance()) + "km");
-        raceTimeLimitLabel.setText("Time Limit: " + String.format("%d", selectedRace.getTimeLimit()) + "s");
+        raceDistanceLabel.setText("Distance: " + String.format("%.2f", selectedRace.getDistanceKilometers()) + "km");
+        raceTimeLimitLabel.setText("Time Limit: " + String.format("%d", selectedRace.getTimeLimitHours()) + "s");
     }
 
-
-    public void beginRace() {
+    public void beginRace(javafx.event.ActionEvent event) throws IOException {
         gameDB.setSelectedRace(selectedRace);
         System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
+        SimulatorService.switchToSimulatorScene(event);
     }
 
     public void displaySelectedCar() {
         String selectedCarImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;
         Image carImg = new Image(selectedCarImgDirectory);
         selectedCarImg.setImage(carImg);
-        carSpeedLabel.setText(String.format("Speed: %d", selectedCar.getSpeed()));
-        carHandlingLabel.setText(String.format("Handling: %d", selectedCar.getHandling()));
-        carReliabilityLabel.setText(String.format("Reliability: %d", selectedCar.getReliability()));
-        carFuelEcoLabel.setText(String.format("Fuel Economy: %d", selectedCar.getFuelEconomy()));
         carNameLabel.setText(selectedCar.getName());
-        fuelMeterLabel.setText("Fuel Tank: " + String.format("%.2f", selectedCar.getFuel()) + "%");
-
+        carSpeedLabel.setText(String.format("Top speed: %.0f km/h", selectedCar.calculateSpeed()));
+        carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * selectedCar.calculateHandling()));
+        carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * selectedCar.calculateReliability()));
+        carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * selectedCar.calculateFuelConsumption()));
+        fuelMeterLabel.setText(String.format("Fuel level: %.0f%% of %.0f L", selectedCar.calculateFuelPercentage(), selectedCar.calculateFuelTankCapacity()));
     }
-
 
     public void initialize(Stage stage) {
         displaySelectedCar();
@@ -132,16 +128,10 @@ public class SelectRaceController {
         });
     }
 
-
-
     @FXML
     private ListView<Race> raceListView;
     @FXML
     private Label bruhLabel;
-
-
-
-
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -161,7 +151,6 @@ public class SelectRaceController {
         baseController.initialize(stage);
     }
 
-
     public void switchToShopScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
@@ -175,8 +164,6 @@ public class SelectRaceController {
         stage.show();
         ShopController baseController = baseLoader.getController();
         baseController.initialize(stage);
-
-
 
     }
 }

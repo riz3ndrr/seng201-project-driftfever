@@ -49,3 +49,8 @@ Label, Text {
 #diffDesc {
     -fx-font-size: 30px;
 }
+
+#finishLinePane {
+    -fx-background-image: url("/designs/finishLineTile.png");
+    -fx-background-repeat: repeat;
+}

@@ -2,90 +2,276 @@ package seng201.team0;
 
 import seng201.team0.gui.MainWindow;
 import seng201.team0.models.*;
+import seng201.team0.services.ShopService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class GameManager {
-    static GameStats gameDB = new GameStats();
+    // Properties
+    private static GameStats gameDB = new GameStats();
+    private static ArrayList<Race> raceArray = createRaces();
+    private static ArrayList<Car> carsArray = createCars();
+    private static ArrayList<Upgrade> upgradeArray = createUpgrades();
 
-    public static void startGame(String [] args) {
-        MainWindow.launchWrapper(args);
+
+    // Constructor
+    private static ArrayList<Race> createRaces() {
+        return new ArrayList<>(Arrays.asList(
+                new Race("Serpent's Spiral",
+                        "This race has an insane amount of twists and turns!",
+                        50,
+                        0.9,
+                        4,
+                        1000,
+                        10
+                        ),
+                new Race("Sunset Sprint",
+                        "A long, mostly straight race through open countryside.",
+                        80,
+                        0.2,
+                        2,
+                        800,
+                        10),
+                new Race("Turbo Loop",
+                        "A short, moderately curvy track perfect for quick sprints.",
+                        30,
+                        0.5,
+                        1,
+                        500,
+                        10),
+                new Race("The Iron Road",
+                        "A challenging endurance race with frequent turns and pit stops.",
+                        100,
+                        0.7,
+                        3,
+                        3000,
+                        10),
+                new Race("Featherline Cruise",
+                        "A smooth ride with almost no curves and no gas stops.",
+                        60,
+                        0.1,
+                        2,
+                        700,
+                        10)
+        ));
+    }
+
+    private static ArrayList<Car> createCars() {
+        return new ArrayList<>(Arrays.asList(
+                new Car(0,
+                        "Purple Car",
+                        "A balanced car with smooth acceleration and steady handling.",
+                        1600,
+                        1400,
+                        true,
+                        180,
+                        0.2,
+                        55,
+                        0.8,
+                        0.7),
+                new Car(2,
+                        "Lime Wheels",
+                        "A versatile car with equal balance between speed and handling.",
+                        1500,
+                        850,
+                        true,
+                        170,
+                        0.18,
+                        50,
+                        0.75,
+                        0.85),
+                new Car(1,
+                        "Lightning McQueen",
+                        "Kachow!",
+                        1550,
+                        850,
+                        true,
+                        195,
+                        0.25,
+                        60,
+                        0.9,
+                        0.6),
+                new Car(3,
+                        "Yellow Car",
+                        "Light and agile, perfect for quick turns and smooth drifting.",
+                        1400,
+                        700,
+                        true,
+                        160,
+                        0.12,
+                        45,
+                        0.95,
+                        0.8),
+                new Car(4,
+                        "Azure",
+                        "Durable with solid control and good handling on various surfaces.",
+                        1300,
+                        750,
+                        true,
+                        135,
+                        0.22,
+                        70,
+                        0.7,
+                        0.95),
+                new Car(5,
+                        "Crosswind",
+                        "High-performance with fast acceleration and responsive handling.",
+                        3600,
+                        1600,
+                        false,
+                        185,
+                        0.28,
+                        50,
+                        0.95,
+                        0.6),
+                new Car(6,
+                        "Thunder McKing",
+                        "Was used to win 7 Piston Cups. Kablow!",
+                        5200,
+                        4800,
+                        true,
+                        220,
+                        0.4,
+                        50,
+                        0.9,
+                        0.4),
+                new Car(7,
+                        "Icarus' Wings",
+                        "The world's fastest car. Although not renowned for its stability.",
+                        4600,
+                        1400,
+                        false,
+                        240,
+                        0.5,
+                        40,
+                        0.5,
+                        0.4),
+                new Car(8,
+                        "Bumblebee",
+                        "Legend says this car has a mind of its own",
+                        5000,
+                        1300,
+                        false,
+                        195,
+                        0.13,
+                        55,
+                        0.3,
+                        0.7)
+        ));
+    }
+
+    private static ArrayList<Upgrade> createUpgrades() {
+        return new ArrayList<>(Arrays.asList(
+                new Upgrade(0,
+                        "Rocket Fuel",
+                        "Fuel to make your car go ZOOOOM!",
+                        150,
+                        120,
+                        true,
+                        1.2,
+                        1.0,
+                        1.0,
+                        0.9,
+                        1.0),
+                new Upgrade(3,
+                        "Jumbo Fuel Tank",
+                        "Extra capacity for extra distance.",
+                        600,
+                        540,
+                        true,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.7),
+                new Upgrade(1,
+                        "Grippy Tyres",
+                        "Improved traction for tighter turns and better control at high speeds.",
+                        400,
+                        350,
+                        true,
+                        1.0,
+                        1.5,
+                        1.0,
+                        1.0,
+                        1.0),
+                new Upgrade(2,
+                        "Carbon Fibre Panels",
+                        "Lightweight yet durable — improves speed without sacrificing reliability.",
+                        1100,
+                        950,
+                        true,
+                        1.2,
+                        1.5,
+                        1.0,
+                        1.0,
+                        1.7)
+        ));
     }
 
 
-
-
-    public static GameStats getGameStats() {
-        return gameDB;
-    }
-
-    private static List<Upgrade> upgradeArray =
-            Arrays.asList(
-                    // buyingPrice changed for testing purposes
-                    new Upgrade("Rocket Fuel", 5, 70, true, 10, -2, -2, -3, "Fuel to make your car go ZOOOOM!", 0),
-                    new Upgrade("Grippy Tyres", 5, 300, true, 0, 8, 0, 0, "Improved traction for tighter turns and better control at high speeds.", 1),
-                    new Upgrade("Carbon Fibre Plating", 5, 800, true, 2, 0, 7, 7, "Lightweight yet durable—improves speed without sacrificing reliability.", 2)
-            );
-
-    public static Upgrade getUpgradeAtIndex(int index) {
-        return upgradeArray.get(index);
-    }
-
-    public static List<Upgrade> getUpgrades() {
-        return upgradeArray;
-    }
-
-    private static List<Race> raceArray = Arrays.asList(
-            new Race(50, 5, 4, "This race has an insane amount of twists and turns!", 1000, 300, "Serpent's Spiral"),
-            new Race(80, 2, 2, "A long, mostly straight race through open countryside.", 800, 300, "Sunset Sprint"),
-            new Race(30, 3, 1, "A short, moderately curvy track perfect for quick sprints.", 500, 300, "Turbo Loop"),
-            new Race(100, 4, 3, "A challenging endurance race with frequent turns and pit stops.", 3000, 300, "The Iron Road"),
-            new Race(60, 1, 0, "A smooth ride with almost no curves and no gas stops.", 700, 300, "Featherline Cruise")
-    );
-
-
-
+    // Getters and setters
+    public static GameStats getGameStats() { return gameDB; }
+    public static ArrayList<Race> getRaces() {return raceArray; }
     public static Race getRaceAtIndex(int index) {
         return raceArray.get(index);
     }
-
-
-    private static List<Car> carsArray =
-            Arrays.asList( new Car("Purple Car", 1600, 800, true, 5, 4, 6, 5, "A balanced car with smooth acceleration and steady handling.", 0),
-                    new Car("Lime Wheels", 1500, 850, true, 5, 5, 4, 4, "A versatile car with equal balance between speed and handling.", 1),
-                    new Car("Lightning McQueen", 1550, 850, true, 4, 4, 5, 5, "Kachow!", 2),
-                    new Car("Yellow Car", 1400, 700, true, 4, 5, 5, 4, "Light and agile, perfect for quick turns and smooth drifting.", 3),
-                    new Car("Azure", 1300, 750, true, 5, 4, 6, 5, "Durable with solid control and good handling on various surfaces.", 4),
-                    new Car("Crosswind", 3600, 1600, false, 8, 9, 9, 7, "High-performance with fast acceleration and responsive handling.", 5),
-                    new Car("Thunder McKing", 5200, 3200, true, 12, 9, 6, 6, "Was used to win 7 Piston Cups. Kablow!", 6),
-                    new Car("Icarus' Wings", 4600, 1400, false, 15, 3, 4, 3, "The world's fastest car. Although not renowned for its stability.", 7),
-                    new Car("Bumblebee", 5000, 1300, false, 10, 10, 9, 9, "Legend says this car has a mind of its own", 8)
-            );
-
-    public static boolean canBeBought(Item item) {
-        return !item.isPurchased() && item.isAvailableToBuy();
+    public static ArrayList<Car> getCars() {
+        return carsArray;
+    }
+    public static ArrayList<Upgrade> getUpgrades() {
+        return upgradeArray;
+    }
+    public static Upgrade getUpgradeAtIndex(int index) { return upgradeArray.get(index); }
+    public static Upgrade getUpgradeWithID(int findUpgradeID) {
+        for (Upgrade upgrade : upgradeArray) {
+            if (upgrade.getItemID() == findUpgradeID) {
+                return upgrade;
+            }
+        }
+        return null;
     }
 
-    private static ArrayList<Car> availableCarsArray = new ArrayList<>(carsArray.stream().filter(GameManager::canBeBought).collect(Collectors.toList()));
 
-    private static ArrayList<Upgrade> availableUpgradesArray = new ArrayList<>(upgradeArray.stream().filter(GameManager::canBeBought).collect(Collectors.toList()));
+    // Logic
+    public static void startGame(String [] args) {
+        //Pre buy some things for testing only
+        ShopService shopService = new ShopService();
+        shopService.buyItem(carsArray.get(0));
+        shopService.buyItem(carsArray.get(1));
+        shopService.buyItem(carsArray.get(2));
+        shopService.buyItem(upgradeArray.get(0));
+        shopService.buyItem(upgradeArray.get(1));
+        shopService.buyItem(upgradeArray.get(1));
+        shopService.buyItem(upgradeArray.get(2));
+        shopService.buyItem(upgradeArray.get(3));
+        for (Car car : carsArray) {
+            car.setFuelInTank(car.calculateFuelTankCapacity());
+        }
+
+        MainWindow.launchWrapper(args);
+    }
 
     public static ArrayList<Car> getAvailableCars() {
-        return availableCarsArray;
+        ArrayList<Car> result = new ArrayList<>();
+        for (Car car : carsArray) {
+            if (!car.isPurchased() && car.isAvailableToBuy()) {
+                result.add(car);
+            }
+        }
+        return result;
     }
 
     public static ArrayList<Upgrade> getAvailableUpgrades() {
-        return availableUpgradesArray;
+        ArrayList<Upgrade> result = new ArrayList<>();
+        for (Upgrade upgrade : upgradeArray) {
+            if (!upgrade.isPurchased() && upgrade.isAvailableToBuy()) {
+                result.add(upgrade);
+            }
+        }
+        return result;
     }
-
-    public static List<Car> getCars() {
-        return carsArray;
-    }
-
-    public static List<Race> getRaces() {return raceArray;}
-
 
 }
+

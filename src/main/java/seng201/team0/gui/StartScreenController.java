@@ -87,7 +87,6 @@ public class StartScreenController {
 
     private GameStats.Difficulty chosenDifficulty = GameStats.Difficulty.REGULAR;
 
-
     private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
             new EnumMap<>(GameStats.Difficulty.class);
     static {
@@ -96,10 +95,7 @@ public class StartScreenController {
         difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove");
     }
 
-
     private int raceCount = 3;
-
-
 
     static int optionIndex = 0;
 
@@ -236,8 +232,6 @@ public class StartScreenController {
                 RArrow.setVisible(false);
             }
         });
-
-
     }
 
     public void switchToShopScene(javafx.event.ActionEvent event) throws IOException {
@@ -260,8 +254,5 @@ public class StartScreenController {
         stage.show();
         ShopController baseController = baseLoader.getController();
         baseController.initialize(stage);
-
-
-
     }
 }

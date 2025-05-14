@@ -6,82 +6,72 @@ import seng201.team0.models.GameStats;
 import seng201.team0.models.Upgrade;
 
 public class GarageService {
-    // Player/Game Database
-    GameStats gameDB = GameManager.getGameStats();
-
-    public enum unequipResult {
+    // Enums
+    public enum UnequipResult {
         UPGRADE_NOT_SELECTED,
         SUCCESS
     }
 
-    public enum equipResult {
+    public enum EquipResult {
         UPGRADE_NOT_SELECTED,
         SUCCESS,
         UPGRADE_ALREADY_EQUIPPED
     }
 
-    public enum filLResult {
+    public enum FilLResult {
         SUCCESS,
-
     }
 
-    public void fillTank(Car selectedCar) {
-        float fuelCost = (100 - selectedCar.getFuel()) * 3;
-        if (fuelCost > gameDB.getBal()) {
-            fuelCost = gameDB.getBal();
-            selectedCar.setFuel(selectedCar.getFuel() + fuelCost / 3);
-        }
-        else {
-            selectedCar.setFuel(100);
-        }
-        gameDB.setBal(gameDB.getBal() - fuelCost);
 
+    // Properties
+    GameStats gameDB = GameManager.getGameStats();
+
+
+    // Logic
+    public double payableCostToFillTank(Car car) {
+        double payable = car.costToFillTank(gameDB.getFuelCostPerLitre());
+        if (payable > gameDB.getBal()) {
+            payable = gameDB.getBal();
+        }
+        return payable;
+    }
+
+    public void fillTank(Car car) {
+        double fuelCost = payableCostToFillTank(car);
+        double litres = fuelCost / gameDB.getFuelCostPerLitre();
+        car.setFuelInTank(litres + car.getFuelInTank());
+        gameDB.setBal(gameDB.getBal() - fuelCost);
     }
 
     public void updateSelectedCar(Car car) {
         gameDB.setSelectedCar(car);
     }
 
-    public equipResult equipUpgrade (Upgrade selectedUpgrade, Car selectedCar) {
+    public EquipResult equipUpgrade (Upgrade selectedUpgrade, Car selectedCar) {
         if (selectedUpgrade == null) {
-            return equipResult.UPGRADE_NOT_SELECTED;
+            return EquipResult.UPGRADE_NOT_SELECTED;
         }
         if (selectedCar.checkIfUpgradeEquipped(selectedUpgrade)) {
-            return equipResult.UPGRADE_ALREADY_EQUIPPED;
-        }
-        else {
-            selectedUpgrade.decrementNumPurchased();
-
+            return EquipResult.UPGRADE_ALREADY_EQUIPPED;
+        } else {
+            selectedUpgrade.setNumPurchased(selectedUpgrade.getNumPurchased() - 1);
             if (selectedUpgrade.getNumPurchased() == 0) {
                 gameDB.removeItem(selectedUpgrade);
             }
-
-            selectedCar.addEquippedUpgrade(selectedUpgrade);
-            selectedCar.changeSpeed(selectedUpgrade.getSpeed());
-            selectedCar.changeHandling(selectedUpgrade.getHandling());
-            selectedCar.changeReliability(selectedUpgrade.getReliability());
-            selectedCar.changeFuelEconomy(selectedUpgrade.getFuelEconomy());
-            return equipResult.SUCCESS;
+            selectedCar.addUpgrade(selectedUpgrade);
+            return EquipResult.SUCCESS;
         }
     }
 
-
-    public unequipResult unequipUpgrade(Upgrade selectedUpgrade, Car selectedCar) {
+    public UnequipResult unequipUpgrade(Upgrade selectedUpgrade, Car selectedCar) {
         if (selectedUpgrade == null) {
-            return unequipResult.UPGRADE_NOT_SELECTED;
+            return UnequipResult.UPGRADE_NOT_SELECTED;
         }
-
-        selectedCar.removeEquippedUpgrade(selectedUpgrade);
-
+        selectedCar.removeUpgrade(selectedUpgrade);
         if (selectedUpgrade.getNumPurchased() == 0) {
             gameDB.addItem(selectedUpgrade);
         }
-        selectedUpgrade.incrementNumPurchased();
-        selectedCar.changeSpeed(-selectedUpgrade.getSpeed());
-        selectedCar.changeHandling(-selectedUpgrade.getHandling());
-        selectedCar.changeReliability(-selectedUpgrade.getReliability());
-        selectedCar.changeFuelEconomy(-selectedUpgrade.getFuelEconomy());
-
-        return unequipResult.SUCCESS;
+        selectedUpgrade.setNumPurchased(selectedUpgrade.getNumPurchased() + 1);
+        return UnequipResult.SUCCESS;
     }
 }
