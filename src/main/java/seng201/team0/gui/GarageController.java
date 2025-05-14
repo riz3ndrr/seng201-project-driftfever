@@ -149,7 +149,7 @@ public class GarageController {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
-        displaySelectedCar(true);
+        displaySelectedCar();
         displayAvailableUpgrades();
     }
 
@@ -182,7 +182,7 @@ public class GarageController {
     @FXML
     private Label selectCarLabel;
 
-    public void displaySelectedCar(boolean displayImg) {
+    public void displaySelectedCar() {
         
         String selectedItemImgDirectory = "";
         selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
@@ -202,21 +202,18 @@ public class GarageController {
         displayCarStats(selectedCar);
     }
 
-    public void moveRight(MouseEvent event) {
+    public void moveRight() {
         // get rid of unnecessary text
         resultEquipMessage.setVisible(false);
 
 
-        // hide the current car
-        displaySelectedCar(false);
         if ((selectedCarIndex + 1) == gameDB.getCarCollectionSize()) {
             selectedCarIndex = 0;
         }
         else {
             selectedCarIndex++;
         }
-        // then display the new car
-        displaySelectedCar(true);
+        displaySelectedCar();
 
         if (showEquippedItems) {
             //update the list of equipped items as it will change from car to car
@@ -224,18 +221,17 @@ public class GarageController {
         }
     }
 
-    public void moveLeft(MouseEvent event) {
+    public void moveLeft() {
         // get rid of unnecessary text
         resultEquipMessage.setVisible(false);
 
-        displaySelectedCar(false);
         if ((selectedCarIndex) == 0) {
             selectedCarIndex = gameDB.getCarCollectionSize() - 1;
         }
         else {
             selectedCarIndex--;
         }
-        displaySelectedCar(true);
+        displaySelectedCar();
 
         if (showEquippedItems) {
             System.out.println("AHHH");
@@ -244,7 +240,7 @@ public class GarageController {
         }
     }
 
-    public void switchUpgrades(MouseEvent event) {
+    public void switchUpgrades() {
         if (showEquippedItems) {
             // going to show available items
             showEquippedItems = false;
