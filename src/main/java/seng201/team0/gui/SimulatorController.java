@@ -64,21 +64,22 @@ public class SimulatorController {
         simulatorService.prepareRace(race, player);
         createRaceArea();
         raceNameLabel.setText("Name: " + race.getName());
-        raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + "km");
-        raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours());
-        racePrizePoolLabel.setText("Prize Pool: " + race.getPrizeMoney());
+        raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + " km");
+        raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours() + " hours");
+        racePrizePoolLabel.setText("Prize pool: $" + race.getPrizeMoney());
         displayParticipantStats(player);
         positionCars();
     }
 
     private void createRaceArea() {
         for (RaceParticipant participant : race.getParticipants()) {
-            Pane raceLine = createRaceLineUI(participant.getCar());
+            Pane raceLine = createRaceLineUI(participant);
             raceAreaVBox.getChildren().add(raceLine);
         }
     }
 
-    private Pane createRaceLineUI(Car car) {
+    private Pane createRaceLineUI(RaceParticipant participant) {
+
         int height = 40;
         Pane pane = new Pane();
         pane.setPrefHeight(height);
@@ -87,7 +88,7 @@ public class SimulatorController {
         pane.setStyle("-fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1 0;");
 
         // Load the image
-        String carIcon = "car" + (car.getItemID() + 1) + ".png";
+        String carIcon = "car" + (participant.getCar().getItemID() + 1) + ".png";
         String iconFolder = "file:src/main/resources/designs/car-icon/";
         Image image = new Image(iconFolder + carIcon); // Adjust path if needed
 
@@ -98,6 +99,10 @@ public class SimulatorController {
         imageView.setPreserveRatio(true);
         imageView.setPickOnBounds(true);
         imageView.setY(height / 4);
+        imageView.setOnMouseClicked(event -> {
+            System.out.println("You clicked the car image!");
+            displayParticipantStats(participant);
+        });
 
         // Add the image to the pane
         pane.getChildren().add(imageView);
@@ -109,9 +114,9 @@ public class SimulatorController {
         driverNameLabel.setText("Driver: " + participant.getDriverName());
         carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
         carModelLabel.setText("Model: " + car.getName());
-        carSpeedLabel.setText(String.format("Top Speed: %.0f km/h", car.calculateSpeed()));
-        carFuelCurrentLabel.setText(String.format("Fuel: %.0f%% of %.0fL tank", car.calculateFuelPercentage(), car.calculateFuelTankCapacity()));
-        carFuelConsumptionLabel.setText("Fuel Consumption: " + car.calculateFuelConsumption());
+        carSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
+        carFuelCurrentLabel.setText(String.format("Fuel: %.0f L of %.0f L tank", car.getFuelInTank(), car.calculateFuelTankCapacity()));
+        carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
         carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
         carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
         carUpgradesLabel.setText("Upgrades: " + car.upgradesToString());
