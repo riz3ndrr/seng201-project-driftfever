@@ -80,7 +80,7 @@
                         <Image url="@../designs/arrowleft.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="speedLabel" prefHeight="36.0" prefWidth="235.0" text="Speed: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Label fx:id="speedLabel" prefHeight="36.0" prefWidth="323.0" text="Speed: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -112,7 +112,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="handlingLabel" prefHeight="26.0" prefWidth="150.0" text="Handling: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Label fx:id="handlingLabel" prefHeight="36.0" prefWidth="378.0" text="Handling: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" top="40.0" />
                      </GridPane.margin>
@@ -120,7 +120,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="reliabilityLabel" prefHeight="36.0" prefWidth="253.0" text="Reliability: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Label fx:id="reliabilityLabel" prefHeight="36.0" prefWidth="411.0" text="Reliability: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" top="80.0" />
                      </GridPane.margin>
@@ -128,7 +128,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="fuelConsumptionLabel" prefHeight="36.0" prefWidth="384.0" text="Fuel Economy: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Label fx:id="fuelConsumptionLabel" prefHeight="36.0" prefWidth="434.0" text="Fuel Economy: " wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" top="120.0" />
                      </GridPane.margin>
@@ -252,7 +252,7 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="fuelMeterLabel" prefHeight="42.0" prefWidth="211.0" text="Fuel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Label fx:id="fuelMeterLabel" prefHeight="42.0" prefWidth="308.0" text="Fuel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
                         <Font size="34.0" />
                      </font>
@@ -260,7 +260,7 @@
                         <Insets bottom="50.0" left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="63.0" prefWidth="209.0" text="[Fill cost placeholder]" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label fx:id="fillTankLabel" onMouseClicked="#fillTank" prefHeight="63.0" prefWidth="309.0" text="[Fill cost placeholder]" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -279,9 +279,9 @@
                         <Insets bottom="10.0" left="80.0" top="45.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="resultEquipMessage" alignment="CENTER" prefHeight="46.0" prefWidth="248.0" text="Upgrade not selected" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="resultEquipMessage" alignment="CENTER" prefHeight="62.0" prefWidth="453.0" text="Upgrade not selected" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="30.0" />
                      </font>
                      <GridPane.margin>
                         <Insets top="10.0" />

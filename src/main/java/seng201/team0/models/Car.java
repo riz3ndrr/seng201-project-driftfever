@@ -64,6 +64,8 @@ public class Car extends Purchasable {
         for (Upgrade upgrade : equippedUpgrades) {
             result = result * upgrade.getFuelTankCapacityMultiplier();
         }
+
+
         return result;
     }
 
@@ -92,7 +94,12 @@ public class Car extends Purchasable {
     }
 
     public double calculateFuelPercentage() {
-        return 100.0 * fuelInTankLitres / calculateFuelTankCapacity();
+        double result = 100.0 * fuelInTankLitres / calculateFuelTankCapacity();
+        if (result > 100) {
+            setFuelInTank(calculateFuelTankCapacity());
+            return 100.0;
+        }
+        return result;
     }
 
     public void addUpgrade(Upgrade upgrade) {

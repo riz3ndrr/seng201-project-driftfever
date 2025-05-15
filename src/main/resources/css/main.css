@@ -29,26 +29,6 @@ Label, Text, TextArea {
     -fx-background-color: #969696
 }
 
-#medPic {
-
-    animation: float 6s ease-in-out infinite;
-}
-
-#gameTitle {
-    -fx-font-size: 60px;
-}
-
-#diffLabel {
-    -fx-font-size: 40px;
-}
-
-#gameDesc{
-    -fx-font-size: 30px;
-}
-
-#diffDesc {
-    -fx-font-size: 30px;
-}
 
 #finishLinePane {
     -fx-background-image: url("/designs/finishLineTile.png");

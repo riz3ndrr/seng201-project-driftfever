@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng201.team0.GameManager;
@@ -73,13 +74,21 @@ public class StartScreenController {
     private GridPane chooseNameGridPane;
 
     @FXML
-    private Button finishStartScreenBtn;
+    private Label finishStartScreenLabel;
+
+    @FXML
+    private Pane selectAttributesPane;
+    @FXML
+    private Pane startingPane;
 
     @FXML
     private ImageView RArrow;
 
     @FXML
     private Label startLabel;
+
+    @FXML
+    private Text subtitleText;
 
     private Stage stage;
     private Scene scene;
@@ -99,38 +108,23 @@ public class StartScreenController {
 
     static int optionIndex = 0;
 
-    public void startGame() {
-        optionIndex = 1;
-        showNewOptionSlide();
+    public void startSelecting() {
+        selectAttributesPane.setVisible(true);
+        startingPane.setVisible(false);
     }
 
     public void showNewOptionSlide() {
-        List<GridPane> chooseOptions = Arrays.asList(startMenuGridPane, chooseNameGridPane, chooseDifficultyGridPane,chooseSeasonLengthGridPane);
-        GridPane newPaneToShow = chooseOptions.get(optionIndex);
+//        List<GridPane> chooseOptions = Arrays.asList(startMenuGridPane, chooseNameGridPane, chooseDifficultyGridPane,chooseSeasonLengthGridPane);
+//        GridPane newPaneToShow = chooseOptions.get(optionIndex);
+//
+//        newPaneToShow.setVisible(true);
+//        // can make this more efficient
+//        for(GridPane option : chooseOptions) {
+//            if (option != newPaneToShow) {
+//                option.setVisible(false);
+//            }
+//        }
 
-        newPaneToShow.setVisible(true);
-        // can make this more efficient
-        for(GridPane option : chooseOptions) {
-            if (option != newPaneToShow) {
-                option.setVisible(false);
-            }
-        }
-
-    }
-
-    public void moveRight() {
-        if (!finishStartScreenBtn.isDisabled()) {
-            System.out.println("MOVING RIGHT");
-            optionIndex++;
-            showNewOptionSlide();
-        }
-
-    }
-
-    public void moveLeft() {
-        System.out.println("MOVING LEFT");
-        optionIndex--;
-        showNewOptionSlide();
     }
 
     public String getDifficultyDesc() {
@@ -203,7 +197,7 @@ public class StartScreenController {
     }
 
     public void initialize(Stage stage) {
-        finishStartScreenBtn.setDisable(true);
+        finishStartScreenLabel.setVisible(false);
 
         diffDesc.setText(getDifficultyDesc());
         showNewOptionSlide();
@@ -219,8 +213,7 @@ public class StartScreenController {
             if (isValidName(newText)) {
                 whatNameLabel.setText("Looks good!");
                 whatNameLabel.setStyle("-fx-fill: green;");
-                finishStartScreenBtn.setDisable(false);
-                RArrow.setVisible(true);
+                finishStartScreenLabel.setVisible(true);
             }
             else {
                 String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
@@ -228,13 +221,12 @@ public class StartScreenController {
                 whatNameLabel.setText(caption);
                 whatNameLabel.setStyle("-fx-fill: " + color);
 
-                finishStartScreenBtn.setDisable(true);
-                RArrow.setVisible(false);
+                finishStartScreenLabel.setVisible(false);
             }
         });
     }
 
-    public void switchToShopScene(javafx.event.ActionEvent event) throws IOException {
+    public void switchToShopScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
 
@@ -249,10 +241,13 @@ public class StartScreenController {
         Parent root = baseLoader.load();
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
         ShopController baseController = baseLoader.getController();
         baseController.initialize(stage);
+
     }
+
 }
