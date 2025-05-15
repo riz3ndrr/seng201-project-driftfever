@@ -156,8 +156,8 @@ public class SimulatorController {
         double paneWidth = headerPane.getWidth();
         double carWidth = 40;
         double areaWidth = paneWidth - carWidth;
-        double gasStopWidth = 10;
-        double gasStopHeight = 20;
+        double gasStopWidth = 30;
+        double gasStopHeight = 30;
         double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
         Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
 
