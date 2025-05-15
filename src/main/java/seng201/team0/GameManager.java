@@ -206,7 +206,67 @@ public class GameManager {
                         1.5,
                         1.0,
                         1.0,
-                        1.7)
+                        1.7),
+
+                new Upgrade(
+                        5,
+                        "Glue Spray",
+                        "Spray glue on tires to boost its grip",
+                        300,
+                        200,
+                        true,
+                        1.0,
+                        1.3,
+                        1.0,
+                        1.0,
+                        1.0
+                ),
+
+                new Upgrade(
+                        4,
+                        "Attachable Rocket",
+                        "Apparently stolen from NASA; use it to break the sound barrier.",
+                        2000,
+                        1500,
+                        true,
+                        1.5,
+                        1.0,
+                        0.9,
+                        1.2,
+                        1.0
+                ),
+
+                new Upgrade(
+                        7,
+                        "AI System",
+                        "Smart driving assistant that drives your car with finesse.",
+                        700,
+                        630,
+                        true,
+                        1.0,
+                        1.5,
+                        1.2,
+                        1.0,
+                        1.0
+                ),
+
+                new Upgrade(
+                        6,
+                        "Better Brakes",
+                        "Upgraded brakes for shorter stopping distance and better control.",
+                        500,
+                        300,
+                        true,
+                        1.0,
+                        1.15,
+                        1.0,
+                        1.0,
+                        1.0
+                )
+
+
+
+
         ));
     }
 
