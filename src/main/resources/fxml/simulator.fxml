@@ -18,9 +18,9 @@
         </rowConstraints>
    <children>
       <TextArea fx:id="commentaryTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-      <Label fx:id="remainingTimeLabel" text="[Remaining Time]" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+      <Label fx:id="remainingTimeLabel" text="[Remaining Time]" textAlignment="CENTER" GridPane.columnIndex="2">
          <font>
-            <Font size="14.0" />
+            <Font size="23.0" />
          </font>
       </Label>
       <Pane fx:id="finishLinePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />

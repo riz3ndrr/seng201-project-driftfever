@@ -60,4 +60,11 @@ public class GameTimer {
             timeline.stop();
         }
     }
+
+    public static String totalSecondsToString(double totalTimeInSeconds) {
+        int seconds = (int) (totalTimeInSeconds % 60);
+        int minutes = (int) ((totalTimeInSeconds / 60) % 60);
+        int hours = (int) (totalTimeInSeconds / (60 * 60));
+        return String.format("%d:%02d:%02d", hours, minutes, seconds);
+    }
 }

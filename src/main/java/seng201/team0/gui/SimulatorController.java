@@ -50,6 +50,8 @@ public class SimulatorController {
     @FXML
     private Pane headerPane;
     @FXML
+    private Label remainingTimeLabel;
+    @FXML
     private Pane gasStopLines;
     @FXML
     private VBox raceAreaVBox;
@@ -64,6 +66,7 @@ public class SimulatorController {
     private RaceParticipant selectedParticipant;
     private GameTimer timer;
     private SimulatorService simulatorService = new SimulatorService();
+    double remainingRaceTimeSeconds;
 
 
     // Logic
@@ -71,15 +74,13 @@ public class SimulatorController {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1);
         selectedParticipant = player;
         simulatorService.prepareRace(race, player);
+        remainingRaceTimeSeconds = race.getTimeLimitHours() * 60 * 60;
         addGasStopIconsAndLines();
         createRaceArea();
         positionCars();
-        raceNameLabel.setText("Name: " + race.getName());
-        raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + " km");
-        raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours() + " hours");
-        racePrizePoolLabel.setText("Prize pool: $" + race.getPrizeMoney());
+        displayRaceStats();
         displayParticipantStats(player);
-        timer = new GameTimer(60.0, e -> progressSimulation());
+        timer = new GameTimer(600.0, e -> progressSimulation());
         timer.start();
     }
 
@@ -113,6 +114,13 @@ public class SimulatorController {
 
         pane.getChildren().add(imageView);
         return pane;
+    }
+
+    private void displayRaceStats() {
+        raceNameLabel.setText("Name: " + race.getName());
+        raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + " km");
+        raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours() + " hours");
+        racePrizePoolLabel.setText("Prize pool: $" + race.getPrizeMoney());
     }
 
     private void displayParticipantStats(RaceParticipant participant) {
@@ -176,6 +184,8 @@ public class SimulatorController {
         for (RaceParticipant participant : race.getParticipants()) {
             participant.progressSimulationByTime(secondsSinceLastTick);
         }
+        remainingRaceTimeSeconds -= secondsSinceLastTick;
+        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToString(remainingRaceTimeSeconds));
         positionCars();
         displayParticipantStats(selectedParticipant);
     }
