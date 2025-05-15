@@ -82,7 +82,7 @@ public class SimulatorController {
         positionCars();
         displayRaceStats();
         displayParticipantStats(player);
-        timer = new GameTimer(600.0, e -> progressSimulation());
+        timer = new GameTimer(300.0, e -> progressSimulation());
         timer.start();
     }
 
