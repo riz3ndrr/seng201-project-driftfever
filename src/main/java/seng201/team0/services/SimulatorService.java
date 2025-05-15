@@ -6,15 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng201.team0.GameManager;
-import seng201.team0.gui.ShopController;
 import seng201.team0.gui.SimulatorController;
 import seng201.team0.models.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.time.Duration;
-import java.time.LocalTime;
 
 
 public class SimulatorService {

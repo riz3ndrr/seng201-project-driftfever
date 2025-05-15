@@ -17,6 +17,7 @@ import seng201.team0.models.GameStats;
 import seng201.team0.models.Race;
 import seng201.team0.models.RaceParticipant;
 import seng201.team0.services.SimulatorService;
+import seng201.team0.models.GameTimer;
 
 public class SimulatorController {
 
@@ -57,15 +58,18 @@ public class SimulatorController {
 
 
     // Properties
-    GameStats gameDB = GameManager.getGameStats();
-    Race race = gameDB.getSelectedRace();
-    RaceParticipant player;
-    SimulatorService simulatorService = new SimulatorService();
+    private GameStats gameDB = GameManager.getGameStats();
+    private Race race = gameDB.getSelectedRace();
+    private RaceParticipant player;
+    private RaceParticipant selectedParticipant;
+    private GameTimer timer;
+    private SimulatorService simulatorService = new SimulatorService();
 
 
     // Logic
     public void initialize(Stage stage) {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1);
+        selectedParticipant = player;
         simulatorService.prepareRace(race, player);
         addGasStopIconsAndLines();
         createRaceArea();
@@ -75,6 +79,8 @@ public class SimulatorController {
         raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours() + " hours");
         racePrizePoolLabel.setText("Prize pool: $" + race.getPrizeMoney());
         displayParticipantStats(player);
+        timer = new GameTimer(60.0, e -> progressSimulation());
+        timer.start();
     }
 
     private void createRaceArea() {
@@ -85,7 +91,6 @@ public class SimulatorController {
     }
 
     private Pane createRaceLineUI(RaceParticipant participant) {
-
         double height = 40.0;
         Pane pane = new Pane();
         pane.setPrefHeight(height);
@@ -100,11 +105,9 @@ public class SimulatorController {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height / 2);
         imageView.setFitWidth(height);
-        //imageView.setPreserveRatio(true);
-        //imageView.setPickOnBounds(true);
         imageView.setY(height / 4);
         imageView.setOnMouseClicked(event -> {
-            System.out.println("You clicked the car image!");
+            selectedParticipant = participant;
             displayParticipantStats(participant);
         });
 
@@ -146,7 +149,6 @@ public class SimulatorController {
         double gasStopWidth = 10;
         double gasStopHeight = 20;
         double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
-
         Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
 
         for (int i = 0; i < race.getGasStopDistances().size(); i++) {
@@ -168,6 +170,16 @@ public class SimulatorController {
             gasStopLines.getChildren().add(dottedLine);
         }
     }
+
+    private void progressSimulation() {
+        double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
+        for (RaceParticipant participant : race.getParticipants()) {
+            participant.progressSimulationByTime(secondsSinceLastTick);
+        }
+        positionCars();
+        displayParticipantStats(selectedParticipant);
+    }
+
     private void addCommentary(RaceParticipant participant, String commentary) {
           commentaryTextArea.appendText(String.format("%s\n") );
     }

@@ -30,4 +30,9 @@ public class RaceParticipant {
     public void setPaused(boolean paused) { isPaused = paused; }
 
 
+    // Logic
+    public void progressSimulationByTime(double elapsedGameTimeSeconds) {
+        // increase the distance, decrease the fuel
+    }
+
 }
