@@ -14,12 +14,12 @@
    <children>
       <ImageView fitHeight="801.0" fitWidth="1202.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../designs/BG3.png" />
+            <Image url="@../designs/BG5.png" />
          </image>
       </ImageView>
       <Pane prefHeight="138.0" prefWidth="1200.0">
          <children>
-            <Label fx:id="gameDesc" alignment="CENTER" layoutX="-1.0" layoutY="90.0" prefHeight="57.0" prefWidth="1200.0" text="Every legend starts with the ignition" textFill="WHITE">
+            <Label fx:id="gameDesc" alignment="CENTER" layoutY="114.0" prefHeight="57.0" prefWidth="1200.0" text="Every legend starts with the ignition" textFill="WHITE">
                <font>
                   <Font size="36.0" />
                </font>
@@ -33,12 +33,12 @@
       </Pane>
       <Pane fx:id="startingPane" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Text fx:id="subtitleText" fill="WHITE" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready to choose your destiny?" textAlignment="CENTER" wrappingWidth="1200.0">
+            <Text fx:id="subtitleText" fill="WHITE" layoutX="-1.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready to choose your destiny?" textAlignment="CENTER" wrappingWidth="1200.0">
                <font>
                   <Font size="46.0" />
                </font>
             </Text>
-            <Label id="startLabel" fx:id="startLabel" alignment="CENTER" layoutX="-1.0" layoutY="400.0" onMouseClicked="#startSelecting" prefHeight="67.0" prefWidth="1200.0" text="Start" textAlignment="CENTER" textFill="WHITE">
+            <Label id="startLabel" fx:id="startLabel" alignment="CENTER" layoutX="-14.0" layoutY="248.0" onMouseClicked="#startSelecting" prefHeight="67.0" prefWidth="1200.0" text="Start" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="56.0" />
                </font>
@@ -47,40 +47,40 @@
       </Pane>
       <Pane fx:id="selectAttributesPane" prefHeight="634.0" prefWidth="1200.0" visible="false">
          <children>
-            <Text fx:id="seasonLabel" fill="WHITE" layoutX="295.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How long is the season?" textAlignment="CENTER" wrappingWidth="637.800048828125">
+            <Text fx:id="seasonLabel" fill="WHITE" layoutX="726.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How long is the season?" textAlignment="CENTER" wrappingWidth="484.20001220703125">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
-            <Label id="diffDesc" fx:id="seasonCountLabel" alignment="CENTER" layoutX="2.0" layoutY="598.0" prefHeight="71.0" prefWidth="1200.0" text="Number of Races: 3" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label id="diffDesc" fx:id="seasonCountLabel" alignment="CENTER" layoutX="791.0" layoutY="308.0" prefHeight="71.0" prefWidth="337.0" text="Number of Races: 3" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="29.0" />
                </font>
             </Label>
-            <Slider fx:id="seasonSlider" blockIncrement="1.0" layoutX="369.0" layoutY="576.0" max="15.0" min="3.0" prefHeight="31.0" prefWidth="428.0" value="3.0" />
-            <Text fx:id="diffLabel" fill="WHITE" layoutX="372.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a difficulty" textAlignment="CENTER" wrappingWidth="449.60000000000014">
+            <Slider fx:id="seasonSlider" blockIncrement="1.0" layoutX="745.0" layoutY="286.0" max="15.0" min="3.0" prefHeight="31.0" prefWidth="428.0" value="3.0" />
+            <Text fx:id="diffLabel" fill="WHITE" layoutX="24.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a difficulty" wrappingWidth="449.60000000000014">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
-            <ImageView fx:id="difficultyPic" fitHeight="80.0" fitWidth="80.0" layoutX="549.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="difficultyPic" fitHeight="67.0" fitWidth="70.0" layoutX="24.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../designs/difficulty/med.png" />
                </image>
             </ImageView>
-            <Label id="diffDesc" fx:id="diffDesc" alignment="CENTER" layoutY="401.0" prefHeight="62.0" prefWidth="1200.0" text="&lt;Chosen Difficulty Description&gt;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label id="diffDesc" fx:id="diffDesc" layoutX="91.0" layoutY="278.0" prefHeight="71.0" prefWidth="337.0" text="&lt;Chosen Difficulty Description&gt;" textFill="WHITE" wrapText="true">
                <font>
-                  <Font size="41.0" />
+                  <Font size="28.0" />
                </font>
             </Label>
-            <Slider fx:id="diffSlider" blockIncrement="1.0" layoutX="428.0" layoutY="475.0" max="4.0" min="1.0" prefHeight="25.0" prefWidth="346.0" showTickMarks="true" value="2.5" />
-            <Text fx:id="whatNameLabel" fill="WHITE" layoutX="6.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What is your name?" textAlignment="CENTER" wrappingWidth="1188.5762939453125">
+            <Slider fx:id="diffSlider" blockIncrement="1.0" layoutX="54.0" layoutY="366.0" max="4.0" min="1.0" prefHeight="25.0" prefWidth="346.0" showTickMarks="true" value="2.5" />
+            <Text fx:id="whatNameLabel" fill="WHITE" layoutX="406.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What is your name?" textAlignment="CENTER" wrappingWidth="362.99999999999994">
                <font>
                   <Font size="27.0" />
                </font>
             </Text>
-            <TextField fx:id="inputNameArea" layoutX="477.0" layoutY="202.0" prefHeight="38.0" prefWidth="247.0" />
-            <Label id="startLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="654.0" onMouseClicked="#switchToShopScene" prefHeight="67.0" prefWidth="1149.0" text="Let's ride!" textAlignment="CENTER" textFill="WHITE">
+            <TextField fx:id="inputNameArea" layoutX="464.0" layoutY="234.0" prefHeight="38.0" prefWidth="247.0" />
+            <Label id="beginGameLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="486.0" onMouseClicked="#switchToShopScene" prefHeight="67.0" prefWidth="303.0" text="Let's ride!" textAlignment="CENTER">
                <font>
                   <Font size="56.0" />
                </font>

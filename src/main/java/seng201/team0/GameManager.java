@@ -133,7 +133,7 @@ public class GameManager {
                         true,
                         220,
                         1.1,
-                        50,
+                        70,
                         0.9,
                         0.4),
                 new Car(7,
