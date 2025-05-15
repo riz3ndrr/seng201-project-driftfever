@@ -27,9 +27,11 @@ public class SimulatorController {
     @FXML
     private Label racePrizePoolLabel;
     @FXML
-    private Label carNameLabel;
+    private Label driverNameLabel;
     @FXML
     private Label carEntryNumberLabel;
+    @FXML
+    private Label carModelLabel;
     @FXML
     private Label carSpeedLabel;
     @FXML
@@ -51,13 +53,13 @@ public class SimulatorController {
     // Properties
     GameStats gameDB = GameManager.getGameStats();
     Race race = gameDB.getSelectedRace();
-    RaceParticipant player = new RaceParticipant(gameDB.getSelectedCar(), 1);
+    RaceParticipant player;
     SimulatorService simulatorService = new SimulatorService();
-
 
 
     // Logic
     public void initialize(Stage stage) {
+        player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1);
         player.setDistanceTraveledKilometers(40);
         simulatorService.prepareRace(race, player);
         createRaceArea();
@@ -104,8 +106,9 @@ public class SimulatorController {
 
     private void displayParticipantStats(RaceParticipant participant) {
         Car car = participant.getCar();
-        carNameLabel.setText("Name: " + car.getName());
+        driverNameLabel.setText("Driver: " + participant.getDriverName());
         carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
+        carModelLabel.setText("Model: " + car.getName());
         carSpeedLabel.setText(String.format("Top Speed: %.0f km/h", car.calculateSpeed()));
         carFuelCurrentLabel.setText(String.format("Fuel: %.0f%% of %.0fL tank", car.calculateFuelPercentage(), car.calculateFuelTankCapacity()));
         carFuelConsumptionLabel.setText("Fuel Consumption: " + car.calculateFuelConsumption());

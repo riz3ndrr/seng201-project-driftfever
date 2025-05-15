@@ -56,7 +56,7 @@
                   <Insets top="10.0" />
                </padding>
              </Label>
-             <Label fx:id="carNameLabel" text="Name:">
+             <Label fx:id="driverNameLabel" text="Driver:">
                <font>
                   <Font size="10.0" />
                </font></Label>
@@ -64,6 +64,10 @@
                <font>
                   <Font size="10.0" />
                </font></Label>
+             <Label fx:id="carModelLabel" text="Model:">
+                 <font>
+                     <Font size="10.0" />
+                 </font></Label>
              <Label fx:id="carSpeedLabel" text="Top Speed:">
                <font>
                   <Font size="10.0" />

@@ -34,11 +34,22 @@ public class SimulatorService {
         return rand.nextInt(97) + 2;
     }
 
+    private String generateOpponentName() {
+        String[] firstNames = { "Jake", "Emily", "Liam", "Chloe", "Max", "Sophia", "Luke", "Olivia",
+                "Ava", "Noah", "Leo", "Mia", "Ella", "Ethan", "Zoe", "Jack", "Grace",
+                "Hunter", "Scarlett", "Mason", "Blaze", "Rocket", "Clutch", "Turbo", "Crash" };
+        String[] lastNames = { "Walker", "Stone", "Blake", "Foster", "Morgan", "Turner", "Bennett", "Reed",
+                "Porter", "Hayes", "Brooks", "Carter", "Watts", "Flynn", "West", "Cole",
+                "Racer", "Fastlane", "Wheelman", "Burner", "Quickshift", "McSpeed", "Nitro", "O'Clutch", "Zoomer" };
+        Random rand = new Random();
+        return firstNames[rand.nextInt(firstNames.length)] + " " + lastNames[rand.nextInt(lastNames.length)];
+    }
+
     public void generateOpponents(Race race, int numOpponents) {
         race.clearParticipants();
         for (int i = 0; i < numOpponents; i++) {
             Car car = generateRandomCar();
-            RaceParticipant participant = new RaceParticipant(car, generateEntryNumberForOpponent());
+            RaceParticipant participant = new RaceParticipant(car, generateOpponentName(), generateEntryNumberForOpponent());
             race.addParticipant(participant);
         }
     }
