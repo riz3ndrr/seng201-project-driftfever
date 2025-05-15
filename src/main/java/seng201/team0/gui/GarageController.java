@@ -109,6 +109,16 @@ public class GarageController {
     private ImageView upgr2;
     @FXML
     private ImageView upgr3;
+    @FXML
+    private ImageView upgr4;
+    @FXML
+    private ImageView upgr5;
+    @FXML
+    private ImageView upgr6;
+    @FXML
+    private ImageView upgr7;
+
+
 
     @FXML
     private Label currentlySelectedLabel;
@@ -294,6 +304,7 @@ public class GarageController {
                 resultEquipMessage.setVisible(true);
                 displayCarStats(selectedCar);
                 selectedUpgrade = null;
+                displayAvailableUpgrades();
         }
     }
 
@@ -322,26 +333,9 @@ public class GarageController {
 
         String upgradeID = clickedUpgrade.getId();
 
-        switch (upgradeID) {
-            case "upgr0":
-                selectedUpgrade = GameManager.getUpgradeWithID(0);
-                break;
 
-            case "upgr1":
-                selectedUpgrade = GameManager.getUpgradeWithID(1);
-                break;
-
-            case "upgr2":
-                selectedUpgrade = GameManager.getUpgradeWithID(2);
-                break;
-
-            case "upgr3":
-                selectedUpgrade = GameManager.getUpgradeWithID(3);
-                break;
-
-            default:
-                System.out.println("Not selected upgrade");
-        }
+        int id = Integer.parseInt(upgradeID.substring(4));
+        selectedUpgrade = GameManager.getUpgradeWithID(id);
         displaySelectedUpgrade(selectedUpgrade);
     }
 
@@ -363,7 +357,7 @@ public class GarageController {
         }
 
 
-        List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2, upgr3);
+        List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2, upgr3, upgr4, upgr5, upgr6, upgr7);
 
         // maybe optimise this later, used when upgrade is no longer available
         for (ImageView image : upgradeImageList) {
