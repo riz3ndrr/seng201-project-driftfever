@@ -17,7 +17,7 @@
           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
         </rowConstraints>
    <children>
-      <TextArea fx:id="commentaryTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+      <TextArea fx:id="commentaryTextArea" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="2" />
       <Label fx:id="remainingTimeLabel" text="[Remaining Time]" textAlignment="CENTER" GridPane.columnIndex="2">
          <font>
             <Font size="23.0" />

@@ -62,6 +62,9 @@ public class GameTimer {
     }
 
     public static String totalSecondsToString(double totalTimeInSeconds) {
+        if (totalTimeInSeconds < 0) {
+            return "None";
+        }
         int seconds = (int) (totalTimeInSeconds % 60);
         int minutes = (int) ((totalTimeInSeconds / 60) % 60);
         int hours = (int) (totalTimeInSeconds / (60 * 60));

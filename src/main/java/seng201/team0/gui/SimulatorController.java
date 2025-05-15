@@ -19,6 +19,8 @@ import seng201.team0.models.RaceParticipant;
 import seng201.team0.services.SimulatorService;
 import seng201.team0.models.GameTimer;
 
+import java.util.ArrayList;
+
 public class SimulatorController {
 
     @FXML
@@ -180,17 +182,21 @@ public class SimulatorController {
     }
 
     private void progressSimulation() {
+        ArrayList<String> commentary = new ArrayList<>();
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         for (RaceParticipant participant : race.getParticipants()) {
-            participant.progressSimulationByTime(secondsSinceLastTick);
+            participant.progressSimulationByTime(secondsSinceLastTick, race.getDistanceKilometers(), commentary);
         }
         remainingRaceTimeSeconds -= secondsSinceLastTick;
         remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToString(remainingRaceTimeSeconds));
         positionCars();
         displayParticipantStats(selectedParticipant);
+        addCommentary(commentary);
     }
 
-    private void addCommentary(RaceParticipant participant, String commentary) {
-          commentaryTextArea.appendText(String.format("%s\n") );
+    private void addCommentary(ArrayList<String> commentary) {
+        for (String comment : commentary) {
+            commentaryTextArea.appendText(String.format("%s\n", comment));
+        }
     }
 }
