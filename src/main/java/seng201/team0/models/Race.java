@@ -39,6 +39,7 @@ public class Race {
     public int getNumGasStops() {
         return numGasStops;
     }
+    public ArrayList<Integer> getGasStopDistances() { return gasStopDistances; }
     public String getDesc() { return desc; }
     @Override
     public String toString() {

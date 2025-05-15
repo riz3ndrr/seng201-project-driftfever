@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import seng201.team0.GameManager;
 import seng201.team0.models.Car;
@@ -45,6 +47,10 @@ public class SimulatorController {
     @FXML
     private Label carUpgradesLabel;
     @FXML
+    private Pane headerPane;
+    @FXML
+    private Pane gasStopLines;
+    @FXML
     private VBox raceAreaVBox;
     @FXML
     private TextArea commentaryTextArea;
@@ -60,15 +66,15 @@ public class SimulatorController {
     // Logic
     public void initialize(Stage stage) {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1);
-        player.setDistanceTraveledKilometers(40);
         simulatorService.prepareRace(race, player);
+        addGasStopIconsAndLines();
         createRaceArea();
+        positionCars();
         raceNameLabel.setText("Name: " + race.getName());
         raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + " km");
         raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours() + " hours");
         racePrizePoolLabel.setText("Prize pool: $" + race.getPrizeMoney());
         displayParticipantStats(player);
-        positionCars();
     }
 
     private void createRaceArea() {
@@ -80,31 +86,28 @@ public class SimulatorController {
 
     private Pane createRaceLineUI(RaceParticipant participant) {
 
-        int height = 40;
+        double height = 40.0;
         Pane pane = new Pane();
         pane.setPrefHeight(height);
         pane.setMinHeight(Region.USE_COMPUTED_SIZE);
         pane.setMaxHeight(Region.USE_COMPUTED_SIZE);
         pane.setStyle("-fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1 0;");
 
-        // Load the image
         String carIcon = "car" + (participant.getCar().getItemID() + 1) + ".png";
         String iconFolder = "file:src/main/resources/designs/car-icon/";
-        Image image = new Image(iconFolder + carIcon); // Adjust path if needed
+        Image image = new Image(iconFolder + carIcon);
 
-        // Create the ImageView
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height / 2);
         imageView.setFitWidth(height);
-        imageView.setPreserveRatio(true);
-        imageView.setPickOnBounds(true);
+        //imageView.setPreserveRatio(true);
+        //imageView.setPickOnBounds(true);
         imageView.setY(height / 4);
         imageView.setOnMouseClicked(event -> {
             System.out.println("You clicked the car image!");
             displayParticipantStats(participant);
         });
 
-        // Add the image to the pane
         pane.getChildren().add(imageView);
         return pane;
     }
@@ -136,6 +139,35 @@ public class SimulatorController {
         }
     }
 
+    private void addGasStopIconsAndLines() {
+        double paneWidth = headerPane.getWidth();
+        double carWidth = 40;
+        double areaWidth = paneWidth - carWidth;
+        double gasStopWidth = 10;
+        double gasStopHeight = 20;
+        double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
+
+        Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
+
+        for (int i = 0; i < race.getGasStopDistances().size(); i++) {
+            int gasStopPositionKM = race.getGasStopDistances().get(i);
+            double pixelPositionX = carWidth + gasStopPositionKM * pixelsPerKilometre;
+
+            ImageView imageView = new ImageView(gasStopIcon);
+            imageView.setX(pixelPositionX - gasStopWidth / 2);
+            imageView.setY(headerPane.getHeight() - gasStopHeight);
+            imageView.setFitWidth(gasStopWidth);
+            imageView.setFitHeight(gasStopHeight);
+            headerPane.getChildren().add(imageView);
+
+            Line dottedLine = new Line();
+            dottedLine.setLayoutX(pixelPositionX);
+            dottedLine.setEndY(gasStopLines.getHeight());
+            dottedLine.getStrokeDashArray().addAll(7.0, 7.0);
+            dottedLine.setStroke(Color.LIGHTGRAY);
+            gasStopLines.getChildren().add(dottedLine);
+        }
+    }
     private void addCommentary(RaceParticipant participant, String commentary) {
           commentaryTextArea.appendText(String.format("%s\n") );
     }
