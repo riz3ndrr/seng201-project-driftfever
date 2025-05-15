@@ -20,40 +20,40 @@ public class GameManager {
         return new ArrayList<>(Arrays.asList(
                 new Race("Serpent's Spiral",
                         "This race has an insane amount of twists and turns!",
-                        50,
+                        200,
                         0.9,
                         4,
                         1000,
-                        10
+                        3
                         ),
                 new Race("Sunset Sprint",
                         "A long, mostly straight race through open countryside.",
-                        80,
+                        650,
                         0.2,
                         2,
                         800,
-                        10),
+                        4),
                 new Race("Turbo Loop",
                         "A short, moderately curvy track perfect for quick sprints.",
-                        30,
+                        100,
                         0.5,
                         1,
                         500,
-                        10),
+                        1),
                 new Race("The Iron Road",
                         "A challenging endurance race with frequent turns and pit stops.",
-                        100,
+                        550,
                         0.7,
                         3,
                         3000,
-                        10),
+                        7),
                 new Race("Featherline Cruise",
-                        "A smooth ride with almost no curves and no gas stops.",
-                        60,
+                        "A smooth ride with almost no curves and limited gas stops.",
+                        300,
                         0.1,
-                        2,
+                        1,
                         700,
-                        10)
+                        2)
         ));
     }
 
@@ -66,8 +66,8 @@ public class GameManager {
                         1400,
                         true,
                         180,
-                        0.2,
-                        55,
+                        0.1,
+                        55555,//TODO PUT BACK TO 55 once refueling is implemented, this value is for testing
                         0.8,
                         0.7),
                 new Car(2,
@@ -77,7 +77,7 @@ public class GameManager {
                         850,
                         true,
                         170,
-                        0.18,
+                        0.09,
                         50,
                         0.75,
                         0.85),
@@ -88,7 +88,7 @@ public class GameManager {
                         850,
                         true,
                         195,
-                        0.25,
+                        0.12,
                         60,
                         0.9,
                         0.6),
@@ -99,7 +99,7 @@ public class GameManager {
                         700,
                         true,
                         160,
-                        0.12,
+                        0.06,
                         45,
                         0.95,
                         0.8),
@@ -110,7 +110,7 @@ public class GameManager {
                         750,
                         true,
                         135,
-                        0.22,
+                        0.11,
                         70,
                         0.7,
                         0.95),
@@ -121,7 +121,7 @@ public class GameManager {
                         1600,
                         false,
                         185,
-                        0.28,
+                        0.14,
                         50,
                         0.95,
                         0.6),
@@ -132,7 +132,7 @@ public class GameManager {
                         4800,
                         true,
                         220,
-                        0.4,
+                        0.2,
                         50,
                         0.9,
                         0.4),
@@ -143,7 +143,7 @@ public class GameManager {
                         1400,
                         false,
                         240,
-                        0.5,
+                        0.25,
                         40,
                         0.5,
                         0.4),
@@ -154,7 +154,7 @@ public class GameManager {
                         1300,
                         false,
                         195,
-                        0.13,
+                        0.07,
                         55,
                         0.3,
                         0.7)
@@ -236,7 +236,7 @@ public class GameManager {
 
     // Logic
     public static void startGame(String [] args) {
-        //Pre buy some things for testing only
+        //TODO This code pre buys some things for testing, delete later!!
         ShopService shopService = new ShopService();
         shopService.buyItem(carsArray.get(0));
         shopService.buyItem(carsArray.get(1));
