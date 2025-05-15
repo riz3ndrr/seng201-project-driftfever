@@ -18,7 +18,7 @@
    <children>
       <HBox fx:id="carLayer" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Pane prefHeight="800.0" prefWidth="248.0">
+            <Pane prefHeight="800.0" prefWidth="220.0">
                <children>
                   <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" prefHeight="29.0" prefWidth="193.0" text="Select Race">
                      <font>
