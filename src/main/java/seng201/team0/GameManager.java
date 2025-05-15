@@ -6,17 +6,18 @@ import seng201.team0.services.ShopService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class GameManager {
     // Properties
     private static GameStats gameDB = new GameStats();
-    private static ArrayList<Race> raceArray = createRaces();
-    private static ArrayList<Car> carsArray = createCars();
-    private static ArrayList<Upgrade> upgradeArray = createUpgrades();
+    private static List<Race> raceArray = createRaces();
+    private static List<Car> carsArray = createCars();
+    private static List<Upgrade> upgradeArray = createUpgrades();
 
 
     // Constructor
-    private static ArrayList<Race> createRaces() {
+    private static List<Race> createRaces() {
         return new ArrayList<>(Arrays.asList(
                 new Race("Serpent's Spiral",
                         "This race has an insane amount of twists and turns!",
@@ -57,7 +58,7 @@ public class GameManager {
         ));
     }
 
-    private static ArrayList<Car> createCars() {
+    private static List<Car> createCars() {
         return new ArrayList<>(Arrays.asList(
                 new Car(0,
                         "Purple Car",
@@ -161,7 +162,7 @@ public class GameManager {
         ));
     }
 
-    private static ArrayList<Upgrade> createUpgrades() {
+    private static List<Upgrade> createUpgrades() {
         return new ArrayList<>(Arrays.asList(
                 new Upgrade(0,
                         "Rocket Fuel",
@@ -273,14 +274,14 @@ public class GameManager {
 
     // Getters and setters
     public static GameStats getGameStats() { return gameDB; }
-    public static ArrayList<Race> getRaces() {return raceArray; }
+    public static List<Race> getRaces() {return raceArray; }
     public static Race getRaceAtIndex(int index) {
         return raceArray.get(index);
     }
-    public static ArrayList<Car> getCars() {
+    public static List<Car> getCars() {
         return carsArray;
     }
-    public static ArrayList<Upgrade> getUpgrades() {
+    public static List<Upgrade> getUpgrades() {
         return upgradeArray;
     }
     public static Upgrade getUpgradeAtIndex(int index) { return upgradeArray.get(index); }
@@ -313,8 +314,8 @@ public class GameManager {
         MainWindow.launchWrapper(args);
     }
 
-    public static ArrayList<Car> getAvailableCars() {
-        ArrayList<Car> result = new ArrayList<>();
+    public static List<Car> getAvailableCars() {
+        List<Car> result = new ArrayList<>();
         for (Car car : carsArray) {
             if (!car.isPurchased() && car.isAvailableToBuy()) {
                 result.add(car);
@@ -323,8 +324,8 @@ public class GameManager {
         return result;
     }
 
-    public static ArrayList<Upgrade> getAvailableUpgrades() {
-        ArrayList<Upgrade> result = new ArrayList<>();
+    public static List<Upgrade> getAvailableUpgrades() {
+        List<Upgrade> result = new ArrayList<>();
         for (Upgrade upgrade : upgradeArray) {
             if (!upgrade.isPurchased() && upgrade.isAvailableToBuy()) {
                 result.add(upgrade);

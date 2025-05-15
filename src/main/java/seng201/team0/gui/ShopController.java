@@ -91,8 +91,8 @@ public class ShopController {
     // Properties
     GameStats gameDB = GameManager.getGameStats();
     ShopService shopService = new ShopService();
-    private ArrayList<Car> availableCars = GameManager.getCars();
-    private ArrayList<Upgrade> availableUpgrades = GameManager.getUpgrades();
+    private List<Car> availableCars = GameManager.getCars();
+    private List<Upgrade> availableUpgrades = GameManager.getUpgrades();
     private String showCarOrUpgrade = "Car"; // determines which section of the shop to display
     private int selectedItemIndex = 0;
     private Purchasable selectedItem = availableCars.get(selectedItemIndex);

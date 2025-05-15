@@ -1,6 +1,7 @@
 package seng201.team0.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RaceParticipant {
     // Properties
@@ -33,7 +34,7 @@ public class RaceParticipant {
 
 
     // Logic
-    public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, ArrayList<String> commentary) {
+    public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, List<String> commentary) {
         // Check if no fuel or past finish line
         if (car.getFuelInTank() <= 0.0) {
             return;

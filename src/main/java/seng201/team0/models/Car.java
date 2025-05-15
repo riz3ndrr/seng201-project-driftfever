@@ -12,7 +12,7 @@ public class Car extends Purchasable {
     private double fuelInTankLitres;
     private double handlingScaleFactor;
     private double reliabilityScaleFactor;
-    private ArrayList<Upgrade> equippedUpgrades = new ArrayList<>();
+    private List<Upgrade> equippedUpgrades = new ArrayList<>();
 
 
     // Constructor
@@ -31,14 +31,14 @@ public class Car extends Purchasable {
     // Getters and setters
     public double getFuelInTank() { return fuelInTankLitres; }
     public void setFuelInTank(double fuelInTankLitres) { this.fuelInTankLitres = fuelInTankLitres; }
-    public ArrayList<Upgrade> getEquippedUpgrades() {
+    public List<Upgrade> getEquippedUpgrades() {
         return equippedUpgrades;
     }
 
 
     // Logic
     public String upgradesToString() {
-        ArrayList<String> items = new ArrayList<>();
+        List<String> items = new ArrayList<>();
         for (Upgrade upgrade : equippedUpgrades) {
             items.add(upgrade.getName());
         }

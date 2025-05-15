@@ -11,6 +11,7 @@ import seng201.team0.models.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -52,7 +53,7 @@ public class SimulatorService {
     }
 
     public Car generateRandomCar() {
-        ArrayList<Car> cars = GameManager.getCars();
+        List<Car> cars = GameManager.getCars();
         Random rand = new Random();
         int randomIndex = rand.nextInt(cars.size());
         Car randomCar = cars.get(randomIndex).makeCopy();

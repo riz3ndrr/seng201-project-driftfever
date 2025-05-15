@@ -41,8 +41,8 @@ public class GameStats {
     private double oppenentUpgradeProbability = 0.15;
 
     public Car selectedCar;
-    private ArrayList<Car> carCollection = new ArrayList<>();
-    private ArrayList<Upgrade> upgradeCollection = new ArrayList<>();
+    private List<Car> carCollection = new ArrayList<>();
+    private List<Upgrade> upgradeCollection = new ArrayList<>();
 
 
     // Constructor
@@ -86,6 +86,11 @@ public class GameStats {
         return baseCost * raceDifficulty.getWinningsMultiplier();
     }
 
+
+    /**
+     * Sets every car to not be purchased so it is available in the shop.
+     * Then proceed to clear the user's car collection
+     */
     public void clearCarCollection() {
         for (Car car : carCollection) {
             car.setPurchased(false);
@@ -93,6 +98,10 @@ public class GameStats {
         carCollection.clear();
     }
 
+    /**
+     * Sets every upgrade to not be purchased.
+     * Then proceed to clear the user's upgrade collection
+     */
     public void clearUpgradeCollection() {
         for (Upgrade upgrade : upgradeCollection) {
             upgrade.setPurchased(false);
@@ -100,6 +109,14 @@ public class GameStats {
         }
         upgradeCollection.clear();
     }
+
+    /**
+     * Checks if an item is in the user's collection
+     * (used for JUnit testing)
+     *
+     * @param upgrade
+     * @return
+     */
 
     public boolean selectedItemInCollection(Upgrade upgrade) {
         for (Upgrade u : upgradeCollection) {
@@ -110,6 +127,8 @@ public class GameStats {
         return false;
     }
 
+
+
     public boolean selectedItemInCollection(Car car) {
         for (Car c : carCollection) {
             if (c.getName().equals(car.getName())) {
@@ -119,6 +138,11 @@ public class GameStats {
         return false;
     }
 
+    /**
+     * Add an item to the user's respective collection
+     * @param item
+     */
+
     public void addItem(Purchasable item) {
         if (item instanceof Car) {
             carCollection.add((Car) item);
@@ -127,58 +151,24 @@ public class GameStats {
         }
     }
 
+    /**
+     * Removes an item from its respective collection
+     * @param item
+     */
+
     public void removeItem(Purchasable item) {
         if (item instanceof Car) {
             carCollection.remove((Car) item);
         } else {
             upgradeCollection.remove((Upgrade) item);
         }
-        /*int i = 0;
-        if (item instanceof Car) {
-            while (i < carCollection.size()) {
-                if (carCollection.get(i).getName().equals(item.getName())) {
-                    carCollection.remove(i);
-                    break;
-                }
-                i++;
-            }
-        } else {
-            while (i < upgradeCollection.size()) {
-                if (upgradeCollection.get(i).getName().equals(item.getName())) {
-                    upgradeCollection.remove(i);
-                    break;
-                }
-                i++;
-            }
-        }*/
     }
 
-    /*
-
-    public void removeItem(Car car) {
-        boolean removed = false;
-        int i = 0;
-        while (i < carCollection.size() || !removed) {
-            if (carCollection.get(i).getName().equals(car.getName())) {
-                carCollection.remove(i);
-                removed = true;
-            }
-            i++;
-        }
-    }
-
-    public void removeItem(Upgrade upgrade) {
-        boolean removed = false;
-        int i = 0;
-        while (i < upgradeCollection.size() || !removed) {
-            if (upgradeCollection.get(i).getName().equals(upgrade.getName())) {
-                upgradeCollection.remove(i);
-                removed = true;
-            }
-            i++;
-        }
-    }*/
-
+    /**
+     * Returns the index of a car in the user's array collection
+     * @param i
+     * @return
+     */
     public Car searchCarAtIndex(int i) {
         return carCollection.get(i);
     }

@@ -1,6 +1,7 @@
 package seng201.team0.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Race {
     // Properties
@@ -9,10 +10,10 @@ public class Race {
     private float distanceKilometers;
     private double curvinessScaleFactor; // 0 = straight, 1 = max curves
     private int numGasStops;
-    private ArrayList<Integer> gasStopDistances;
+    private List<Integer> gasStopDistances;
     private float prizeMoney;
     private int timeLimitHours;
-    private ArrayList<RaceParticipant> participants;
+    private List<RaceParticipant> participants;
 
 
     // Constructor
@@ -39,7 +40,7 @@ public class Race {
     public int getNumGasStops() {
         return numGasStops;
     }
-    public ArrayList<Integer> getGasStopDistances() { return gasStopDistances; }
+    public List<Integer> getGasStopDistances() { return gasStopDistances; }
     public String getDesc() { return desc; }
     @Override
     public String toString() {
@@ -54,14 +55,14 @@ public class Race {
     public String getName() {
         return name;
     }
-    public ArrayList<RaceParticipant> getParticipants() { return participants; }
+    public List<RaceParticipant> getParticipants() { return participants; }
 
 
     // Logic
-    public ArrayList<Integer> setNumGasStops(int numStops) {
+    public List<Integer> setNumGasStops(int numStops) {
         //TODO randomise spacing of gas stops
         numGasStops = numStops;
-        ArrayList<Integer> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
         int distance_between_stops = (int) (distanceKilometers / (numGasStops + 1));
         for (int i = 0; i < numGasStops; i++) {
             result.add(distance_between_stops * (i + 1));

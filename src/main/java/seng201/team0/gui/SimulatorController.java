@@ -20,6 +20,7 @@ import seng201.team0.services.SimulatorService;
 import seng201.team0.models.GameTimer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SimulatorController {
 
@@ -183,7 +184,7 @@ public class SimulatorController {
     }
 
     private void progressSimulation() {
-        ArrayList<String> commentary = new ArrayList<>();
+        List<String> commentary = new ArrayList<>();
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         for (RaceParticipant participant : race.getParticipants()) {
             participant.progressSimulationByTime(secondsSinceLastTick, race.getDistanceKilometers(), commentary);
@@ -195,7 +196,7 @@ public class SimulatorController {
         addCommentary(commentary);
     }
 
-    private void addCommentary(ArrayList<String> commentary) {
+    private void addCommentary(List<String> commentary) {
         for (String comment : commentary) {
             commentaryTextArea.appendText(String.format("%s\n", comment));
         }
