@@ -78,6 +78,7 @@ public class SimulatorController {
         simulatorService.prepareRace(race, player);
         remainingRaceTimeSeconds = race.getTimeLimitHours() * 60 * 60;
         addGasStopIconsAndLines();
+        commentaryTextArea.appendText("Race Commentary: \n");
         createRaceArea();
         positionCars();
         displayRaceStats();
@@ -94,7 +95,7 @@ public class SimulatorController {
     }
 
     private Pane createRaceLineUI(RaceParticipant participant) {
-        double height = 40.0;
+        double height = 70.0;
         Pane pane = new Pane();
         pane.setPrefHeight(height);
         pane.setMinHeight(Region.USE_COMPUTED_SIZE);
@@ -140,7 +141,7 @@ public class SimulatorController {
 
     private void positionCars() {
         double paneWidth = raceAreaVBox.getWidth();
-        double carWidth = 40;
+        double carWidth = 50;
         double areaWidth = paneWidth - carWidth;
         double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
         for (int i = 0; i < race.getParticipants().size(); i++) {
@@ -154,10 +155,10 @@ public class SimulatorController {
 
     private void addGasStopIconsAndLines() {
         double paneWidth = headerPane.getWidth();
-        double carWidth = 40;
+        double carWidth = 50;
         double areaWidth = paneWidth - carWidth;
-        double gasStopWidth = 30;
-        double gasStopHeight = 30;
+        double gasStopWidth = 45;
+        double gasStopHeight = 45;
         double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
         Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
 

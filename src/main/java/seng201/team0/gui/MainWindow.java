@@ -28,7 +28,8 @@ public class MainWindow extends Application {
         baseController.initialize(primaryStage);
 
         primaryStage.setTitle("Drift Fever");
-        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setResizable(false);
+        Scene scene = new Scene(root, 1200, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
