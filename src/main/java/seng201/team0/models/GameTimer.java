@@ -16,6 +16,7 @@ public class GameTimer {
     private long timeAtLastTick;
     private double secondsElapsed;
     private Timeline timeline;
+    private int framerate = 40;
 
 
     // Constructor
@@ -32,7 +33,7 @@ public class GameTimer {
     // Logic
     public void start() {
         timeAtLastTick = System.currentTimeMillis();
-        Duration interval = Duration.millis(100);
+        Duration interval = Duration.millis(1000.0 / framerate);
         KeyFrame keyFrame = new KeyFrame(interval, event -> onTick());
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);
