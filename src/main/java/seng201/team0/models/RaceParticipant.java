@@ -44,7 +44,8 @@ public class RaceParticipant {
 
         // Calculate extra distance
         double speedKilometresPerSecond = car.calculateSpeed() / (60 * 60);
-        distanceTraveledKilometers += speedKilometresPerSecond * elapsedGameTimeSeconds;
+        double distanceInElapsedTime = speedKilometresPerSecond * elapsedGameTimeSeconds;
+        distanceTraveledKilometers += distanceInElapsedTime;
         if (distanceTraveledKilometers > raceLength) {
             distanceTraveledKilometers = raceLength;
             commentary.add(String.format("#%d %s has finished the race!", entryNumber, driverName));
@@ -52,7 +53,7 @@ public class RaceParticipant {
 
         // Calculate remaining fuel in tank
         double fuelConsumptionLitresPerKilometer = car.calculateFuelConsumption();
-        double newFuelLitres = car.getFuelInTank() - fuelConsumptionLitresPerKilometer * distanceTraveledKilometers;
+        double newFuelLitres = car.getFuelInTank() - fuelConsumptionLitresPerKilometer * distanceInElapsedTime;
         if (newFuelLitres < 0.0) {
             newFuelLitres = 0.0;
             commentary.add(String.format("#%d %s has run out of fuel and is out of the race.", entryNumber, driverName));
