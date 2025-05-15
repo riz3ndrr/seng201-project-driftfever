@@ -13,7 +13,7 @@ Label, Text, TextArea {
 }
 
 #buyItem, #sellItem, #viewCarsLabel, #viewUpgradesLabel, #equipUpgrade, #unequipUpgrade, #fillTankLabel  {
-    -fx-font-size: 17px;
+    -fx-font-size: 35px;
     -fx-background-color: #ababab;
     /*-fx-border-radius: 3px;*/
     -fx-label-padding: 5px;
@@ -21,7 +21,7 @@ Label, Text, TextArea {
 }
 
 #viewCarsLabel:hover, #viewUpgradesLabel:hover, #fillTankLabel:hover, #equipUpgrade:hover, #unequipUpgrade:hover,#buyItem:hover, #sellItem:hover  {
-    -fx-font-size: 20px;
+    -fx-font-size: 40px;
 }
 
 

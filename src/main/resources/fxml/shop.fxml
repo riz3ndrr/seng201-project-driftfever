@@ -18,60 +18,65 @@
    <children>
       <HBox fx:id="carLayer" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Pane prefHeight="400.0" prefWidth="137.0">
+            <Pane prefHeight="800.0" prefWidth="248.0">
                <children>
-                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" prefHeight="22.0" prefWidth="123.0" text="Select Race">
+                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" prefHeight="29.0" prefWidth="193.0" text="Select Race">
                      <font>
-                        <Font size="23.0" />
+                        <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label layoutX="18.0" layoutY="238.0" prefHeight="22.0" prefWidth="123.0" text="View Shop">
+                  <Label layoutX="18.0" layoutY="238.0" prefHeight="29.0" prefWidth="193.0" text="View Shop">
                      <font>
-                        <Font size="23.0" />
+                        <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="292.0" onMouseClicked="#switchToGarageScene" prefHeight="22.0" prefWidth="123.0" text="View Garage">
+                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="310.0" onMouseClicked="#switchToGarageScene" prefHeight="29.0" prefWidth="193.0" text="View Garage">
                      <font>
-                        <Font size="23.0" />
+                        <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="130.0" text="Name">
+                  <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="200.0" text="Name">
                      <font>
-                        <Font size="21.0" />
+                        <Font size="28.0" />
                      </font>
                   </Label>
-                  <Label fx:id="balLabel" layoutX="14.0" layoutY="51.0" prefHeight="26.0" prefWidth="130.0" text="Balance: X$">
+                  <Label fx:id="balLabel" layoutX="14.0" layoutY="51.0" prefHeight="44.0" prefWidth="193.0" text="Balance: X$">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="28.0" />
                      </font>
                   </Label>
-                  <Label fx:id="racesLeftLabel" layoutX="14.0" layoutY="90.0" prefHeight="26.0" prefWidth="130.0" text="Races left: X">
+                  <Label fx:id="racesLeftLabel" layoutX="14.0" layoutY="90.0" prefHeight="44.0" prefWidth="193.0" text="Races left: X">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="28.0" />
                      </font>
                   </Label>
-                  <Line endX="-36.20001220703125" endY="386.0" layoutX="177.0" layoutY="14.0" startX="-36.20001220703125" startY="-14.000006675720215" />
+                  <Line endX="-36.20001220703125" endY="806.2999877929688" layoutX="257.0" layoutY="15.0" startX="-36.20001220703125" startY="-14.000006675720215" />
                </children>
             </Pane>
-            <GridPane prefHeight="386.0" prefWidth="448.0">
+            <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="979.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.79998016357422" minWidth="10.0" prefWidth="114.40001983642577" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.59998016357423" minWidth="10.0" prefWidth="61.59998779296875" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.20001220703125" minWidth="10.0" prefWidth="190.59998779296876" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.39996337890625" minWidth="6.79998779296875" prefWidth="78.60001220703123" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="547.2" minWidth="10.0" prefWidth="450.79992675781256" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.20000000000005" minWidth="0.0" prefWidth="98.40007324218743" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.1999267578126" minWidth="0.0" prefWidth="387.1999267578126" />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="207.1999755859375" minHeight="10.0" prefHeight="207.1999755859375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="572.0" minHeight="10.0" prefHeight="494.4000244140625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="260.8000244140625" minHeight="10.0" prefHeight="79.60000000000002" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="itemSpeedLabel" prefHeight="26.0" prefWidth="104.0" text="Speed: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="itemSpeedLabel" prefHeight="51.0" prefWidth="300.0" text="Speed: " wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="100.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="32.0" />
+                     </font>
                   </Label>
-                  <ImageView fx:id="RArrow" fitHeight="100.0" fitWidth="56.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <ImageView fx:id="RArrow" fitHeight="150.0" fitWidth="84.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/arrowright.png" />
                      </image>
@@ -79,7 +84,7 @@
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fx:id="LArrow" fitHeight="100.0" fitWidth="56.0" onMouseClicked="#moveLeft" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ImageView fx:id="LArrow" fitHeight="150.0" fitWidth="84.0" onMouseClicked="#moveLeft" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/arrowleft.png" />
                      </image>
@@ -87,12 +92,7 @@
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Line endX="100.0" startX="-100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets bottom="50.0" />
-                     </GridPane.margin>
-                  </Line>
-                  <ImageView fx:id="itemImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <ImageView fx:id="itemImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../designs/car-icon/car1.png" />
                      </image>
@@ -100,126 +100,109 @@
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Label fx:id="itemNameLabel" alignment="CENTER" prefHeight="35.0" prefWidth="311.0" text="Car Name" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label fx:id="itemNameLabel" alignment="CENTER" prefHeight="59.0" prefWidth="457.0" text="Car Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
-                        <Insets bottom="15.0" />
+                        <Insets bottom="15.0" top="200.0" />
                      </GridPane.margin>
                      <font>
-                        <Font size="28.0" />
+                        <Font size="48.0" />
                      </font>
                   </Label>
-                  <Label fx:id="itemStatsLabel" text="Car Stats:" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
+                  <Label fx:id="itemStatsLabel" text="Car Stats:" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <font>
-                        <Font size="26.0" />
+                        <Font size="42.0" />
                      </font>
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="itemHandlingLabel" prefHeight="26.0" prefWidth="104.0" text="Handling: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                     <GridPane.margin>
-                        <Insets left="10.0" top="25.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="itemReliabilityLabel" prefHeight="26.0" prefWidth="104.0" text="Reliability: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="10.0" top="50.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="itemFuelEcoLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Economy: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="itemHandlingLabel" prefHeight="51.0" prefWidth="292.0" text="Handling: " wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <GridPane.margin>
-                        <Insets left="10.0" top="75.0" />
+                        <Insets left="10.0" top="150.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="32.0" />
+                     </font>
                   </Label>
-                  <Label fx:id="itemFuelTankCapacityLabel" prefHeight="26.0" prefWidth="104.0" text="Fuel Tank Capacity: " wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="itemReliabilityLabel" prefHeight="51.0" prefWidth="302.0" text="Reliability: " wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <GridPane.margin>
-                        <Insets left="10.0" top="100.0" />
+                        <Insets left="10.0" top="200.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="itemFuelEcoLabel" prefHeight="51.0" prefWidth="368.0" text="Fuel Economy: " GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="250.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="itemFuelTankCapacityLabel" prefHeight="51.0" prefWidth="372.0" text="Fuel Tank Capacity: " wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" top="300.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="32.0" />
+                     </font>
                   </Label>
                   <Label fx:id="shopTitle" text="Shop:" GridPane.columnSpan="3" GridPane.valignment="TOP">
                      <font>
-                        <Font size="37.0" />
+                        <Font size="48.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="shopSubtitle" prefHeight="46.0" prefWidth="418.0" text="Purchase 3 cars before starting your career" wrapText="true" GridPane.columnSpan="4">
+                  <Label fx:id="shopSubtitle" prefHeight="46.0" prefWidth="1034.0" text="Purchase a car before starting your career" wrapText="true" GridPane.columnSpan="4">
                      <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </GridPane.margin>
                      <font>
-                        <Font size="19.0" />
+                        <Font size="34.0" />
                      </font>
                   </Label>
-                  <Label id="buyItem" fx:id="buyItem" onMouseClicked="#buyItem" prefHeight="33.0" text="Buy for $XXXX" textOverrun="CLIP" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                  <Label id="buyItem" fx:id="buyItem" alignment="CENTER" onMouseClicked="#buyItem" prefHeight="80.0" prefWidth="342.0" text="Buy for $XXXX" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="35.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="10.0" />
+                        <Insets bottom="50.0" left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="itemDescLabel" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="340.0" text="Car Description" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label fx:id="itemDescLabel" alignment="TOP_CENTER" prefHeight="72.0" prefWidth="531.0" text="Car Description" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="32.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="-30.0" />
+                        <Insets bottom="60.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="sellItem" fx:id="sellItem" onMouseClicked="#sellItem" prefHeight="30.0" text="Sell for $XXXX" textOverrun="CLIP" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                  <Label id="sellItem" fx:id="sellItem" alignment="CENTER" onMouseClicked="#sellItem" prefHeight="80.0" prefWidth="350.0" text="Sell for $XXXX" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="35.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="10.0" top="60.0" />
+                        <Insets bottom="30.0" left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="viewUpgradesLabel" fx:id="viewUpgradesLabel" alignment="CENTER" onMouseClicked="#viewUpgrades" prefHeight="30.0" prefWidth="155.0" text="View Upgrades" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label id="viewUpgradesLabel" fx:id="viewItemLabel" alignment="CENTER" onMouseClicked="#switchDisplayedItemType" prefHeight="68.0" prefWidth="334.0" text="View Upgrades" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="35.0" />
                      </font>
                   </Label>
-                  <Label id="viewCarsLabel" fx:id="viewCarsLabel" alignment="CENTER" onMouseClicked="#viewCars" prefHeight="30.0" prefWidth="318.0" text="View Cars" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="upgrade1" fitHeight="99.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../designs/upgrade-icons/upgrade1.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="80.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="upgrade2" fitHeight="99.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../designs/upgrade-icons/upgrade2.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="80.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <ImageView fx:id="upgrade3" fitHeight="99.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <image>
-                        <Image url="@../designs/upgrade-icons/upgrade3.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets bottom="80.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <Label fx:id="currentlyOwnLabel" alignment="CENTER" prefHeight="22.0" prefWidth="279.0" text="You currently own: x0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets top="15.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Button fx:id="debug" mnemonicParsing="false" onMouseClicked="#debug" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="debug" mnemonicParsing="false" onMouseClicked="#debug" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" onMouseClicked="#end" text="end" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                  <Label fx:id="currentlyOwnLabel" alignment="CENTER" prefHeight="46.0" prefWidth="381.0" text="Label" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="40.0" />
+                     </padding>
+                  </Label>
                </children>
             </GridPane>
          </children>

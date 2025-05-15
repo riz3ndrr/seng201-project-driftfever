@@ -79,7 +79,7 @@ public class ShopController {
     @FXML
     private Label viewCarsLabel;
     @FXML
-    private Label viewUpgradesLabel;
+    private Label viewItemLabel;
 
     @FXML
     private Label currentlyOwnLabel;
@@ -303,14 +303,14 @@ public class ShopController {
         int imgHeight;
         if (isCar) {
             selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedItem.getItemID() + 1) + ".png" ;
-            imgWidth = 200;
-            imgHeight = 100;
+            imgWidth = 400;
+            imgHeight = 200;
         } else {
             selectedItemImgDirectory = "file:src/main/resources/designs/upgrade-icons/upgrade" + (selectedItem.getItemID()+ 1) + ".png" ;
             Upgrade upgrade = (Upgrade) selectedItem;
             currentlyOwnLabel.setText(String.format("You currently own %d", upgrade.getNumPurchased()));
-            imgWidth = 100;
-            imgHeight = 100;
+            imgWidth = 200;
+            imgHeight = 200;
         }
         Image newItemImg = new Image(selectedItemImgDirectory);
         itemImg.setFitWidth(imgWidth);
@@ -338,28 +338,27 @@ public class ShopController {
         }
     }
 
-    public void viewUpgrades() {
-        selectedItemIndex = 0;
-        selectedItem = availableUpgrades.get(selectedItemIndex);
-        showCarOrUpgrade = "Upgrade";
-        shopSubtitle.setText("Purchase car parts which can be equipped to your car to modify its stats");
-        viewCarsLabel.setVisible(true);
-        viewUpgradesLabel.setVisible(false);
-        itemStatsLabel.setText("Upgrade Stats:");
-        displaySelectedItem();
-        currentlyOwnLabel.setVisible(true);
-    }
+    public void switchDisplayedItemType() {
+        if (showCarOrUpgrade.equals("Car")) {
+            showCarOrUpgrade = "Upgrade";
+            selectedItemIndex = 0;
+            selectedItem = availableUpgrades.get(selectedItemIndex);
 
-    public void viewCars() {
-        selectedItemIndex = 0;
-        selectedItem = availableCars.get(selectedItemIndex);
-        showCarOrUpgrade = "Car";
-        shopSubtitle.setText("FInd a new vehicle to drive you to victory");
-        viewCarsLabel.setVisible(false);
-        viewUpgradesLabel.setVisible(true);
-        itemStatsLabel.setText("Car Stats:");
+            shopSubtitle.setText("Purchase car parts which can be equipped to your car to modify its stats");
+            itemStatsLabel.setText("Upgrade Stats:");
+            currentlyOwnLabel.setVisible(true);
+            viewItemLabel.setText("View cars");
+
+        }
+        else {
+            showCarOrUpgrade = "Car";
+            selectedItem = availableCars.get(selectedItemIndex);
+
+            shopSubtitle.setText("FInd a new vehicle to drive you to victory");
+            itemStatsLabel.setText("Car Stats:");
+            viewItemLabel.setText("View upgrades");
+        }
         displaySelectedItem();
-        currentlyOwnLabel.setVisible(false);
     }
 
     public void initialize(Stage stage) {
