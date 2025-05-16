@@ -75,7 +75,7 @@ public class SimulatorController {
     // Logic
     public void initialize(Stage stage) {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1);
-        selectedParticipant = player;
+        selectedParticipant = null;
         simulatorService.prepareRace(race, player);
         remainingRaceTimeSeconds = race.getTimeLimitHours() * 60 * 60;
         addGasStopIconsAndLines();
@@ -83,7 +83,7 @@ public class SimulatorController {
         createRaceArea();
         positionCars();
         displayRaceStats();
-        displayParticipantStats(player);
+        displayParticipantStats(null);
         timer = new GameTimer(300.0, e -> progressSimulation());
         timer.start();
     }
@@ -128,16 +128,30 @@ public class SimulatorController {
     }
 
     private void displayParticipantStats(RaceParticipant participant) {
-        Car car = participant.getCar();
-        driverNameLabel.setText("Driver: " + participant.getDriverName());
-        carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
-        carModelLabel.setText("Model: " + car.getName());
-        carSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
-        carFuelCurrentLabel.setText(String.format("Fuel: %.0f L of %.0f L tank", car.getFuelInTank(), car.calculateFuelTankCapacity()));
-        carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
-        carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
-        carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
-        carUpgradesLabel.setText("Upgrades: " + car.upgradesToString());
+        if (participant == null) {
+            driverNameLabel.setStyle("-fx-text-fill: orange;");
+            driverNameLabel.setText("Click a car for info");
+            carEntryNumberLabel.setText("");
+            carModelLabel.setText("");
+            carSpeedLabel.setText("");
+            carFuelCurrentLabel.setText("");
+            carFuelConsumptionLabel.setText("");
+            carHandlingLabel.setText("");
+            carReliabilityLabel.setText("");
+            carUpgradesLabel.setText("");
+        } else {
+            Car car = participant.getCar();
+            driverNameLabel.setStyle(null);
+            driverNameLabel.setText("Driver: " + participant.getDriverName());
+            carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
+            carModelLabel.setText("Model: " + car.getName());
+            carSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
+            carFuelCurrentLabel.setText(String.format("Fuel: %.0f L of %.0f L tank", car.getFuelInTank(), car.calculateFuelTankCapacity()));
+            carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
+            carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
+            carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
+            carUpgradesLabel.setText("Upgrades: " + car.upgradesToString());
+        }
     }
 
     private void positionCars() {
