@@ -28,6 +28,15 @@ public class GarageService {
 
 
     // Logic
+
+    /**
+     * Figure out the cost to fill up a car's tank.
+     * If the amount to fully fill up a car's tank is greater than the current
+     * balance of the user, then it will return the user's balance (it will use all of the player's
+     * money to fill up the tank as much as possible)
+     * @param car refers to the currently displayed car on screen
+     * @return the cost to fully fill up the car's tank
+     */
     public double payableCostToFillTank(Car car) {
         double payable = car.costToFillTank(gameDB.getFuelCostPerLitre());
         if (payable > gameDB.getBal()) {
@@ -36,6 +45,11 @@ public class GarageService {
         return payable;
     }
 
+    /**
+     * Fill the car's fuel tank as much as possible.
+     * @param car refers to the currently displayed car on screen
+     */
+
     public void fillTank(Car car) {
         double fuelCost = payableCostToFillTank(car);
         double litres = fuelCost / gameDB.getFuelCostPerLitre();
@@ -43,10 +57,20 @@ public class GarageService {
         gameDB.setBal(gameDB.getBal() - fuelCost);
     }
 
+    /** Set the player's car for racing to a particular car.
+     * @param car refers to the newly selected car to be used for racing
+     */
     public void updateSelectedCar(Car car) {
         gameDB.setSelectedCar(car);
     }
 
+    /**
+     * Attempt to equip a selected upgrade onto the currently displayed car
+     * @param selectedUpgrade refers to the upgrade the player wishes to equip
+     * @param selectedCar refers to the car the player wishes to equip an upgrade on
+     * @return the result of trying to equip an upgrade (which will determine how the controller class
+     * will operate)
+     */
     public EquipResult equipUpgrade (Upgrade selectedUpgrade, Car selectedCar) {
         if (selectedUpgrade == null) {
             return EquipResult.UPGRADE_NOT_SELECTED;
@@ -63,6 +87,13 @@ public class GarageService {
         }
     }
 
+    /**
+     * Attempt to unequip a selected upgrade onto the currently displayed car
+     * @param selectedUpgrade refers to the upgrade the player wishes to unequip
+     * @param selectedCar refers to the car the player wishes to unequip a particular upgrade
+     * @return the result of trying to unequip an upgrade (which will determine how the controller class
+     * will operate)
+     */
     public UnequipResult unequipUpgrade(Upgrade selectedUpgrade, Car selectedCar) {
         if (selectedUpgrade == null) {
             return UnequipResult.UPGRADE_NOT_SELECTED;

@@ -45,12 +45,20 @@ public class Car extends Purchasable {
         return String.join(", ", items);
     }
 
+    /**
+     * Create a copy of a car which will be used as the opponent's car in the racing simulator.
+     * @return a copy of a certain car.
+     */
     public Car makeCopy() {
         Car copy = new Car(getItemID(), getName(), getDesc(), getBuyingPrice(), getSellingPrice(), isAvailableToBuy(),
         speedKilometresPerHour, fuelConsumptionLitresPerKilometer, fuelTankCapacityLitres, handlingScaleFactor, reliabilityScaleFactor);
         return copy;
     }
 
+    /**
+     * Calculates the car's top speed by applying its upgrades stats onto it
+     * @return the speed after its upgrades' stats have been applied to it
+     */
     public double calculateSpeed() {
         double result = speedKilometresPerHour;
         for (Upgrade upgrade : equippedUpgrades) {
@@ -59,16 +67,22 @@ public class Car extends Purchasable {
         return result;
     }
 
+    /**
+     * Calculates the car's fuel tank capacity by applying its upgrades stats onto it
+     * @return the car's fuel tank capacity after its upgrades' stats have been applied to it
+     */
     public double calculateFuelTankCapacity() {
         double result = fuelTankCapacityLitres;
         for (Upgrade upgrade : equippedUpgrades) {
             result = result * upgrade.getFuelTankCapacityMultiplier();
         }
-
-
         return result;
     }
 
+    /**
+     * Calculates the car's handling stat by applying its upgrades stats onto it
+     * @return the car's handling stat after its upgrades' stats have been applied to it
+     */
     public double calculateHandling() {
         double result = handlingScaleFactor;
         for (Upgrade upgrade : equippedUpgrades) {
@@ -77,6 +91,10 @@ public class Car extends Purchasable {
         return result;
     }
 
+    /**
+     * Calculates the car's reliability stat by applying its upgrades stats onto it
+     * @return the car's reliability stat capacity after its upgrades' stats have been applied to it
+     */
     public double calculateReliability() {
         double result = reliabilityScaleFactor;
         for (Upgrade upgrade : equippedUpgrades) {
@@ -85,6 +103,11 @@ public class Car extends Purchasable {
         return result;
     }
 
+
+    /**
+     * Calculates the car's fuel consumption stat by applying its upgrades stats onto it
+     * @return the car's fuel consumption stat after its upgrades' stats have been applied to it
+     */
     public double calculateFuelConsumption() {
         double result = fuelConsumptionLitresPerKilometer;
         for (Upgrade upgrade : equippedUpgrades) {
@@ -93,6 +116,13 @@ public class Car extends Purchasable {
         return result;
     }
 
+    /**
+     * Calculates the car's fuel level as a percentage.
+     * If the car's fuel level is over 100 (which can occurs in scenarios like unequipping an upgrade
+     * that increases the car's tank capacity and the car's tank is already full prior to unequipping it),
+     * then it will set the level to 100%.
+     * @return the car's fuel level percentage.
+     */
     public double calculateFuelPercentage() {
         double result = 100.0 * fuelInTankLitres / calculateFuelTankCapacity();
         if (result > 100) {
@@ -127,6 +157,12 @@ public class Car extends Purchasable {
             System.out.println(upgrade.getName());
         }
     }
+
+    /**
+     * Calculate the litres needed to fill up the tank, if it is below 0, it will set it to 0.
+     * * @param costPerLitre
+     * @return the total cost for how many litres it needs to fill up a tank.
+     */
 
     public double costToFillTank(double costPerLitre) {
         double litresNeeded = calculateFuelTankCapacity() - fuelInTankLitres;

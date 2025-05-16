@@ -34,6 +34,11 @@ public class Upgrade extends Purchasable {
 
 
     // Logic
+
+    /**
+     * @param multiplier is the stat multiplier that a upgrade has for a particular stat
+     * @return a string so that we can display the effect an upgrade has for a particular stat
+     */
     public String displayForMultiplier(double multiplier) {
         if (multiplier >= 1.0) {
             return String.format("+%.0f%%", 100.0 * (multiplier - 1.0));

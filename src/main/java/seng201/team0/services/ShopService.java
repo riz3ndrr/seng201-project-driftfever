@@ -8,12 +8,13 @@ import seng201.team0.models.Upgrade;
 
 public class ShopService {
     // Enums
-    public enum purchaseResult {
+    // make it private / capital
+    public enum PurchaseResult {
         SUCCESS,
         ALREADY_OWNED,
         INSUFFICIENT_FUNDS,
     }
-    public enum sellResult {
+    public enum SellResult {
         SUCCESS,
         ITEM_NOT_OWNED
     }
@@ -24,11 +25,18 @@ public class ShopService {
 
 
     // Logic
-    public purchaseResult buyItem(Purchasable selectedItem) {
+
+    /**
+     * Attempt to purchase an item and return a result to the shop's controller class depending on if
+     * the user has sufficient funds, the item can be purchased or is already owned.
+     * @param selectedItem refers to the currently displayed item that the user wishes to buy
+     * @return the result of the purchase attempt which will affect how the shop controller class operates
+     */
+    public PurchaseResult buyItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
         boolean canPay = gameDB.getBal() >= selectedItem.getBuyingPrice();
         if (isCar && selectedItem.isPurchased()) {
-            return purchaseResult.ALREADY_OWNED;
+            return PurchaseResult.ALREADY_OWNED;
         }
         if (canPay) {
             gameDB.setBal(gameDB.getBal() - selectedItem.getBuyingPrice());
@@ -48,12 +56,18 @@ public class ShopService {
                 }
                 upgrade.setNumPurchased(upgrade.getNumPurchased() + 1);
             }
-            return purchaseResult.SUCCESS;
+            return PurchaseResult.SUCCESS;
         }
-        return purchaseResult.INSUFFICIENT_FUNDS;
+        return PurchaseResult.INSUFFICIENT_FUNDS;
     }
 
-    public sellResult sellItem(Purchasable selectedItem) {
+    /**
+     * Attempt to sell an item and return a result to the shop's controller class depending on if
+     * the user has purchased the item or not.
+     * @param selectedItem refers to the currently displayed item that the user wishes to buy
+     * @return the result of the sell attempt which will affect how the shop controller class operates
+     */
+    public SellResult sellItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
         boolean canSell = selectedItem.isPurchased();
         if (canSell) {
@@ -71,8 +85,8 @@ public class ShopService {
                     gameDB.removeItem(selectedItem);
                 }
             }
-            return sellResult.SUCCESS;
+            return SellResult.SUCCESS;
         }
-        return sellResult.ITEM_NOT_OWNED;
+        return SellResult.ITEM_NOT_OWNED;
     }
 }

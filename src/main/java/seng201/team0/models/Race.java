@@ -23,7 +23,7 @@ public class Race {
         this.distanceKilometers = distance;
         this.curvinessScaleFactor = curviness;
         this.numGasStops = numGasStops;
-        this.gasStopDistances = setNumGasStops(numGasStops);
+        this.gasStopDistances = getListOfFuelStopDistances(numGasStops);
         this.prizeMoney = prizeMoney;
         this.timeLimitHours = timeLimit;
         this.participants = new ArrayList<>();
@@ -59,7 +59,15 @@ public class Race {
 
 
     // Logic
-    public List<Integer> setNumGasStops(int numStops) {
+
+    /**
+     * Calculate and obtain a list of distances from the starting point for fuel stops.
+     * @param numStops, the number of pit stops a race has.
+     * @return a list (which is the size of the number of race stops) and each index will correspond to that
+     * stop's distance from the start e.g. [0, 50, 100] so at index 1,
+     * it says that the 2nd stop will be 50km away from the start point
+     */
+    public List<Integer> getListOfFuelStopDistances(int numStops) {
         //TODO randomise spacing of gas stops
         numGasStops = numStops;
         List<Integer> result = new ArrayList<>();
@@ -70,10 +78,18 @@ public class Race {
         return result;
     }
 
+
+    /**
+     * Add a participant to the total list of race competitors
+     * @param participant is one of the participants of the race
+     */
     public void addParticipant(RaceParticipant participant) {
         participants.add(participant);
     }
 
+    /**
+     * Clear the total list of participants
+     */
     public void clearParticipants() {
         participants.clear();
     }

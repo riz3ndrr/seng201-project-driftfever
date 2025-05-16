@@ -58,6 +58,7 @@ public class GameManager {
         ));
     }
 
+
     private static List<Car> createCars() {
         return new ArrayList<>(Arrays.asList(
                 new Car(0,

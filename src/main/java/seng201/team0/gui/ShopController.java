@@ -105,7 +105,7 @@ public class ShopController {
      */
     public void buyItem() {
         boolean isCar = selectedItem instanceof Car;
-        ShopService.purchaseResult result = shopService.buyItem(selectedItem);
+        ShopService.PurchaseResult result = shopService.buyItem(selectedItem);
 
         switch (result) {
             case SUCCESS:
@@ -132,7 +132,7 @@ public class ShopController {
 
     public void sellItem() {
         boolean isCar = selectedItem instanceof Car;
-        ShopService.sellResult result = shopService.sellItem(selectedItem);
+        ShopService.SellResult result = shopService.sellItem(selectedItem);
         switch (result) {
             case SUCCESS:
                 balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
