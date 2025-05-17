@@ -145,6 +145,8 @@ public class ShopController {
                 break;
             case ITEM_NOT_OWNED:
                 shopSubtitle.setText("You do not own this item");
+            case LAST_CAR_OWNED:
+                shopSubtitle.setText("Must own at least 1 car");
         }
     }
 

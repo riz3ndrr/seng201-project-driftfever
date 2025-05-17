@@ -145,6 +145,9 @@ public class GarageController {
     @FXML
     private Label resultEquipMessage;
 
+    @FXML
+    private Label unequipOrEquipUpgradeLabel;
+
     GarageService garageService = new GarageService();
 
 
@@ -248,19 +251,28 @@ public class GarageController {
             // going to show available items
             showEquippedItems = false;
             switchUpgradesLabel.setText("Show Equipped Items");
+            unequipOrEquipUpgradeLabel.setText("Equip Upgrade");
             upgradesHeaderLabel.setText("Available Upgrades:");
-            equipUpgrade.setVisible(true);
-            unequipUpgrade.setVisible(false);
+
         }
         else {
             // going to show equipped items
             showEquippedItems = true;
             switchUpgradesLabel.setText("Show Unequipped Items");
+            unequipOrEquipUpgradeLabel.setText("Unequip Upgrade:");
             upgradesHeaderLabel.setText("Equipped Upgrades:");
-            equipUpgrade.setVisible(false);
-            unequipUpgrade.setVisible(true);
+
         }
         displayAvailableUpgrades();
+    }
+
+    public void unequipOrEquipUpgrade() {
+        if (showEquippedItems) {
+            unequipUpgrade();
+        }
+        else {
+            equipUpgrade();
+        }
     }
 
     public void unequipUpgrade() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ShopService {
     // Enums
-    // make it private / capital
+    // make it its own file
     public enum PurchaseResult {
         SUCCESS,
         ALREADY_OWNED,
@@ -19,7 +19,8 @@ public class ShopService {
     }
     public enum SellResult {
         SUCCESS,
-        ITEM_NOT_OWNED
+        ITEM_NOT_OWNED,
+        LAST_CAR_OWNED
     }
 
 
@@ -73,8 +74,11 @@ public class ShopService {
      */
     public SellResult sellItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
-        boolean canSell = selectedItem.isPurchased();
-        if (canSell) {
+        boolean canSellItem = selectedItem.isPurchased();
+        if (gameDB.getCarCollectionSize() == 1) {
+            return SellResult.LAST_CAR_OWNED;
+        }
+        if (canSellItem) {
             gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
             if (isCar) {
                 Car car = (Car) selectedItem;
@@ -87,10 +91,17 @@ public class ShopService {
                     upgrade.setNumPurchased(upgrade.getNumPurchased() + 1);
 
                 }
+
                 car.clearUpgradeCollection();
 
                 selectedItem.setPurchased(false);
                 gameDB.removeItem(selectedItem);
+
+                // if this car has been selected for racing, update the selected car to the next car in the list
+                if (gameDB.getSelectedCar() == car) {
+                    gameDB.setSelectedCar(gameDB.searchCarAtIndex(0));
+                }
+
             } else {
                 Upgrade upgrade = (Upgrade) selectedItem;
                 if (upgrade.getNumPurchased() > 1) {
@@ -103,6 +114,7 @@ public class ShopService {
             }
             return SellResult.SUCCESS;
         }
+
         return SellResult.ITEM_NOT_OWNED;
     }
 }

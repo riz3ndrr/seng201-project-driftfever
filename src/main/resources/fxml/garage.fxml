@@ -225,7 +225,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="equipUpgrade" fx:id="equipUpgrade" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#equipUpgrade" prefHeight="70.0" prefWidth="262.0" text="Equip Upgrade" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                  <Label id="equipUpgrade" fx:id="unequipOrEquipUpgradeLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#unequipOrEquipUpgrade" prefHeight="70.0" prefWidth="262.0" text="Equip Upgrade" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -234,17 +234,6 @@
                      </padding>
                      <GridPane.margin>
                         <Insets bottom="80.0" left="80.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label id="unequipUpgrade" fx:id="unequipUpgrade" alignment="CENTER" onMouseClicked="#unequipUpgrade" prefHeight="45.0" prefWidth="110.0" text="Unequip Upgrade" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding>
-                     <GridPane.margin>
-                        <Insets left="80.0" />
                      </GridPane.margin>
                   </Label>
                   <Label id="switchUpgradesLabel" fx:id="switchUpgradesLabel" alignment="CENTER" onMouseClicked="#switchUpgrades" prefHeight="38.0" prefWidth="188.0" text="Show equipped items" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">

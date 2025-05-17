@@ -41,9 +41,9 @@ public class ShopTest {
         // currently print the balance
         gameDB.setBal(2000);
         Purchasable selectedItem = (Purchasable) availableCars.get(0);
-        ShopService.purchaseResult result1 = shopService.buyItem(selectedItem);
+        ShopService.PurchaseResult result1 = shopService.buyItem(selectedItem);
 //        assertEquals(gameDB.selectedItemInCollection((Car) selectedItem), true);
-        ShopService.sellResult result2 = shopService.sellItem(selectedItem);
+        ShopService.SellResult result2 = shopService.sellItem(selectedItem);
         assertTrue(gameDB.selectedItemInCollection((Car) selectedItem));
         assertEquals(1200, gameDB.getBal());
     }
@@ -55,7 +55,7 @@ public class ShopTest {
         // currently print the balance
         gameDB.setBal(2000);
         Purchasable selectedItem = (Purchasable) availableCars.get(0);
-        ShopService.purchaseResult result = shopService.buyItem(selectedItem);
+        ShopService.PurchaseResult result = shopService.buyItem(selectedItem);
         assertEquals(400, gameDB.getBal());
         assertEquals(gameDB.selectedItemInCollection((Car) selectedItem), true);
     }
