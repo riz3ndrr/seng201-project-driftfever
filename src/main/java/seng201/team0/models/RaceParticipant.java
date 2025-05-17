@@ -8,16 +8,18 @@ public class RaceParticipant {
     Car car;
     String driverName;
     int entryNumber;
+    boolean isPlayer;
     double distanceTraveledKilometers = 0.0;
     boolean isBrokenDown = false;
     double secondsPaused = 0.0;
 
 
     // Constructor
-    public RaceParticipant(Car car, String driverName, int entryNumber) {
+    public RaceParticipant(Car car, String driverName, int entryNumber, boolean isPlayer) {
         this.car = car;
         this.driverName = driverName;
         this.entryNumber = entryNumber;
+        this.isPlayer = isPlayer;
     }
 
 
@@ -25,6 +27,7 @@ public class RaceParticipant {
     public Car getCar() { return car; }
     public String getDriverName() { return driverName; }
     public int getEntryNumber() { return entryNumber; }
+    public boolean getIsPlayer() { return isPlayer; }
     public double getDistanceTraveledKilometers() { return distanceTraveledKilometers; }
     public void setDistanceTraveledKilometers(double distanceTraveledKilometers) { this.distanceTraveledKilometers = distanceTraveledKilometers; }
     public boolean isBrokenDown() { return isBrokenDown; }

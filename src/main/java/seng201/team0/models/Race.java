@@ -2,6 +2,7 @@ package seng201.team0.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Race {
     // Properties
@@ -93,7 +94,9 @@ public class Race {
      * @param participant is one of the participants of the race
      */
     public void addParticipant(RaceParticipant participant) {
-        participants.add(participant);
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(participants.size() + 1);
+        participants.add(randomIndex, participant);
     }
 
     /**

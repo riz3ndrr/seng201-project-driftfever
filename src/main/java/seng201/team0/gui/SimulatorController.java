@@ -74,7 +74,7 @@ public class SimulatorController {
 
     // Logic
     public void initialize(Stage stage) {
-        player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1);
+        player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1, true);
         selectedParticipant = null;
         simulatorService.prepareRace(race, player);
         remainingRaceTimeSeconds = race.getTimeLimitHours() * 60 * 60;
@@ -103,6 +103,14 @@ public class SimulatorController {
         pane.setMaxHeight(Region.USE_COMPUTED_SIZE);
         pane.setStyle("-fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1 0;");
 
+        if (participant.getIsPlayer()) {
+            Label playerNameLabel = new Label();
+            playerNameLabel.setId("playerNameLabel");
+            playerNameLabel.setText(participant.getDriverName());
+            playerNameLabel.setLayoutX(10);
+            pane.getChildren().add(playerNameLabel);
+        }
+
         String carIcon = "car" + (participant.getCar().getItemID() + 1) + ".png";
         String iconFolder = "file:src/main/resources/designs/car-icon/";
         Image image = new Image(iconFolder + carIcon);
@@ -111,6 +119,7 @@ public class SimulatorController {
         imageView.setFitHeight(height / 2);
         imageView.setFitWidth(height);
         imageView.setY(height / 4);
+        imageView.setId("car");
         imageView.setOnMouseClicked(event -> {
             selectedParticipant = participant;
             displayParticipantStats(participant);
@@ -162,7 +171,7 @@ public class SimulatorController {
         for (int i = 0; i < race.getParticipants().size(); i++) {
             RaceParticipant participant = race.getParticipants().get(i);
             Pane raceLinePane = (Pane) raceAreaVBox.getChildren().get(i);
-            ImageView carImageView = (ImageView) raceLinePane.getChildren().getFirst();
+            ImageView carImageView = (ImageView) raceLinePane.lookup("#car");
             double pixelPositionX = participant.getDistanceTraveledKilometers() * pixelsPerKilometre;
             carImageView.setX(pixelPositionX);
         }

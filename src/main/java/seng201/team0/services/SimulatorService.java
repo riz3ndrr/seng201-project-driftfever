@@ -10,7 +10,6 @@ import seng201.team0.gui.SimulatorController;
 import seng201.team0.models.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +46,7 @@ public class SimulatorService {
         race.clearParticipants();
         for (int i = 0; i < numOpponents; i++) {
             Car car = generateRandomCar();
-            RaceParticipant participant = new RaceParticipant(car, generateOpponentName(), generateEntryNumberForOpponent());
+            RaceParticipant participant = new RaceParticipant(car, generateOpponentName(), generateEntryNumberForOpponent(), false);
             race.addParticipant(participant);
         }
     }
