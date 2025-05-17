@@ -38,3 +38,7 @@ Label, Text, TextArea {
     -fx-background-image: url("/designs/finishLineTile.png");
     -fx-background-repeat: repeat;
 }
+
+#playerNameLabel {
+    -fx-text-fill: lightgrey; -fx-font-size: 55
+}
