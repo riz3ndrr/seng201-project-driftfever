@@ -103,13 +103,12 @@ public class SimulatorController {
         pane.setMaxHeight(Region.USE_COMPUTED_SIZE);
         pane.setStyle("-fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1 0;");
 
-        if (participant.getIsPlayer()) {
-            Label playerNameLabel = new Label();
-            playerNameLabel.setId("playerNameLabel");
-            playerNameLabel.setText(participant.getDriverName());
-            playerNameLabel.setLayoutX(10);
-            pane.getChildren().add(playerNameLabel);
-        }
+        Label playerNameLabel = new Label();
+        playerNameLabel.setId(participant.getIsPlayer() ? "playerNameLabel" : "opponentNameLabel");
+        playerNameLabel.setText(participant.getDriverName());
+        playerNameLabel.setLayoutX(10);
+        playerNameLabel.setLayoutY(10);
+        pane.getChildren().add(playerNameLabel);
 
         String carIcon = "car" + (participant.getCar().getItemID() + 1) + ".png";
         String iconFolder = "file:src/main/resources/designs/car-icon/";
@@ -165,7 +164,7 @@ public class SimulatorController {
 
     private void positionCars() {
         double paneWidth = raceAreaVBox.getWidth();
-        double carWidth = 50;
+        double carWidth = 66;
         double areaWidth = paneWidth - carWidth;
         double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
         for (int i = 0; i < race.getParticipants().size(); i++) {

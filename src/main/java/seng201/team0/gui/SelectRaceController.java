@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
+import seng201.team0.models.GameTimer;
 import seng201.team0.models.Race;
 import seng201.team0.services.SimulatorService;
 
@@ -85,9 +86,9 @@ public class SelectRaceController {
     public void displaySelectedRace() {
         raceNameLabel.setText(selectedRace.getName());
         raceDescLabel.setText(selectedRace.getDesc());
-        racePrizeLabel.setText("Prize for 1st: " + String.format("$%.2f", selectedRace.getPrizeMoney()));
-        raceDistanceLabel.setText("Distance: " + String.format("%.2f", selectedRace.getDistanceKilometers()) + "km");
-        raceTimeLimitLabel.setText("Time Limit: " + String.format("%d", selectedRace.getTimeLimitHours()) + "s");
+        racePrizeLabel.setText(String.format("Prize for 1st: $%.2f", selectedRace.getPrizeMoney()));
+        raceDistanceLabel.setText(String.format("Distance:  %.2f km", selectedRace.getDistanceKilometers()));
+        raceTimeLimitLabel.setText(String.format("Time Limit: %s", GameTimer.totalSecondsToStringHourMinSec(selectedRace.getTimeLimitHours() * 60.0 * 60.0)));
     }
 
     public void beginRace(javafx.event.ActionEvent event) throws IOException {

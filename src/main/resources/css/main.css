@@ -40,5 +40,17 @@ Label, Text, TextArea {
 }
 
 #playerNameLabel {
-    -fx-text-fill: lightgrey; -fx-font-size: 55
+    -fx-text-fill: #A0A0A0; -fx-font-size: 45
+}
+
+#opponentNameLabel {
+    -fx-text-fill: #E3E3E3; -fx-font-size: 45
+}
+
+#car {
+    -fx-cursor: hand;
+}
+
+#commentaryTextArea {
+    -fx-font-size: 20;
 }
