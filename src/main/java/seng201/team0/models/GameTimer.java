@@ -62,7 +62,7 @@ public class GameTimer {
         }
     }
 
-    public static String totalSecondsToString(double totalTimeInSeconds) {
+    public static String totalSecondsToStringHourMinSec(double totalTimeInSeconds) {
         if (totalTimeInSeconds < 0) {
             return "None";
         }
@@ -70,5 +70,14 @@ public class GameTimer {
         int minutes = (int) ((totalTimeInSeconds / 60) % 60);
         int hours = (int) (totalTimeInSeconds / (60 * 60));
         return String.format("%d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static String totalSecondsToStringMinSec(double totalTimeInSeconds) {
+        if (totalTimeInSeconds < 0) {
+            return "None";
+        }
+        int seconds = (int) (totalTimeInSeconds % 60);
+        int minutes = (int) (totalTimeInSeconds / 60);
+        return String.format("%02dm %02ds", minutes, seconds);
     }
 }

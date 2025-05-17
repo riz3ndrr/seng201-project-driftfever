@@ -178,7 +178,7 @@ public class SimulatorController {
         Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
 
         for (int i = 0; i < race.getGasStopDistances().size(); i++) {
-            int gasStopPositionKM = race.getGasStopDistances().get(i);
+            double gasStopPositionKM = race.getGasStopDistances().get(i);
             double pixelPositionX = carWidth + gasStopPositionKM * pixelsPerKilometre;
 
             ImageView imageView = new ImageView(gasStopIcon);
@@ -201,18 +201,42 @@ public class SimulatorController {
         List<String> commentary = new ArrayList<>();
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         for (RaceParticipant participant : race.getParticipants()) {
+            double currentDistance = participant.getDistanceTraveledKilometers();
             participant.progressSimulationByTime(secondsSinceLastTick, race.getDistanceKilometers(), commentary);
+
+            boolean didPassGasStop = race.isGasStopWithinBounds(currentDistance, participant.getDistanceTraveledKilometers());
+            if (didPassGasStop ) {
+                participantGasStopHandler(participant);
+            }
         }
         remainingRaceTimeSeconds -= secondsSinceLastTick;
-        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToString(remainingRaceTimeSeconds));
+        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
         positionCars();
         displayParticipantStats(selectedParticipant);
         addCommentary(commentary);
     }
 
+    private void participantGasStopHandler(RaceParticipant participant) {
+        double chanceOfRefueling = gameDB.getOpponentRefuelProbability();
+        if (Math.random() <= chanceOfRefueling) {
+            Car car = participant.getCar();
+            double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
+            double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
+            participant.setSecondsPaused(secondsForGasStop);
+            car.setFuelInTank(car.calculateFuelTankCapacity());
+            addComment(String.format("#%d %s is stopping for %s to refuel %.0f litres.",
+                    participant.getEntryNumber(), participant.getDriverName(),
+                    GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres));
+        }
+    }
+
     private void addCommentary(List<String> commentary) {
         for (String comment : commentary) {
-            commentaryTextArea.appendText(String.format("%s\n", comment));
+            addComment(comment);
         }
+    }
+
+    private void addComment(String comment) {
+        commentaryTextArea.appendText(String.format("%s\n", comment));
     }
 }

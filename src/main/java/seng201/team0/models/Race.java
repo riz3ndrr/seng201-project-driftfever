@@ -10,7 +10,7 @@ public class Race {
     private float distanceKilometers;
     private double curvinessScaleFactor; // 0 = straight, 1 = max curves
     private int numGasStops;
-    private List<Integer> gasStopDistances;
+    private List<Double> gasStopDistances;
     private float prizeMoney;
     private int timeLimitHours;
     private List<RaceParticipant> participants;
@@ -40,7 +40,7 @@ public class Race {
     public int getNumGasStops() {
         return numGasStops;
     }
-    public List<Integer> getGasStopDistances() { return gasStopDistances; }
+    public List<Double> getGasStopDistances() { return gasStopDistances; }
     public String getDesc() { return desc; }
     @Override
     public String toString() {
@@ -67,15 +67,24 @@ public class Race {
      * stop's distance from the start e.g. [0, 50, 100] so at index 1,
      * it says that the 2nd stop will be 50km away from the start point
      */
-    public List<Integer> getListOfFuelStopDistances(int numStops) {
+    public List<Double> getListOfFuelStopDistances(int numStops) {
         //TODO randomise spacing of gas stops
         numGasStops = numStops;
-        List<Integer> result = new ArrayList<>();
-        int distance_between_stops = (int) (distanceKilometers / (numGasStops + 1));
+        List<Double> result = new ArrayList<>();
+        double distance_between_stops = distanceKilometers / (numGasStops + 1);
         for (int i = 0; i < numGasStops; i++) {
             result.add(distance_between_stops * (i + 1));
         }
         return result;
+    }
+
+    public boolean isGasStopWithinBounds(double startDistance, double endDistance) {
+        for (Double gasStop : gasStopDistances) {
+            if (gasStop >= startDistance && gasStop < endDistance) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

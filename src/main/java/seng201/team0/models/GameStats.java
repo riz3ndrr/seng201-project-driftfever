@@ -37,8 +37,11 @@ public class GameStats {
     private double bal = raceDifficulty.getStartingBalance();
     private double prizeMoneyWon = 0;
     private double fuelCostPerLitre = 2.5;
+    private double minimumSecondsForGasStop = 180.0; // Time for driver to get out, pay, etc
+    private double secondsToPumpLitreOfGas = 10.0; // Time for a single litre of fuel to be pumped
     private int numOpponenents = 8;
-    private double oppenentUpgradeProbability = 0.15;
+    private double opponentUpgradeProbability = 0.15;
+    private double opponentRefuelProbability = 0.75;
 
     public Car selectedCar;
     private List<Car> carCollection = new ArrayList<>();
@@ -72,8 +75,11 @@ public class GameStats {
         return prizeMoneyWon;
     }
     public double getFuelCostPerLitre() { return fuelCostPerLitre; }
+    public double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
+    public double getSecondsToPumpLitreOfGas() { return secondsToPumpLitreOfGas; }
     public int getNumOpponenents() { return numOpponenents; }
-    public double getOpponentUpgradeProbability() { return oppenentUpgradeProbability; }
+    public double getOpponentUpgradeProbability() { return opponentUpgradeProbability; }
+    public double getOpponentRefuelProbability() { return opponentRefuelProbability; }
 
     public List<Upgrade> getUpgradeCollection() { return upgradeCollection; }
     public int getCarCollectionSize() { return carCollection.size(); }

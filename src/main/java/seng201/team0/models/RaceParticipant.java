@@ -10,7 +10,7 @@ public class RaceParticipant {
     int entryNumber;
     double distanceTraveledKilometers = 0.0;
     boolean isBrokenDown = false;
-    boolean isPaused = false;
+    double secondsPaused = 0.0;
 
 
     // Constructor
@@ -29,13 +29,19 @@ public class RaceParticipant {
     public void setDistanceTraveledKilometers(double distanceTraveledKilometers) { this.distanceTraveledKilometers = distanceTraveledKilometers; }
     public boolean isBrokenDown() { return isBrokenDown; }
     public void setBrokenDown(boolean brokenDown) { isBrokenDown = brokenDown; }
-    public boolean isPaused() { return isPaused; }
-    public void setPaused(boolean paused) { isPaused = paused; }
+    public void setSecondsPaused(double secondsPaused) { this.secondsPaused = secondsPaused; }
 
 
     // Logic
     public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, List<String> commentary) {
-        // Check if no fuel or past finish line
+        // Check if paused, no fuel, or past finish line
+        if (secondsPaused > 0.0) {
+            secondsPaused -= elapsedGameTimeSeconds;
+            if (secondsPaused <= 0.0) {
+                secondsPaused = 0.0;
+            }
+            return;
+        }
         if (car.getFuelInTank() <= 0.0) {
             return;
         }
