@@ -10,7 +10,6 @@ public class Race {
     private String desc;
     private float distanceKilometers;
     private double curvinessScaleFactor; // 0 = straight, 1 = max curves
-    private int numGasStops;
     private List<Double> gasStopDistances;
     private float prizeMoney;
     private int timeLimitHours;
@@ -23,7 +22,6 @@ public class Race {
         this.desc = desc;
         this.distanceKilometers = distance;
         this.curvinessScaleFactor = curviness;
-        this.numGasStops = numGasStops;
         this.gasStopDistances = getListOfFuelStopDistances(numGasStops);
         this.prizeMoney = prizeMoney;
         this.timeLimitHours = timeLimit;
@@ -37,9 +35,6 @@ public class Race {
     }
     public double getCurviness() {
         return curvinessScaleFactor;
-    }
-    public int getNumGasStops() {
-        return numGasStops;
     }
     public List<Double> getGasStopDistances() { return gasStopDistances; }
     public String getDesc() { return desc; }
@@ -66,15 +61,15 @@ public class Race {
      * @param numStops, the number of pit stops a race has.
      * @return a list (which is the size of the number of race stops) and each index will correspond to that
      * stop's distance from the start e.g. [0, 50, 100] so at index 1,
-     * it says that the 2nd stop will be 50km away from the start point
+     * it says that the 2nd stop will be 50km away from the start point give or take a random offset.
      */
     public List<Double> getListOfFuelStopDistances(int numStops) {
-        //TODO randomise spacing of gas stops
-        numGasStops = numStops;
         List<Double> result = new ArrayList<>();
-        double distance_between_stops = distanceKilometers / (numGasStops + 1);
-        for (int i = 0; i < numGasStops; i++) {
-            result.add(distance_between_stops * (i + 1));
+        double distanceBetweenStops = distanceKilometers / (numStops + 1);
+        for (int i = 0; i < numStops; i++) {
+            double offsetFactor = 0.2;
+            double randomOffset = (Math.random() - 0.5) * distanceBetweenStops * offsetFactor;
+            result.add((distanceBetweenStops + randomOffset) * (i + 1));
         }
         return result;
     }

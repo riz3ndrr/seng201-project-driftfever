@@ -156,7 +156,7 @@ public class ShopController {
     private Label viewGarage;
 
     /**When the "select race" button is clicked, it will switch to the "select race" scene
-     * if the user has selected 3 cars as that is the minimum number of cars a user will need
+     * if the user has selected 1 car as that is the minimum number a user will need
      * to purchase before proceeding with the rest of the game.
      *
      * @param event
@@ -164,8 +164,8 @@ public class ShopController {
      */
 
     public void switchToSelectRaceScene(MouseEvent event) throws IOException {
-        if (gameDB.getCarCollectionSize() < 3) {
-            shopSubtitle.setText("You must select 3 cars first");
+        if (gameDB.getCarCollectionSize() < 1) {
+            shopSubtitle.setText("You must first own one car");
         }
         else {
             FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
@@ -205,8 +205,8 @@ public class ShopController {
     public void switchToGarageScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
-        if (gameDB.getCarCollectionSize() < 3) {
-            shopSubtitle.setText("You must select 3 cars first");
+        if (gameDB.getCarCollectionSize() < 1) {
+            shopSubtitle.setText("You must first own one car");
         }
         else {
             FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/garage.fxml"));
@@ -258,7 +258,7 @@ public class ShopController {
      * displaying the first item and the
      * user calls this function, the index will be set such that the final item in the list of available item is shown.
      */
-    public void moveLeft(MouseEvent event) {
+    public void moveLeft() {
         // change the variables depending on if we're shopping cars or upgrades
 
         int availableItemsLength;

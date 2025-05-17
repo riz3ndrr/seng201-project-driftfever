@@ -111,6 +111,7 @@ public class StartScreenController {
     public void startSelecting() {
         selectAttributesPane.setVisible(true);
         startingPane.setVisible(false);
+        inputNameArea.requestFocus(); // Autofocus the name field
     }
 
     public void showNewOptionSlide() {
@@ -208,7 +209,7 @@ public class StartScreenController {
             updateSeasonCount(newValue.intValue());
         });
 
-        // Live validation on name inpt
+        // Live validation on name input
         inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
             if (isValidName(newText)) {
                 whatNameLabel.setText("Looks good!");
@@ -224,6 +225,9 @@ public class StartScreenController {
                 finishStartScreenLabel.setVisible(false);
             }
         });
+
+
+
     }
 
     public void switchToShopScene(MouseEvent event) throws IOException {
