@@ -6,6 +6,9 @@ import seng201.team0.models.GameStats;
 import seng201.team0.models.Purchasable;
 import seng201.team0.models.Upgrade;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShopService {
     // Enums
     // make it private / capital
@@ -61,6 +64,7 @@ public class ShopService {
         return PurchaseResult.INSUFFICIENT_FUNDS;
     }
 
+
     /**
      * Attempt to sell an item and return a result to the shop's controller class depending on if
      * the user has purchased the item or not.
@@ -73,6 +77,18 @@ public class ShopService {
         if (canSell) {
             gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
             if (isCar) {
+                Car car = (Car) selectedItem;
+
+                // Unequips any upgrades from the car
+                for (Upgrade upgrade : car.getEquippedUpgrades()) {
+                    if (upgrade.getNumPurchased() == 0) {
+                        gameDB.addItem(upgrade);
+                    }
+                    upgrade.setNumPurchased(upgrade.getNumPurchased() + 1);
+
+                }
+                car.clearUpgradeCollection();
+
                 selectedItem.setPurchased(false);
                 gameDB.removeItem(selectedItem);
             } else {

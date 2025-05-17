@@ -1,5 +1,7 @@
 package seng201.team0.models;
 
+import seng201.team0.GameManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +14,9 @@ public class Car extends Purchasable {
     private double fuelInTankLitres;
     private double handlingScaleFactor;
     private double reliabilityScaleFactor;
-    private List<Upgrade> equippedUpgrades = new ArrayList<>();
+    // rechange to private
+    public List<Upgrade> equippedUpgrades = new ArrayList<>();
+    GameStats gameDB = GameManager.getGameStats();
 
 
     // Constructor
@@ -37,6 +41,22 @@ public class Car extends Purchasable {
 
 
     // Logic
+
+    /**
+     * A helper function used by
+     */
+    public void unequipAllUpgrades() {
+        for (Upgrade equippedUpgrade : equippedUpgrades) {
+            this.removeUpgrade(equippedUpgrade);
+            if (equippedUpgrade.getNumPurchased() == 0) {
+                gameDB.addItem(equippedUpgrade);
+            }
+            equippedUpgrade.setNumPurchased(equippedUpgrade.getNumPurchased() + 1);
+        }
+        System.out.println(this.upgradesToString());
+    }
+
+
     public String upgradesToString() {
         List<String> items = new ArrayList<>();
         for (Upgrade upgrade : equippedUpgrades) {
@@ -140,6 +160,10 @@ public class Car extends Purchasable {
 
     public void removeUpgrade(Upgrade upgrade) {
         equippedUpgrades.remove(upgrade);
+    }
+
+    public void clearUpgradeCollection() {
+        equippedUpgrades.clear();
     }
 
     public boolean checkIfUpgradeEquipped(Upgrade selectedUpgrade) {
