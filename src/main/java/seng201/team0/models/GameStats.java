@@ -111,6 +111,7 @@ public class GameStats {
     public void clearUpgradeCollection() {
         for (Upgrade upgrade : upgradeCollection) {
             upgrade.setPurchased(false);
+            upgrade.setNumPurchased(0);
             //upgrade.resetNumPurchased();
         }
         upgradeCollection.clear();
