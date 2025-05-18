@@ -22,6 +22,10 @@ public class RaceComment {
     }
 
 
+    // Getters and setters
+    public RaceParticipant getParticipant() { return participant; }
+
+
     // Logic
     public HBox createUI() {
         HBox parent = new HBox();

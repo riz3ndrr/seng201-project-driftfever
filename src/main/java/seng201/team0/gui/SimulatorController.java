@@ -123,12 +123,24 @@ public class SimulatorController {
         imageView.setY(height / 4);
         imageView.setId("car");
         imageView.setOnMouseClicked(event -> {
-            selectedParticipant = participant;
-            displayParticipantStats(participant);
+            event.consume();
+            carWasClicked(participant);
         });
 
         pane.getChildren().add(imageView);
         return pane;
+    }
+
+    private void carWasClicked(RaceParticipant participant) {
+        selectedParticipant = participant;
+        displayParticipantStats(participant);
+        filterCommentary();
+    }
+
+    public void raceAreaWasClicked() {
+        selectedParticipant = null;
+        displayParticipantStats(null);
+        filterCommentary();
     }
 
     private void displayRaceStats() {
@@ -249,8 +261,22 @@ public class SimulatorController {
 
     private void addAndDisplayComment(RaceComment comment) {
         race.getCommentary().add(comment);
+        if (selectedParticipant == null || comment.getParticipant() == selectedParticipant) {
+            displayComment(comment);
+        }
+    }
+
+    private void displayComment(RaceComment comment) {
         HBox row = comment.createUI();
         commentaryVBox.getChildren().add(row);
+    }
+
+    private void filterCommentary() {
+        commentaryVBox.getChildren().clear();
+        List<RaceComment> comments = race.getCommentary().getCommentsForParticipant(selectedParticipant);
+        for (RaceComment comment : comments) {
+            displayComment(comment);
+        }
     }
 
     //Listens for changes to the height property of the vbox which happens when a commentary row is added/removed.

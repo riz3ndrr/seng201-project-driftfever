@@ -15,12 +15,16 @@ public class RaceCommentary {
     }
 
     public List<RaceComment> getCommentsForParticipant(RaceParticipant participant) {
-        List<RaceComment> result = new ArrayList<>();
-        for (RaceComment comment : comments) {
-            if (comment.participant == participant) {
-                result.add(comment);
+        if (participant == null) {
+            return comments;
+        } else {
+            List<RaceComment> result = new ArrayList<>();
+            for (RaceComment comment : comments) {
+                if (comment.participant == participant) {
+                    result.add(comment);
+                }
             }
+            return result;
         }
-        return result;
     }
 }

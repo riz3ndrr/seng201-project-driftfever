@@ -101,7 +101,7 @@
          </padding>
       </VBox>
       <Pane fx:id="gasStopLines" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-      <VBox fx:id="raceAreaVBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+      <VBox fx:id="raceAreaVBox" onMouseClicked="#raceAreaWasClicked" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
       <Pane fx:id="headerPane" prefHeight="200.0" prefWidth="200.0" />
       <ScrollPane fx:id="commentaryScrollPane" fitToWidth="true" GridPane.columnSpan="3" GridPane.rowIndex="2">
           <content>
