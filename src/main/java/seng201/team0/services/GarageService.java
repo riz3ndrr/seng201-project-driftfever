@@ -18,9 +18,6 @@ public class GarageService {
         UPGRADE_ALREADY_EQUIPPED
     }
 
-    public enum FillResult {
-        SUCCESS,
-    }
 
 
     // Properties

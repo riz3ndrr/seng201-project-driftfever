@@ -16,7 +16,7 @@ public class Car extends Purchasable {
     private double handlingScaleFactor;
     private double reliabilityScaleFactor;
     // rechange to private
-    public List<Upgrade> equippedUpgrades = new ArrayList<>();
+    private List<Upgrade> equippedUpgrades = new ArrayList<>();
     GameStats gameDB = GameManager.getGameStats();
 
 

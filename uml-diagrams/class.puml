@@ -1,103 +1,221 @@
 @startuml
 
+
+
+
+Class Purchasable {
+-itemID: int
+-name: String
+-desc: String
+-buyingPrice: float
+-sellingPrice: float
+-isPurchased: boolean
+
+}
+
 Class Car {
-    String name
-    float speed
-    float handling  
-    float reliability
-    float fuelEconomy
-    ArrayList<Part> upgrades
+-speedKilometresPerHour: double
+-fuelConsumptionLitresPerKilometer: double
+-fuelTankCapacityLitres: double
+-fuelTankInLitres: double
+-handlingScaleFactor: double
+-reliabilityScaleFactor: double
+-equippedUpgrades: List<Upgrade>
 
-    String toString()
++makeCopy() : Car
++addUpgrade() : void
++removeUpgrade() : void
++clearUpgradeCollection() : void
++checkIfUpgradeEquipped() : boolean
++costToFillTank() : double
 
-    
-}
-
-Interface Item {
-    float buyingPrice
-    float sellPrice
-    
-}
-'find special arrow for interace
-
-Item <|-- Car
-Item <|-- Part
-
-Class Player {
-    String name
-    float moneyBalance
-    
-}
-
-Class GameManagement {
-    String gameDifficulty
-    Int seasonLength
 
 }
 
-Class Shop {
-    ArrayList<Item> availableItems
+Class Upgrade {
+-speedMultiplier : double
+-handlingMultiplier : double
+-reliabilityMultiplier : double
+-fuelConsumptionMultiplier : double
+-fuelTankCapacityMultiplier : double
+-numPurchased : int
 
-    void purchase(Item)
-    void equip(Item)
-    void sell(Item)
-}
++displayForMultiplier() : String
 
-Class Garage {
-    ArrayList<Car> garage
-    ArrayList<Part> availableParts
-    
-    void equipCar(Car car)
-}
-
-Garage "1" --* "many" Car
-Car "1" --* "many" Part
-Garage "1" --* "many" Part
-Shop "1" --* "many" Item
-
-Player "1" --- "1" Garage
-
-Enum PartCarType{
-    ENGINE
-    BRAKES
-    WHEELS
 
 }
 
-Class Part {
-    float installCost
-    PartCarType carType
+Purchasable ---|> Upgrade
+Purchasable ---|> Car
 
-    void installPart()
-    void improveCarAttribute(carType)
-    void uninstallPart()
+class GameStats {
+    -selectedRace : Race
+    -raceCount : int
+    -racesDone : int = 0
+    -raceDifficulty : Difficulty
+    -userName : String
+    -bal : double
+    -prizeMoneyWon : double
+    -fuelCostPerLitre : double
+    -minimumSecondsForGasStop : double
+    -secondsToPumpLitreOfGas : double
+    -numOpponenents : int
+    -opponentUpgradeProbability : double
+    -opponentRefuelProbability : double
+    +selectedCar : Car
+    -carCollection : List<Car>
+    -upgradeCollection : List<Upgrade>
 
-    String toString()
+    +calculateAdjustedWinnings() : double
+    +clearCarCollection() : void
+    +clearUpgradeCollection() : void
+    +selectedItemInCollection() : boolean
+    +addItem() : void
+    +removeItem() : void
 }
 
-Part "1" --- "1" PartCarType
-
-Class RaceManagement {
-    ArrayList<Race> races
-
-    Race selectRace()
+enum Difficulty {
+    EASY
+    REGULAR
+    HARD
 }
 
-RaceManagement "1" --* "many" Race
+GameStats "1" --> "0..1" Race : selectedRace
+GameStats "1" --> "0..1" Car : selectedCar
+GameStats "1" *-- "0..*" Car : carCollection
+GameStats "1" *-- "0..*" Upgrade : upgradeCollection
+GameStats ..> Purchasable : uses
 
-Class Race {
-    String name
-    int hours
-    int routes
-    float prizeMoney
-    int entries
-    int numFuelStops
-    int difficulty
-    float raceDistance
-    int numOpponents
 
-    String toString()
+GameStats ..> Difficulty
+
+class Race {
+    -name : String
+    -desc : String
+    -distanceKilometers : float
+    -curvinessScaleFactor : double
+    -gasStopDistances : List<Double>
+    -prizeMoney : float
+    -timeLimitHours : int
+    -participants : List<RaceParticipant>
+    -commentary : RaceCommentary
+
+    +getListOfFuelStopDistances() : List<Double>
+    +isGasStopWithinBounds() : boolean
+    +addParticipant() : void
+    +clearParticipants() : void
 }
+
+class RaceParticipant {
+    -car : Car
+    -driverName : String
+    -entryNumber : int
+    -isPlayer : boolean
+    -distanceTraveledKilometers : double
+    -isBrokenDown : boolean
+    -secondsPaused : double
+
+    +progressSimulationByTime()
+}
+
+class RaceComment {
+    -participant : RaceParticipant
+    -message : String
+
+    +createUI() : HBox
+}
+
+'change add to addComment later
+class RaceCommentary {
+    -comments : List<RaceComment>
+
+    +addComment() : void
+    +getCommentsForParticipant() : List<RaceComment>
+}
+
+RaceCommentary --> "0..*" RaceComment
+RaceCommentary --> RaceParticipant
+
+
+RaceParticipant "1" --> "1" Car
+RaceParticipant --> "*" RaceComment
+
+
+Race --> "1" RaceCommentary
+Race --> "*" RaceParticipant
+
+
+Class GameTimer {
+   - timeSpeedFactor : double
+  - handler : EventHandler<Event>
+  - timeAtLastTick : long
+  - secondsElapsed : double
+  - framerate : int
+
+  + getElapsedSecondsInGameTime() : double
+  + start() : void
+  + pause() : void
+  + stop() : void
+  + totalSecondsToStringHourMinSec() : String
+  + totalSecondsToStringMinSec() : String
+}
+
+
+class GarageService {
+    +payableCostToFillTank() : double
+    +fillTank() : void
+    +updateSelectedCar() : void
+    +equipUpgrade() : EquipResult
+    +unequipUpgrade() : UnequipResult
+}
+
+enum UnequipResult {
+    UPGRADE_NOT_SELECTED
+    SUCCESS
+}
+
+enum EquipResult {
+    UPGRADE_NOT_SELECTED
+    SUCCESS
+    UPGRADE_ALREADY_EQUIPPED
+}
+
+
+GarageService ..> GameStats
+GarageService ..> UnequipResult
+GarageService ..> EquipResult
+
+class ShopService {
+    +buyItem() : PurchaseResult
+    +sellItem( : SellResult
+}
+
+enum PurchaseResult {
+    SUCCESS
+    ALREADY_OWNED
+    INSUFFICIENT_FUNDS
+}
+
+enum SellResult {
+    SUCCESS
+    ITEM_NOT_OWNED
+    LAST_CAR_OWNED
+}
+
+ShopService ..> SellResult
+ShopService ..> PurchaseResult
+
+
+
+ShopService ..> GameStats
+ShopService ..> Purchasable
+ShopService ..> Car
+ShopService ..> Upgrade
+
+
+
+
+
 
 
 @enduml
