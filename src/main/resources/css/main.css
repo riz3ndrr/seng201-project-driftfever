@@ -33,6 +33,9 @@ Label, Text, TextArea {
     -fx-background-color: #969696
 }
 
+#gasStopLines {
+    -fx-background-color: white;
+}
 
 #finishLinePane {
     -fx-background-image: url("/designs/finishLineTile.png");
