@@ -101,6 +101,7 @@ public class GameStats {
      */
     public void clearCarCollection() {
         for (Car car : carCollection) {
+            car.unequipAllUpgrades();
             car.setPurchased(false);
         }
         carCollection.clear();

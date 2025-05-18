@@ -39,6 +39,12 @@ public class Car extends Purchasable {
     public List<Upgrade> getEquippedUpgrades() {
         return equippedUpgrades;
     }
+    public double getSpeed() { return speedKilometresPerHour; }
+    public double getFuelConsumption() {return fuelConsumptionLitresPerKilometer;}
+    public double getFuelTankCapacity() {return fuelTankCapacityLitres;}
+    public double getHandlingScaleFactor() {return handlingScaleFactor;}
+    public double getReliabilityScaleFactor() {return reliabilityScaleFactor;}
+
 
 
     // Logic
@@ -48,13 +54,12 @@ public class Car extends Purchasable {
      */
     public void unequipAllUpgrades() {
         for (Upgrade equippedUpgrade : equippedUpgrades) {
-            this.removeUpgrade(equippedUpgrade);
             if (equippedUpgrade.getNumPurchased() == 0) {
                 gameDB.addItem(equippedUpgrade);
             }
             equippedUpgrade.setNumPurchased(equippedUpgrade.getNumPurchased() + 1);
         }
-        System.out.println(this.upgradesToString());
+        equippedUpgrades.clear();
     }
 
 
@@ -146,10 +151,10 @@ public class Car extends Purchasable {
      */
     public double calculateFuelPercentage() {
         double result = 100.0 * fuelInTankLitres / calculateFuelTankCapacity();
-        if (result > 100) {
-            setFuelInTank(calculateFuelTankCapacity());
-            return 100.0;
-        }
+//        if (result > 100) {
+//            setFuelInTank(calculateFuelTankCapacity());
+//            return 100.0;
+//        }
         return result;
     }
 

@@ -72,6 +72,7 @@ public class GameManager {
                         55555,//TODO PUT BACK TO 55 once refueling is implemented, this value is for testing
                         0.8,
                         0.7),
+
                 new Car(1,
                         "Lightning McQueen",
                         "Kachow!",
@@ -285,7 +286,6 @@ public class GameManager {
     public static List<Upgrade> getUpgrades() {
         return upgradeArray;
     }
-    public static Upgrade getUpgradeAtIndex(int index) { return upgradeArray.get(index); }
     public static Upgrade getUpgradeWithID(int findUpgradeID) {
         for (Upgrade upgrade : upgradeArray) {
             if (upgrade.getItemID() == findUpgradeID) {
@@ -313,26 +313,6 @@ public class GameManager {
         }
 
         MainWindow.launchWrapper(args);
-    }
-
-    public static List<Car> getAvailableCars() {
-        List<Car> result = new ArrayList<>();
-        for (Car car : carsArray) {
-            if (!car.isPurchased() && car.isAvailableToBuy()) {
-                result.add(car);
-            }
-        }
-        return result;
-    }
-
-    public static List<Upgrade> getAvailableUpgrades() {
-        List<Upgrade> result = new ArrayList<>();
-        for (Upgrade upgrade : upgradeArray) {
-            if (!upgrade.isPurchased() && upgrade.isAvailableToBuy()) {
-                result.add(upgrade);
-            }
-        }
-        return result;
     }
 
 }

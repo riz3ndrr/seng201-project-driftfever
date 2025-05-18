@@ -18,7 +18,7 @@ public class GarageService {
         UPGRADE_ALREADY_EQUIPPED
     }
 
-    public enum FilLResult {
+    public enum FillResult {
         SUCCESS,
     }
 
@@ -99,6 +99,12 @@ public class GarageService {
             return UnequipResult.UPGRADE_NOT_SELECTED;
         }
         selectedCar.removeUpgrade(selectedUpgrade);
+
+        // If the unequipped upgrade increased tank capacity
+        if (selectedCar.getFuelInTank() > selectedCar.getFuelTankCapacity()) {
+            selectedCar.setFuelInTank(selectedCar.getFuelTankCapacity());
+        }
+
         if (selectedUpgrade.getNumPurchased() == 0) {
             gameDB.addItem(selectedUpgrade);
         }
