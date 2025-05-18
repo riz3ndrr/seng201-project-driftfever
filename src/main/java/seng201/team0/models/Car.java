@@ -16,14 +16,14 @@ public class Car extends Purchasable {
     private double handlingScaleFactor;
     private double reliabilityScaleFactor;
     // rechange to private
-    public List<Upgrade> equippedUpgrades = new ArrayList<>();
+    private List<Upgrade> equippedUpgrades = new ArrayList<>();
     GameStats gameDB = GameManager.getGameStats();
 
 
     // Constructor
-    public Car(int itemID, String name, String desc, float buyingPrice, float sellingPrice, boolean isAvailableToBuy,
+    public Car(int itemID, String name, String desc, float buyingPrice, float sellingPrice,
                double speedKilometresPerHour, double fuelConsumption, double fuelTankCapacity, double handling, double reliability) {
-        super(itemID, name, desc, buyingPrice, sellingPrice, isAvailableToBuy);
+        super(itemID, name, desc, buyingPrice, sellingPrice);
         this.speedKilometresPerHour = speedKilometresPerHour;
         this.fuelConsumptionLitresPerKilometer = fuelConsumption;
         this.fuelTankCapacityLitres = fuelTankCapacity;
@@ -39,6 +39,12 @@ public class Car extends Purchasable {
     public List<Upgrade> getEquippedUpgrades() {
         return equippedUpgrades;
     }
+    public double getSpeed() { return speedKilometresPerHour; }
+    public double getFuelConsumption() {return fuelConsumptionLitresPerKilometer;}
+    public double getFuelTankCapacity() {return fuelTankCapacityLitres;}
+    public double getHandlingScaleFactor() {return handlingScaleFactor;}
+    public double getReliabilityScaleFactor() {return reliabilityScaleFactor;}
+
 
 
     // Logic
@@ -48,13 +54,12 @@ public class Car extends Purchasable {
      */
     public void unequipAllUpgrades() {
         for (Upgrade equippedUpgrade : equippedUpgrades) {
-            this.removeUpgrade(equippedUpgrade);
             if (equippedUpgrade.getNumPurchased() == 0) {
                 gameDB.addItem(equippedUpgrade);
             }
             equippedUpgrade.setNumPurchased(equippedUpgrade.getNumPurchased() + 1);
         }
-        System.out.println(this.upgradesToString());
+        equippedUpgrades.clear();
     }
 
 
@@ -71,7 +76,7 @@ public class Car extends Purchasable {
      * @return a copy of a certain car.
      */
     public Car makeCopy() {
-        Car copy = new Car(getItemID(), getName(), getDesc(), getBuyingPrice(), getSellingPrice(), isAvailableToBuy(),
+        Car copy = new Car(getItemID(), getName(), getDesc(), getBuyingPrice(), getSellingPrice(),
         speedKilometresPerHour, fuelConsumptionLitresPerKilometer, fuelTankCapacityLitres, handlingScaleFactor, reliabilityScaleFactor);
         return copy;
     }
@@ -146,10 +151,10 @@ public class Car extends Purchasable {
      */
     public double calculateFuelPercentage() {
         double result = 100.0 * fuelInTankLitres / calculateFuelTankCapacity();
-        if (result > 100) {
-            setFuelInTank(calculateFuelTankCapacity());
-            return 100.0;
-        }
+//        if (result > 100) {
+//            setFuelInTank(calculateFuelTankCapacity());
+//            return 100.0;
+//        }
         return result;
     }
 
@@ -191,9 +196,11 @@ public class Car extends Purchasable {
 
     public double costToFillTank(double costPerLitre) {
         double litresNeeded = calculateFuelTankCapacity() - fuelInTankLitres;
-        if (litresNeeded < 0.0) {
-            litresNeeded = 0.0;
-        }
+
+        //commented out as no scenario where current fuel in tank will be greater than capacity
+//        if (litresNeeded < 0.0) {
+//            litresNeeded = 0.0;
+//        }
         return litresNeeded * costPerLitre;
     }
 

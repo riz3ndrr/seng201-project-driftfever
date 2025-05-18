@@ -66,10 +66,9 @@ public class GameManager {
                         "A balanced car with smooth acceleration and steady handling.",
                         1600,
                         1400,
-                        true,
                         180,
                         0.6,
-                        55555,//TODO PUT BACK TO 55 once refueling is implemented, this value is for testing
+                        55555, // TODO PUT BACK TO 55 once refueling is implemented, this value is for testing
                         0.8,
                         0.7),
                 new Car(1,
@@ -77,7 +76,6 @@ public class GameManager {
                         "Kachow!",
                         1550,
                         850,
-                        true,
                         195,
                         0.72,
                         60,
@@ -88,7 +86,6 @@ public class GameManager {
                         "A versatile car with equal balance between speed and handling.",
                         1500,
                         850,
-                        true,
                         170,
                         0.54,
                         50,
@@ -99,7 +96,6 @@ public class GameManager {
                         "Light and agile, perfect for quick turns and smooth drifting.",
                         1400,
                         700,
-                        true,
                         160,
                         0.48,
                         45,
@@ -110,7 +106,6 @@ public class GameManager {
                         "Durable with solid control and good handling on various surfaces.",
                         1300,
                         750,
-                        true,
                         135,
                         0.66,
                         70,
@@ -121,7 +116,6 @@ public class GameManager {
                         "High-performance with fast acceleration and responsive handling.",
                         3600,
                         1600,
-                        false,
                         185,
                         0.84,
                         50,
@@ -132,7 +126,6 @@ public class GameManager {
                         "Was used to win 7 Piston Cups. Kablow!",
                         5200,
                         4800,
-                        true,
                         220,
                         1.1,
                         70,
@@ -143,7 +136,6 @@ public class GameManager {
                         "The world's fastest car. Although not renowned for its stability.",
                         4600,
                         1400,
-                        false,
                         240,
                         1.25,
                         40,
@@ -154,7 +146,6 @@ public class GameManager {
                         "Legend says this car has a mind of its own",
                         5000,
                         1300,
-                        false,
                         195,
                         0.42,
                         55,
@@ -163,6 +154,7 @@ public class GameManager {
         ));
     }
 
+
     private static List<Upgrade> createUpgrades() {
         return new ArrayList<>(Arrays.asList(
                 new Upgrade(0,
@@ -170,7 +162,6 @@ public class GameManager {
                         "Fuel to make your car go ZOOOOM!",
                         150,
                         120,
-                        true,
                         1.2,
                         1.0,
                         1.0,
@@ -181,7 +172,6 @@ public class GameManager {
                         "Improved traction for tighter turns and better control at high speeds.",
                         400,
                         350,
-                        true,
                         1.0,
                         1.5,
                         1.0,
@@ -192,85 +182,68 @@ public class GameManager {
                         "Lightweight yet durable — improves speed without sacrificing reliability.",
                         1100,
                         950,
-                        true,
                         1.2,
                         1.5,
                         1.0,
                         1.0,
                         1.7),
-
                 new Upgrade(
                         4,
                         "Attachable Rocket",
                         "Apparently stolen from NASA; use it to break the sound barrier.",
                         2000,
                         1500,
-                        true,
                         1.5,
                         1.0,
                         0.9,
                         1.2,
-                        1.0
-                ),
+                        1.0),
                 new Upgrade(3,
                         "Jumbo Fuel Tank",
                         "Extra capacity for extra distance.",
                         600,
                         540,
-                        true,
                         1.0,
                         1.0,
                         1.0,
                         1.0,
                         1.7),
-
                 new Upgrade(
                         5,
                         "Glue Spray",
                         "Spray glue on tires to boost its grip",
                         300,
                         200,
-                        true,
                         1.0,
                         1.3,
                         1.0,
                         1.0,
-                        1.0
-                ),
-
+                        1.0),
                 new Upgrade(
                         7,
                         "AI System",
                         "Smart driving assistant that drives your car with finesse.",
                         700,
                         630,
-                        true,
                         1.0,
                         1.5,
                         1.2,
                         1.0,
-                        1.0
-                ),
-
+                        1.0),
                 new Upgrade(
                         6,
                         "Better Brakes",
                         "Upgraded brakes for shorter stopping distance and better control.",
                         500,
                         300,
-                        true,
                         1.0,
                         1.15,
                         1.0,
                         1.0,
-                        1.0
-                )
-
-
-
-
+                        1.0)
         ));
     }
+
 
 
     // Getters and setters
@@ -285,7 +258,6 @@ public class GameManager {
     public static List<Upgrade> getUpgrades() {
         return upgradeArray;
     }
-    public static Upgrade getUpgradeAtIndex(int index) { return upgradeArray.get(index); }
     public static Upgrade getUpgradeWithID(int findUpgradeID) {
         for (Upgrade upgrade : upgradeArray) {
             if (upgrade.getItemID() == findUpgradeID) {
@@ -313,26 +285,6 @@ public class GameManager {
         }
 
         MainWindow.launchWrapper(args);
-    }
-
-    public static List<Car> getAvailableCars() {
-        List<Car> result = new ArrayList<>();
-        for (Car car : carsArray) {
-            if (!car.isPurchased() && car.isAvailableToBuy()) {
-                result.add(car);
-            }
-        }
-        return result;
-    }
-
-    public static List<Upgrade> getAvailableUpgrades() {
-        List<Upgrade> result = new ArrayList<>();
-        for (Upgrade upgrade : upgradeArray) {
-            if (!upgrade.isPurchased() && upgrade.isAvailableToBuy()) {
-                result.add(upgrade);
-            }
-        }
-        return result;
     }
 
 }

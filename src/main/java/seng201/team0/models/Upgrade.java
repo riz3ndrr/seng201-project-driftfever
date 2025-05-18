@@ -11,9 +11,9 @@ public class Upgrade extends Purchasable {
 
 
     // Constructor
-    public Upgrade(int upgradeID, String name, String desc, int buyingPrice, int sellingPrice, boolean isAvailableToBuy,
+    public Upgrade(int upgradeID, String name, String desc, int buyingPrice, int sellingPrice,
                    double speedMultiplier, double handlingMultiplier, double reliabilityMultiplier, double fuelConsumptionMultiplier, double fuelTankCapacityMultiplier) {
-        super(upgradeID, name, desc, buyingPrice, sellingPrice, isAvailableToBuy);
+        super(upgradeID, name, desc, buyingPrice, sellingPrice);
         this.speedMultiplier = speedMultiplier;
         this.handlingMultiplier = handlingMultiplier;
         this.reliabilityMultiplier = reliabilityMultiplier;
