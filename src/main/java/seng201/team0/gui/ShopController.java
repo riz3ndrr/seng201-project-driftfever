@@ -145,8 +145,11 @@ public class ShopController {
                 break;
             case ITEM_NOT_OWNED:
                 shopSubtitle.setText("You do not own this item");
+                break;
+
             case LAST_CAR_OWNED:
                 shopSubtitle.setText("Must own at least 1 car");
+                break;
         }
     }
 
@@ -286,10 +289,8 @@ public class ShopController {
     }
 
     public void debug(MouseEvent mouseEvent) {
-        System.out.println("Available cars:");
-        for (Car car: availableCars) {
-            System.out.println(car.getName());
-        }
+        System.out.println(selectedItem.getName());
+        System.out.println(selectedItem instanceof Car);
     }
 
     /**

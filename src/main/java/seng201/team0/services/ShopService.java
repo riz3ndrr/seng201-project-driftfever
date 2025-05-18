@@ -6,12 +6,9 @@ import seng201.team0.models.GameStats;
 import seng201.team0.models.Purchasable;
 import seng201.team0.models.Upgrade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ShopService {
     // Enums
-    // make it its own file
+    // make it private / capital
     public enum PurchaseResult {
         SUCCESS,
         ALREADY_OWNED,
@@ -53,18 +50,16 @@ public class ShopService {
                     gameDB.setSelectedCar((Car) selectedItem);
                 }
             } else {
-                Upgrade upgrade = (Upgrade) selectedItem;
-                if (!upgrade.isPurchased()) {
-                    gameDB.addItem(upgrade);
+                if (!selectedItem.isPurchased()) {
+                    gameDB.addItem(selectedItem);
                     selectedItem.setPurchased(true);
                 }
-                upgrade.setNumPurchased(upgrade.getNumPurchased() + 1);
+                ((Upgrade)selectedItem).setNumPurchased(((Upgrade)selectedItem).getNumPurchased() + 1);
             }
             return PurchaseResult.SUCCESS;
         }
         return PurchaseResult.INSUFFICIENT_FUNDS;
     }
-
 
     /**
      * Attempt to sell an item and return a result to the shop's controller class depending on if
@@ -74,36 +69,24 @@ public class ShopService {
      */
     public SellResult sellItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
-        boolean canSellItem = selectedItem.isPurchased();
-        if (gameDB.getCarCollectionSize() == 1) {
-            return SellResult.LAST_CAR_OWNED;
-        }
-        if (canSellItem) {
-            gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
+        System.out.println(selectedItem.getName());
+        System.out.println(selectedItem instanceof Car);
+        boolean canSell = selectedItem.isPurchased();
+        if (canSell) {
+
             if (isCar) {
-                Car car = (Car) selectedItem;
-
-                // Unequips any upgrades from the car
-                for (Upgrade upgrade : car.getEquippedUpgrades()) {
-                    if (upgrade.getNumPurchased() == 0) {
-                        gameDB.addItem(upgrade);
-                    }
-                    upgrade.setNumPurchased(upgrade.getNumPurchased() + 1);
-
+                if (gameDB.getCarCollectionSize() == 1) {
+                    return SellResult.LAST_CAR_OWNED;
                 }
-
-                car.clearUpgradeCollection();
 
                 selectedItem.setPurchased(false);
                 gameDB.removeItem(selectedItem);
+                gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
+            }
 
-                // if this car has been selected for racing, update the selected car to the next car in the list
-                if (gameDB.getSelectedCar() == car) {
-                    gameDB.setSelectedCar(gameDB.searchCarAtIndex(0));
-                }
-
-            } else {
+            else {
                 Upgrade upgrade = (Upgrade) selectedItem;
+                gameDB.setBal(gameDB.getBal() + selectedItem.getSellingPrice());
                 if (upgrade.getNumPurchased() > 1) {
                     upgrade.setNumPurchased(upgrade.getNumPurchased() - 1);
                 } else {
@@ -114,7 +97,6 @@ public class ShopService {
             }
             return SellResult.SUCCESS;
         }
-
         return SellResult.ITEM_NOT_OWNED;
     }
 }
