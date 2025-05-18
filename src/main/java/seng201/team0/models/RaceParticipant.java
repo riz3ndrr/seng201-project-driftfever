@@ -1,6 +1,5 @@
 package seng201.team0.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RaceParticipant {
@@ -36,7 +35,7 @@ public class RaceParticipant {
 
 
     // Logic
-    public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, List<String> commentary) {
+    public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, List<RaceComment> commentary) {
         // Check if paused, no fuel, or past finish line
         if (secondsPaused > 0.0) {
             secondsPaused -= elapsedGameTimeSeconds;
@@ -58,7 +57,7 @@ public class RaceParticipant {
         distanceTraveledKilometers += distanceInElapsedTime;
         if (distanceTraveledKilometers > raceLength) {
             distanceTraveledKilometers = raceLength;
-            commentary.add(String.format("#%d %s has finished the race!", entryNumber, driverName));
+            commentary.add(new RaceComment(this, "Finished the race!"));
         }
 
         // Calculate remaining fuel in tank
@@ -66,7 +65,7 @@ public class RaceParticipant {
         double newFuelLitres = car.getFuelInTank() - fuelConsumptionLitresPerKilometer * distanceInElapsedTime;
         if (newFuelLitres < 0.0) {
             newFuelLitres = 0.0;
-            commentary.add(String.format("#%d %s has run out of fuel and is out of the race.", entryNumber, driverName));
+            commentary.add(new RaceComment(this,"Ran out of fuel and is out of the race."));
         }
         car.setFuelInTank(newFuelLitres);
     }

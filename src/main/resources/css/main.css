@@ -51,6 +51,6 @@ Label, Text, TextArea {
     -fx-cursor: hand;
 }
 
-#commentaryTextArea {
+#commentaryVBox {
     -fx-font-size: 20;
 }

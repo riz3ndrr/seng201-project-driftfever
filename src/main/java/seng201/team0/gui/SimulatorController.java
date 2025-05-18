@@ -2,7 +2,8 @@ package seng201.team0.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Race;
+import seng201.team0.models.RaceComment;
 import seng201.team0.models.RaceParticipant;
 import seng201.team0.services.SimulatorService;
 import seng201.team0.models.GameTimer;
@@ -59,7 +61,10 @@ public class SimulatorController {
     @FXML
     private VBox raceAreaVBox;
     @FXML
-    private TextArea commentaryTextArea;
+    private ScrollPane commentaryScrollPane;
+    @FXML
+    private VBox commentaryVBox;
+
 
 
     // Properties
@@ -79,7 +84,8 @@ public class SimulatorController {
         simulatorService.prepareRace(race, player);
         remainingRaceTimeSeconds = race.getTimeLimitHours() * 60 * 60;
         addGasStopIconsAndLines();
-        commentaryTextArea.appendText("Race Commentary: \n");
+        lockCommentaryScrollToBottom();
+        addAndDisplayComment(new RaceComment(null, "Race Commentary"));
         createRaceArea();
         positionCars();
         displayRaceStats();
@@ -110,11 +116,8 @@ public class SimulatorController {
         playerNameLabel.setLayoutY(10);
         pane.getChildren().add(playerNameLabel);
 
-        String carIcon = "car" + (participant.getCar().getItemID() + 1) + ".png";
-        String iconFolder = "file:src/main/resources/designs/car-icon/";
-        Image image = new Image(iconFolder + carIcon);
-
-        ImageView imageView = new ImageView(image);
+        Image carIcon = participant.getCar().getIcon();
+        ImageView imageView = new ImageView(carIcon);
         imageView.setFitHeight(height / 2);
         imageView.setFitWidth(height);
         imageView.setY(height / 4);
@@ -206,7 +209,7 @@ public class SimulatorController {
     }
 
     private void progressSimulation() {
-        List<String> commentary = new ArrayList<>();
+        List<RaceComment> commentary = new ArrayList<>();
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         for (RaceParticipant participant : race.getParticipants()) {
             double currentDistance = participant.getDistanceTraveledKilometers();
@@ -221,7 +224,7 @@ public class SimulatorController {
         remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
         positionCars();
         displayParticipantStats(selectedParticipant);
-        addCommentary(commentary);
+        addAndDisplayCommentary(commentary);
     }
 
     private void participantGasStopHandler(RaceParticipant participant) {
@@ -232,19 +235,29 @@ public class SimulatorController {
             double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
             participant.setSecondsPaused(secondsForGasStop);
             car.setFuelInTank(car.calculateFuelTankCapacity());
-            addComment(String.format("#%d %s is stopping for %s to refuel %.0f litres.",
-                    participant.getEntryNumber(), participant.getDriverName(),
-                    GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres));
+            String message = String.format("Stopping for %s to refuel %.0f litres.",
+                    GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres);
+            addAndDisplayComment(new RaceComment(participant, message));
         }
     }
 
-    private void addCommentary(List<String> commentary) {
-        for (String comment : commentary) {
-            addComment(comment);
+    private void addAndDisplayCommentary(List<RaceComment> commentary) {
+        for (RaceComment comment : commentary) {
+            addAndDisplayComment(comment);
         }
     }
 
-    private void addComment(String comment) {
-        commentaryTextArea.appendText(String.format("%s\n", comment));
+    private void addAndDisplayComment(RaceComment comment) {
+        race.getCommentary().add(comment);
+        HBox row = comment.createUI();
+        commentaryVBox.getChildren().add(row);
+    }
+
+    //Listens for changes to the height property of the vbox which happens when a commentary row is added/removed.
+    //and scroll to the bottom when this happens so that the most recent commentary is scrolled into view.
+    private void lockCommentaryScrollToBottom() {
+        commentaryVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
+            commentaryScrollPane.setVvalue(1.0); // Scroll to bottom when the vbox height changes.
+        });
     }
 }

@@ -1,5 +1,6 @@
 package seng201.team0.models;
 
+import javafx.scene.image.Image;
 import seng201.team0.GameManager;
 
 import java.util.ArrayList;
@@ -194,5 +195,11 @@ public class Car extends Purchasable {
             litresNeeded = 0.0;
         }
         return litresNeeded * costPerLitre;
+    }
+
+    public Image getIcon() {
+        String carIcon = "car" + (getItemID() + 1) + ".png";
+        String iconFolder = "file:src/main/resources/designs/car-icon/";
+        return new Image(iconFolder + carIcon);
     }
 }
