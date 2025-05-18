@@ -168,7 +168,7 @@ public class SimulatorController {
             driverNameLabel.setText("Driver: " + participant.getDriverName());
             carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
             carModelLabel.setText("Model: " + car.getName());
-            carSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
+            carSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed(race.getCurviness())));
             carFuelCurrentLabel.setText(String.format("Fuel: %.0f L of %.0f L tank", car.getFuelInTank(), car.calculateFuelTankCapacity()));
             carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
             carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
@@ -225,7 +225,7 @@ public class SimulatorController {
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         for (RaceParticipant participant : race.getParticipants()) {
             double currentDistance = participant.getDistanceTraveledKilometers();
-            participant.progressSimulationByTime(secondsSinceLastTick, race.getDistanceKilometers(), commentary);
+            participant.progressSimulationByTime(secondsSinceLastTick, race.getDistanceKilometers(), race.getCurviness(), commentary);
 
             boolean didPassGasStop = race.isGasStopWithinBounds(currentDistance, participant.getDistanceTraveledKilometers());
             if (didPassGasStop ) {

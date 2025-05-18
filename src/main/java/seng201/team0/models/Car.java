@@ -83,11 +83,16 @@ public class Car extends Purchasable {
      * Calculates the car's top speed by applying its upgrades stats onto it
      * @return the speed after its upgrades' stats have been applied to it
      */
-    public double calculateSpeed() {
+    public double calculateSpeed(double trackCurviness) {
         double result = speedKilometresPerHour;
         for (Upgrade upgrade : equippedUpgrades) {
             result = result * upgrade.getSpeedMultiplier();
         }
+        // When curviness is 0 there is no impact on the speed and when curviness is 1 then speed is 0.
+        // The higher the handling the less this effect applies.
+        double handling = calculateHandling();
+        double effectOfHandlingAndCurviness = trackCurviness * (1 - (handling * (1 - trackCurviness)));
+        result -= result * effectOfHandlingAndCurviness;
         return result;
     }
 
@@ -105,18 +110,25 @@ public class Car extends Purchasable {
 
     /**
      * Calculates the car's handling stat by applying its upgrades stats onto it
+     * The result is always between 0 and 1
      * @return the car's handling stat after its upgrades' stats have been applied to it
      */
     public double calculateHandling() {
         double result = handlingScaleFactor;
         for (Upgrade upgrade : equippedUpgrades) {
-            result = result * upgrade.getHandlingMultiplier();
+            double remaining = 1.0 - result;
+            if (upgrade.getHandlingMultiplier() >= 1.0) {
+                result += remaining * (upgrade.getHandlingMultiplier() - 1.0);
+            } else {
+                result -= remaining * (1.0 - upgrade.getHandlingMultiplier());
+            }
         }
         return result;
     }
 
     /**
      * Calculates the car's reliability stat by applying its upgrades stats onto it
+     * The result is always between 0 and 1
      * @return the car's reliability stat capacity after its upgrades' stats have been applied to it
      */
     public double calculateReliability() {

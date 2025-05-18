@@ -12,7 +12,7 @@
 
 <GridPane prefHeight="800.0" prefWidth="1200.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.SimulatorController">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="422.0" prefWidth="870.8000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1000" minWidth="422.0" prefWidth="870.8000244140625" />
           <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="184.00004882812493" minWidth="-Infinity" prefWidth="25.599926757812455" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="-Infinity" prefWidth="303.2000732421875" />
         </columnConstraints>

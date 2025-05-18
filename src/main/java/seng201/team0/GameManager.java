@@ -22,7 +22,7 @@ public class GameManager {
                 new Race("Serpent's Spiral",
                         "This race has an insane amount of twists and turns!",
                         200,
-                        0.9,
+                        0.7,
                         4,
                         1000,
                         3

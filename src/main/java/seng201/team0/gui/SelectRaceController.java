@@ -57,6 +57,9 @@ public class SelectRaceController {
     private Label raceDistanceLabel;
 
     @FXML
+    private Label raceCurvinessLabel;
+
+    @FXML
     private Label raceTimeLimitLabel;
 
     @FXML
@@ -84,10 +87,12 @@ public class SelectRaceController {
     private Race selectedRace;
 
     public void displaySelectedRace() {
+        String gasStopCaption = String.format("gas %s", selectedRace.getGasStopDistances().size() == 1 ? "stop" : "stops");
         raceNameLabel.setText(selectedRace.getName());
         raceDescLabel.setText(selectedRace.getDesc());
         racePrizeLabel.setText(String.format("Prize for 1st: $%.2f", selectedRace.getPrizeMoney()));
-        raceDistanceLabel.setText(String.format("Distance:  %.2f km", selectedRace.getDistanceKilometers()));
+        raceDistanceLabel.setText(String.format("Distance:  %.2f km with %d %s", selectedRace.getDistanceKilometers(), selectedRace.getGasStopDistances().size(), gasStopCaption));
+        raceCurvinessLabel.setText(String.format("Curviness: %.0f%%", 100.0 * selectedRace.getCurviness()));
         raceTimeLimitLabel.setText(String.format("Time Limit: %s", GameTimer.totalSecondsToStringHourMinSec(selectedRace.getTimeLimitHours() * 60.0 * 60.0)));
     }
 
@@ -102,7 +107,7 @@ public class SelectRaceController {
         Image carImg = new Image(selectedCarImgDirectory);
         selectedCarImg.setImage(carImg);
         carNameLabel.setText(selectedCar.getName());
-        carSpeedLabel.setText(String.format("Top speed: %.0f km/h", selectedCar.calculateSpeed()));
+        carSpeedLabel.setText(String.format("Top speed: %.0f km/h", selectedCar.calculateSpeed(0.0)));
         carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * selectedCar.calculateHandling()));
         carReliabilityLabel.setText(String.format("Reliability: %.2f%%", 100.0 * selectedCar.calculateReliability()));
         carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * selectedCar.calculateFuelConsumption()));

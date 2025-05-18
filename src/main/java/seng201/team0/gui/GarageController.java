@@ -170,7 +170,7 @@ public class GarageController {
         carNameLabel.setText(car.getName());
         fuelMeterLabel.setText(String.format("Fuel level: %.0f%%", fuelPercentage));
         fillTankLabel.setText(buttonCaption);
-        speedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
+        speedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed(0.0)));
         handlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
         reliabilityLabel.setText(String.format("Reliability: %.2f%%", 100.0 * car.calculateReliability()));
         fuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));

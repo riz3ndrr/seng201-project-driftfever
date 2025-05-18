@@ -39,7 +39,7 @@ public class RaceParticipant {
 
 
     // Logic
-    public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, List<RaceComment> commentary) {
+    public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, double trackCurviness, List<RaceComment> commentary) {
         // If paused reduce the timer and wait.
         if (secondsPaused > 0.0) {
             secondsPaused -= elapsedGameTimeSeconds;
@@ -58,7 +58,7 @@ public class RaceParticipant {
         }
 
         // Calculate extra distance
-        double speedKilometresPerSecond = car.calculateSpeed() / (60 * 60);
+        double speedKilometresPerSecond = car.calculateSpeed(trackCurviness) / (60 * 60);
         double distanceInElapsedTime = speedKilometresPerSecond * elapsedGameTimeSeconds;
         distanceTraveledKilometers += distanceInElapsedTime;
         if (distanceTraveledKilometers > raceLength) {

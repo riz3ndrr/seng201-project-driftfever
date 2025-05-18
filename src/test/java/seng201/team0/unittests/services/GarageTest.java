@@ -215,7 +215,7 @@ public class GarageTest {
         selectedUpgrade = Upgrades.getFirst();
         int originalAmountOfEquippedUpgrades = selectedCar.getEquippedUpgrades().size();
 
-        double ogSpeed = selectedCar.calculateSpeed();
+        double ogSpeed = selectedCar.calculateSpeed(0.0);
         double ogFuelConsumption = selectedCar.calculateFuelConsumption();
         double ogFuelTankCapacity = selectedCar.calculateFuelTankCapacity();
         double ogHandlingScaleFactor = selectedCar.calculateHandling();
@@ -231,7 +231,7 @@ public class GarageTest {
         assertTrue(gameDB.selectedItemInCollection(selectedUpgrade));
 
         // check if stats have been changed
-        assertEquals(ogSpeed * selectedUpgrade.getSpeedMultiplier(), selectedCar.calculateSpeed());
+        assertEquals(ogSpeed * selectedUpgrade.getSpeedMultiplier(), selectedCar.calculateSpeed(0.0));
         assertEquals(ogFuelConsumption * selectedUpgrade.getFuelConsumptionMultiplier(), selectedCar.calculateFuelConsumption());
         assertEquals(ogFuelTankCapacity * selectedUpgrade.getFuelTankCapacityMultiplier(), selectedCar.calculateFuelTankCapacity());
         assertEquals(ogHandlingScaleFactor * selectedUpgrade.getHandlingMultiplier(), selectedCar.calculateHandling());
