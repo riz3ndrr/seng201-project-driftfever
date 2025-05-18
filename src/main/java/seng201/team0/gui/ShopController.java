@@ -20,8 +20,6 @@ import seng201.team0.models.Upgrade;
 import seng201.team0.services.ShopService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ShopController {
@@ -189,14 +187,14 @@ public class ShopController {
     public void end(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/endScreen.fxml"));
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/finishedRace.fxml"));
         Parent root = baseLoader.load();
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        EndScreenController baseController = baseLoader.getController();
+        FinishedRaceController baseController = baseLoader.getController();
         baseController.initialize(stage);
     }
 
