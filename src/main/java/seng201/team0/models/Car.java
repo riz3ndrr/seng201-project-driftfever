@@ -122,11 +122,15 @@ public class Car extends Purchasable {
     public double calculateReliability() {
         double result = reliability;
         for (Upgrade upgrade : equippedUpgrades) {
-            result = result * upgrade.getReliabilityMultiplier();
+            double remaining = 1.0 - result;
+            if (upgrade.getReliabilityMultiplier() >= 1.0) {
+                result += remaining * (upgrade.getReliabilityMultiplier() - 1.0);
+            } else {
+                result -= remaining * (1.0 - upgrade.getReliabilityMultiplier());
+            }
         }
         return result;
     }
-
 
     /**
      * Calculates the car's fuel consumption stat by applying its upgrades stats onto it

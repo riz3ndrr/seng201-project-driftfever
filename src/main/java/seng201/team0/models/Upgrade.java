@@ -46,16 +46,4 @@ public class Upgrade extends Purchasable {
             return String.format("-%.0f%%", 100.0 * (1.0 - multiplier));
         }
     }
-
-    // Commented out as upgrades can only be purchased once
-    /*
-    public void incrementNumPurchased() { numPurchased++; }
-    public void decrementNumPurchased() { numPurchased--; }
-    public void resetNumPurchased() { numPurchased = 0; }
-    public int getNumPurchased() { return numPurchased; }
-    */
-
-
-    //implement parts later
-    // private ArrayList<Part> upgrades
 }
