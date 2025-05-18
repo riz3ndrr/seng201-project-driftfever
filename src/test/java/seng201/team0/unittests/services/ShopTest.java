@@ -195,7 +195,7 @@ public class ShopTest {
         assertEquals(120, gameDB.getBal());
         assertEquals(0, selectedUpgrade.getNumPurchased());
         assertFalse(gameDB.selectedItemInCollection(selectedUpgrade));
-        }
+    }
 
     /**
      * Test to sell an upgrade you don't actually own
