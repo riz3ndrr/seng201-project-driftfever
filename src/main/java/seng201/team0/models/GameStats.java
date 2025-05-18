@@ -82,6 +82,8 @@ public class GameStats {
     public double getOpponentRefuelProbability() { return opponentRefuelProbability; }
 
     public List<Upgrade> getUpgradeCollection() { return upgradeCollection; }
+    public List<Car> getCarCollection() {return carCollection;}
+    public int getUpgradeCollectionSize() {return upgradeCollection.size();}
     public int getCarCollectionSize() { return carCollection.size(); }
     public void setSelectedCar(Car car) { this.selectedCar = car; }
     public Car getSelectedCar() { return selectedCar; }
@@ -110,7 +112,9 @@ public class GameStats {
      */
     public void clearUpgradeCollection() {
         for (Upgrade upgrade : upgradeCollection) {
+            upgrade.setNumPurchased(0);
             upgrade.setPurchased(false);
+
             //upgrade.resetNumPurchased();
         }
         upgradeCollection.clear();
@@ -126,12 +130,13 @@ public class GameStats {
 
     public boolean selectedItemInCollection(Upgrade upgrade) {
         for (Upgrade u : upgradeCollection) {
-            if (u.getName().equals(u.getName())) {
+            if (u.getName().equals(upgrade.getName())) {
                 return true;
             }
         }
         return false;
     }
+
 
 
 

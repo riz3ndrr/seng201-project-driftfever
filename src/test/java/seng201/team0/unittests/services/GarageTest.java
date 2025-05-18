@@ -60,19 +60,27 @@ public class GarageTest {
     @Test
     void selectCar() {
         //gameDB.printCars();
+        // Selected Car is Purple Car
+        gameDB.setSelectedCar(gameDB.searchCarAtIndex(0));
         assertEquals(gameDB.getSelectedCar().getName(), "Purple Car");
         garageService.updateSelectedCar(gameDB.searchCarAtIndex(1));
         assertEquals(gameDB.getSelectedCar().getName(), "Lime Wheels");
     }
 
+
+    // doesnt work
     @Test
     void fillTankWhenHaveSufficientMoney() {
         gameDB.setBal(200);
+        // Selected Car is Lime Wheels which has a fuel tank capacity of 50L
+        gameDB.setSelectedCar(gameDB.searchCarAtIndex(0));
         selectedCar = gameDB.getSelectedCar();
         selectedCar.setFuelInTank(40.0);
+        assertEquals(selectedCar.getFuelInTank(), 40);
         garageService.fillTank(selectedCar);
 
-        assertEquals(selectedCar.calculateFuelPercentage(), 100);
+
+        assertEquals(selectedCar.getFuelInTank(), 50);
         assertEquals(gameDB.getBal(), 20);
     }
 
