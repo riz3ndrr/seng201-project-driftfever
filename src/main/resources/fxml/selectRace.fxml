@@ -224,9 +224,6 @@
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>
-                           <font>
-                              <Font size="25.0" />
-                           </font>
                         </Button>
                      </children>
                      <GridPane.margin>

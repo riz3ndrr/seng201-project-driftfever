@@ -326,7 +326,7 @@ public class ShopController {
             Car car = (Car) selectedItem;
             itemSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed()));
             itemHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
-            itemReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
+            itemReliabilityLabel.setText(String.format("Reliability: %.2f%%", 100.0 * car.calculateReliability()));
             itemFuelEcoLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
             itemFuelTankCapacityLabel.setText(String.format("Fuel tank: %.0f L", car.calculateFuelTankCapacity()));
         } else {

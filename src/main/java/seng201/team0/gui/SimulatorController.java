@@ -172,7 +172,7 @@ public class SimulatorController {
             carFuelCurrentLabel.setText(String.format("Fuel: %.0f L of %.0f L tank", car.getFuelInTank(), car.calculateFuelTankCapacity()));
             carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * car.calculateFuelConsumption()));
             carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * car.calculateHandling()));
-            carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * car.calculateReliability()));
+            carReliabilityLabel.setText(String.format("Reliability: %.2f%%", 100.0 * car.calculateReliability()));
             carUpgradesLabel.setText("Upgrades: " + car.upgradesToString());
         }
     }

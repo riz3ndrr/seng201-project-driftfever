@@ -104,7 +104,7 @@ public class SelectRaceController {
         carNameLabel.setText(selectedCar.getName());
         carSpeedLabel.setText(String.format("Top speed: %.0f km/h", selectedCar.calculateSpeed()));
         carHandlingLabel.setText(String.format("Handling: %.0f%%", 100.0 * selectedCar.calculateHandling()));
-        carReliabilityLabel.setText(String.format("Reliability: %.0f%%", 100.0 * selectedCar.calculateReliability()));
+        carReliabilityLabel.setText(String.format("Reliability: %.2f%%", 100.0 * selectedCar.calculateReliability()));
         carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * selectedCar.calculateFuelConsumption()));
         fuelMeterLabel.setText(String.format("Fuel level: %.0f%% of %.0f L", selectedCar.calculateFuelPercentage(), selectedCar.calculateFuelTankCapacity()));
     }

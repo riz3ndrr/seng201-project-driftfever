@@ -4,12 +4,28 @@
 /*    -fx-background-image: url("../designs/BG2.png");*/
 /*}*/
 
-Label, Text, TextArea {
+Label, Text, TextArea, ListView, Button {
     -fx-font-family: "Jersey 15", sans-serif;
 }
 
+ListView {
+    -fx-font-size: 30px;
+}
+
+#startLabel, #beginGameLabel, #button {
+    -fx-font-size: 56px;
+}
+
+#beginRaceLabel {
+    -fx-font-size: 40px;
+}
+
+#beginRaceLabel:hover {
+    -fx-font-size: 45px;
+}
+
 #startLabel:hover, #beginGameLabel:hover, #button:hover {
-    -fx-font-size: 70px;
+    -fx-font-size: 66px;
 }
 
 #beginGameLabel {

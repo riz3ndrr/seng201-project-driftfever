@@ -39,9 +39,6 @@
                </font>
             </Text>
             <Label id="startLabel" fx:id="startLabel" alignment="CENTER" layoutX="-14.0" layoutY="248.0" onMouseClicked="#startSelecting" prefHeight="67.0" prefWidth="1200.0" text="Start" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="56.0" />
-               </font>
             </Label>
          </children>
       </Pane>
@@ -81,9 +78,6 @@
             </Text>
             <TextField fx:id="inputNameArea" layoutX="464.0" layoutY="234.0" prefHeight="38.0" prefWidth="247.0" />
             <Label id="beginGameLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="486.0" onMouseClicked="#switchToShopScene" prefHeight="67.0" prefWidth="303.0" text="Let's ride!" textAlignment="CENTER">
-               <font>
-                  <Font size="56.0" />
-               </font>
             </Label>
          </children>
       </Pane>

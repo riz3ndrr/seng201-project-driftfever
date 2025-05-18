@@ -1,16 +1,20 @@
 package seng201.team0.models;
 
+import seng201.team0.GameManager;
+
 import java.util.List;
 
 public class RaceParticipant {
     // Properties
-    Car car;
-    String driverName;
-    int entryNumber;
-    boolean isPlayer;
-    double distanceTraveledKilometers = 0.0;
-    boolean isBrokenDown = false;
-    double secondsPaused = 0.0;
+    private Car car;
+    private String driverName;
+    private int entryNumber;
+    private boolean isPlayer;
+    private double distanceTraveledKilometers = 0.0;
+    private boolean isBrokenDown = false;
+    private boolean canRepairBreakdown = false;
+    private double secondsPaused = 0.0;
+    private GameStats gameDB = GameManager.getGameStats();
 
 
     // Constructor
@@ -36,18 +40,20 @@ public class RaceParticipant {
 
     // Logic
     public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, List<RaceComment> commentary) {
-        // Check if paused, no fuel, or past finish line
+        // If paused reduce the timer and wait.
         if (secondsPaused > 0.0) {
             secondsPaused -= elapsedGameTimeSeconds;
             if (secondsPaused <= 0.0) {
                 secondsPaused = 0.0;
+                if (isBrokenDown && canRepairBreakdown) {
+                    isBrokenDown = false;
+                    commentary.add(new RaceComment(this, "Successfully repaired their car."));
+                }
             }
             return;
         }
-        if (car.getFuelInTank() <= 0.0) {
-            return;
-        }
-        if (distanceTraveledKilometers >= raceLength) {
+        // If out of fuel, broken down, or finished, do nothing.
+        if (car.getFuelInTank() <= 0.0 || isBrokenDown || distanceTraveledKilometers >= raceLength) {
             return;
         }
 
@@ -68,6 +74,19 @@ public class RaceParticipant {
             commentary.add(new RaceComment(this,"Ran out of fuel and is out of the race."));
         }
         car.setFuelInTank(newFuelLitres);
-    }
 
+        // Calculate breakdowns
+        double chanceOfBreakdown = (1.0 - car.getReliability()) * distanceInElapsedTime;
+        boolean didBreakdown = Math.random() < chanceOfBreakdown;
+        if (didBreakdown) {
+            isBrokenDown = true;
+            canRepairBreakdown = Math.random() < gameDB.getOpponentRepairProbability();
+            if (canRepairBreakdown) {
+                secondsPaused = gameDB.getMinRepairTimeSeconds() + Math.random() * (gameDB.getMaxRepairTimeSeconds() - gameDB.getMinRepairTimeSeconds()); // Random repair time between 15 and 30 minutes
+                commentary.add(new RaceComment(this, String.format("Car has broken down and will take %s to fix.", GameTimer.totalSecondsToStringMinSec(secondsPaused))));
+            } else {
+                commentary.add(new RaceComment(this, "Car has permanently broken down and is out of the race!"));
+            }
+        }
+    }
 }

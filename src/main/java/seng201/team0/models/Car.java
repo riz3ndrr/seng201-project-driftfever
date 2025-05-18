@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import seng201.team0.GameManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Car extends Purchasable {
@@ -14,10 +13,9 @@ public class Car extends Purchasable {
     private double fuelTankCapacityLitres;
     private double fuelInTankLitres;
     private double handlingScaleFactor;
-    private double reliabilityScaleFactor;
-    // rechange to private
+    private double reliability; // Chance of not breaking down every kilometre (eg: 0.99 = 1% chance of breakdown per kilometre)
     private List<Upgrade> equippedUpgrades = new ArrayList<>();
-    GameStats gameDB = GameManager.getGameStats();
+    private GameStats gameDB = GameManager.getGameStats();
 
 
     // Constructor
@@ -29,7 +27,7 @@ public class Car extends Purchasable {
         this.fuelTankCapacityLitres = fuelTankCapacity;
         this.fuelInTankLitres = 0.0;
         this.handlingScaleFactor = handling;
-        this.reliabilityScaleFactor = reliability;
+        this.reliability = reliability;
     }
 
 
@@ -43,7 +41,7 @@ public class Car extends Purchasable {
     public double getFuelConsumption() {return fuelConsumptionLitresPerKilometer;}
     public double getFuelTankCapacity() {return fuelTankCapacityLitres;}
     public double getHandlingScaleFactor() {return handlingScaleFactor;}
-    public double getReliabilityScaleFactor() {return reliabilityScaleFactor;}
+    public double getReliability() {return reliability;}
 
 
 
@@ -77,7 +75,7 @@ public class Car extends Purchasable {
      */
     public Car makeCopy() {
         Car copy = new Car(getItemID(), getName(), getDesc(), getBuyingPrice(), getSellingPrice(),
-        speedKilometresPerHour, fuelConsumptionLitresPerKilometer, fuelTankCapacityLitres, handlingScaleFactor, reliabilityScaleFactor);
+        speedKilometresPerHour, fuelConsumptionLitresPerKilometer, fuelTankCapacityLitres, handlingScaleFactor, reliability);
         return copy;
     }
 
@@ -122,7 +120,7 @@ public class Car extends Purchasable {
      * @return the car's reliability stat capacity after its upgrades' stats have been applied to it
      */
     public double calculateReliability() {
-        double result = reliabilityScaleFactor;
+        double result = reliability;
         for (Upgrade upgrade : equippedUpgrades) {
             result = result * upgrade.getReliabilityMultiplier();
         }

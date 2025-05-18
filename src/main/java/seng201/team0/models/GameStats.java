@@ -42,6 +42,9 @@ public class GameStats {
     private int numOpponenents = 8;
     private double opponentUpgradeProbability = 0.15;
     private double opponentRefuelProbability = 0.75;
+    private double opponentRepairProbability = 0.7; // Chance that an opponent breaking down can be repaired
+    private double minRepairTimeSeconds = 10.0 * 60.0; // Repairs will take at least 10 minutes
+    private double maxRepairTimeSeconds = 20.0 * 60.0; // Repairs will take at most 20 minutes
 
     public Car selectedCar;
     private List<Car> carCollection = new ArrayList<>();
@@ -80,6 +83,9 @@ public class GameStats {
     public int getNumOpponenents() { return numOpponenents; }
     public double getOpponentUpgradeProbability() { return opponentUpgradeProbability; }
     public double getOpponentRefuelProbability() { return opponentRefuelProbability; }
+    public double getOpponentRepairProbability() { return opponentRepairProbability; }
+    public double getMinRepairTimeSeconds() { return minRepairTimeSeconds; }
+    public double getMaxRepairTimeSeconds() { return maxRepairTimeSeconds; }
 
     public List<Upgrade> getUpgradeCollection() { return upgradeCollection; }
     public List<Car> getCarCollection() {return carCollection;}
