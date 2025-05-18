@@ -14,6 +14,7 @@ public class Race {
     private float prizeMoney;
     private int timeLimitHours;
     private List<RaceParticipant> participants;
+    private RaceCommentary commentary = new RaceCommentary();
 
 
     // Constructor
@@ -30,32 +31,20 @@ public class Race {
 
 
     // Getters and setters
-    public float getDistanceKilometers() {
-        return distanceKilometers;
-    }
-    public double getCurviness() {
-        return curvinessScaleFactor;
-    }
+    public float getDistanceKilometers() { return distanceKilometers; }
+    public double getCurviness() { return curvinessScaleFactor; }
     public List<Double> getGasStopDistances() { return gasStopDistances; }
     public String getDesc() { return desc; }
     @Override
-    public String toString() {
-        return this.name;
-    }
-    public float getPrizeMoney() {
-        return prizeMoney;
-    }
-    public int getTimeLimitHours() {
-        return timeLimitHours;
-    }
-    public String getName() {
-        return name;
-    }
+    public String toString() { return this.name; }
+    public float getPrizeMoney() { return prizeMoney; }
+    public int getTimeLimitHours() { return timeLimitHours; }
+    public String getName() { return name; }
     public List<RaceParticipant> getParticipants() { return participants; }
+    public RaceCommentary getCommentary() { return commentary; }
 
 
     // Logic
-
     /**
      * Calculate and obtain a list of distances from the starting point for fuel stops.
      * @param numStops, the number of pit stops a race has.
