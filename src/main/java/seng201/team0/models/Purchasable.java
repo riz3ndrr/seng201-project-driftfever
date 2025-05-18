@@ -12,13 +12,12 @@ public class Purchasable {
 
 
     // Constructor
-    Purchasable(int itemID, String name, String desc, float buyingPrice, float sellingPrice, boolean availableToBuy) {
+    Purchasable(int itemID, String name, String desc, float buyingPrice, float sellingPrice) {
         this.itemID = itemID;
         this.name = name;
         this.desc = desc;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;
-        this.availableToBuy = availableToBuy;
         this.isPurchased = false;
     }
 
@@ -40,9 +39,6 @@ public class Purchasable {
         return sellingPrice;
     }
     public void setPurchased(boolean isPurchased) { this.isPurchased = isPurchased;}
-    public boolean isAvailableToBuy() {
-        return availableToBuy;
-    }
     public boolean isPurchased() { return isPurchased;}
 
 
