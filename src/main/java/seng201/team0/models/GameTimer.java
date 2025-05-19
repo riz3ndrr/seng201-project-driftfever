@@ -56,6 +56,14 @@ public class GameTimer {
         }
     }
 
+    public void resume() {
+        if (timeline != null) {
+            long now = System.currentTimeMillis();
+            timeAtLastTick = now;
+            timeline.play();
+        }
+    }
+
     public void stop() {
         if (timeline != null) {
             timeline.stop();
