@@ -260,7 +260,7 @@ public class GarageController extends ParentController {
             // going to show equipped items
             showEquippedItems = true;
             switchUpgradesLabel.setText("Show Unequipped Items");
-            unequipOrEquipUpgradeLabel.setText("Unequip Upgrade:");
+            unequipOrEquipUpgradeLabel.setText("Unequip Upgrade");
             upgradesHeaderLabel.setText("Equipped Upgrades:");
 
         }

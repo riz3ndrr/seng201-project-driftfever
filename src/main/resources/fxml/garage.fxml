@@ -233,7 +233,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                      <GridPane.margin>
-                        <Insets bottom="80.0" left="80.0" right="30.0" />
+                        <Insets bottom="80.0" left="80.0" right="75.0" />
                      </GridPane.margin>
                   </Label>
                   <Label id="switchUpgradesLabel" fx:id="switchUpgradesLabel" alignment="CENTER" onMouseClicked="#switchUpgrades" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="78.0" prefWidth="217.0" text="Show equipped items" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
@@ -268,7 +268,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                      <GridPane.margin>
-                        <Insets bottom="10.0" left="80.0" right="30.0" top="45.0" />
+                        <Insets bottom="10.0" left="80.0" right="75.0" top="45.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="resultEquipMessage" alignment="CENTER" prefHeight="62.0" prefWidth="453.0" text="Upgrade not selected" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">

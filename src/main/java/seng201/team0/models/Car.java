@@ -48,7 +48,9 @@ public class Car extends Purchasable {
     // Logic
 
     /**
-     * A helper function used by
+     * A helper function used by the car class to unequip all of its equipped upgrades.
+     * Whenever an upgrade is unequipped, the variable, NumPurchased, which tracks the quantity of how much
+     * of that particular upgrade is available to be equipped is changed.
      */
     public void unequipAllUpgrades() {
         for (Upgrade equippedUpgrade : equippedUpgrades) {
@@ -182,9 +184,6 @@ public class Car extends Purchasable {
         equippedUpgrades.remove(upgrade);
     }
 
-    public void clearUpgradeCollection() {
-        equippedUpgrades.clear();
-    }
 
     public boolean checkIfUpgradeEquipped(Upgrade selectedUpgrade) {
         for (Upgrade upgrade : equippedUpgrades) {

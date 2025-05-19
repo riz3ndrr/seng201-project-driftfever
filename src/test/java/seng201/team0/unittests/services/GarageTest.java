@@ -18,10 +18,11 @@ public class GarageTest {
     GameStats gameDB = GameManager.getGameStats();
     ShopService shopService = new ShopService();;
     List<Car> Cars = GameManager.getCars();;
-    List<Upgrade> Upgrades = GameManager.getUpgrades();;
+    List<Upgrade> Upgrades = GameManager.getUpgrades();
+    Upgrade selectedUpgrade;
     GarageService garageService = new GarageService();
     Car selectedCar;
-    Upgrade selectedUpgrade;
+
 
 
     /**
@@ -246,6 +247,7 @@ public class GarageTest {
      */
     @Test
     void equippingDifferentUpgrades() {
+        assertEquals("",selectedCar.upgradesToString());
         // equipping Rocket Fuel first
         equipUpgradeSuccessfullyWhenOwningOneCopy();
         selectedUpgrade = Upgrades.getFirst();
@@ -254,6 +256,7 @@ public class GarageTest {
         equipUpgradeSuccessfullyWhenOwningMultipleCopies();
 
         assertEquals(2, selectedCar.getEquippedUpgrades().size());
+        assertEquals("Grippy Tyres, Rocket Fuel",selectedCar.upgradesToString());
 
     }
 

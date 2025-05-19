@@ -21,9 +21,6 @@ ListView {
 }
 
 
-#beginGameLabel {
-    -fx-background-color: white;
-}
 
 #switchUpgradesLabel {
     -fx-background-color: #ababab;

@@ -31,7 +31,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="startingPane" prefHeight="200.0" prefWidth="200.0">
+      <Pane fx:id="startingPane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <Text fx:id="subtitleText" fill="WHITE" layoutX="-1.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready to choose your destiny?" textAlignment="CENTER" wrappingWidth="1200.0">
                <font>
@@ -44,7 +44,7 @@
                </font></Label>
          </children>
       </Pane>
-      <Pane fx:id="selectAttributesPane" prefHeight="634.0" prefWidth="1200.0" visible="false">
+      <Pane fx:id="selectAttributesPane" prefHeight="634.0" prefWidth="1200.0">
          <children>
             <Text fx:id="seasonLabel" fill="WHITE" layoutX="726.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How long is the season?" textAlignment="CENTER" wrappingWidth="484.20001220703125">
                <font>
@@ -73,14 +73,16 @@
                </font>
             </Label>
             <Slider fx:id="diffSlider" blockIncrement="1.0" layoutX="54.0" layoutY="366.0" max="4.0" min="1.0" prefHeight="25.0" prefWidth="346.0" showTickMarks="true" value="2.5" />
-            <Text fx:id="whatNameLabel" fill="WHITE" layoutX="406.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What is your name?" textAlignment="CENTER" wrappingWidth="362.99999999999994">
+            <Text fx:id="whatNameLabel" fill="WHITE" layoutX="327.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What is your name?" textAlignment="CENTER" wrappingWidth="506.99999999999994">
                <font>
                   <Font size="27.0" />
                </font>
             </Text>
-            <TextField fx:id="inputNameArea" layoutX="464.0" layoutY="234.0" prefHeight="38.0" prefWidth="247.0" />
-            <Label id="beginGameLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="486.0" onMouseClicked="#switchToShopScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="67.0" prefWidth="303.0" text="Let's ride!" textAlignment="CENTER">
-            </Label>
+            <TextField fx:id="inputNameArea" layoutX="457.0" layoutY="197.0" prefHeight="38.0" prefWidth="247.0" />
+            <Label id="beginGameLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="412.0" layoutY="261.0" onMouseClicked="#switchToShopScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="67.0" prefWidth="337.0" text="Let's ride!" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="55.0" />
+               </font></Label>
          </children>
       </Pane>
    </children>

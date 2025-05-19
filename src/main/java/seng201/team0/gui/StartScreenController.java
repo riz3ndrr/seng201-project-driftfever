@@ -212,14 +212,14 @@ public class StartScreenController extends ParentController {
         // Live validation on name input
         inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
             if (isValidName(newText)) {
-                whatNameLabel.setText("Looks good!");
-                whatNameLabel.setStyle("-fx-fill: green;");
+                whatNameLabel.setVisible(false);
                 finishStartScreenLabel.setVisible(true);
             }
             else {
                 String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
                 String color = newText.isEmpty() ? "white" : "gray";
                 whatNameLabel.setText(caption);
+                whatNameLabel.setVisible(true);
                 whatNameLabel.setStyle("-fx-fill: " + color);
 
                 finishStartScreenLabel.setVisible(false);
