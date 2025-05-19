@@ -39,6 +39,7 @@ public class GameStats {
     private double fuelCostPerLitre = 2.5;
     private double minimumSecondsForGasStop = 3.0 * 60.0;; // Time for driver to get out, pay, etc
     private double secondsToPumpLitreOfGas = 10.0; // Time for a single litre of fuel to be pumped
+
     private int numOpponents = 8;
     private double opponentUpgradeProbability = 0.15;
     private double opponentRefuelProbability = 0.8;
@@ -47,6 +48,8 @@ public class GameStats {
     private double hitchhikerPickUpTimeSeconds = 5.0 * 60.0; // If stopping this is how long it takes to pick up a hitchhiker.
     private double minRepairTimeSeconds = 10.0 * 60.0; // Repairs will take at least 10 minutes
     private double maxRepairTimeSeconds = 20.0 * 60.0; // Repairs will take at most 20 minutes
+    private double minRepairCost = 200.0;
+    private double maxRepairCost = 800.0;
     private double chanceOfHitchhikerPerKilometre = 0.005; // Chance that in any given kilometre a hitchhiker is available for pickup
 
     public Car selectedCar;
@@ -209,5 +212,9 @@ public class GameStats {
         for (Upgrade upgrade : upgradeCollection) {
             System.out.println(String.format("%s quantity: x%d", upgrade.getName(), upgrade.getNumPurchased()));
         }
+    }
+
+    public double calculateRandomRepairCost() {
+        return minRepairCost + Math.random() * (maxRepairCost - minRepairCost);
     }
 }

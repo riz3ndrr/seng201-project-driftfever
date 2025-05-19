@@ -406,10 +406,19 @@ public class SimulatorController extends ParentController {
                 noCaption = "No, I like walking";
                 break;
             case BROKEN_DOWN:
-                title = "Choose Carefully";
-                question = "You have broken down and it's going to take a while to repair!\nDo you want to pay $%.2f?";
-                yesCaption = "Yes, repair and wait";
-                noCaption = "No, retire from race";
+                participant.setRepairCost(gameDB.calculateRandomRepairCost());
+                boolean canAffordRepairs = gameDB.getBal() >= participant.getRepairCost();
+                if (canAffordRepairs) {
+                    title = "Choose Carefully";
+                    question = String.format("You have broken down and it's going to take a while to repair!\nDo you want to pay $%.2f for repairs?", participant.getRepairCost());
+                    yesCaption = "Yes, repair and wait";
+                    noCaption = "No, retire from race";
+                } else {
+                    title = "Oh No!";
+                    question = String.format("You have broken down and don't have enough funds to cover the $%.2f repair bill.\nYou're out of the race.", participant.getRepairCost());
+                    yesCaption = null;
+                    noCaption = "OK";
+                }
                 break;
             default:
                 return;

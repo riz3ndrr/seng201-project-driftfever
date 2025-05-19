@@ -9,6 +9,7 @@ public class RaceParticipant {
     private double distanceTraveledKilometers = 0.0;
     private boolean isBrokenDown = false;
     private boolean canRepairBreakdown = false;
+    private double repairCost;
     private double secondsPaused = 0.0;
 
 
@@ -32,6 +33,8 @@ public class RaceParticipant {
     public void setIsBrokenDown(boolean isBrokenDown) { this.isBrokenDown = isBrokenDown; }
     public boolean getCanRepairBreakdown() { return canRepairBreakdown; }
     public void setCanRepairBreakdown(boolean canRepairBreakdown) { this.canRepairBreakdown = canRepairBreakdown; }
+    public double getRepairCost() { return repairCost; }
+    public void setRepairCost(double repairCost) { this.repairCost = repairCost; }
     public double getSecondsPaused() { return secondsPaused; }
     public void setSecondsPaused(double secondsPaused) { this.secondsPaused = secondsPaused; }
 }

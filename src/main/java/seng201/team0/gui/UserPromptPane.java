@@ -65,21 +65,25 @@ public class UserPromptPane extends Pane {
         HBox buttons = new HBox();
         popup.getChildren().add(buttons);
 
-        Button yesButton = new Button();
-        yesButton.setText(yesCaption);
-        yesButton.setOnMouseClicked(event -> {
-            event.consume();
-            yesHandler.handle(null);
-        });
-        buttons.getChildren().add(yesButton);
+        if (yesCaption != null) {
+            Button yesButton = new Button();
+            yesButton.setText(yesCaption);
+            yesButton.setOnMouseClicked(event -> {
+                event.consume();
+                yesHandler.handle(null);
+            });
+            buttons.getChildren().add(yesButton);
+        }
 
-        Button noButton = new Button();
-        noButton.setText(noCaption);
-        noButton.setOnMouseClicked(event -> {
-            event.consume();
-            noHandler.handle(null);
-        });
-        buttons.getChildren().add(noButton);
+        if (noCaption != null) {
+            Button noButton = new Button();
+            noButton.setText(noCaption);
+            noButton.setOnMouseClicked(event -> {
+                event.consume();
+                noHandler.handle(null);
+            });
+            buttons.getChildren().add(noButton);
+        }
 
         return overlay;
     }
