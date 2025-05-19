@@ -133,35 +133,5 @@ public class SelectRaceController extends ParentController {
     private Scene scene;
     private Parent root;
 
-    public void switchToGarageScene(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
 
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/garage.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        GarageController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-    }
-
-    public void switchToShopScene(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
-
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        ShopController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-
-    }
 }

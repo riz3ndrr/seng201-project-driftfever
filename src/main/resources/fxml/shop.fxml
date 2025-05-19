@@ -20,7 +20,7 @@
          <children>
             <Pane prefHeight="800.0" prefWidth="220.0">
                <children>
-                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="Select Race">
+                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#trySwitchToSelectRaceScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="Select Race">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -30,7 +30,7 @@
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="310.0" onMouseClicked="#switchToGarageScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Garage">
+                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="310.0" onMouseClicked="#trySwitchToGarageScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Garage">
                      <font>
                         <Font size="37.0" />
                      </font>

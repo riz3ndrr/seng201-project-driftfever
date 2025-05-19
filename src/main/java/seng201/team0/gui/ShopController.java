@@ -163,27 +163,36 @@ public class ShopController extends ParentController {
      * if the user has selected 1 car as that is the minimum number a user will need
      * to purchase before proceeding with the rest of the game.
      *
+     * public void switchToSelectRaceScene(MouseEvent event) throws IOException {
+     *         if (gameDB.getCarCollectionSize() < 1) {
+     *             shopSubtitle.setText("You must first own one car");
+     *         }
+     *         else {
+     *             FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
+     *             Parent root = baseLoader.load();
+     *
+     *             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+     *             scene = new Scene(root);
+     *             stage.setScene(scene);
+     *             stage.show();
+     *             SelectRaceController baseController = baseLoader.getController();
+     *             baseController.initialize(stage);
+     *         }
+     *
+     *     }
      * @param event
      * @throws IOException
      */
+    public void trySwitchToSelectRaceScene(MouseEvent event) throws IOException {
+              if (gameDB.getCarCollectionSize() < 1) {
+                  shopSubtitle.setText("You must first own one car");
+              }
+              else {
+                  switchToSelectRaceScene(event);
+              }
 
-    public void switchToSelectRaceScene(MouseEvent event) throws IOException {
-        if (gameDB.getCarCollectionSize() < 1) {
-            shopSubtitle.setText("You must first own one car");
-        }
-        else {
-            FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
-            Parent root = baseLoader.load();
+          }
 
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            SelectRaceController baseController = baseLoader.getController();
-            baseController.initialize(stage);
-        }
-
-    }
 
     public void end(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
@@ -206,29 +215,22 @@ public class ShopController extends ParentController {
      * @param event
      * @throws IOException
      */
-    public void switchToGarageScene(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
-        if (gameDB.getCarCollectionSize() < 1) {
-            shopSubtitle.setText("You must first own one car");
-        }
-        else {
-            FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/garage.fxml"));
-            Parent root = baseLoader.load();
 
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            GarageController baseController = baseLoader.getController();
-            baseController.initialize(stage);
-        }
-    }
     /**
      * When the right arrow is clicked, it will update the index of the selected item by 1 (i.e., move
      * to the next item) and display its corresponding image and attributes. When the final item is reached and the
      * user calls this function, the index will reset and the first item will be displayed.
      */
+     public void trySwitchToGarageScene(MouseEvent event) throws IOException {
+              // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
+              // Proceed to the next scene
+              if (gameDB.getCarCollectionSize() < 1) {
+                  shopSubtitle.setText("You must first own one car");
+              }
+              else {
+                  switchToGarageScene(event);
+              }
+          }
 
     public void moveRight() {
         // change the variables depending on if we're shopping cars or upgrades
