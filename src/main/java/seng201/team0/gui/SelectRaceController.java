@@ -80,7 +80,7 @@ public class SelectRaceController extends ParentController {
         String gasStopCaption = String.format("gas %s", selectedRace.getGasStopDistances().size() == 1 ? "stop" : "stops");
         raceNameLabel.setText(selectedRace.getName());
         raceDescLabel.setText(selectedRace.getDesc());
-        racePrizeLabel.setText(String.format("Prize for 1st: $%.2f", selectedRace.getPrizeMoney()));
+        racePrizeLabel.setText(String.format("Prize for 1st: $%,.2f", selectedRace.getPrizeMoney()));
         raceDistanceLabel.setText(String.format("Distance:  %.2f km with %d %s", selectedRace.getDistanceKilometers(), selectedRace.getGasStopDistances().size(), gasStopCaption));
         raceCurvinessLabel.setText(String.format("Curviness: %.0f%%", 100.0 * selectedRace.getCurviness()));
         raceTimeLimitLabel.setText(String.format("Time Limit: %s", GameTimer.totalSecondsToStringHourMinSec(selectedRace.getTimeLimitHours() * 60.0 * 60.0)));
@@ -108,7 +108,7 @@ public class SelectRaceController extends ParentController {
     public void initialize(Stage stage) {
         displaySelectedCar();
         nameLabel.setText("Name: " + gameDB.getUserName());
-        balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+        balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
         System.out.println(selectedCar.getName());
 

@@ -23,11 +23,9 @@ import seng201.team0.models.RaceParticipant;
 import seng201.team0.services.SimulatorService;
 import seng201.team0.models.GameTimer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimulatorController extends ParentController {
-
     @FXML
     private GridPane simulatorGridPane;
     @FXML
@@ -60,6 +58,8 @@ public class SimulatorController extends ParentController {
     private Pane headerPane;
     @FXML
     private Label remainingTimeLabel;
+    @FXML
+    public Label balanceLabel;
     @FXML
     private Pane gasStopLines;
     @FXML
@@ -176,11 +176,16 @@ public class SimulatorController extends ParentController {
     }
 
     // Logic - Update UI
+    private void displayTimerAndBalance() {
+        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
+        balanceLabel.setText(String.format("$%,.2f", gameDB.getBal()));
+    }
+
     private void displayRaceStats() {
-        raceNameLabel.setText("Name: " + race.getName());
-        raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + " km");
-        raceTimeLimitLabel.setText("Time: " + race.getTimeLimitHours() + " hours");
-        racePrizePoolLabel.setText("Prize pool: $" + race.getPrizeMoney());
+        raceNameLabel.setText(String.format("Name: %s", race.getName()));
+        raceDistanceLabel.setText(String.format("Distance: %.0f km", race.getDistanceKilometers()));
+        raceTimeLimitLabel.setText(String.format("Time: %d hours", race.getTimeLimitHours()));
+        racePrizePoolLabel.setText(String.format("Prize pool: $%,.2f", race.getPrizeMoney()));
     }
 
     private void displayParticipantStats(RaceParticipant participant) {
@@ -226,12 +231,6 @@ public class SimulatorController extends ParentController {
 
 
     // Logic - Display and Filter Commentary
-    private void addAndDisplayCommentary(List<RaceComment> commentary) {
-        for (RaceComment comment : commentary) {
-            addAndDisplayComment(comment);
-        }
-    }
-
     private void addAndDisplayComment(RaceComment comment) {
         race.getCommentary().add(comment);
         if (selectedParticipant == null || comment.getParticipant() == selectedParticipant) {
@@ -263,24 +262,22 @@ public class SimulatorController extends ParentController {
 
     // Logic - Simulation
     private void progressSimulation() {
-        List<RaceComment> commentary = new ArrayList<>();
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         for (RaceParticipant participant : race.getParticipants()) {
-            progressSimulationForParticipant(participant, secondsSinceLastTick, commentary);
+            progressSimulationForParticipant(participant, secondsSinceLastTick);
         }
         remainingRaceTimeSeconds -= secondsSinceLastTick;
-        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
+        displayTimerAndBalance();
         positionCars();
         displayParticipantStats(selectedParticipant);
-        addAndDisplayCommentary(commentary);
     }
 
-    public void progressSimulationForParticipant(RaceParticipant participant, double elapsedGameTimeSeconds, List<RaceComment> commentary) {
+    public void progressSimulationForParticipant(RaceParticipant participant, double elapsedGameTimeSeconds) {
         // If paused reduce the timer and wait.
         boolean didFinishPausing = waitIfPaused(participant, elapsedGameTimeSeconds);
         if (didFinishPausing && participant.getIsBrokenDown() && participant.getCanRepairBreakdown()) {
             participant.setIsBrokenDown(false);
-            commentary.add(new RaceComment(participant, "Successfully repaired their car."));
+            addAndDisplayComment(new RaceComment(participant, "Successfully repaired their car."));
         }
         // If paused, out of fuel, broken down, or finished, do nothing.
         if (participant.getSecondsPaused() > 0.0 ||
@@ -295,12 +292,12 @@ public class SimulatorController extends ParentController {
         participant.setDistanceTraveledKilometers(participant.getDistanceTraveledKilometers() + distanceInElapsedTime);
         if (participant.getDistanceTraveledKilometers() > race.getDistanceKilometers()) {
             participant.setDistanceTraveledKilometers(race.getDistanceKilometers());
-            commentary.add(new RaceComment(participant, "Finished the race!"));
+            addAndDisplayComment(new RaceComment(participant, "Finished the race!"));
         }
-        consumeFuel(participant, distanceInElapsedTime, commentary);
-        checkForBreakdown(participant, distanceInElapsedTime, commentary);
-        checkForHitchhiker(participant, distanceInElapsedTime, commentary);
-        checkForGasStop(participant, distanceInElapsedTime, commentary);
+        consumeFuel(participant, distanceInElapsedTime);
+        checkForBreakdown(participant, distanceInElapsedTime);
+        checkForHitchhiker(participant, distanceInElapsedTime);
+        checkForGasStop(participant, distanceInElapsedTime);
     }
 
     private boolean waitIfPaused(RaceParticipant participant, double elapsedGameTimeSeconds) {
@@ -314,37 +311,18 @@ public class SimulatorController extends ParentController {
         return false;
     }
 
-    private void consumeFuel(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+    private void consumeFuel(RaceParticipant participant, double distanceInElapsedTime) {
         // Calculate remaining fuel in tank
         double fuelConsumptionLitresPerKilometer = participant.getCar().calculateFuelConsumption();
         double newFuelLitres = participant.getCar().getFuelInTank() - fuelConsumptionLitresPerKilometer * distanceInElapsedTime;
         if (newFuelLitres < 0.0) {
             newFuelLitres = 0.0;
-            commentary.add(new RaceComment(participant,"Ran out of fuel and is out of the race."));
+            addAndDisplayComment(new RaceComment(participant,"Ran out of fuel and is out of the race."));
         }
         participant.getCar().setFuelInTank(newFuelLitres);
     }
 
-    private void checkForBreakdown(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
-        double chanceOfBreakdown = (1.0 - participant.getCar().getReliability()) * distanceInElapsedTime;
-        boolean didBreakdown = Math.random() < chanceOfBreakdown;
-        if (didBreakdown) {
-            participant.setIsBrokenDown(true);
-            if (participant.getIsPlayer()) {
-                promptForUserInteraction(participant, Race.RaceInteractionType.BROKEN_DOWN);
-            } else {
-                participant.setCanRepairBreakdown(Math.random() < gameDB.getOpponentRepairProbability());
-                if (participant.getCanRepairBreakdown()) {
-                    participant.setSecondsPaused(gameDB.getMinRepairTimeSeconds() + Math.random() * (gameDB.getMaxRepairTimeSeconds() - gameDB.getMinRepairTimeSeconds())); // Random repair time between 15 and 30 minutes
-                    commentary.add(new RaceComment(participant, String.format("Car has broken down and will take %s to fix.", GameTimer.totalSecondsToStringMinSec(participant.getSecondsPaused()))));
-                } else {
-                    commentary.add(new RaceComment(participant, "Car has permanently broken down and is out of the race!"));
-                }
-            }
-        }
-    }
-
-    private void checkForHitchhiker(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+    private void checkForHitchhiker(RaceParticipant participant, double distanceInElapsedTime) {
         boolean isHitchhikerWaiting = Math.random() < gameDB.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
         if (isHitchhikerWaiting) {
             if (participant.getIsPlayer()) {
@@ -352,15 +330,23 @@ public class SimulatorController extends ParentController {
             } else {
                 boolean didPickUpHitchhiker = Math.random() < gameDB.getOpponentPickUpHitchhikerProbability();
                 if (didPickUpHitchhiker) {
-                    double delay = gameDB.getHitchhikerPickUpTimeSeconds();
-                    participant.setSecondsPaused(participant.getSecondsPaused() + delay);
-                    commentary.add(new RaceComment(participant, String.format("Spent %s picking up a hitchhiker.", GameTimer.totalSecondsToStringMinSec(delay))));
+                    pickupHitchhiker(participant);
                 }
             }
         }
     }
 
-    private void checkForGasStop(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+    private void pickupHitchhiker(RaceParticipant participant) {
+        double delay = gameDB.getHitchhikerPickUpTimeSeconds();
+        participant.setSecondsPaused(participant.getSecondsPaused() + delay);
+        addAndDisplayComment(new RaceComment(participant, String.format("Spent %s picking up a hitchhiker.", GameTimer.totalSecondsToStringMinSec(delay))));
+        if (participant.getIsPlayer()) {
+            double randomReward = gameDB.calculateRandomHitchhikerReward();
+            gameDB.setBal(gameDB.getBal() + randomReward);
+        }
+    }
+
+    private void checkForGasStop(RaceParticipant participant, double distanceInElapsedTime) {
         double toDistance = participant.getDistanceTraveledKilometers();
         double fromDistance = toDistance - distanceInElapsedTime;
         boolean didPassGasStop = race.isGasStopWithinBounds(fromDistance, toDistance);
@@ -370,16 +356,52 @@ public class SimulatorController extends ParentController {
             } else {
                 double chanceOfRefueling = gameDB.getOpponentRefuelProbability();
                 if (Math.random() <= chanceOfRefueling) {
-                    Car car = participant.getCar();
-                    double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
-                    double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
-                    participant.setSecondsPaused(secondsForGasStop);
-                    car.setFuelInTank(car.calculateFuelTankCapacity());
-                    String message = String.format("Stopping for %s to refuel %.0f litres.",
-                            GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres);
-                    commentary.add(new RaceComment(participant, message));
+                    stopForGas(participant);
                 }
             }
+        }
+    }
+
+    private void stopForGas(RaceParticipant participant) {
+        Car car = participant.getCar();
+        double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
+        double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
+        participant.setSecondsPaused(secondsForGasStop);
+        car.setFuelInTank(car.calculateFuelTankCapacity());
+        String message = String.format("Stopping for %s to refuel %.0f litres.",
+                GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres);
+        addAndDisplayComment(new RaceComment(participant, message));
+        if (participant.getIsPlayer()) {
+            double cost = fuelRequiredLitres * gameDB.getFuelCostPerLitre();
+            gameDB.setBal(gameDB.getBal() - cost);
+        }
+    }
+
+    private void checkForBreakdown(RaceParticipant participant, double distanceInElapsedTime) {
+        double chanceOfBreakdown = (1.0 - participant.getCar().getReliability()) * distanceInElapsedTime;
+        boolean didBreakdown = Math.random() < chanceOfBreakdown;
+        if (didBreakdown) {
+            participant.setIsBrokenDown(true);
+            if (participant.getIsPlayer()) {
+                promptForUserInteraction(participant, Race.RaceInteractionType.BROKEN_DOWN);
+            } else {
+                participant.setCanRepairBreakdown(Math.random() < gameDB.getOpponentRepairProbability());
+                repairBreakdownOrRetire(participant);
+            }
+        }
+    }
+
+    private void repairBreakdownOrRetire(RaceParticipant participant) {
+        if (participant.getCanRepairBreakdown()) {
+            double randomRepairTime = gameDB.calculateRandomRepairTime();
+            participant.setSecondsPaused(randomRepairTime);
+            addAndDisplayComment(new RaceComment(participant, String.format("Car has broken down and will take %s to fix.", GameTimer.totalSecondsToStringMinSec(participant.getSecondsPaused()))));
+            if (participant.getIsPlayer()) {
+                double cost = participant.getRepairCost();
+                gameDB.setBal(gameDB.getBal() - cost);
+            }
+        } else {
+            addAndDisplayComment(new RaceComment(participant, "Car has permanently broken down and is out of the race!"));
         }
     }
 
@@ -408,12 +430,14 @@ public class SimulatorController extends ParentController {
             case BROKEN_DOWN:
                 participant.setRepairCost(gameDB.calculateRandomRepairCost());
                 boolean canAffordRepairs = gameDB.getBal() >= participant.getRepairCost();
+                participant.setCanRepairBreakdown(canAffordRepairs);
                 if (canAffordRepairs) {
                     title = "Choose Carefully";
                     question = String.format("You have broken down and it's going to take a while to repair!\nDo you want to pay $%.2f for repairs?", participant.getRepairCost());
                     yesCaption = "Yes, repair and wait";
                     noCaption = "No, retire from race";
                 } else {
+
                     title = "Oh No!";
                     question = String.format("You have broken down and don't have enough funds to cover the $%.2f repair bill.\nYou're out of the race.", participant.getRepairCost());
                     yesCaption = null;
@@ -441,8 +465,20 @@ public class SimulatorController extends ParentController {
         } );
     }
 
-    private void userInteractionResponse(RaceParticipant participant, Race.RaceInteractionType type, boolean response) {
-        System.out.println("User choose " + response);
+    private void userInteractionResponse(RaceParticipant participant, Race.RaceInteractionType type, boolean didChooseYes) {
+        if (didChooseYes) {
+            switch (type) {
+                case PASSING_HITCHHIKER:
+                    pickupHitchhiker(participant);
+                    break;
+                case PASSING_GAS_STOP:
+                    stopForGas(participant);
+                    break;
+                case BROKEN_DOWN:
+                    repairBreakdownOrRetire(participant);
+                    break;
+            }
+        }
         timer.resume();
     }
 }

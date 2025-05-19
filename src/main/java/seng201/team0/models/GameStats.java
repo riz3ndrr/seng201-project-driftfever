@@ -45,12 +45,14 @@ public class GameStats {
     private double opponentRefuelProbability = 0.8;
     private double opponentRepairProbability = 0.75; // Chance that an opponent breaking down can be repaired
     private double opponentPickUpHitchhikerProbability = 0.5; // Chance that if a hitchhiker is available the opponent will stop and pick them up
+    private double chanceOfHitchhikerPerKilometre = 0.005; // Chance that in any given kilometre a hitchhiker is available for pickup
     private double hitchhikerPickUpTimeSeconds = 5.0 * 60.0; // If stopping this is how long it takes to pick up a hitchhiker.
+    private double minHitchhikerReward = 50.0;
+    private double maxHitchhikerReward = 300.0;
     private double minRepairTimeSeconds = 10.0 * 60.0; // Repairs will take at least 10 minutes
     private double maxRepairTimeSeconds = 20.0 * 60.0; // Repairs will take at most 20 minutes
     private double minRepairCost = 200.0;
     private double maxRepairCost = 800.0;
-    private double chanceOfHitchhikerPerKilometre = 0.005; // Chance that in any given kilometre a hitchhiker is available for pickup
 
     public Car selectedCar;
     private List<Car> carCollection = new ArrayList<>();
@@ -92,13 +94,11 @@ public class GameStats {
     public double getOpponentRepairProbability() { return opponentRepairProbability; }
     public double getOpponentPickUpHitchhikerProbability() { return opponentPickUpHitchhikerProbability; }
     public double getHitchhikerPickUpTimeSeconds() { return hitchhikerPickUpTimeSeconds; }
-    public double getMinRepairTimeSeconds() { return minRepairTimeSeconds; }
-    public double getMaxRepairTimeSeconds() { return maxRepairTimeSeconds; }
     public double getChanceOfHitchhikerPerKilometre() { return chanceOfHitchhikerPerKilometre; }
 
     public List<Upgrade> getUpgradeCollection() { return upgradeCollection; }
-    public List<Car> getCarCollection() {return carCollection;}
-    public int getUpgradeCollectionSize() {return upgradeCollection.size();}
+    public List<Car> getCarCollection() { return carCollection;}
+    public int getUpgradeCollectionSize() { return upgradeCollection.size();}
     public int getCarCollectionSize() { return carCollection.size(); }
     public void setSelectedCar(Car car) { this.selectedCar = car; }
     public Car getSelectedCar() { return selectedCar; }
@@ -216,5 +216,13 @@ public class GameStats {
 
     public double calculateRandomRepairCost() {
         return minRepairCost + Math.random() * (maxRepairCost - minRepairCost);
+    }
+
+    public double calculateRandomRepairTime() {
+        return minRepairTimeSeconds + Math.random() * (maxRepairTimeSeconds - minRepairTimeSeconds);
+    }
+
+    public double calculateRandomHitchhikerReward() {
+        return minHitchhikerReward + Math.random() * (maxHitchhikerReward - minHitchhikerReward);
     }
 }

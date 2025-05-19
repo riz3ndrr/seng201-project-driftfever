@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -22,11 +23,24 @@
           <RowConstraints maxHeight="426.3999389648437" minHeight="-Infinity" prefHeight="236.0000061035155" vgrow="SOMETIMES" />
         </rowConstraints>
    <children>
-      <Label fx:id="remainingTimeLabel" text="[Remaining Time]" textAlignment="CENTER" GridPane.columnIndex="2">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
+       <StackPane GridPane.columnIndex="2">
+          <Label fx:id="remainingTimeLabel" StackPane.alignment="CENTER_LEFT" text="[Remaining Time]" textAlignment="LEFT">
+             <font>
+                <Font size="23.0" />
+             </font>
+            <padding>
+               <Insets left="5.0" top="10.0" />
+            </padding>
+          </Label>
+           <Label fx:id="balanceLabel" StackPane.alignment="CENTER_RIGHT" text="[Balance]" textAlignment="RIGHT">
+               <font>
+                   <Font size="23.0" />
+               </font>
+            <padding>
+               <Insets right="10.0" top="10.0" />
+            </padding>
+           </Label>
+       </StackPane>
       <Pane fx:id="finishLinePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>

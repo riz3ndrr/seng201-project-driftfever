@@ -35,7 +35,7 @@ public class EndScreenController extends ParentController {
         }
 
         endLabel2.setText("You have completed " + gameDB.getRacesDone() + " races out of " + gameDB.getRaceCount());
-        endLabel3.setText("From those races, you have earned $" + String.format("%.2f", gameDB.getPrizeMoneyWon()) + " in prize money");
+        endLabel3.setText("From those races, you have earned $" + String.format("%,.2f", gameDB.getPrizeMoneyWon()) + " in prize money");
 
     }
 }

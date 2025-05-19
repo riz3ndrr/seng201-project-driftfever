@@ -153,7 +153,7 @@ public class GarageController extends ParentController {
 
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
-        balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+        balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
         displaySelectedCar();
         displayAvailableUpgrades();
@@ -179,7 +179,7 @@ public class GarageController extends ParentController {
 
     public void fillTank() {
         garageService.fillTank(selectedCar);
-        balLabel.setText(String.format("Balance: $%.2f", gameDB.getBal()));
+        balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
         displayCarStats(selectedCar);
     }
 

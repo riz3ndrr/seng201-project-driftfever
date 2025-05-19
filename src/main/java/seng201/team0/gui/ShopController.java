@@ -108,7 +108,7 @@ public class ShopController extends ParentController {
 
         switch (result) {
             case SUCCESS:
-                balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+                balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
                 shopSubtitle.setText("Purchased " + selectedItem.getName() + " Successfully!");
                 if (!isCar) {
                     Upgrade upgrade = (Upgrade) selectedItem;
@@ -134,7 +134,7 @@ public class ShopController extends ParentController {
         ShopService.SellResult result = shopService.sellItem(selectedItem);
         switch (result) {
             case SUCCESS:
-                balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+                balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
                 shopSubtitle.setText("Sold " + selectedItem.getName() + " Successfully!");
 
                 if (!isCar) {
@@ -367,7 +367,7 @@ public class ShopController extends ParentController {
 
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
-        balLabel.setText("Balance: $" + String.format("%.2f", gameDB.getBal()));
+        balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
         racesLeftLabel.setText("Races left: " + gameDB.getRaceCount());
 
         displaySelectedItem();
