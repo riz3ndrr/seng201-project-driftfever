@@ -77,13 +77,13 @@ public class SimulatorController {
     double remainingRaceTimeSeconds;
 
 
-    // Logic
+    // Logic - Setup Race and Create UI
     public void initialize(Stage stage) {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1, true);
         selectedParticipant = null;
         simulatorService.prepareRace(race, player);
         remainingRaceTimeSeconds = race.getTimeLimitHours() * 60 * 60;
-        addGasStopIconsAndLines();
+        createGasStopIconsAndLines();
         lockCommentaryScrollToBottom();
         addAndDisplayComment(new RaceComment(null, "Race Commentary"));
         createRaceArea();
@@ -92,6 +92,35 @@ public class SimulatorController {
         displayParticipantStats(null);
         timer = new GameTimer(300.0, e -> progressSimulation());
         timer.start();
+    }
+
+    private void createGasStopIconsAndLines() {
+        double paneWidth = headerPane.getWidth();
+        double carWidth = 50;
+        double areaWidth = paneWidth - carWidth;
+        double gasStopWidth = 45;
+        double gasStopHeight = 45;
+        double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
+        Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
+
+        for (int i = 0; i < race.getGasStopDistances().size(); i++) {
+            double gasStopPositionKM = race.getGasStopDistances().get(i);
+            double pixelPositionX = carWidth + gasStopPositionKM * pixelsPerKilometre;
+
+            ImageView imageView = new ImageView(gasStopIcon);
+            imageView.setX(pixelPositionX - gasStopWidth / 2);
+            imageView.setY(headerPane.getHeight() - gasStopHeight);
+            imageView.setFitWidth(gasStopWidth);
+            imageView.setFitHeight(gasStopHeight);
+            headerPane.getChildren().add(imageView);
+
+            Line dottedLine = new Line();
+            dottedLine.setLayoutX(pixelPositionX);
+            dottedLine.setEndY(gasStopLines.getHeight());
+            dottedLine.getStrokeDashArray().addAll(7.0, 7.0);
+            dottedLine.setStroke(Color.LIGHTGRAY);
+            gasStopLines.getChildren().add(dottedLine);
+        }
     }
 
     private void createRaceArea() {
@@ -143,6 +172,7 @@ public class SimulatorController {
         filterCommentary();
     }
 
+    // Logic - Update UI
     private void displayRaceStats() {
         raceNameLabel.setText("Name: " + race.getName());
         raceDistanceLabel.setText("Distance: " + race.getDistanceKilometers() + " km");
@@ -191,68 +221,8 @@ public class SimulatorController {
         }
     }
 
-    private void addGasStopIconsAndLines() {
-        double paneWidth = headerPane.getWidth();
-        double carWidth = 50;
-        double areaWidth = paneWidth - carWidth;
-        double gasStopWidth = 45;
-        double gasStopHeight = 45;
-        double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
-        Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
 
-        for (int i = 0; i < race.getGasStopDistances().size(); i++) {
-            double gasStopPositionKM = race.getGasStopDistances().get(i);
-            double pixelPositionX = carWidth + gasStopPositionKM * pixelsPerKilometre;
-
-            ImageView imageView = new ImageView(gasStopIcon);
-            imageView.setX(pixelPositionX - gasStopWidth / 2);
-            imageView.setY(headerPane.getHeight() - gasStopHeight);
-            imageView.setFitWidth(gasStopWidth);
-            imageView.setFitHeight(gasStopHeight);
-            headerPane.getChildren().add(imageView);
-
-            Line dottedLine = new Line();
-            dottedLine.setLayoutX(pixelPositionX);
-            dottedLine.setEndY(gasStopLines.getHeight());
-            dottedLine.getStrokeDashArray().addAll(7.0, 7.0);
-            dottedLine.setStroke(Color.LIGHTGRAY);
-            gasStopLines.getChildren().add(dottedLine);
-        }
-    }
-
-    private void progressSimulation() {
-        List<RaceComment> commentary = new ArrayList<>();
-        double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
-        for (RaceParticipant participant : race.getParticipants()) {
-            double currentDistance = participant.getDistanceTraveledKilometers();
-            participant.progressSimulationByTime(secondsSinceLastTick, race.getDistanceKilometers(), race.getCurviness(), commentary);
-
-            boolean didPassGasStop = race.isGasStopWithinBounds(currentDistance, participant.getDistanceTraveledKilometers());
-            if (didPassGasStop ) {
-                participantGasStopHandler(participant);
-            }
-        }
-        remainingRaceTimeSeconds -= secondsSinceLastTick;
-        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
-        positionCars();
-        displayParticipantStats(selectedParticipant);
-        addAndDisplayCommentary(commentary);
-    }
-
-    private void participantGasStopHandler(RaceParticipant participant) {
-        double chanceOfRefueling = gameDB.getOpponentRefuelProbability();
-        if (Math.random() <= chanceOfRefueling) {
-            Car car = participant.getCar();
-            double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
-            double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
-            participant.setSecondsPaused(secondsForGasStop);
-            car.setFuelInTank(car.calculateFuelTankCapacity());
-            String message = String.format("Stopping for %s to refuel %.0f litres.",
-                    GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres);
-            addAndDisplayComment(new RaceComment(participant, message));
-        }
-    }
-
+    // Logic - Display and Filter Commentary
     private void addAndDisplayCommentary(List<RaceComment> commentary) {
         for (RaceComment comment : commentary) {
             addAndDisplayComment(comment);
@@ -285,5 +255,128 @@ public class SimulatorController {
         commentaryVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             commentaryScrollPane.setVvalue(1.0); // Scroll to bottom when the vbox height changes.
         });
+    }
+
+
+    // Logic - Simulation
+    private void progressSimulation() {
+        List<RaceComment> commentary = new ArrayList<>();
+        double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
+        for (RaceParticipant participant : race.getParticipants()) {
+            progressSimulationForParticipant(participant, secondsSinceLastTick, commentary);
+        }
+        remainingRaceTimeSeconds -= secondsSinceLastTick;
+        remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
+        positionCars();
+        displayParticipantStats(selectedParticipant);
+        addAndDisplayCommentary(commentary);
+    }
+
+    public void progressSimulationForParticipant(RaceParticipant participant, double elapsedGameTimeSeconds, List<RaceComment> commentary) {
+        // If paused reduce the timer and wait.
+        boolean didFinishPausing = waitIfPaused(participant, elapsedGameTimeSeconds);
+        if (didFinishPausing && participant.getIsBrokenDown() && participant.getCanRepairBreakdown()) {
+            participant.setIsBrokenDown(false);
+            commentary.add(new RaceComment(participant, "Successfully repaired their car."));
+        }
+        // If paused, out of fuel, broken down, or finished, do nothing.
+        if (participant.getSecondsPaused() > 0.0 ||
+                participant.getCar().getFuelInTank() <= 0.0 ||
+                participant.getIsBrokenDown() ||
+                participant.getDistanceTraveledKilometers() >= race.getDistanceKilometers()) {
+            return;
+        }
+        // Calculate extra distance
+        double speedKilometresPerSecond = participant.getCar().calculateSpeed(race.getCurviness()) / (60 * 60);
+        double distanceInElapsedTime = speedKilometresPerSecond * elapsedGameTimeSeconds;
+        participant.setDistanceTraveledKilometers(participant.getDistanceTraveledKilometers() + distanceInElapsedTime);
+        if (participant.getDistanceTraveledKilometers() > race.getDistanceKilometers()) {
+            participant.setDistanceTraveledKilometers(race.getDistanceKilometers());
+            commentary.add(new RaceComment(participant, "Finished the race!"));
+        }
+        consumeFuel(participant, distanceInElapsedTime, commentary);
+        checkForBreakdown(participant, distanceInElapsedTime, commentary);
+        checkForHitchhiker(participant, distanceInElapsedTime, commentary);
+        checkForGasStop(participant, distanceInElapsedTime, commentary);
+    }
+
+    private boolean waitIfPaused(RaceParticipant participant, double elapsedGameTimeSeconds) {
+        if (participant.getSecondsPaused() > 0.0) {
+            participant.setSecondsPaused(participant.getSecondsPaused() - elapsedGameTimeSeconds);
+            if (participant.getSecondsPaused() <= 0.0) {
+                participant.setSecondsPaused(0.0);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void consumeFuel(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+        // Calculate remaining fuel in tank
+        double fuelConsumptionLitresPerKilometer = participant.getCar().calculateFuelConsumption();
+        double newFuelLitres = participant.getCar().getFuelInTank() - fuelConsumptionLitresPerKilometer * distanceInElapsedTime;
+        if (newFuelLitres < 0.0) {
+            newFuelLitres = 0.0;
+            commentary.add(new RaceComment(participant,"Ran out of fuel and is out of the race."));
+        }
+        participant.getCar().setFuelInTank(newFuelLitres);
+    }
+
+    private void checkForBreakdown(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+        double chanceOfBreakdown = (1.0 - participant.getCar().getReliability()) * distanceInElapsedTime;
+        boolean didBreakdown = Math.random() < chanceOfBreakdown;
+        if (didBreakdown) {
+            participant.setIsBrokenDown(true);
+            if (participant.getIsPlayer()) {
+                //TODO
+            } else {
+                participant.setCanRepairBreakdown(Math.random() < gameDB.getOpponentRepairProbability());
+                if (participant.getCanRepairBreakdown()) {
+                    participant.setSecondsPaused(gameDB.getMinRepairTimeSeconds() + Math.random() * (gameDB.getMaxRepairTimeSeconds() - gameDB.getMinRepairTimeSeconds())); // Random repair time between 15 and 30 minutes
+                    commentary.add(new RaceComment(participant, String.format("Car has broken down and will take %s to fix.", GameTimer.totalSecondsToStringMinSec(participant.getSecondsPaused()))));
+                } else {
+                    commentary.add(new RaceComment(participant, "Car has permanently broken down and is out of the race!"));
+                }
+            }
+        }
+    }
+
+    private void checkForHitchhiker(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+        boolean isHitchhikerWaiting = Math.random() < gameDB.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
+        if (isHitchhikerWaiting) {
+            if (participant.getIsPlayer()) {
+                //TODO
+            } else {
+                boolean didPickUpHitchhiker = Math.random() < gameDB.getOpponentPickUpHitchhikerProbability();
+                if (didPickUpHitchhiker) {
+                    double delay = gameDB.getHitchhikerPickUpTimeSeconds();
+                    participant.setSecondsPaused(participant.getSecondsPaused() + delay);
+                    commentary.add(new RaceComment(participant, String.format("Spent %s picking up a hitchhiker.", GameTimer.totalSecondsToStringMinSec(delay))));
+                }
+            }
+        }
+    }
+
+    private void checkForGasStop(RaceParticipant participant, double distanceInElapsedTime, List<RaceComment> commentary) {
+        double toDistance = participant.getDistanceTraveledKilometers();
+        double fromDistance = toDistance - distanceInElapsedTime;
+        boolean didPassGasStop = race.isGasStopWithinBounds(fromDistance, toDistance);
+        if (didPassGasStop) {
+            if (participant.getIsPlayer()) {
+                //TODO
+            } else {
+                double chanceOfRefueling = gameDB.getOpponentRefuelProbability();
+                if (Math.random() <= chanceOfRefueling) {
+                    Car car = participant.getCar();
+                    double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
+                    double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
+                    participant.setSecondsPaused(secondsForGasStop);
+                    car.setFuelInTank(car.calculateFuelTankCapacity());
+                    String message = String.format("Stopping for %s to refuel %.0f litres.",
+                            GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres);
+                    commentary.add(new RaceComment(participant, message));
+                }
+            }
+        }
     }
 }
