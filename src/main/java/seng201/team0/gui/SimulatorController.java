@@ -3,6 +3,8 @@ package seng201.team0.gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -26,6 +28,8 @@ import java.util.List;
 
 public class SimulatorController {
 
+    @FXML
+    private GridPane simulatorGridPane;
     @FXML
     private Label raceNameLabel;
     @FXML
@@ -328,7 +332,7 @@ public class SimulatorController {
         if (didBreakdown) {
             participant.setIsBrokenDown(true);
             if (participant.getIsPlayer()) {
-                //TODO
+                promptForUserInteraction(participant, Race.RaceInteractionType.BROKEN_DOWN);
             } else {
                 participant.setCanRepairBreakdown(Math.random() < gameDB.getOpponentRepairProbability());
                 if (participant.getCanRepairBreakdown()) {
@@ -345,7 +349,7 @@ public class SimulatorController {
         boolean isHitchhikerWaiting = Math.random() < gameDB.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
         if (isHitchhikerWaiting) {
             if (participant.getIsPlayer()) {
-                //TODO
+                promptForUserInteraction(participant, Race.RaceInteractionType.PASSING_HITCHHIKER);
             } else {
                 boolean didPickUpHitchhiker = Math.random() < gameDB.getOpponentPickUpHitchhikerProbability();
                 if (didPickUpHitchhiker) {
@@ -363,7 +367,7 @@ public class SimulatorController {
         boolean didPassGasStop = race.isGasStopWithinBounds(fromDistance, toDistance);
         if (didPassGasStop) {
             if (participant.getIsPlayer()) {
-                //TODO
+                promptForUserInteraction(participant, Race.RaceInteractionType.PASSING_GAS_STOP);
             } else {
                 double chanceOfRefueling = gameDB.getOpponentRefuelProbability();
                 if (Math.random() <= chanceOfRefueling) {
@@ -378,5 +382,59 @@ public class SimulatorController {
                 }
             }
         }
+    }
+
+    private void promptForUserInteraction(RaceParticipant participant, Race.RaceInteractionType type) {
+        timer.pause();
+        String title;
+        String question;
+        String yesCaption;
+        String noCaption;
+        switch (type) {
+            case PASSING_HITCHHIKER:
+                title = "Choose Carefully";
+                question = "A desperate hitchhiker is looking for a lift and might have some money, but this will cost you some precious time.\nStop and pick them up?";
+                yesCaption = "Yes, pickup";
+                noCaption = "Ditch 'em";
+                break;
+            case PASSING_GAS_STOP:
+                title = "Choose Carefully";
+                question = String.format("You're passing a gas stop and you have %.0f/%.0fL in your tank.\nWould you like to refill in exchange for valuable time and $%.2f?",
+                        participant.getCar().getFuelInTank(),
+                        participant.getCar().calculateFuelTankCapacity(),
+                        participant.getCar().costToFillTank(gameDB.getFuelCostPerLitre()));
+                yesCaption = "Yes, fill 'er up";
+                noCaption = "No, I like walking";
+                break;
+            case BROKEN_DOWN:
+                title = "Choose Carefully";
+                question = "You have broken down and it's going to take a while to repair!\nDo you want to pay $%.2f?";
+                yesCaption = "Yes, repair and wait";
+                noCaption = "No, retire from race";
+                break;
+            default:
+                return;
+        }
+        Image carIcon = participant.getCar().getIcon();
+        UserPromptPane popup = new UserPromptPane(carIcon, title, question, yesCaption, noCaption);
+        StackPane pane = popup.show();
+        GridPane.setColumnSpan(pane, 3);
+        GridPane.setRowSpan(pane, 3);
+        simulatorGridPane.getChildren().add(pane);
+
+        // Add handlers for yes and no options
+        popup.setYesHandler(e -> {
+            simulatorGridPane.getChildren().remove(pane);
+            userInteractionResponse(participant, type, true);
+        } );
+        popup.setNoHandler(e -> {
+            simulatorGridPane.getChildren().remove(pane);
+            userInteractionResponse(participant, type, false);
+        } );
+    }
+
+    private void userInteractionResponse(RaceParticipant participant, Race.RaceInteractionType type, boolean response) {
+        System.out.println("User choose " + response);
+        timer.resume();
     }
 }
