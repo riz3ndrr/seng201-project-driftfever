@@ -68,3 +68,47 @@ ListView {
 #commentaryVBox {
     -fx-font-size: 20;
 }
+
+.promptPane {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.promptPane VBox {
+    -fx-min-width: 500;
+    -fx-max-width: 500;
+    -fx-min-height: 400;
+    -fx-max-height: 400;
+    -fx-alignment: center;
+    -fx-spacing: 0;
+    -fx-padding: 0 50 0 50;
+    -fx-background-color: white;
+    -fx-border-color: darkgray;
+    -fx-border-width: 4;
+}
+
+.promptPane VBox Label#titleLabel {
+    -fx-font-size: 30;
+    -fx-alignment: center;
+    -fx-padding: 0 0 20 0;
+}
+
+.promptPane VBox Label#questionLabel {
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-font-size: 22;
+    -fx-text-alignment: center;
+}
+
+.promptPane VBox HBox {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-padding: 30 0 15 0;
+}
+
+.promptPane VBox HBox Button {
+    -fx-font-size: 20;
+    -fx-min-width: 180;
+    -fx-max-width: 180;
+    -fx-min-height: 50;
+    -fx-max-height: 50;
+}

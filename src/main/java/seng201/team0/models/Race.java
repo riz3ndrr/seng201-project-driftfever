@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Race {
+    // Enums
+    public enum RaceInteractionType {
+        BROKEN_DOWN,
+        PASSING_HITCHHIKER,
+        PASSING_GAS_STOP
+    }
+
     // Properties
     private String name;
     private String desc;
