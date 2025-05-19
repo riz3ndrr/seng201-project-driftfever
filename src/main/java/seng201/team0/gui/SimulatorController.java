@@ -70,7 +70,6 @@ public class SimulatorController extends ParentController {
     private VBox commentaryVBox;
 
 
-
     // Properties
     private GameStats gameDB = GameManager.getGameStats();
     private Race race = gameDB.getSelectedRace();
