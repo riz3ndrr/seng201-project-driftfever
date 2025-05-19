@@ -23,7 +23,7 @@ import seng201.team0.models.GameStats;
 import java.io.IOException;
 import java.util.*;
 
-public class StartScreenController {
+public class StartScreenController extends ParentController {
     @FXML
     private Label gameTitle;
     @FXML

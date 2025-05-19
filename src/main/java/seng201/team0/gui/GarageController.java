@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class GarageController {
+public class GarageController extends ParentController {
     @FXML
     private Label nameLabel;
     @FXML
@@ -187,6 +187,7 @@ public class GarageController {
     private ImageView carImg;
     @FXML
     private Label selectCarLabel;
+
 
     public void displaySelectedCar() {
         
@@ -395,31 +396,28 @@ public class GarageController {
         }
     }
 
-    public void switchToSelectRaceScene(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
-
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        SelectRaceController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-    }
-
-    public void switchToShopScene(MouseEvent event) throws IOException {
-        // Update the selected car in the GameStats DB for the race
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        ShopController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-    }
+//    public void switchToSelectRaceScene(MouseEvent event) throws IOException {
+//
+//        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
+//        Parent root = baseLoader.load();
+//
+//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//        SelectRaceController baseController = baseLoader.getController();
+//        baseController.initialize(stage);
+//    }
+//
+//    public void switchToShopScene(MouseEvent event) throws IOException {
+//        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
+//        Parent root = baseLoader.load();
+//
+//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//        ShopController baseController = baseLoader.getController();
+//        baseController.initialize(stage);
+//    }
 }

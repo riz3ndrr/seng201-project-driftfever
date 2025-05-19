@@ -24,7 +24,7 @@ import seng201.team0.services.SimulatorService;
 
 import java.io.IOException;
 
-public class SelectRaceController {
+public class SelectRaceController extends ParentController {
     // Player/Game Database
     GameStats gameDB = GameManager.getGameStats();
     Car selectedCar = gameDB.selectedCar;
@@ -72,19 +72,9 @@ public class SelectRaceController {
     @FXML
     private Label racesLeftLabel;
 
-//    @FXML
-//    private Label race0;
-//    @FXML
-//    private Label race1;
-//    @FXML
-//    private Label race2;
-//    @FXML
-//    private Label race3;
-//    @FXML
-//    private Label race4;
-//    List<Label> listOfRaceLabels = Arrays.asList(race0, race1, race2, race3, race4);
-
     private Race selectedRace;
+
+
 
     public void displaySelectedRace() {
         String gasStopCaption = String.format("gas %s", selectedRace.getGasStopDistances().size() == 1 ? "stop" : "stops");
@@ -101,6 +91,7 @@ public class SelectRaceController {
         System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
         SimulatorService.switchToSimulatorScene(event);
     }
+
 
     public void displaySelectedCar() {
         String selectedCarImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;
@@ -142,35 +133,5 @@ public class SelectRaceController {
     private Scene scene;
     private Parent root;
 
-    public void switchToGarageScene(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
 
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/garage.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        GarageController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-    }
-
-    public void switchToShopScene(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
-
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        ShopController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-
-    }
 }

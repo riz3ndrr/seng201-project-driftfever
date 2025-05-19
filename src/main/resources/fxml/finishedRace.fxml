@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.FinishedRaceController">
+   <children>
+      <Label alignment="CENTER" prefHeight="110.0" prefWidth="1200.0" text="Race Results:" underline="true">
+         <font>
+            <Font size="47.0" />
+         </font></Label>
+      <GridPane layoutX="243.0" layoutY="164.0" prefHeight="275.0" prefWidth="714.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.5999755859375" minWidth="10.0" prefWidth="52.2000732421875" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.4000244140625" minWidth="10.0" prefWidth="218.5999267578125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.19999999999993" minWidth="10.0" prefWidth="178.399951171875" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="277.60009765625" minWidth="10.0" prefWidth="264.800048828125" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="91.00000610351563" minHeight="10.0" prefHeight="45.400000000000006" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="125.4" minHeight="10.0" prefHeight="82.20003662109374" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="86.9999755859375" minHeight="10.0" prefHeight="68.80003662109374" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="58.79996337890623" minHeight="10.0" prefHeight="58.79996337890623" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="Time" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="Prize Money Won" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="1st:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label text="2nd:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label text="3rd:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <Label alignment="CENTER" layoutY="67.0" prefHeight="110.0" prefWidth="1200.0" text="Top 3">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutY="447.0" prefHeight="110.0" prefWidth="1200.0" text="Your result:">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="351.0" layoutY="535.0" prefHeight="72.0" prefWidth="535.0" text="You completed the race in X time and got Xth place">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label id="button" alignment="CENTER" layoutX="456.0" layoutY="676.0" onMouseClicked="#switchToSelectRaceScene" prefHeight="50.0" prefWidth="288.0" text="Continue">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
