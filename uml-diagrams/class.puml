@@ -59,7 +59,7 @@ class GameStats {
     -fuelCostPerLitre : double
     -minimumSecondsForGasStop : double
     -secondsToPumpLitreOfGas : double
-    -numOpponenents : int
+    -numOpponents : int
     -opponentUpgradeProbability : double
     -opponentRefuelProbability : double
     +selectedCar : Car

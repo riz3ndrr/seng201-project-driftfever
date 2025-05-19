@@ -41,22 +41,15 @@ public class RaceParticipant {
     // Logic
     public void progressSimulationByTime(double elapsedGameTimeSeconds, double raceLength, double trackCurviness, List<RaceComment> commentary) {
         // If paused reduce the timer and wait.
-        if (secondsPaused > 0.0) {
-            secondsPaused -= elapsedGameTimeSeconds;
-            if (secondsPaused <= 0.0) {
-                secondsPaused = 0.0;
-                if (isBrokenDown && canRepairBreakdown) {
-                    isBrokenDown = false;
-                    commentary.add(new RaceComment(this, "Successfully repaired their car."));
-                }
-            }
+        boolean didFinishPausing = waitIfPaused(elapsedGameTimeSeconds);
+        if (didFinishPausing && isBrokenDown && canRepairBreakdown) {
+            isBrokenDown = false;
+            commentary.add(new RaceComment(this, "Successfully repaired their car."));
+        }
+        // If paused, out of fuel, broken down, or finished, do nothing.
+        if (secondsPaused > 0.0 || car.getFuelInTank() <= 0.0 || isBrokenDown || distanceTraveledKilometers >= raceLength) {
             return;
         }
-        // If out of fuel, broken down, or finished, do nothing.
-        if (car.getFuelInTank() <= 0.0 || isBrokenDown || distanceTraveledKilometers >= raceLength) {
-            return;
-        }
-
         // Calculate extra distance
         double speedKilometresPerSecond = car.calculateSpeed(trackCurviness) / (60 * 60);
         double distanceInElapsedTime = speedKilometresPerSecond * elapsedGameTimeSeconds;
@@ -65,7 +58,23 @@ public class RaceParticipant {
             distanceTraveledKilometers = raceLength;
             commentary.add(new RaceComment(this, "Finished the race!"));
         }
+        consumeFuel(distanceInElapsedTime, commentary);
+        checkForBreakdown(distanceInElapsedTime, commentary);
+        checkForHitchhiker(distanceInElapsedTime, commentary);
+    }
 
+    private boolean waitIfPaused(double elapsedGameTimeSeconds) {
+        if (secondsPaused > 0.0) {
+            secondsPaused -= elapsedGameTimeSeconds;
+            if (secondsPaused <= 0.0) {
+                secondsPaused = 0.0;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void consumeFuel(double distanceInElapsedTime, List<RaceComment> commentary) {
         // Calculate remaining fuel in tank
         double fuelConsumptionLitresPerKilometer = car.calculateFuelConsumption();
         double newFuelLitres = car.getFuelInTank() - fuelConsumptionLitresPerKilometer * distanceInElapsedTime;
@@ -74,8 +83,9 @@ public class RaceParticipant {
             commentary.add(new RaceComment(this,"Ran out of fuel and is out of the race."));
         }
         car.setFuelInTank(newFuelLitres);
+    }
 
-        // Calculate breakdowns
+    private void checkForBreakdown(double distanceInElapsedTime, List<RaceComment> commentary) {
         double chanceOfBreakdown = (1.0 - car.getReliability()) * distanceInElapsedTime;
         boolean didBreakdown = Math.random() < chanceOfBreakdown;
         if (didBreakdown) {
@@ -86,6 +96,18 @@ public class RaceParticipant {
                 commentary.add(new RaceComment(this, String.format("Car has broken down and will take %s to fix.", GameTimer.totalSecondsToStringMinSec(secondsPaused))));
             } else {
                 commentary.add(new RaceComment(this, "Car has permanently broken down and is out of the race!"));
+            }
+        }
+    }
+
+    private void checkForHitchhiker(double distanceInElapsedTime, List<RaceComment> commentary) {
+        boolean isHitchhikerWaiting = Math.random() < gameDB.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
+        if (isHitchhikerWaiting) {
+            boolean didPickUpHitchhiker = Math.random() < gameDB.getOpponentPickUpHitchhikerProbability();
+            if (didPickUpHitchhiker) {
+                double delay = gameDB.getHitchhikerPickUpTimeSeconds();
+                secondsPaused += delay;
+                commentary.add(new RaceComment(this, String.format("Spent %s picking up a hitchhiker.", GameTimer.totalSecondsToStringMinSec(delay))));
             }
         }
     }

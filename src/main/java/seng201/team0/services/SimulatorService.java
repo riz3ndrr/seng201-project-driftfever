@@ -21,7 +21,7 @@ public class SimulatorService {
 
     // Logic
     public void prepareRace(Race race, RaceParticipant player) {
-        generateOpponents(race, gameDB.getNumOpponenents());
+        generateOpponents(race, gameDB.getNumOpponents());
         race.addParticipant(player);
     }
 
