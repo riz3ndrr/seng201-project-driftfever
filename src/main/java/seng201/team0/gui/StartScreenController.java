@@ -229,6 +229,16 @@ public class StartScreenController {
 
 
     }
+    public void scaleUpText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.scaleUp(hoveredLabel);
+
+    }
+    public void scaleDownText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.scaleDown(hoveredLabel);
+
+    }
 
     public void switchToShopScene(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"

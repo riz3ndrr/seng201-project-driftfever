@@ -20,17 +20,17 @@
          <children>
             <Pane prefHeight="800.0" prefWidth="220.0">
                <children>
-                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" prefHeight="29.0" prefWidth="193.0" text="Select Race">
+                  <Label layoutX="18.0" layoutY="171.0" onMouseClicked="#switchToSelectRaceScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="Select Race">
                      <font>
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label layoutX="18.0" layoutY="238.0" prefHeight="29.0" prefWidth="193.0" text="View Shop">
+                  <Label layoutX="18.0" layoutY="238.0" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Shop">
                      <font>
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="310.0" onMouseClicked="#switchToGarageScene" prefHeight="29.0" prefWidth="193.0" text="View Garage">
+                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="310.0" onMouseClicked="#switchToGarageScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Garage">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -164,7 +164,7 @@
                         <Font size="34.0" />
                      </font>
                   </Label>
-                  <Label id="buyItem" fx:id="buyItem" alignment="CENTER" onMouseClicked="#buyItem" prefHeight="80.0" prefWidth="342.0" text="Buy for $XXXX" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label id="buyItem" fx:id="buyItem" alignment="CENTER" onMouseClicked="#buyItem" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="80.0" prefWidth="342.0" text="Buy for $XXXX" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -180,7 +180,7 @@
                         <Insets bottom="60.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="sellItem" fx:id="sellItem" alignment="CENTER" onMouseClicked="#sellItem" prefHeight="80.0" prefWidth="350.0" text="Sell for $XXXX" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                  <Label id="sellItem" fx:id="sellItem" alignment="CENTER" onMouseClicked="#sellItem" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="80.0" prefWidth="350.0" text="Sell for $XXXX" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -188,7 +188,7 @@
                         <Insets bottom="30.0" left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="viewUpgradesLabel" fx:id="viewItemLabel" alignment="CENTER" onMouseClicked="#switchDisplayedItemType" prefHeight="68.0" prefWidth="334.0" text="View Upgrades" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label id="viewUpgradesLabel" fx:id="viewItemLabel" alignment="CENTER" onMouseClicked="#switchDisplayedItemType" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="68.0" prefWidth="334.0" text="View Upgrades" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="35.0" />
                      </font>

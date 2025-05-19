@@ -97,6 +97,27 @@ public class ShopController {
 
 
     // Logic
+
+    public void scaleUpText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.scaleUp(hoveredLabel);
+
+    }
+    public void scaleDownText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.scaleDown(hoveredLabel);
+
+    }
+
+    public void pressedText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.pressedText(hoveredLabel);
+    }
+    public void unpressedText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.unpressedText(hoveredLabel);
+    }
+
     /**
      * Buy a selected item and updates the GUI depending on if the
      * item is successfully purchased or not.

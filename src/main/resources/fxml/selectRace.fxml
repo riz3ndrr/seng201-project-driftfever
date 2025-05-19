@@ -21,17 +21,17 @@
          <children>
             <Pane prefHeight="800.0" prefWidth="222.0">
                <children>
-                  <Label layoutX="18.0" layoutY="171.0" prefHeight="29.0" prefWidth="193.0" text="Select Race">
+                  <Label layoutX="18.0" layoutY="171.0" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="Select Race">
                      <font>
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label layoutX="18.0" layoutY="238.0" onMouseClicked="#switchToShopScene" prefHeight="29.0" prefWidth="193.0" text="View Shop">
+                  <Label layoutX="18.0" layoutY="238.0" onMouseClicked="#switchToShopScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Shop">
                      <font>
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label layoutX="18.0" layoutY="310.0" onMouseClicked="#switchToGarageScene" prefHeight="29.0" prefWidth="193.0" text="View Garage">
+                  <Label layoutX="18.0" layoutY="310.0" onMouseClicked="#switchToGarageScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Garage">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -229,10 +229,10 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Button fx:id="beginRaceLabel" onAction="#beginRace" prefHeight="69.0" prefWidth="298.0" text="LET'S RACE!" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
+                        <Button fx:id="beginRaceLabel" mnemonicParsing="false" onAction="#beginRace" text="LET'S RACE" visible="false" GridPane.rowIndex="7">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
                         </Button>
                      </children>
                      <GridPane.margin>

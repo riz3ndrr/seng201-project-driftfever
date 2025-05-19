@@ -72,19 +72,9 @@ public class SelectRaceController {
     @FXML
     private Label racesLeftLabel;
 
-//    @FXML
-//    private Label race0;
-//    @FXML
-//    private Label race1;
-//    @FXML
-//    private Label race2;
-//    @FXML
-//    private Label race3;
-//    @FXML
-//    private Label race4;
-//    List<Label> listOfRaceLabels = Arrays.asList(race0, race1, race2, race3, race4);
-
     private Race selectedRace;
+
+
 
     public void displaySelectedRace() {
         String gasStopCaption = String.format("gas %s", selectedRace.getGasStopDistances().size() == 1 ? "stop" : "stops");
@@ -100,6 +90,17 @@ public class SelectRaceController {
         gameDB.setSelectedRace(selectedRace);
         System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
         SimulatorService.switchToSimulatorScene(event);
+    }
+
+    public void scaleUpText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.scaleUp(hoveredLabel);
+
+    }
+    public void scaleDownText(MouseEvent event) {
+        Label hoveredLabel = (Label) event.getSource();
+        TextEffect.scaleDown(hoveredLabel);
+
     }
 
     public void displaySelectedCar() {
