@@ -1,5 +1,6 @@
 package seng201.team0.gui;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -267,6 +268,10 @@ public class SimulatorController extends ParentController {
             progressSimulationForParticipant(participant, secondsSinceLastTick);
         }
         remainingRaceTimeSeconds -= secondsSinceLastTick;
+        if (remainingRaceTimeSeconds <= 0.0) {
+            timer.pause();
+            promptForUserInteraction(player, Race.RaceInteractionType.RACE_TIMEOUT);
+        }
         displayTimerAndBalance();
         positionCars();
         displayParticipantStats(selectedParticipant);
@@ -292,7 +297,8 @@ public class SimulatorController extends ParentController {
         participant.setDistanceTraveledKilometers(participant.getDistanceTraveledKilometers() + distanceInElapsedTime);
         if (participant.getDistanceTraveledKilometers() > race.getDistanceKilometers()) {
             participant.setDistanceTraveledKilometers(race.getDistanceKilometers());
-            addAndDisplayComment(new RaceComment(participant, "Finished the race!"));
+            participant.setFinishTimeSeconds(race.getTimeLimitHours() * 60.0 * 60.0 - remainingRaceTimeSeconds);
+            addAndDisplayComment(new RaceComment(participant, String.format("Finished the race in %s!", GameTimer.totalSecondsToStringHourMinSec(participant.getFinishTimeSeconds()))));
         }
         consumeFuel(participant, distanceInElapsedTime);
         checkForBreakdown(participant, distanceInElapsedTime);
@@ -437,12 +443,17 @@ public class SimulatorController extends ParentController {
                     yesCaption = "Yes, repair and wait";
                     noCaption = "No, retire from race";
                 } else {
-
                     title = "Oh No!";
                     question = String.format("You have broken down and don't have enough funds to cover the $%.2f repair bill.\nYou're out of the race.", participant.getRepairCost());
                     yesCaption = null;
                     noCaption = "OK";
                 }
+                break;
+            case RACE_TIMEOUT:
+                title = "Time's Up!";
+                question = "Congratulations all drivers, the race is over. Please proceed to the award ceremony.";
+                yesCaption = "Leaderboard";
+                noCaption = null;
                 break;
             default:
                 return;
@@ -455,30 +466,50 @@ public class SimulatorController extends ParentController {
         simulatorGridPane.getChildren().add(pane);
 
         // Add handlers for yes and no options
-        popup.setYesHandler(e -> {
+        popup.setYesHandler(event -> {
             simulatorGridPane.getChildren().remove(pane);
-            userInteractionResponse(participant, type, true);
+            userInteractionResponse(event, participant, type, true);
         } );
-        popup.setNoHandler(e -> {
+        popup.setNoHandler(event -> {
             simulatorGridPane.getChildren().remove(pane);
-            userInteractionResponse(participant, type, false);
+            userInteractionResponse(event, participant, type, false);
         } );
     }
 
-    private void userInteractionResponse(RaceParticipant participant, Race.RaceInteractionType type, boolean didChooseYes) {
-        if (didChooseYes) {
-            switch (type) {
-                case PASSING_HITCHHIKER:
+    private void userInteractionResponse(Event event, RaceParticipant participant, Race.RaceInteractionType type, boolean didChooseYes) {
+        switch (type) {
+            case PASSING_HITCHHIKER:
+                if (didChooseYes) {
                     pickupHitchhiker(participant);
-                    break;
-                case PASSING_GAS_STOP:
+                }
+                else {
+                    addAndDisplayComment(new RaceComment(participant, "Opted to abandon hitchhiker."));
+                }
+                timer.resume();
+                break;
+            case PASSING_GAS_STOP:
+                if (didChooseYes) {
                     stopForGas(participant);
-                    break;
-                case BROKEN_DOWN:
+                } else {
+                    addAndDisplayComment(new RaceComment(participant, "Skipped fuel stop."));
+                }
+                timer.resume();
+                break;
+            case BROKEN_DOWN:
+                if (didChooseYes) {
                     repairBreakdownOrRetire(participant);
-                    break;
-            }
+                } else {
+                    addAndDisplayComment(new RaceComment(participant, "Broke down and opted not to repair, retired from race."));
+                }
+                timer.resume();
+                break;
+            case RACE_TIMEOUT:
+                try {
+                    switchToLeaderboardScene(getStage(), race);
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
+                break;
         }
-        timer.resume();
     }
 }

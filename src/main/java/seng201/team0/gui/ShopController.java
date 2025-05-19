@@ -197,15 +197,15 @@ public class ShopController extends ParentController {
     public void end(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/finishedRace.fxml"));
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/leaderboard.fxml"));
         Parent root = baseLoader.load();
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        FinishedRaceController baseController = baseLoader.getController();
-        baseController.initialize(stage);
+        LeaderboardController baseController = baseLoader.getController();
+        baseController.initialize(null);
     }
 
     /**When the "show garage" button is clicked, it will switch to the "garage" scene

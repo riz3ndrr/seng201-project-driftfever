@@ -70,7 +70,7 @@ public class UserPromptPane extends Pane {
             yesButton.setText(yesCaption);
             yesButton.setOnMouseClicked(event -> {
                 event.consume();
-                yesHandler.handle(null);
+                yesHandler.handle(event);
             });
             buttons.getChildren().add(yesButton);
         }
@@ -80,7 +80,7 @@ public class UserPromptPane extends Pane {
             noButton.setText(noCaption);
             noButton.setOnMouseClicked(event -> {
                 event.consume();
-                noHandler.handle(null);
+                noHandler.handle(event);
             });
             buttons.getChildren().add(noButton);
         }

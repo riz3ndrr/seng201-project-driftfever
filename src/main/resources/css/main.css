@@ -112,3 +112,23 @@ ListView {
     -fx-min-height: 50;
     -fx-max-height: 50;
 }
+
+#leaderboardPane {
+    -fx-background-image: url("/designs/leaderboardBackground.jpg");
+    -fx-background-size: cover;
+    -fx-text-fill: white;
+}
+
+#leaderboardContentPane, #leaderBoardContinueButton {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+}
+
+#leaderboardVBox {
+    -fx-font-size: 22;
+}
+
+#leaderboardVBox #prizeWinners {
+    -fx-font-size: 32;
+}
+
+

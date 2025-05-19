@@ -2,6 +2,8 @@ package seng201.team0.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Race {
@@ -9,7 +11,8 @@ public class Race {
     public enum RaceInteractionType {
         BROKEN_DOWN,
         PASSING_HITCHHIKER,
-        PASSING_GAS_STOP
+        PASSING_GAS_STOP,
+        RACE_TIMEOUT
     }
 
     // Properties
@@ -79,6 +82,14 @@ public class Race {
         return false;
     }
 
+    public double prizeMoneyForPosition(int position) {
+        switch (position) {
+            case 1: return prizeMoney * 0.6;
+            case 2: return prizeMoney * 0.3;
+            case 3: return prizeMoney * 0.1;
+            default: return 0.0;
+        }
+    }
 
     /**
      * Add a participant to the total list of race competitors
@@ -95,5 +106,20 @@ public class Race {
      */
     public void clearParticipants() {
         participants.clear();
+    }
+
+    public void sortParticipantsByFinishTime() {
+        Collections.sort(participants, new Comparator<RaceParticipant>() {
+            @Override
+            public int compare(RaceParticipant p1, RaceParticipant p2) {
+                double finishTime1 = p1.getFinishTimeSeconds() <= 0.0 ? Double.MAX_VALUE : p1.getFinishTimeSeconds();
+                double finishTime2 = p2.getFinishTimeSeconds() <= 0.0 ? Double.MAX_VALUE : p2.getFinishTimeSeconds();
+                int result = Double.compare(finishTime1, finishTime2);
+                if (result == 0) {
+                    result = Double.compare(p2.getDistanceTraveledKilometers(), p1.getDistanceTraveledKilometers());
+                }
+                return result;
+            }
+        });
     }
 }

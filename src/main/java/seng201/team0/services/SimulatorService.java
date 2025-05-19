@@ -76,6 +76,7 @@ public class SimulatorService {
         stage.setScene(scene);
         stage.show();
         SimulatorController controller = loader.getController();
+        controller.setStage(stage);
         controller.initialize(stage);
     }
 }
