@@ -23,7 +23,7 @@ import seng201.team0.models.GameStats;
 import java.io.IOException;
 import java.util.*;
 
-public class StartScreenController {
+public class StartScreenController extends ParentController {
     @FXML
     private Label gameTitle;
     @FXML
@@ -227,16 +227,6 @@ public class StartScreenController {
         });
 
 
-
-    }
-    public void scaleUpText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleUp(hoveredLabel);
-
-    }
-    public void scaleDownText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleDown(hoveredLabel);
 
     }
 

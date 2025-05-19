@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class GarageController {
+public class GarageController extends ParentController {
     @FXML
     private Label nameLabel;
     @FXML
@@ -188,25 +188,6 @@ public class GarageController {
     @FXML
     private Label selectCarLabel;
 
-    public void scaleUpText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleUp(hoveredLabel);
-
-    }
-    public void scaleDownText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleDown(hoveredLabel);
-
-    }
-
-    public void pressedText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.pressedText(hoveredLabel);
-    }
-    public void unpressedText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.unpressedText(hoveredLabel);
-    }
 
     public void displaySelectedCar() {
         

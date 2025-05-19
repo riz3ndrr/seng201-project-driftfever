@@ -24,7 +24,7 @@ import seng201.team0.models.GameTimer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulatorController {
+public class SimulatorController extends ParentController {
 
     @FXML
     private Label raceNameLabel;

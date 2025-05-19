@@ -13,7 +13,7 @@ import seng201.team0.models.GameStats;
 
 import java.io.IOException;
 
-public class EndScreenController {
+public class EndScreenController extends ParentController {
 
     @FXML
     private Label endLabel1;

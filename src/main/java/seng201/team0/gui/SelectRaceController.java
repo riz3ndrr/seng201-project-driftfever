@@ -24,7 +24,7 @@ import seng201.team0.services.SimulatorService;
 
 import java.io.IOException;
 
-public class SelectRaceController {
+public class SelectRaceController extends ParentController {
     // Player/Game Database
     GameStats gameDB = GameManager.getGameStats();
     Car selectedCar = gameDB.selectedCar;
@@ -92,16 +92,6 @@ public class SelectRaceController {
         SimulatorService.switchToSimulatorScene(event);
     }
 
-    public void scaleUpText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleUp(hoveredLabel);
-
-    }
-    public void scaleDownText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleDown(hoveredLabel);
-
-    }
 
     public void displaySelectedCar() {
         String selectedCarImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;

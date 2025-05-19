@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class FinishedRaceController {
+public class FinishedRaceController extends ParentController {
     private Stage stage;
     private Scene scene;
     private Parent root;
