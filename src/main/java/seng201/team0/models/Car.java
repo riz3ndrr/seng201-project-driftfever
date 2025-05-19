@@ -153,7 +153,7 @@ public class Car extends Purchasable {
     public double calculateFuelConsumption() {
         double result = fuelConsumptionLitresPerKilometer;
         for (Upgrade upgrade : equippedUpgrades) {
-            result = result * upgrade.getFuelConsumptionMultiplier();
+            result = result * upgrade.getFuelEfficiencyMultiplier();
         }
         return result;
     }

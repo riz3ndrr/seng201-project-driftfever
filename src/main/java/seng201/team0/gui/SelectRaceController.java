@@ -87,9 +87,14 @@ public class SelectRaceController extends ParentController {
     }
 
     public void beginRace(javafx.event.ActionEvent event) throws IOException {
-        gameDB.setSelectedRace(selectedRace);
-        System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
-        SimulatorService.switchToSimulatorScene(event);
+        boolean isFuelLow = selectedCar.getFuelInTank() < 0.5 * selectedCar.calculateFuelTankCapacity();
+        if (isFuelLow) {
+            fuelMeterLabel.setStyle("-fx-text-fill: red;");
+        } else {
+            gameDB.setSelectedRace(selectedRace);
+            System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
+            SimulatorService.switchToSimulatorScene(event);
+        }
     }
 
 
@@ -103,6 +108,7 @@ public class SelectRaceController extends ParentController {
         carReliabilityLabel.setText(String.format("Reliability: %.2f%%", 100.0 * selectedCar.calculateReliability()));
         carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * selectedCar.calculateFuelConsumption()));
         fuelMeterLabel.setText(String.format("Fuel level: %.0f%% of %.0f L", selectedCar.calculateFuelPercentage(), selectedCar.calculateFuelTankCapacity()));
+        fuelMeterLabel.setStyle("");
     }
 
     public void initialize(Stage stage) {

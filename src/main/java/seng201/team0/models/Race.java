@@ -22,13 +22,13 @@ public class Race {
     private double curvinessScaleFactor; // 0 = straight, 1 = max curves
     private List<Double> gasStopDistances;
     private float prizeMoney;
-    private int timeLimitHours;
+    private double timeLimitHours;
     private List<RaceParticipant> participants;
     private RaceCommentary commentary = new RaceCommentary();
 
 
     // Constructor
-    public Race(String name, String desc, float distance, double curviness, int numGasStops, float prizeMoney, int timeLimit) {
+    public Race(String name, String desc, float distance, double curviness, int numGasStops, float prizeMoney, double timeLimit) {
         this.name = name;
         this.desc = desc;
         this.distanceKilometers = distance;
@@ -48,7 +48,7 @@ public class Race {
     @Override
     public String toString() { return this.name; }
     public float getPrizeMoney() { return prizeMoney; }
-    public int getTimeLimitHours() { return timeLimitHours; }
+    public double getTimeLimitHours() { return timeLimitHours; }
     public String getName() { return name; }
     public List<RaceParticipant> getParticipants() { return participants; }
     public RaceCommentary getCommentary() { return commentary; }

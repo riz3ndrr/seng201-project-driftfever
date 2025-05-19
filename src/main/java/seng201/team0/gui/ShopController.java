@@ -337,7 +337,7 @@ public class ShopController extends ParentController {
             itemSpeedLabel.setText("Speed: " + upgrade.displayForMultiplier(upgrade.getSpeedMultiplier()));
             itemHandlingLabel.setText("Handling: " + upgrade.displayForMultiplier(upgrade.getHandlingMultiplier()));
             itemReliabilityLabel.setText("Reliability: " + upgrade.displayForMultiplier(upgrade.getReliabilityMultiplier()));
-            itemFuelEcoLabel.setText("Fuel efficiency: " + upgrade.displayForMultiplier(upgrade.getFuelConsumptionMultiplier()));
+            itemFuelEcoLabel.setText("Fuel efficiency: " + upgrade.displayForMultiplier(upgrade.getFuelEfficiencyMultiplier()));
             itemFuelTankCapacityLabel.setText("Fuel tank: " + upgrade.displayForMultiplier(upgrade.getFuelTankCapacityMultiplier()));
         }
     }

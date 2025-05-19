@@ -185,7 +185,7 @@ public class StartScreenController extends ParentController {
 
     // Helper to validate name len and no special chars
     private boolean isValidName(String name) {
-        return name != null && name.matches("^[A-Za-z0-9 ]{3,15}$");
+        return name != null && name.trim().matches("^[A-Za-z0-9 ]{3,15}$");
     }
 
     public void setDifficulty(GameStats.Difficulty diff) {

@@ -233,7 +233,7 @@ public class GarageTest {
 
         // check if stats have been changed
         assertEquals(ogSpeed * selectedUpgrade.getSpeedMultiplier(), selectedCar.calculateSpeed(0.0));
-        assertEquals(ogFuelConsumption * selectedUpgrade.getFuelConsumptionMultiplier(), selectedCar.calculateFuelConsumption());
+        assertEquals(ogFuelConsumption * selectedUpgrade.getFuelEfficiencyMultiplier(), selectedCar.calculateFuelConsumption());
         assertEquals(ogFuelTankCapacity * selectedUpgrade.getFuelTankCapacityMultiplier(), selectedCar.calculateFuelTankCapacity());
         assertEquals(ogHandlingScaleFactor * selectedUpgrade.getHandlingMultiplier(), selectedCar.calculateHandling());
         assertEquals(ogReliabilityScaleFactor * selectedUpgrade.getReliabilityMultiplier(), selectedCar.calculateReliability());;

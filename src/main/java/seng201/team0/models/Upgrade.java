@@ -5,7 +5,7 @@ public class Upgrade extends Purchasable {
     private double speedMultiplier;
     private double handlingMultiplier;
     private double reliabilityMultiplier;
-    private double fuelConsumptionMultiplier;
+    private double fuelEfficiencyMultiplier;
     private double fuelTankCapacityMultiplier;
     private int numPurchased;
 
@@ -17,7 +17,7 @@ public class Upgrade extends Purchasable {
         this.speedMultiplier = speedMultiplier;
         this.handlingMultiplier = handlingMultiplier;
         this.reliabilityMultiplier = reliabilityMultiplier;
-        this.fuelConsumptionMultiplier = fuelConsumptionMultiplier;
+        this.fuelEfficiencyMultiplier = fuelConsumptionMultiplier;
         this.fuelTankCapacityMultiplier = fuelTankCapacityMultiplier;
         this.numPurchased = 0;
     }
@@ -27,7 +27,7 @@ public class Upgrade extends Purchasable {
     public double getSpeedMultiplier() { return speedMultiplier; }
     public double getHandlingMultiplier() { return handlingMultiplier; }
     public double getReliabilityMultiplier() { return reliabilityMultiplier; }
-    public double getFuelConsumptionMultiplier() { return fuelConsumptionMultiplier; }
+    public double getFuelEfficiencyMultiplier() { return fuelEfficiencyMultiplier; }
     public double getFuelTankCapacityMultiplier() { return fuelTankCapacityMultiplier; }
     public int getNumPurchased() { return numPurchased; }
     public void setNumPurchased(int numPurchased) { this.numPurchased = numPurchased; }
