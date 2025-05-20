@@ -16,26 +16,31 @@ import java.io.IOException;
 public class EndScreenController extends ParentController {
 
     @FXML
-    private Label endLabel1;
+    private Label seasonLabel;
     @FXML
-    private Label endLabel2;
+    private Label raceStatsLabel;
     @FXML
-    private Label endLabel3;
+    private Label prizeMoneyLabel;
 
     GameStats gameDB = GameManager.getGameStats();
 
     public void initialize(Stage stage) {
-
         String userName = gameDB.getUserName();
         if (Character.toString(userName.charAt(userName.length() - 1)).equals("s")) {
-            endLabel1.setText(userName + "' Season Summary:");
+            seasonLabel.setText(userName + "' Season Summary");
         }
         else {
-            endLabel1.setText(userName + "'s Season Summary:");
+            seasonLabel.setText(userName + "'s Season Summary");
         }
+        raceStatsLabel.setText(String.format("You have competed in %d races this season.", gameDB.getRaceCount()));
+        prizeMoneyLabel.setText(String.format("From those races, you have earned $%,.2f in prize money.", gameDB.getPrizeMoneyWon()));
+    }
 
-        endLabel2.setText("You have completed " + gameDB.getRacesDone() + " races out of " + gameDB.getRaceCount());
-        endLabel3.setText("From those races, you have earned $" + String.format("%,.2f", gameDB.getPrizeMoneyWon()) + " in prize money");
-
+    public void playAgainClicked(MouseEvent event) {
+        try {
+            switchToStartScreenScene(event);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 }

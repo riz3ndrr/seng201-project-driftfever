@@ -40,6 +40,18 @@ public class ParentController {
         TextEffect.unpressedText(hoveredLabel);
     }
 
+    public void switchToStartScreenScene(MouseEvent event) throws IOException {
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/startScreen.fxml"));
+        Parent root = baseLoader.load();
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        StartScreenController baseController = baseLoader.getController();
+        baseController.initialize(stage);
+    }
+
     public void switchToShopScene(MouseEvent event) throws IOException {
         FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
         Parent root = baseLoader.load();
@@ -92,5 +104,17 @@ public class ParentController {
         LeaderboardController baseController = baseLoader.getController();
         baseController.initialize(race);
 
+    }
+
+    public void switchToEndScreenScene(MouseEvent event) throws IOException {
+        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/endScreen.fxml"));
+        Parent root = baseLoader.load();
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        EndScreenController baseController = baseLoader.getController();
+        baseController.initialize(stage);
     }
 }

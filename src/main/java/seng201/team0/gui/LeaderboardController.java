@@ -6,8 +6,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import seng201.team0.GameManager;
+import seng201.team0.models.GameStats;
 import seng201.team0.models.GameTimer;
 import seng201.team0.models.Race;
 import seng201.team0.models.RaceParticipant;
@@ -16,11 +19,14 @@ import java.util.Random;
 
 public class LeaderboardController extends ParentController {
     @FXML
+    private Label leaderboardHeadingLabel;
+    @FXML
     private VBox leaderboardVBox;
     @FXML
     private Label playerResultLabel;
 
     // Properties
+    private GameStats gameDB = GameManager.getGameStats();
     private Race race;
     private String[] dnfMessages = {
             "DNF: You were so fast, you looped time and missed the finish line entirely.",
@@ -41,6 +47,7 @@ public class LeaderboardController extends ParentController {
     private void displayResults() {
         RaceParticipant player = null;
         int playerPosition = 0;
+        leaderboardHeadingLabel.setText(String.format("Race Results (#%d of %d)", gameDB.getRacesDone(), gameDB.getRaceCount()));
         for (int i = 0; i < race.getParticipants().size(); i++) {
             RaceParticipant participant = race.getParticipants().get(i);
             HBox row = createRowForParticipant(participant, i + 1, i < 3);
@@ -48,6 +55,8 @@ public class LeaderboardController extends ParentController {
             if (participant.getIsPlayer()) {
                 player = participant;
                 playerPosition = i + 1;
+                double prizeMoney = race.prizeMoneyForPosition(playerPosition);
+                gameDB.setPrizeMoneyWon(gameDB.getPrizeMoneyWon() + prizeMoney);
             }
         }
 
@@ -115,5 +124,17 @@ public class LeaderboardController extends ParentController {
         if ((number % 10) == 2) return String.format("%dnd", number);
         if ((number % 10) == 3) return String.format("%drd", number);
         return String.format("%dth", number);
+    }
+
+    public void continueClicked(MouseEvent event) {
+        try {
+            if (gameDB.getRacesDone() >= gameDB.getRaceCount()) {
+                switchToEndScreenScene(event);
+            } else {
+                switchToSelectRaceScene(event);
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 }

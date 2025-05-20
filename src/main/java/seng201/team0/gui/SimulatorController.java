@@ -185,7 +185,7 @@ public class SimulatorController extends ParentController {
     private void displayRaceStats() {
         raceNameLabel.setText(String.format("Name: %s", race.getName()));
         raceDistanceLabel.setText(String.format("Distance: %.0f km", race.getDistanceKilometers()));
-        raceTimeLimitLabel.setText(String.format("Time: %.1f hours", race.getTimeLimitHours()));
+        raceTimeLimitLabel.setText(String.format("Time: %.2f hours", race.getTimeLimitHours()));
         racePrizePoolLabel.setText(String.format("Prize pool: $%,.2f", race.getPrizeMoney()));
     }
 
@@ -505,6 +505,7 @@ public class SimulatorController extends ParentController {
                 break;
             case RACE_TIMEOUT:
                 try {
+                    gameDB.setRacesDone(gameDB.getRacesDone() + 1);
                     switchToLeaderboardScene(getStage(), race);
                 } catch (Exception exception) {
                     System.out.println(exception.getMessage());
