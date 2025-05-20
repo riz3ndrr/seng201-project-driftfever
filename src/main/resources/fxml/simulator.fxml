@@ -81,6 +81,10 @@
                <font>
                   <Font size="26.0" />
                </font></Label>
+             <Label fx:id="routeNameLabel" text="Route:">
+                 <font>
+                     <Font size="26.0" />
+                 </font></Label>
              <Label fx:id="carModelLabel" text="Model:">
                  <font>
                      <Font size="26.0" />

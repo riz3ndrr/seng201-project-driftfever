@@ -5,6 +5,7 @@ public class RaceParticipant {
     private Car car;
     private String driverName;
     private int entryNumber;
+    private RaceRoute route;
     private boolean isPlayer;
     private double distanceTraveledKilometers = 0.0;
     private double finishTimeSeconds = 0.0;
@@ -19,6 +20,7 @@ public class RaceParticipant {
         this.car = car;
         this.driverName = driverName;
         this.entryNumber = entryNumber;
+        this.route = RaceRoute.getRandomRoute();
         this.isPlayer = isPlayer;
     }
 
@@ -27,6 +29,7 @@ public class RaceParticipant {
     public Car getCar() { return car; }
     public String getDriverName() { return driverName; }
     public int getEntryNumber() { return entryNumber; }
+    public RaceRoute getRoute() { return route; }
     public boolean getIsPlayer() { return isPlayer; }
     public double getDistanceTraveledKilometers() { return distanceTraveledKilometers; }
     public void setDistanceTraveledKilometers(double distanceTraveledKilometers) { this.distanceTraveledKilometers = distanceTraveledKilometers; }

@@ -50,6 +50,7 @@ public class GameStats {
     private double maxRepairTimeSeconds = 20.0 * 60.0; // Repairs will take at most 20 minutes
     private double minRepairCost = 200.0;
     private double maxRepairCost = 800.0;
+    private double chanceOfRaceRouteBlockage = 0.000037; // Chance that in any given second a route is blocked, around 50/50 chance of happening per 2 hours
 
     public Car selectedCar;
     private List<Car> carCollection = new ArrayList<>();
@@ -88,6 +89,7 @@ public class GameStats {
     public double getOpponentPickUpHitchhikerProbability() { return opponentPickUpHitchhikerProbability; }
     public double getHitchhikerPickUpTimeSeconds() { return hitchhikerPickUpTimeSeconds; }
     public double getChanceOfHitchhikerPerKilometre() { return chanceOfHitchhikerPerKilometre; }
+    public double getChanceOfRaceRouteBlockage() { return chanceOfRaceRouteBlockage; }
 
     public List<Upgrade> getUpgradeCollection() { return upgradeCollection; }
     public List<Car> getCarCollection() { return carCollection;}

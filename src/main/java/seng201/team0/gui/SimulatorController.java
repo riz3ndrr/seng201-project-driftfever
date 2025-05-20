@@ -21,6 +21,7 @@ import seng201.team0.models.GameStats;
 import seng201.team0.models.Race;
 import seng201.team0.models.RaceComment;
 import seng201.team0.models.RaceParticipant;
+import seng201.team0.models.RaceRoute;
 import seng201.team0.services.SimulatorService;
 import seng201.team0.models.GameTimer;
 
@@ -41,6 +42,8 @@ public class SimulatorController extends ParentController {
     private Label driverNameLabel;
     @FXML
     private Label carEntryNumberLabel;
+    @FXML
+    private Label routeNameLabel;
     @FXML
     private Label carModelLabel;
     @FXML
@@ -194,6 +197,7 @@ public class SimulatorController extends ParentController {
             driverNameLabel.setStyle("-fx-text-fill: orange;");
             driverNameLabel.setText("Click a car for info");
             carEntryNumberLabel.setText("");
+            routeNameLabel.setText("");
             carModelLabel.setText("");
             carSpeedLabel.setText("");
             carFuelCurrentLabel.setText("");
@@ -206,6 +210,7 @@ public class SimulatorController extends ParentController {
             driverNameLabel.setStyle(null);
             driverNameLabel.setText("Driver: " + participant.getDriverName());
             carEntryNumberLabel.setText(String.format("Entry #: %d", participant.getEntryNumber()));
+            routeNameLabel.setText(String.format("Route: %s", participant.getRoute().getName()));
             carModelLabel.setText("Model: " + car.getName());
             carSpeedLabel.setText(String.format("Top speed: %.0f km/h", car.calculateSpeed(race.getCurviness())));
             carFuelCurrentLabel.setText(String.format("Fuel: %.0f L of %.0f L tank", car.getFuelInTank(), car.calculateFuelTankCapacity()));
@@ -264,8 +269,10 @@ public class SimulatorController extends ParentController {
     // Logic - Simulation
     private void progressSimulation() {
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
+        boolean isRaceRouteBlocked = Math.random() < gameDB.getChanceOfRaceRouteBlockage() * secondsSinceLastTick;
+        RaceRoute blockedRoute = isRaceRouteBlocked ? RaceRoute.getRandomRoute() : null;
         for (RaceParticipant participant : race.getParticipants()) {
-            progressSimulationForParticipant(participant, secondsSinceLastTick);
+            progressSimulationForParticipant(participant, secondsSinceLastTick, blockedRoute);
         }
         remainingRaceTimeSeconds -= secondsSinceLastTick;
         if (remainingRaceTimeSeconds <= 0.0) {
@@ -277,7 +284,7 @@ public class SimulatorController extends ParentController {
         displayParticipantStats(selectedParticipant);
     }
 
-    public void progressSimulationForParticipant(RaceParticipant participant, double elapsedGameTimeSeconds) {
+    public void progressSimulationForParticipant(RaceParticipant participant, double elapsedGameTimeSeconds, RaceRoute blockedRoute) {
         // If paused reduce the timer and wait.
         boolean didFinishPausing = waitIfPaused(participant, elapsedGameTimeSeconds);
         if (didFinishPausing && participant.getIsBrokenDown() && participant.getCanRepairBreakdown()) {
@@ -304,6 +311,7 @@ public class SimulatorController extends ParentController {
         checkForBreakdown(participant, distanceInElapsedTime);
         checkForHitchhiker(participant, distanceInElapsedTime);
         checkForGasStop(participant, distanceInElapsedTime);
+        checkForBlockedRoute(participant, blockedRoute);
     }
 
     private boolean waitIfPaused(RaceParticipant participant, double elapsedGameTimeSeconds) {
@@ -411,6 +419,23 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    private void checkForBlockedRoute(RaceParticipant participant, RaceRoute blockedRoute) {
+        if (blockedRoute != null) {
+            boolean routeMatchesParticipant = participant.getRoute() == blockedRoute;
+            if (routeMatchesParticipant) {
+                boolean participantAlreadyFinished = participant.getDistanceTraveledKilometers() >= race.getDistanceKilometers();
+                if (!participantAlreadyFinished) {
+                    participant.setIsBrokenDown(true);
+                    participant.setCanRepairBreakdown(false);
+                    addAndDisplayComment(new RaceComment(participant, blockedRoute.getMessage() + " DNF"));
+                    if (participant.getIsPlayer()) {
+                        promptForUserInteraction(participant, Race.RaceInteractionType.ROUTE_BLOCKED);
+                    }
+                }
+            }
+        }
+    }
+
     private void promptForUserInteraction(RaceParticipant participant, Race.RaceInteractionType type) {
         timer.pause();
         String title;
@@ -454,6 +479,12 @@ public class SimulatorController extends ParentController {
                 question = "Congratulations all drivers, the race is over. Please proceed to the award ceremony.";
                 yesCaption = "Leaderboard";
                 noCaption = null;
+                break;
+            case ROUTE_BLOCKED:
+                title = "Your Route Has Been Blocked!";
+                question = participant.getRoute().getMessage() + "\n\nUnfortunately, you cannot complete the race.";
+                yesCaption = null;
+                noCaption = "Retire";
                 break;
             default:
                 return;
@@ -510,6 +541,9 @@ public class SimulatorController extends ParentController {
                 } catch (Exception exception) {
                     System.out.println(exception.getMessage());
                 }
+                break;
+            case ROUTE_BLOCKED:
+                timer.resume();
                 break;
         }
     }

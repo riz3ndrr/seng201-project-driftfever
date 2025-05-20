@@ -12,7 +12,8 @@ public class Race {
         BROKEN_DOWN,
         PASSING_HITCHHIKER,
         PASSING_GAS_STOP,
-        RACE_TIMEOUT
+        RACE_TIMEOUT,
+        ROUTE_BLOCKED
     }
 
     // Properties
