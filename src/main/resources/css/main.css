@@ -28,7 +28,7 @@ ListView, TreeView {
     -fx-label-padding: 5px;
 }
 
-#buyItem, #sellItem, #viewCarsLabel, #viewUpgradesLabel, #equipUpgrade, #unequipUpgrade, #fillTankLabel, #button  {
+#buyItem, #sellItem, #viewCarsLabel, #viewUpgradesLabel, #equipUpgrade, #unequipOrEquipUpgradeLabel, #selectCarLabel, #fillTankLabel, #button  {
     -fx-background-color: #ababab;
     /*-fx-border-radius: 3px;*/
     -fx-label-padding: 5px;
