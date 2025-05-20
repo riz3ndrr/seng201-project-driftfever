@@ -70,6 +70,7 @@ public class GameStats {
     public int getRaceCount() { return raceCount; }
     public void setRaceCount(int raceCount) { this.raceCount = raceCount; }
     public int getRacesDone() { return racesDone; }
+    public void setRacesDone(int racesDone) { this.racesDone = racesDone; }
     public Difficulty getRaceDifficulty() {
         return raceDifficulty;
     }
@@ -85,6 +86,7 @@ public class GameStats {
     public double getPrizeMoneyWon() {
         return prizeMoneyWon;
     }
+    public void setPrizeMoneyWon(double prizeMoneyWon) { this.prizeMoneyWon = prizeMoneyWon; }
     public double getFuelCostPerLitre() { return fuelCostPerLitre; }
     public double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
     public double getSecondsToPumpLitreOfGas() { return secondsToPumpLitreOfGas; }

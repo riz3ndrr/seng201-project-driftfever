@@ -114,8 +114,8 @@ public class SelectRaceController extends ParentController {
     public void initialize(Stage stage) {
         displaySelectedCar();
         nameLabel.setText("Name: " + gameDB.getUserName());
-        balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
-        racesLeftLabel.setText("Races left: " + Integer.toString(gameDB.getRaceCount()));
+        balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
+        racesLeftLabel.setText(String.format("Races left: %d", gameDB.getRaceCount() - gameDB.getRacesDone()));
         System.out.println(selectedCar.getName());
 
         raceListView.setItems(FXCollections.observableArrayList(GameManager.getRaces()));

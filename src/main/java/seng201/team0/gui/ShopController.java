@@ -367,8 +367,8 @@ public class ShopController extends ParentController {
 
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
-        balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
-        racesLeftLabel.setText("Races left: " + gameDB.getRaceCount());
+        balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
+        racesLeftLabel.setText(String.format("Races left: %d", gameDB.getRaceCount() - gameDB.getRacesDone()));
 
         displaySelectedItem();
     }
