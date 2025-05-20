@@ -43,17 +43,32 @@ public class StartScreenController extends ParentController {
 
     // Properties
     private GameStats gameDB = GameManager.getGameStats();
+    private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
+            new EnumMap<>(GameStats.Difficulty.class);
+    static {
+        difficultyDescriptions.put(GameStats.Difficulty.EASY, "Take the easy route and enjoy lower prices");
+        difficultyDescriptions.put(GameStats.Difficulty.REGULAR, "Not too easy, not too forgiving");
+        difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove, higher shop prices");
+    }
 
 
     // Logic
+    /**
+     * Set the default difficulty to be regular and show its details on the UI.
+     * Listen to any changers on the sliders or to the text area where the user inputs their username.
+     * @param stage
+     */
     public void initialize(Stage stage) {
         finishStartScreenLabel.setVisible(false);
         gameDB.setDifficulty(GameStats.Difficulty.REGULAR);
-        diffDesc.setText(getDifficultyDesc());
+        diffDesc.setText(difficultyDescriptions.get(gameDB.getDifficulty()));
         listenForChangeToSliders();
         listenForChangeToUsername();
     }
 
+    /**
+     * Update the difficulty or the season count depending on if the sliders value have changed.
+     */
     private void listenForChangeToSliders() {
         diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateDifficulty((int) Math.round(newValue.doubleValue()));
@@ -63,6 +78,10 @@ public class StartScreenController extends ParentController {
         });
     }
 
+    /**
+     * Listen for any changes to the inputted username. If it is a valid username, then the finish start screen label
+     * will be visible and be able to be clicked on to proceed to the shop.
+     */
     private void listenForChangeToUsername() {
         inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
             if (isValidName(newText)) {
@@ -79,22 +98,28 @@ public class StartScreenController extends ParentController {
         });
     }
 
-    // Helper to validate name len and no special chars
+    /**
+     * A helper function which validates the name
+     * @param name which refers to the currently inputted name.
+     * @return true or false depending on if the name's length is between 3 and 15 and doesn't contain
+     * any special characters.
+     */
     private boolean isValidName(String name) {
         return name != null && name.trim().matches("^[A-Za-z0-9 ]{3,15}$");
     }
 
-    private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
-            new EnumMap<>(GameStats.Difficulty.class);
-    static {
-        difficultyDescriptions.put(GameStats.Difficulty.EASY, "Take the easy route and enjoy lower prices");
-        difficultyDescriptions.put(GameStats.Difficulty.REGULAR, "Not too easy, not too forgiving");
-        difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove, higher shop prices");
-    }
-
-    public String getDifficultyDesc() {
-        return difficultyDescriptions.get(gameDB.getDifficulty());
-    }
+    /**
+     * Updates the game's difficulty level (including in the game state) and refreshes the UI to reflect the selected setting when the slider's value
+     * has been changed.
+     * <p>
+     *     <ul>
+     *        <li>If the newDiffLevel is below 2, the difficulty is set to easy</li>
+     *         <li>If the newDiffLevel is greater or equal than 2 and below 3, the difficulty is set to regular</li>
+     *         <li>else, the difficulty is set to hard</li>
+     *     </ul>
+     *
+     * @param newDiffLevel an integer representing the selected difficulty level
+     */
 
     private void updateDifficulty(int newDiffLevel) {
         GameStats.Difficulty diff;
@@ -131,6 +156,10 @@ public class StartScreenController extends ParentController {
         diffDesc.setText(difficultyDescriptions.get(diff));
     }
 
+    /**
+     * The first pane is now not visible and the pane containing all the elements to set starting attributes
+     * is now visible to the user.
+     */
     public void startSelecting() {
         selectAttributesPane.setVisible(true);
         startingPane.setVisible(false);
@@ -141,9 +170,12 @@ public class StartScreenController extends ParentController {
         seasonCountLabel.setText("Number of races: " + newRaceCount);
     }
 
+    /**
+     * Upload all the input (name, difficulty and season length) onto the GameStats "DB" and proceed to the shop scene.
+     * @param event
+     * @throws IOException if the shop fxml can not be accessed.
+     */
     public void saveSettingsAndGoToShop(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
         gameDB.setUserName(inputNameArea.getText());
         gameDB.setBal(gameDB.getStartingBalance());
         switchToShopScene(event);

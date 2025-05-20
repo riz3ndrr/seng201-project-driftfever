@@ -61,29 +61,18 @@ public class ShopController extends ParentController {
     @FXML
     private Label shopSubtitle;
 
-    @FXML
-    private GridPane shopGridPane;
+    private Stage stage;
+    private Scene scene;
+
 
     @FXML
     private ImageView itemImg;
 
     @FXML
-    private ImageView upgrade1;
-    @FXML
-    private ImageView upgrade2;
-    @FXML
-    private ImageView upgrade3;
-
-    @FXML
-    private Label viewCarsLabel;
-    @FXML
     private Label viewItemLabel;
 
     @FXML
     private Label currentlyOwnLabel;
-
-    @FXML
-    private HBox carLayer;
 
 
     // Properties
@@ -152,34 +141,11 @@ public class ShopController extends ParentController {
         }
     }
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    @FXML
-    private Label viewGarage;
 
     /**When the "select race" button is clicked, it will switch to the "select race" scene
      * if the user has selected 1 car as that is the minimum number a user will need
      * to purchase before proceeding with the rest of the game.
      *
-     * public void switchToSelectRaceScene(MouseEvent event) throws IOException {
-     *         if (gameDB.getCarCollectionSize() < 1) {
-     *             shopSubtitle.setText("You must first own one car");
-     *         }
-     *         else {
-     *             FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
-     *             Parent root = baseLoader.load();
-     *
-     *             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-     *             scene = new Scene(root);
-     *             stage.setScene(scene);
-     *             stage.show();
-     *             SelectRaceController baseController = baseLoader.getController();
-     *             baseController.initialize(stage);
-     *         }
-     *
-     *     }
      * @param event
      * @throws IOException
      */
@@ -213,14 +179,10 @@ public class ShopController extends ParentController {
      * to purchase before proceeding with the rest of the game.
      *
      * @param event
-     * @throws IOException
+     * @throws IOException if the garage fxml is unable to be accessed.
      */
 
-    /**
-     * When the right arrow is clicked, it will update the index of the selected item by 1 (i.e., move
-     * to the next item) and display its corresponding image and attributes. When the final item is reached and the
-     * user calls this function, the index will reset and the first item will be displayed.
-     */
+
      public void trySwitchToGarageScene(MouseEvent event) throws IOException {
               // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
               // Proceed to the next scene
@@ -232,6 +194,11 @@ public class ShopController extends ParentController {
               }
           }
 
+    /**
+     * When the right arrow is clicked, it will update the index of the selected item by 1 (i.e., move
+     * to the next item) and display its corresponding image and attributes. When the final item is reached and the
+     * user calls this function, the index will reset and the first item will be displayed.
+     */
     public void moveRight() {
         // change the variables depending on if we're shopping cars or upgrades
 
@@ -342,6 +309,13 @@ public class ShopController extends ParentController {
         }
     }
 
+
+    /**
+     * Toggle between displaying cars and upgrades on the UI.
+     * If cars were previously shown, then it will display the first upgrade in the list and reflect such changes
+     * in the UI by showing upgrade-related information. Likewise if upgrades were previously shown.
+     */
+
     public void switchDisplayedItemType() {
         if (showCarOrUpgrade.equals("Car")) {
             showCarOrUpgrade = "Upgrade";
@@ -365,6 +339,11 @@ public class ShopController extends ParentController {
         displaySelectedItem();
     }
 
+    /**
+     * Show the user's name, the amount of races they have left to compete and their current balance.
+     * Proceed to display the default selected item.
+     * @param stage
+     */
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));

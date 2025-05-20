@@ -57,9 +57,6 @@ public class SelectRaceController extends ParentController {
     private Label racesLeftLabel;
 
     // Properties
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     GameStats gameDB = GameManager.getGameStats();
     Car selectedCar = gameDB.selectedCar;
     private Race selectedRace;

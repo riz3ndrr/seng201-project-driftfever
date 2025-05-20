@@ -24,6 +24,12 @@ public class EndScreenController extends ParentController {
 
     GameStats gameDB = GameManager.getGameStats();
 
+    /**
+     * Display the user's name, the number of races they have completed in the season along with the
+     * total amount of prize money they have earned.
+     * @param stage
+     */
+
     public void initialize(Stage stage) {
         String userName = gameDB.getUserName();
         if (Character.toString(userName.charAt(userName.length() - 1)).equals("s")) {
@@ -36,6 +42,10 @@ public class EndScreenController extends ParentController {
         prizeMoneyLabel.setText(String.format("From those races, you have earned $%,.2f in prize money.", gameDB.getPrizeMoneyWon()));
     }
 
+    /**
+     * Attempt to switch to the start screen scene to restart the game barring any exceptions occur.
+     * @param event
+     */
     public void playAgainClicked(MouseEvent event) {
         try {
             switchToStartScreenScene(event);
