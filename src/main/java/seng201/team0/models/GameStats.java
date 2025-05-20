@@ -25,6 +25,7 @@ public class GameStats {
 
     // Properties
     private Race selectedRace;
+    private RaceRoute selectedRoute;
     private int raceCount;
     private int racesDone = 0;
     private Difficulty difficulty = Difficulty.REGULAR;
@@ -65,6 +66,8 @@ public class GameStats {
     // Getters and setters
     public Race getSelectedRace() { return selectedRace; }
     public void setSelectedRace(Race selectedRace) { this.selectedRace = selectedRace; }
+    public RaceRoute getSelectedRoute() { return selectedRoute; }
+    public void setSelectedRoute(RaceRoute selectedRoute) { this.selectedRoute = selectedRoute; }
     public int getRaceCount() { return raceCount; }
     public void setRaceCount(int raceCount) { this.raceCount = raceCount; }
     public int getRacesDone() { return racesDone; }

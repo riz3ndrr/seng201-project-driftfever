@@ -20,6 +20,21 @@ public enum RaceRoute {
 
     // Getters and setters
     public String getName() { return name; }
+
+    public String getDescription() {
+        switch (this) {
+            case MOUNTAIN_ROUTE:
+                return "The mountain route is a beautiful drive but there's a chance of landslides.";
+            case DIRT_ROUTE:
+                return "The dirt route is fun but gets muddy in heavy rain.";
+            case SCENIC_ROUTE:
+                return  "The scenic route is a gorgeous drive but watch out for farm vehicles.";
+            case HIGHWAY_ROUTE:
+                return "The highway route can get busy and jam up during rush hour.";
+        }
+        return "";
+    }
+
     public String getMessage() {
         switch (this) {
             case MOUNTAIN_ROUTE:

@@ -30,6 +30,7 @@ public class RaceParticipant {
     public String getDriverName() { return driverName; }
     public int getEntryNumber() { return entryNumber; }
     public RaceRoute getRoute() { return route; }
+    public void setRoute(RaceRoute route) { this.route = route; }
     public boolean getIsPlayer() { return isPlayer; }
     public double getDistanceTraveledKilometers() { return distanceTraveledKilometers; }
     public void setDistanceTraveledKilometers(double distanceTraveledKilometers) { this.distanceTraveledKilometers = distanceTraveledKilometers; }

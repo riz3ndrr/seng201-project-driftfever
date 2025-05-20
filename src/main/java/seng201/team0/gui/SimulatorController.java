@@ -87,6 +87,7 @@ public class SimulatorController extends ParentController {
     // Logic - Setup Race and Create UI
     public void initialize(Stage stage) {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1, true);
+        player.setRoute(gameDB.getSelectedRoute());
         selectedParticipant = null;
         simulatorService.prepareRace(race, player);
         remainingRaceTimeSeconds = race.getTimeLimitHours() * 60.0 * 60.0;

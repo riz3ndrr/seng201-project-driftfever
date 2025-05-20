@@ -4,12 +4,12 @@
 /*    -fx-background-image: url("../designs/BG2.png");*/
 /*}*/
 
-Label, Text, TextArea, ListView, Button {
+Label, Text, TextArea, ListView, TreeView, Button {
     -fx-font-family: "Jersey 15", sans-serif;
 }
 
-ListView {
-    -fx-font-size: 30px;
+ListView, TreeView {
+    -fx-font-size: 22px;
 }
 
 #startLabel, #beginGameLabel, #button {
