@@ -323,7 +323,7 @@ public class ShopController extends ParentController {
         //selectedItemImg.setVisible(displayImg);
         itemNameLabel.setText(selectedItem.getName());
         itemDescLabel.setText(selectedItem.getDesc());
-        buyItem.setText(String.format("Buy Item for $%.2f", selectedItem.getBuyingPrice()));
+        buyItem.setText(String.format("Buy Item for $%.2f", selectedItem.getBuyingPrice(gameDB.getDifficulty().getCostMultiplier())));
         sellItem.setText(String.format("Sell Item for $%.2f", selectedItem.getSellingPrice()));
         if (isCar) {
             Car car = (Car) selectedItem;

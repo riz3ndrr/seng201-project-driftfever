@@ -52,7 +52,7 @@ class GameStats {
     -selectedRace : Race
     -raceCount : int
     -racesDone : int = 0
-    -raceDifficulty : Difficulty
+    -difficulty : Difficulty
     -userName : String
     -bal : double
     -prizeMoneyWon : double

@@ -19,7 +19,7 @@ public class Car extends Purchasable {
 
 
     // Constructor
-    public Car(int itemID, String name, String desc, float buyingPrice, float sellingPrice,
+    public Car(int itemID, String name, String desc, double buyingPrice, double sellingPrice,
                double speedKilometresPerHour, double fuelConsumption, double fuelTankCapacity, double handling, double reliability) {
         super(itemID, name, desc, buyingPrice, sellingPrice);
         this.speedKilometresPerHour = speedKilometresPerHour;
@@ -76,7 +76,7 @@ public class Car extends Purchasable {
      * @return a copy of a certain car.
      */
     public Car makeCopy() {
-        Car copy = new Car(getItemID(), getName(), getDesc(), getBuyingPrice(), getSellingPrice(),
+        Car copy = new Car(getItemID(), getName(), getDesc(), getBuyingPrice(1.0), getSellingPrice(),
         speedKilometresPerHour, fuelConsumptionLitresPerKilometer, fuelTankCapacityLitres, handlingScaleFactor, reliability);
         return copy;
     }

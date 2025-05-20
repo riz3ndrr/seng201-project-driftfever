@@ -47,7 +47,7 @@ public class ShopTest {
 
         Car selectedCar = Cars.get(4);
         assertEquals("Azure", selectedCar.getName());
-        assertEquals(1300, selectedCar.getBuyingPrice());
+        assertEquals(1300, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         assertFalse(gameDB.selectedItemInCollection(selectedCar));
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
@@ -85,7 +85,7 @@ public class ShopTest {
 
         Car selectedCar = Cars.get(4);
         assertEquals("Azure", selectedCar.getName());
-        assertEquals(1300, selectedCar.getBuyingPrice());
+        assertEquals(1300, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         assertFalse(gameDB.selectedItemInCollection(selectedCar));
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
@@ -123,7 +123,7 @@ public class ShopTest {
 
         Car selectedCar = Cars.get(4);
         assertEquals("Azure", selectedCar.getName());
-        assertEquals(1300, selectedCar.getBuyingPrice());
+        assertEquals(1300, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         assertFalse(gameDB.selectedItemInCollection(selectedCar));
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
@@ -135,7 +135,7 @@ public class ShopTest {
 
         selectedCar = Cars.get(3);
         assertEquals("Yellow Car", selectedCar.getName());
-        assertEquals(1400, selectedCar.getBuyingPrice());
+        assertEquals(1400, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         assertFalse(gameDB.selectedItemInCollection(selectedCar));
         ShopService.PurchaseResult result2 = shopService.buyItem(selectedCar);
@@ -170,7 +170,7 @@ public class ShopTest {
         assertEquals(150, gameDB.getBal());
         Upgrade selectedUpgrade = Upgrades.get(0);
         assertEquals("Rocket Fuel", selectedUpgrade.getName());
-        assertEquals(150, selectedUpgrade.getBuyingPrice());
+        assertEquals(150, selectedUpgrade.getBuyingPrice(1.0));
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedUpgrade);
         assertEquals(ShopService.PurchaseResult.SUCCESS, result1);
         assertEquals(0, gameDB.getBal());
@@ -260,7 +260,7 @@ public class ShopTest {
         assertEquals("Grippy Tyres", selectedUpgrade.getName());
         System.out.println(gameDB.getUpgradeCollectionSize());
         assertEquals(0, selectedUpgrade.getNumPurchased());
-        assertEquals(400, selectedUpgrade.getBuyingPrice());
+        assertEquals(400, selectedUpgrade.getBuyingPrice(1.0));
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedUpgrade);
 
         assertEquals(ShopService.PurchaseResult.SUCCESS, result1);
@@ -285,7 +285,7 @@ public class ShopTest {
         assertEquals(149, gameDB.getBal());
         Upgrade selectedUpgrade = Upgrades.get(0);
         assertEquals("Rocket Fuel", selectedUpgrade.getName());
-        assertEquals(150, selectedUpgrade.getBuyingPrice());
+        assertEquals(150, selectedUpgrade.getBuyingPrice(1.0));
         assertFalse(gameDB.selectedItemInCollection(selectedUpgrade));
         assertFalse(selectedUpgrade.isPurchased());
         assertEquals(0, selectedUpgrade.getNumPurchased());
@@ -308,7 +308,7 @@ public class ShopTest {
         assertEquals(1000, gameDB.getBal());
         Upgrade selectedUpgrade = Upgrades.get(0);
         assertEquals("Rocket Fuel", selectedUpgrade.getName());
-        assertEquals(150, selectedUpgrade.getBuyingPrice());
+        assertEquals(150, selectedUpgrade.getBuyingPrice(1.0));
         assertFalse(gameDB.selectedItemInCollection(selectedUpgrade));
         assertFalse(selectedUpgrade.isPurchased());
         assertEquals(0, selectedUpgrade.getNumPurchased());
@@ -333,7 +333,7 @@ public class ShopTest {
         assertEquals(1399, gameDB.getBal());
         Car selectedCar = Cars.get(3);
         assertEquals("Yellow Car", selectedCar.getName());
-        assertEquals(1400, selectedCar.getBuyingPrice());
+        assertEquals(1400, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
         assertEquals(ShopService.PurchaseResult.INSUFFICIENT_FUNDS, result1);
@@ -352,7 +352,7 @@ public class ShopTest {
         assertEquals(2000, gameDB.getBal());
         Car selectedCar = Cars.get(3);
         assertEquals("Yellow Car", selectedCar.getName());
-        assertEquals(1400, selectedCar.getBuyingPrice());
+        assertEquals(1400, selectedCar.getBuyingPrice(1.0));
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
         assertEquals(ShopService.PurchaseResult.SUCCESS, result1);
         assertTrue(gameDB.selectedItemInCollection(selectedCar));
@@ -377,7 +377,7 @@ public class ShopTest {
         assertEquals(0, gameDB.getBal());
         Car selectedCar = Cars.get(3);
         assertEquals("Yellow Car", selectedCar.getName());
-        assertEquals(1400, selectedCar.getBuyingPrice());
+        assertEquals(1400, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
         assertEquals(ShopService.PurchaseResult.INSUFFICIENT_FUNDS, result1);
@@ -399,7 +399,7 @@ public class ShopTest {
         assertEquals(1600, gameDB.getBal());
         Car selectedCar = Cars.get(0);
         assertEquals("Purple Car", selectedCar.getName());
-        assertEquals(1600, selectedCar.getBuyingPrice());
+        assertEquals(1600, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
         assertEquals(ShopService.PurchaseResult.SUCCESS, result1);
@@ -421,7 +421,7 @@ public class ShopTest {
         assertEquals(2000, gameDB.getBal());
         Car selectedCar = Cars.get(0);
         assertEquals("Purple Car", selectedCar.getName());
-        assertEquals(1600, selectedCar.getBuyingPrice());
+        assertEquals(1600, selectedCar.getBuyingPrice(1.0));
         assertFalse(selectedCar.isPurchased());
         ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
         assertEquals(ShopService.PurchaseResult.SUCCESS, result1);
@@ -429,6 +429,4 @@ public class ShopTest {
         assertTrue(gameDB.selectedItemInCollection(selectedCar));
         assertTrue(selectedCar.isPurchased());
     }
-
-
 }

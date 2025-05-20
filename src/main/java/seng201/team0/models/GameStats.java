@@ -7,22 +7,18 @@ import java.util.List;
 public class GameStats {
     // Enums
     public enum Difficulty {
-        EASY(5500F, 0.8),
-        REGULAR(500000F, 1.0), //changed bal for testing!!
-        HARD(4500F, 1.2);
+        EASY(0.8),
+        REGULAR(1.0),
+        HARD(1.2);
 
-        private final double startingBalance;
-        private final double winningsMultiplier;
+        private final double costMultiplier;
 
-        Difficulty(double startingBalance, double winningsMultiplier) {
-            this.startingBalance = startingBalance;
-            this.winningsMultiplier = winningsMultiplier;
+        Difficulty(double costMultiplier) {
+            this.costMultiplier = costMultiplier;
         }
-        public double getStartingBalance() {
-            return startingBalance;
-        }
-        public double getWinningsMultiplier() {
-            return winningsMultiplier;
+
+        public double getCostMultiplier() {
+            return costMultiplier;
         }
     }
 
@@ -31,10 +27,11 @@ public class GameStats {
     private Race selectedRace;
     private int raceCount;
     private int racesDone = 0;
-    private Difficulty raceDifficulty = Difficulty.REGULAR;
+    private Difficulty difficulty = Difficulty.REGULAR;
 
     private String userName;
-    private double bal = raceDifficulty.getStartingBalance();
+    private final double startingBalance = 5000000; //TODO revert, changed bal for testing!!
+    private double bal = startingBalance;
     private double prizeMoneyWon = 0;
     private double fuelCostPerLitre = 2.5;
     private double minimumSecondsForGasStop = 3.0 * 60.0;; // Time for driver to get out, pay, etc
@@ -71,21 +68,15 @@ public class GameStats {
     public void setRaceCount(int raceCount) { this.raceCount = raceCount; }
     public int getRacesDone() { return racesDone; }
     public void setRacesDone(int racesDone) { this.racesDone = racesDone; }
-    public Difficulty getRaceDifficulty() {
-        return raceDifficulty;
-    }
-    public void setRaceDifficulty(Difficulty difficulty) {
-        this.raceDifficulty = difficulty;
-        this.bal = difficulty.getStartingBalance();
-    }
+    public Difficulty getDifficulty() { return difficulty; }
+    public void setDifficulty(Difficulty difficulty) { this.difficulty = difficulty; }
 
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
+    public double getStartingBalance() { return startingBalance; }
     public double getBal() { return bal; }
     public void setBal(double bal) { this.bal = bal; }
-    public double getPrizeMoneyWon() {
-        return prizeMoneyWon;
-    }
+    public double getPrizeMoneyWon() { return prizeMoneyWon; }
     public void setPrizeMoneyWon(double prizeMoneyWon) { this.prizeMoneyWon = prizeMoneyWon; }
     public double getFuelCostPerLitre() { return fuelCostPerLitre; }
     public double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
@@ -107,11 +98,6 @@ public class GameStats {
 
 
     // Logic
-    public double calculateAdjustedWinnings(double baseCost) {
-        return baseCost * raceDifficulty.getWinningsMultiplier();
-    }
-
-
     /**
      * Sets every car to not be purchased so it is available in the shop.
      * Then proceed to clear the user's car collection
@@ -132,8 +118,6 @@ public class GameStats {
         for (Upgrade upgrade : upgradeCollection) {
             upgrade.setNumPurchased(0);
             upgrade.setPurchased(false);
-
-            //upgrade.resetNumPurchased();
         }
         upgradeCollection.clear();
     }

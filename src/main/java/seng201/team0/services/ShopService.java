@@ -35,12 +35,12 @@ public class ShopService {
      */
     public PurchaseResult buyItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
-        boolean canPay = gameDB.getBal() >= selectedItem.getBuyingPrice();
+        boolean canPay = gameDB.getBal() >= selectedItem.getBuyingPrice(gameDB.getDifficulty().getCostMultiplier());
         if (isCar && selectedItem.isPurchased()) {
             return PurchaseResult.ALREADY_OWNED;
         }
         if (canPay) {
-            gameDB.setBal(gameDB.getBal() - selectedItem.getBuyingPrice());
+            gameDB.setBal(gameDB.getBal() - selectedItem.getBuyingPrice(gameDB.getDifficulty().getCostMultiplier()));
             if (isCar) {
                 gameDB.addItem(selectedItem);
                 selectedItem.setPurchased(true);

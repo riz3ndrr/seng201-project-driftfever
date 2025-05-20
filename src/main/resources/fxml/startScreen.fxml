@@ -79,7 +79,7 @@
                </font>
             </Text>
             <TextField fx:id="inputNameArea" layoutX="457.0" layoutY="197.0" prefHeight="38.0" prefWidth="247.0" />
-            <Label id="beginGameLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="412.0" layoutY="261.0" onMouseClicked="#switchToShopScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="67.0" prefWidth="337.0" text="Let's ride!" textAlignment="CENTER" textFill="WHITE">
+            <Label id="beginGameLabel" fx:id="finishStartScreenLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="412.0" layoutY="261.0" onMouseClicked="#saveSettingsAndGoToShop" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="67.0" prefWidth="337.0" text="Let's ride!" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="55.0" />
                </font></Label>

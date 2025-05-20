@@ -5,14 +5,14 @@ public class Purchasable {
     private int itemID;
     private final String name;
     private String desc;
-    private final float buyingPrice;
-    private final float sellingPrice;
+    private final double buyingPrice;
+    private final double sellingPrice;
     private boolean availableToBuy; // Determines whether available in the shop (ie. if not already purchased)
     private boolean isPurchased;
 
 
     // Constructor
-    Purchasable(int itemID, String name, String desc, float buyingPrice, float sellingPrice) {
+    Purchasable(int itemID, String name, String desc, double buyingPrice, double sellingPrice) {
         this.itemID = itemID;
         this.name = name;
         this.desc = desc;
@@ -23,25 +23,12 @@ public class Purchasable {
 
 
     // Getters and setters
-    public int getItemID() {
-        return itemID;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getDesc() {
-        return desc;
-    }
-    public float getBuyingPrice() {
-        return buyingPrice;
-    }
-    public float getSellingPrice() {
-        return sellingPrice;
-    }
+    public int getItemID() { return itemID; }
+    public String getName() { return name; }
+    public String getDesc() { return desc; }
+    public double getBuyingPrice(double costMultiplier) { return buyingPrice * costMultiplier; }
+    public double getSellingPrice() { return sellingPrice; }
     public void setPurchased(boolean isPurchased) { this.isPurchased = isPurchased;}
     public boolean isPurchased() { return isPurchased;}
-
-
-    // Logic
 }
 

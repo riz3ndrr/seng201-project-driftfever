@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -13,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -93,15 +91,14 @@ public class StartScreenController extends ParentController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
-    private GameStats.Difficulty chosenDifficulty = GameStats.Difficulty.REGULAR;
+    private GameStats gameDB = GameManager.getGameStats();
 
     private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
             new EnumMap<>(GameStats.Difficulty.class);
     static {
-        difficultyDescriptions.put(GameStats.Difficulty.EASY, "Take the easy route and start with more resources");
+        difficultyDescriptions.put(GameStats.Difficulty.EASY, "Take the easy route and enjoy lower prices");
         difficultyDescriptions.put(GameStats.Difficulty.REGULAR, "Not too easy, not too forgiving");
-        difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove");
+        difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove, higher shop prices");
     }
 
     private int raceCount = 3;
@@ -129,7 +126,7 @@ public class StartScreenController extends ParentController {
     }
 
     public String getDifficultyDesc() {
-        return difficultyDescriptions.get(chosenDifficulty);
+        return difficultyDescriptions.get(gameDB.getDifficulty());
     }
 
     private void updateSeasonCount(int newRaceCount) {
@@ -157,10 +154,7 @@ public class StartScreenController extends ParentController {
         }
 
         setDifficulty(diff);
-        // Player/Game Database
-        GameStats gameDB = GameManager.getGameStats();
-
-        gameDB.setRaceDifficulty(diff);
+        gameDB.setDifficulty(diff);
 
         switch(diff) {
             case EASY:
@@ -189,18 +183,15 @@ public class StartScreenController extends ParentController {
     }
 
     public void setDifficulty(GameStats.Difficulty diff) {
-        this.chosenDifficulty = diff;
+        gameDB.setDifficulty(diff);
         diffDesc.setText(difficultyDescriptions.get(diff));
-    }
-
-    private GameStats.Difficulty getChosenDifficulty() {
-        return chosenDifficulty;
     }
 
     public void initialize(Stage stage) {
         finishStartScreenLabel.setVisible(false);
-
+        gameDB.setDifficulty(GameStats.Difficulty.REGULAR);
         diffDesc.setText(getDifficultyDesc());
+
         showNewOptionSlide();
         diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateDifficulty((int) Math.round(newValue.doubleValue()));
@@ -230,28 +221,12 @@ public class StartScreenController extends ParentController {
 
     }
 
-    public void switchToShopScene(MouseEvent event) throws IOException {
+    public void saveSettingsAndGoToShop(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
-
-        // Player/Game Database
-        GameStats gameDB = GameManager.getGameStats();
-
         gameDB.setRaceCount(getRaceCount());
-        gameDB.setRaceDifficulty(getChosenDifficulty());
         gameDB.setUserName(inputNameArea.getText());
-
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        ShopController baseController = baseLoader.getController();
-        baseController.initialize(stage);
-
+        gameDB.setBal(gameDB.getStartingBalance());
+        switchToShopScene(event);
     }
-
 }
