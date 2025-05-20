@@ -67,16 +67,5 @@ public class SimulatorService {
         return randomCar;
     }
 
-    public static void switchToSimulatorScene(javafx.event.ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(SimulatorController.class.getResource("/fxml/simulator.fxml"));
-        Parent root = loader.load();
 
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        SimulatorController controller = loader.getController();
-        controller.setStage(stage);
-        controller.initialize(stage);
-    }
 }
