@@ -203,10 +203,10 @@ public class StartScreenController extends ParentController {
         diffDesc.setText(getDifficultyDesc());
         showNewOptionSlide();
         diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateDifficulty(newValue.intValue());
+            updateDifficulty((int) Math.round(newValue.doubleValue()));
         });
         seasonSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateSeasonCount(newValue.intValue());
+            updateSeasonCount((int) Math.round(newValue.doubleValue()));
         });
 
         // Live validation on name input
