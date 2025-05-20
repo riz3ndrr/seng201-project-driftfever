@@ -16,7 +16,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.ShopController">
    <children>
-      <HBox fx:id="carLayer" prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Pane prefHeight="800.0" prefWidth="220.0">
                <children>
@@ -30,7 +30,7 @@
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label fx:id="viewGarage" layoutX="18.0" layoutY="310.0" onMouseClicked="#trySwitchToGarageScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Garage">
+                  <Label layoutX="18.0" layoutY="310.0" onMouseClicked="#trySwitchToGarageScene" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" prefHeight="29.0" prefWidth="193.0" text="View Garage">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -193,8 +193,6 @@
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <Button fx:id="debug" mnemonicParsing="false" onMouseClicked="#debug" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" onMouseClicked="#end" text="end" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                   <Label fx:id="currentlyOwnLabel" alignment="CENTER" prefHeight="46.0" prefWidth="381.0" text="Label" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="33.0" />

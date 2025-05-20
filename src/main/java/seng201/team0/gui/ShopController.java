@@ -30,6 +30,11 @@ public class ShopController extends ParentController {
     private Label balLabel;
     @FXML
     private Label racesLeftLabel;
+
+    @FXML
+    private Label shopItem;
+    @FXML
+    private Label shopCar;
     @FXML
     private Label itemStatsLabel;
 
@@ -55,19 +60,30 @@ public class ShopController extends ParentController {
 
     @FXML
     private Label shopSubtitle;
+
+    @FXML
+    private GridPane shopGridPane;
+
     @FXML
     private ImageView itemImg;
 
+    @FXML
+    private ImageView upgrade1;
+    @FXML
+    private ImageView upgrade2;
+    @FXML
+    private ImageView upgrade3;
+
+    @FXML
+    private Label viewCarsLabel;
     @FXML
     private Label viewItemLabel;
 
     @FXML
     private Label currentlyOwnLabel;
 
-    private Stage stage;
-
-    private Scene scene;
-
+    @FXML
+    private HBox carLayer;
 
 
     // Properties
@@ -136,14 +152,36 @@ public class ShopController extends ParentController {
         }
     }
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
+    @FXML
+    private Label viewGarage;
 
     /**When the "select race" button is clicked, it will switch to the "select race" scene
      * if the user has selected 1 car as that is the minimum number a user will need
      * to purchase before proceeding with the rest of the game.
      *
+     * public void switchToSelectRaceScene(MouseEvent event) throws IOException {
+     *         if (gameDB.getCarCollectionSize() < 1) {
+     *             shopSubtitle.setText("You must first own one car");
+     *         }
+     *         else {
+     *             FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
+     *             Parent root = baseLoader.load();
+     *
+     *             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+     *             scene = new Scene(root);
+     *             stage.setScene(scene);
+     *             stage.show();
+     *             SelectRaceController baseController = baseLoader.getController();
+     *             baseController.initialize(stage);
+     *         }
+     *
+     *     }
      * @param event
-     * @throws IOException if the fxml file of the select race screen is not able to be loaded
+     * @throws IOException
      */
     public void trySwitchToSelectRaceScene(MouseEvent event) throws IOException {
               if (gameDB.getCarCollectionSize() < 1) {
@@ -155,7 +193,7 @@ public class ShopController extends ParentController {
 
           }
 
-    //TODO DELETE THIS WHEN SUBMITTING
+
     public void end(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
@@ -175,9 +213,14 @@ public class ShopController extends ParentController {
      * to purchase before proceeding with the rest of the game.
      *
      * @param event
-     * @throws IOException if the garage scene fxml is not able to be loaded
+     * @throws IOException
      */
 
+    /**
+     * When the right arrow is clicked, it will update the index of the selected item by 1 (i.e., move
+     * to the next item) and display its corresponding image and attributes. When the final item is reached and the
+     * user calls this function, the index will reset and the first item will be displayed.
+     */
      public void trySwitchToGarageScene(MouseEvent event) throws IOException {
               // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
               // Proceed to the next scene
@@ -189,11 +232,6 @@ public class ShopController extends ParentController {
               }
           }
 
-    /**
-     * When the right arrow is clicked, it will update the index of the selected item by 1 (i.e., move
-     * to the next item) and display its corresponding image and attributes. When the final item is reached and the
-     * user calls this function, the index will reset and the first item will be displayed.
-     */
     public void moveRight() {
         // change the variables depending on if we're shopping cars or upgrades
 
@@ -304,20 +342,10 @@ public class ShopController extends ParentController {
         }
     }
 
-
-    /**
-     * Toggles between displaying cars or upgrades.
-     * If the shop was previously displaying cars, it will now display the first upgrade in the list and update
-     * UI elements to reflect this change and show upgrade-related information.
-     *
-     * Likewise, if the shop was previously displaying upgrades, it will display the first car in the list and update
-     * UI elements to reflect this change and show car-related information.
-     */
     public void switchDisplayedItemType() {
-        selectedItemIndex = 0;
         if (showCarOrUpgrade.equals("Car")) {
             showCarOrUpgrade = "Upgrade";
-
+            selectedItemIndex = 0;
             selectedItem = availableUpgrades.get(selectedItemIndex);
 
             shopSubtitle.setText("Purchase car parts which can be equipped to your car to modify its stats");
@@ -329,7 +357,8 @@ public class ShopController extends ParentController {
         else {
             showCarOrUpgrade = "Car";
             selectedItem = availableCars.get(selectedItemIndex);
-            shopSubtitle.setText("Find a new vehicle to drive you to victory");
+
+            shopSubtitle.setText("FInd a new vehicle to drive you to victory");
             itemStatsLabel.setText("Car Stats:");
             viewItemLabel.setText("View upgrades");
         }

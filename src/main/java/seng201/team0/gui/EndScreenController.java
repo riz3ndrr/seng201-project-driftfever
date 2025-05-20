@@ -24,11 +24,6 @@ public class EndScreenController extends ParentController {
 
     GameStats gameDB = GameManager.getGameStats();
 
-    /**
-     * This helps to display the player's name, the amount of races they have completed in their playthrough, along
-     * with the total amount of prize money earned.
-     * @param stage
-     */
     public void initialize(Stage stage) {
         String userName = gameDB.getUserName();
         if (Character.toString(userName.charAt(userName.length() - 1)).equals("s")) {
@@ -40,11 +35,6 @@ public class EndScreenController extends ParentController {
         raceStatsLabel.setText(String.format("You have competed in %d races this season.", gameDB.getRaceCount()));
         prizeMoneyLabel.setText(String.format("From those races, you have earned $%,.2f in prize money.", gameDB.getPrizeMoneyWon()));
     }
-
-    /**
-     * When clicked, will start the game again and redirect the user to the start screen.
-     * @param event
-     */
 
     public void playAgainClicked(MouseEvent event) {
         try {

@@ -69,8 +69,6 @@ public class ShopService {
      */
     public SellResult sellItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
-        System.out.println(selectedItem.getName());
-        System.out.println(selectedItem instanceof Car);
         boolean canSell = selectedItem.isPurchased();
         if (canSell) {
 
