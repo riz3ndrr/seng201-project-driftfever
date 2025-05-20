@@ -76,7 +76,7 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="RArrow" fitHeight="150.0" fitWidth="84.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ImageView fx:id="RArrow" fitHeight="150.0" fitWidth="84.0" onMouseClicked="#moveRight" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/arrowright.png" />
                      </image>
@@ -84,7 +84,7 @@
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fx:id="LArrow" fitHeight="150.0" fitWidth="84.0" onMouseClicked="#moveLeft" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                  <ImageView fx:id="LArrow" fitHeight="150.0" fitWidth="84.0" onMouseClicked="#moveLeft" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/arrowleft.png" />
                      </image>

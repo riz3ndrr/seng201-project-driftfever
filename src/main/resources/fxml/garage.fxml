@@ -67,7 +67,7 @@
                   <RowConstraints maxHeight="342.399951171875" minHeight="10.0" prefHeight="111.19998779296873" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ImageView fx:id="RArrow" fitHeight="86.0" fitWidth="94.0" onMouseClicked="#moveRight" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ImageView fx:id="RArrow" fitHeight="86.0" fitWidth="94.0" onMouseClicked="#moveRight" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/arrowright.png" />
                      </image>
@@ -75,7 +75,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fx:id="LArrow" fitHeight="87.0" fitWidth="96.0" onMouseClicked="#moveLeft" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                  <ImageView fx:id="LArrow" fitHeight="87.0" fitWidth="96.0" onMouseClicked="#moveLeft" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../designs/arrowleft.png" />
                      </image>

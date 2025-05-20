@@ -21,20 +21,20 @@ public class ParentController {
     public void setStage(Stage stage) { this.stage = stage; }
 
     public void scaleUpText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleUp(hoveredLabel);
-
+        Node node = (Node) event.getSource();
+        TextEffect.scaleUp(node);
     }
-    public void scaleDownText(MouseEvent event) {
-        Label hoveredLabel = (Label) event.getSource();
-        TextEffect.scaleDown(hoveredLabel);
 
+    public void scaleDownText(MouseEvent event) {
+        Node node = (Node) event.getSource();
+        TextEffect.scaleDown(node);
     }
 
     public void pressedText(MouseEvent event) {
         Label hoveredLabel = (Label) event.getSource();
         TextEffect.pressedText(hoveredLabel);
     }
+
     public void unpressedText(MouseEvent event) {
         Label hoveredLabel = (Label) event.getSource();
         TextEffect.unpressedText(hoveredLabel);
