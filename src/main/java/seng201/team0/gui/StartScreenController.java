@@ -22,29 +22,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class StartScreenController extends ParentController {
-    @FXML
-    private Label gameTitle;
-    @FXML
-    private Label gameDesc;
-    @FXML
-    private Text diffLabel;
+
     @FXML
     private Label diffDesc;
 
     @FXML
-    private ImageView easyPic;
-    @FXML
-    private ImageView medPic;
-    @FXML
-    private ImageView hardPic;
-
-    @FXML
-    private ImageView leftArrow;
-    @FXML
-    private ImageView rightArrow;
-
-    @FXML
     private Slider diffSlider;
+
     @FXML
     private Slider seasonSlider;
 
@@ -57,21 +41,6 @@ public class StartScreenController extends ParentController {
     private Text whatNameLabel;
 
     @FXML
-    private GridPane titleGridPane;
-    @FXML
-    private GridPane chooseDifficultyGridPane;
-    @FXML
-    private GridPane startMenuGridPane;
-    @FXML
-    private GridPane chooseCarGridPane;
-    @FXML
-    private GridPane finalSelectScreenGridPane;
-    @FXML
-    private GridPane chooseSeasonLengthGridPane;
-    @FXML
-    private GridPane chooseNameGridPane;
-
-    @FXML
     private Label finishStartScreenLabel;
 
     @FXML
@@ -79,19 +48,10 @@ public class StartScreenController extends ParentController {
     @FXML
     private Pane startingPane;
 
-    @FXML
-    private ImageView RArrow;
-
-    @FXML
-    private Label startLabel;
-
-    @FXML
-    private Text subtitleText;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     private GameStats gameDB = GameManager.getGameStats();
+    @FXML
+    private ImageView difficultyPic;
+
 
     private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
             new EnumMap<>(GameStats.Difficulty.class);
@@ -103,43 +63,31 @@ public class StartScreenController extends ParentController {
 
     private int raceCount = 3;
 
-    static int optionIndex = 0;
-
+    /**
+     * Change the screen so that the user can now input their name, select their difficulty and the length of the season.
+     */
     public void startSelecting() {
         selectAttributesPane.setVisible(true);
         startingPane.setVisible(false);
         inputNameArea.requestFocus(); // Autofocus the name field
     }
 
-    public void showNewOptionSlide() {
-//        List<GridPane> chooseOptions = Arrays.asList(startMenuGridPane, chooseNameGridPane, chooseDifficultyGridPane,chooseSeasonLengthGridPane);
-//        GridPane newPaneToShow = chooseOptions.get(optionIndex);
-//
-//        newPaneToShow.setVisible(true);
-//        // can make this more efficient
-//        for(GridPane option : chooseOptions) {
-//            if (option != newPaneToShow) {
-//                option.setVisible(false);
-//            }
-//        }
 
-    }
-
-    public String getDifficultyDesc() {
-        return difficultyDescriptions.get(gameDB.getDifficulty());
-    }
-
+    /**
+     * Update the length of the season and reflect it on the UI to display the currently selected season length.
+     * @param newRaceCount which refers to the new length of the season set by the slider.
+     */
     private void updateSeasonCount(int newRaceCount) {
         raceCount = newRaceCount;
         seasonCountLabel.setText("Number of races: " + raceCount);
     }
 
-    public int getRaceCount() {
-        return raceCount;
-    }
-
-    @FXML
-    private ImageView difficultyPic;
+    /**
+     * Update the chosen difficulty of the playthrough and diplay its respective image.
+     * The slider value is below 2, it will set the difficulty to easy, else if it is between 2 and 3, it will set it
+     * to regular. Otherwise, the difficulty is set to hard.
+     * @param newDiffLevel is the value of the difficulty slider.
+     */
 
     private void updateDifficulty(int newDiffLevel) {
         GameStats.Difficulty diff;
@@ -177,22 +125,38 @@ public class StartScreenController extends ParentController {
 
     }
 
-    // Helper to validate name len and no special chars
+    /**
+     * A helper function to validate the name's length and check if it has no special characters.
+     * @param name which is the currently inputted name
+     * @return true or false depending on if the inputted name abides with the conditions.
+     */
     private boolean isValidName(String name) {
         return name != null && name.trim().matches("^[A-Za-z0-9 ]{3,15}$");
     }
 
+    /**
+     * Change the text of the diffDesc label to show a description of the difficulty.
+     * @param diff which is the currently chosen difficulty level.
+     */
     public void setDifficulty(GameStats.Difficulty diff) {
         gameDB.setDifficulty(diff);
         diffDesc.setText(difficultyDescriptions.get(diff));
     }
 
+    /**
+     * Set the default difficulty to regular and display its description on the UI.
+     * <p>
+     * Add listeners to the two sliders and live validation on the input of the name to see if it abides with our
+     * restrictions. If the name is not valid, it will say to the user to "Enter 3-15 alphanumeric characters" and label
+     * to proceed to the shop won't be visible. Likewise if the inputted name is valid.
+     * @param stage
+     */
+
     public void initialize(Stage stage) {
         finishStartScreenLabel.setVisible(false);
         gameDB.setDifficulty(GameStats.Difficulty.REGULAR);
-        diffDesc.setText(getDifficultyDesc());
+        diffDesc.setText(difficultyDescriptions.get(gameDB.getDifficulty()));
 
-        showNewOptionSlide();
         diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateDifficulty((int) Math.round(newValue.doubleValue()));
         });
@@ -224,7 +188,7 @@ public class StartScreenController extends ParentController {
     public void saveSettingsAndGoToShop(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
-        gameDB.setRaceCount(getRaceCount());
+        gameDB.setRaceCount(raceCount);
         gameDB.setUserName(inputNameArea.getText());
         gameDB.setBal(gameDB.getStartingBalance());
         switchToShopScene(event);

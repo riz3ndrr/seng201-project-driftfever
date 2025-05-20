@@ -84,6 +84,12 @@ public class GarageController extends ParentController {
 
 
     // Logic
+
+    /**
+     * Upon initialization, will display the player's name, their balance and amount of races left to complete on the
+     * left. It will also display the currently selected car for racing along with the upgrades available to be used.
+     * @param stage
+     */
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
@@ -91,6 +97,11 @@ public class GarageController extends ParentController {
         displaySelectedCar();
         displayAvailableUpgrades();
     }
+
+    /**
+     * Display the car's stats along with the cost of filling up the tank (if it's not already full)
+     * @param car which is the currently displayed car.
+     */
 
     public void displayCarStats(Car car) {
         String buttonCaption = String.format("Fill tank for $%.2f", garageService.payableCostToFillTank(selectedCar));
@@ -107,6 +118,10 @@ public class GarageController extends ParentController {
         fuelTankCapacityLabel.setText(String.format("Fuel tank: %.0f L", car.calculateFuelTankCapacity()));
     }
 
+    /**
+     * Display the car's respective image.
+     * If the car is currently being selected for racing, it will display that fact and likewise if it isn't
+     */
     public void displaySelectedCar() {
         String selectedItemImgDirectory = "";
         selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
@@ -126,12 +141,24 @@ public class GarageController extends ParentController {
         displayCarStats(selectedCar);
     }
 
+
+    /**
+     * Call the fillTank() method in the GarageService class and update the balance label depending on the result of the
+     * method along with its fuel level.
+     */
     public void fillTank() {
         garageService.fillTank(selectedCar);
         balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
         displayCarStats(selectedCar);
     }
 
+    /**
+     * Move to the next car in the collection.
+     * If the car is the last item in the list, the UI will then display the first item in the list. Hides the text
+     * showing if an upgrade has been equipped
+     * or not when function is called along with refreshing the list of equipped upgrades if that is what has been shown
+     * previously.
+     */
     public void moveRight() {
         resultEquipMessage.setVisible(false);
         if ((selectedCarIndex + 1) == gameDB.getCarCollectionSize()) {
@@ -148,6 +175,13 @@ public class GarageController extends ParentController {
         }
     }
 
+    /**
+     * Move to the previous car in the collection.
+     * If the car is the first item in the list, the UI will then display the last item in the list. Hides the text
+     * showing if an upgrade has been equipped
+     * or not when function is called along with refreshing the list of equipped upgrades if that is what has been shown
+     * previously.
+     */
     public void moveLeft() {
         resultEquipMessage.setVisible(false);
         if ((selectedCarIndex) == 0) {
@@ -164,6 +198,12 @@ public class GarageController extends ParentController {
         }
     }
 
+    /**
+     * Toggles the display between equipped and available upgrades in the UI to reflect the new state and refreshes
+     * the list of upgrades accordingly.
+     * If currently showing equipped items, the method switches to show available upgrades.
+     * Likewise if we are currently showing the available items.
+     */
     public void switchUpgrades() {
         if (showEquippedItems) {
             // going to show available items
@@ -182,6 +222,10 @@ public class GarageController extends ParentController {
         displayAvailableUpgrades();
     }
 
+    /**
+     * Call equipUpgrade() or equipUpgrade() depending on if we are displaying the list of upgrades able to be equipped
+     * or the list of upgrades already equipped.
+     */
     public void unequipOrEquipUpgrade() {
         if (showEquippedItems) {
             unequipUpgrade();
@@ -189,6 +233,13 @@ public class GarageController extends ParentController {
             equipUpgrade();
         }
     }
+
+    /**
+     * Call the unequipUpgrade() method in the GarageService class which passes through the selected car and
+     * upgrade as a parameter and receives the result of it as an Enum. The UI will reflect
+     * the result of unequipping the upgrade depending on if it was successful
+     * or unsuccessful due to no upgrade being selected.
+     */
 
     public void unequipUpgrade() {
         GarageService.UnequipResult result = garageService.unequipUpgrade(selectedUpgrade, selectedCar);
@@ -208,6 +259,12 @@ public class GarageController extends ParentController {
         }
     }
 
+    /**
+     * Call the equipUpgrade() method in the GarageService class which passes through the selected car and
+     * upgrade as a parameter and receives the result of it as an Enum.
+     * The UI will reflect the result of equipping the upgrade depending on if it was successful
+     * or unsuccessful due to no upgrade being selected or that particular upgrade already being equiped.
+     */
     public void equipUpgrade() {
         GarageService.EquipResult result = garageService.equipUpgrade(selectedUpgrade, selectedCar);
 
@@ -232,11 +289,19 @@ public class GarageController extends ParentController {
         }
     }
 
+    /**
+     * Update the selected car used for racing and reflect that change through changes in the UI
+     */
     public void updateSelectedCar() {
         garageService.updateSelectedCar(selectedCar);
         selectedCarTitle.setVisible(true);
         selectCarLabel.setVisible(false);
     }
+
+    /**
+     * Show the name of the upgrade (and it's quantity if we are showing the list of upgrades available to be equipped)
+     * @param selectedUpgrade which is the upgrade the player is currently selecting
+     */
 
     public void displaySelectedUpgrade(Upgrade selectedUpgrade) {
         if (showEquippedItems) {
@@ -248,6 +313,11 @@ public class GarageController extends ParentController {
         resultEquipMessage.setVisible(true);
     }
 
+    /**
+     * When the icon of an upgrade is clicked, we obtain its itemID and call the displaySelectedUpgrade() method
+     * to change UI elements.
+     * @param event
+     */
     public void selectUpgrade(MouseEvent event) {
         ImageView clickedUpgrade = (ImageView) event.getSource();
         String upgradeID = clickedUpgrade.getId();
@@ -256,6 +326,18 @@ public class GarageController extends ParentController {
         selectedUpgrade = GameManager.getUpgradeWithID(id);
         displaySelectedUpgrade(selectedUpgrade);
     }
+
+    /**
+     * Displays a list of either equipped or available upgrades in the UI grid,
+     * depending on what the player wants to be displayed.
+     * <p>
+     * If the UI is set to show equipped items, it displays the upgrades
+     * currently equipped on the selected car. Otherwise, it will show all upgrades available to be equipped.
+     * <p>
+     * This method refreshes whenever a change is made (like when an upgrade is equipped
+     * or the currently displayed car changers), placing the
+     * relevant upgrades into a grid layout (2 columns per row) based on their IDs.
+     */
 
     public void displayAvailableUpgrades() {
         List<Upgrade> availableUpgrades;

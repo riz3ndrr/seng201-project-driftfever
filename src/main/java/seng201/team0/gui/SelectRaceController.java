@@ -68,6 +68,12 @@ public class SelectRaceController extends ParentController {
 
 
     // Logic
+
+    /**
+     * Display the user's name, their balance and the amount of races left to complete.
+     * Additionally, also display the user's selected car for racing and add the list of races and their routes.
+     * @param stage
+     */
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
@@ -76,8 +82,10 @@ public class SelectRaceController extends ParentController {
         displaySelectedCar();
     }
 
+    /**
+     * Add race nodes to a TreeView element and also their respective routes to each node.
+     */
     private void addRacesAndRoutesToTree() {
-        // Adds race nodes to the TreeView, and routes to each race node
         TreeItem<String> root = new TreeItem<>("Races");
         raceListView.setRoot(root);
         for (Race race : GameManager.getRaces()) {
@@ -90,6 +98,9 @@ public class SelectRaceController extends ParentController {
         }
     }
 
+    /**
+     * TODO // complete JavaDoc
+     */
     public void treeViewMouseClicked() {
         TreeItem<String> selectedItem = raceListView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -106,11 +117,32 @@ public class SelectRaceController extends ParentController {
         }
     }
 
+    /**
+     * Update the race the game will take place on and a particular route on the race that the player
+     * will traverse through.
+     * @param raceIndex which is the index of the chosen race the user wishes to compete on.
+     * @param routeIndex which is the index of the chosen route the user will take on the race.
+     */
     private void treeItemSelected(int raceIndex, int routeIndex) {
         selectedRace = GameManager.getRaces().get(raceIndex);
         selectedRoute = RaceRoute.values()[routeIndex];
         displaySelectedRace();
     }
+
+    /**
+     * Updates the race details section of the UI with information about the currently selected race and route.
+     * <p>
+     * Displays details about the race include:
+     * <ul>
+     *   <li>Race name and associated route</li>
+     *   <li>Description of the race and route</li>
+     *   <li>Prize money</li>
+     *   <li>The total distance of the race and number of gas stops</li>
+     *   <li>How curvy the race is as a percentage</li>
+     *   <li>Time limit formatted as hours, minutes, and seconds</li>
+     * </ul>
+     * Also make the "Begin Race" label visible to allow the player to start the race.
+     */
 
     public void displaySelectedRace() {
         String gasStopCaption = String.format("gas %s", selectedRace.getGasStopDistances().size() == 1 ? "stop" : "stops");
@@ -123,6 +155,20 @@ public class SelectRaceController extends ParentController {
         beginRaceLabel.setVisible(true);
     }
 
+    /**
+     * Display the details of the car chosen for the race by the player along with an image of it.
+     *<p>
+     * Displayed details about the car include:
+     * <ul>
+     *     <li>The car's name</li>
+     *     <li>Its speed</li>
+     *     <li>Its handling</li>
+     *     <li>Its reliability</li>
+     *     <li>Its fuel efficiency</li>
+     *     <li>How much of the tank is full</li>
+     * </ul>
+     */
+
     private void displaySelectedCar() {
         selectedCarImg.setImage(selectedCar.getIcon());
         carNameLabel.setText(selectedCar.getName());
@@ -134,6 +180,13 @@ public class SelectRaceController extends ParentController {
         fuelMeterLabel.setStyle("");
     }
 
+    /**
+     * When clicked, if the fuel of the selected car is below 50%, the user will not be able to start the game.
+     * Otherwise, the selected race and route will be updated, and the racing will proceed.
+     * @param event
+     * @throws IOException if the fxml file is not able to be loaded or accessed.
+     */
+
     public void beginRaceButtonClick(javafx.event.ActionEvent event) throws IOException {
         boolean isFuelLow = selectedCar.getFuelInTank() < 0.5 * selectedCar.calculateFuelTankCapacity();
         if (isFuelLow) {
@@ -141,7 +194,6 @@ public class SelectRaceController extends ParentController {
         } else {
             gameDB.setSelectedRace(selectedRace);
             gameDB.setSelectedRoute(selectedRoute);
-            System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
             switchToSimulatorScene(event);
         }
     }

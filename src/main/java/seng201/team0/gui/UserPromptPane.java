@@ -36,6 +36,14 @@ public class UserPromptPane extends Pane {
     public void setYesHandler(EventHandler<Event> yesHandler) { this.yesHandler = yesHandler; }
     public void setNoHandler(EventHandler<Event> noHandler) { this.noHandler = noHandler; }
 
+    /**
+     * Construct and return a popup overlay which is typically used to show that a random event has occured and
+     * requires user input.
+     *
+     * If needed, the overlay will display the player's car's image. Nevertheless, it will display the event's title and
+     * a message/question, along with potentially "yes" or "no" buttons.
+     * @return StackPane
+     */
 
     // Logic
     public StackPane show() {
