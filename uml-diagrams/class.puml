@@ -80,8 +80,8 @@ enum Difficulty {
     HARD
 }
 
-GameStats "1" --> "0..1" Race : selectedRace
-GameStats "1" --> "0..1" Car : selectedCar
+GameStats "1" --> "0.." Race : selectedRace
+GameStats "1" --> "1" Car : selectedCar
 GameStats "1" *-- "0..*" Car : carCollection
 GameStats "1" *-- "0..*" Upgrade : upgradeCollection
 GameStats ..> Purchasable : uses
@@ -114,8 +114,8 @@ class RaceParticipant {
     -distanceTraveledKilometers : double
     -isBrokenDown : boolean
     -secondsPaused : double
+    -route: RaceRoute
 
-    +progressSimulationByTime()
 }
 
 class RaceComment {
@@ -124,6 +124,17 @@ class RaceComment {
 
     +createUI() : HBox
 }
+
+enum RaceRoute{
+    MOUNTAIN_ROUTE
+    DIRT_ROUTE
+    SCENIC_ROUTE
+    HIGHWAY_ROUTE
+
+    +getRandomRoute() : RaceRoute
+}
+
+RaceRoute "1" <.. "1" RaceParticipant
 
 'change add to addComment later
 class RaceCommentary {
@@ -142,23 +153,8 @@ RaceParticipant --> "*" RaceComment
 
 
 Race --> "1" RaceCommentary
-Race --> "*" RaceParticipant
+Race --* RaceParticipant
 
-
-Class GameTimer {
-   - timeSpeedFactor : double
-  - handler : EventHandler<Event>
-  - timeAtLastTick : long
-  - secondsElapsed : double
-  - framerate : int
-
-  + getElapsedSecondsInGameTime() : double
-  + start() : void
-  + pause() : void
-  + stop() : void
-  + totalSecondsToStringHourMinSec() : String
-  + totalSecondsToStringMinSec() : String
-}
 
 
 class GarageService {
@@ -187,7 +183,7 @@ GarageService ..> EquipResult
 
 class ShopService {
     +buyItem() : PurchaseResult
-    +sellItem( : SellResult
+    +sellItem() : SellResult
 }
 
 enum PurchaseResult {
@@ -211,7 +207,22 @@ ShopService ..> GameStats
 ShopService ..> Purchasable
 ShopService ..> Car
 ShopService ..> Upgrade
+GarageService ..> Car
+GarageService ..> Upgrade
 
+
+GameStats ..> SimulatorService
+
+
+class SimulatorService {
+    +prepareRace(): void
+    -generateEntryNumberForOpponent(): int
+    -generateOpponentName(): String
+    +generateOpponents(): void
+    +generateRandomCar(): Car
+
+
+}
 
 
 
