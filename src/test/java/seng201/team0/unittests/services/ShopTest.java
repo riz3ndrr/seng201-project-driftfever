@@ -429,4 +429,30 @@ public class ShopTest {
         assertTrue(gameDB.selectedItemInCollection(selectedCar));
         assertTrue(selectedCar.isPurchased());
     }
+    @Test
+    void purchaseCarWhenAlreadyReachedCarAmountLimit() {
+        gameDB.setBal(50000);
+        assertEquals(50000, gameDB.getBal());
+        assertEquals(0, gameDB.getCarCollectionSize());
+        for (int i = 0; i < 5; i++) {
+            purchaseCarHelper(i);
+        }
+        assertEquals(5, gameDB.getCarCollectionSize());
+
+        Car selectedCar = Cars.get(6);
+        assertFalse(selectedCar.isPurchased());
+        assertFalse(gameDB.selectedItemInCollection(selectedCar));
+        ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
+        assertEquals(ShopService.PurchaseResult.EXCEEDED_CAR_OWNED_LIMIT, result1);
+
+    }
+
+    void purchaseCarHelper(int i) {
+        Car selectedCar = Cars.get(i);
+        assertFalse(selectedCar.isPurchased());
+        ShopService.PurchaseResult result1 = shopService.buyItem(selectedCar);
+        assertEquals(ShopService.PurchaseResult.SUCCESS, result1);
+        assertTrue(gameDB.selectedItemInCollection(selectedCar));
+        assertTrue(selectedCar.isPurchased());
+    }
 }
