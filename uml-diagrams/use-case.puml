@@ -16,7 +16,8 @@ Player --> (Change game settings)
 Player --> (View garage)  
 (View garage) <.. (Equip car upgrades) : <extends>
 (View garage) <.. (Unequip car upgrades) : <extends>
-(View garage) <.. (Change car for racing) : <extends>
+(View garage) <.left. (Fix broken down car) : <extends>
+(View garage) <.right. (Change car for racing) : <extends>
 (View garage) <.. (Fill up car's fuel tank) : <extends>
 
 Player --> (View shop)

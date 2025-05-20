@@ -46,7 +46,7 @@ public class GameManager {
                         325,
                         0.7,
                         8,
-                        6000,
+                        4000,
                         5.5),
                 new Race("Featherline Cruise",
                         "A smooth ride with almost no curves and limited gas stops.",
