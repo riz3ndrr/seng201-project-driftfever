@@ -16,6 +16,7 @@ public class Car extends Purchasable {
     private double reliability; // Chance of not breaking down every kilometre (eg: 0.99 = 1% chance of breakdown per kilometre)
     private List<Upgrade> equippedUpgrades = new ArrayList<>();
     private GameStats gameDB = GameManager.getGameStats();
+    private boolean isBrokenDown = false;
 
 
     // Constructor
@@ -42,6 +43,13 @@ public class Car extends Purchasable {
     public double getFuelTankCapacity() {return fuelTankCapacityLitres;}
     public double getHandlingScaleFactor() {return handlingScaleFactor;}
     public double getReliability() {return reliability;}
+    public boolean isBrokenDown() {
+        return isBrokenDown;
+    }
+    public void setBrokenDown(boolean brokenDown) {
+        isBrokenDown = brokenDown;
+    }
+
 
 
 
@@ -62,6 +70,11 @@ public class Car extends Purchasable {
         equippedUpgrades.clear();
     }
 
+    /**
+     * Primarily used to display the car's upgrades during the race when the player clicks on that
+     * car's icon.
+     * @return a string of the form: upgrade1, upgrade2, ... lastUpgrade
+     */
 
     public String upgradesToString() {
         List<String> items = new ArrayList<>();
@@ -174,17 +187,32 @@ public class Car extends Purchasable {
         return result;
     }
 
+
+    /**
+     * Add an upgrade to a particular car's list of equipped upgrades
+     * @param upgrade which is the upgrade we wish to add.
+     */
     public void addUpgrade(Upgrade upgrade) {
         if (!checkIfUpgradeEquipped(upgrade)) {
             equippedUpgrades.add(upgrade);
         }
     }
 
+    /**
+     * Remove an upgrade from a particular car's list of equipped upgrades
+     * @param upgrade which is the upgrade we wish to remove.
+     */
     public void removeUpgrade(Upgrade upgrade) {
         equippedUpgrades.remove(upgrade);
     }
 
 
+    /**
+     * Perform a linear search on a car's list of equipped upgrades to see if a particular upgrade has been
+     * equipped
+     * @param selectedUpgrade the upgrade we wish to know if it is equipped by a car
+     * @return true or false depending on if the upgrade is present
+     */
     public boolean checkIfUpgradeEquipped(Upgrade selectedUpgrade) {
         for (Upgrade upgrade : equippedUpgrades) {
             if (upgrade.getName().equals(selectedUpgrade.getName())) {
@@ -194,12 +222,6 @@ public class Car extends Purchasable {
         return false;
     }
 
-    public void printEquippedUpgrades() {
-        System.out.println("This car has equipped:");
-        for (Upgrade upgrade : equippedUpgrades) {
-            System.out.println(upgrade.getName());
-        }
-    }
 
     /**
      * Calculate the litres needed to fill up the tank, if it is below 0, it will set it to 0.
@@ -217,9 +239,16 @@ public class Car extends Purchasable {
         return litresNeeded * costPerLitre;
     }
 
+    /**
+     * Obtain the icon of a car and return it.
+     * @return Image
+     */
+
     public Image getIcon() {
         String carIcon = "car" + (getItemID() + 1) + ".png";
         String iconFolder = "file:src/main/resources/designs/car-icon/";
         return new Image(iconFolder + carIcon);
     }
+
+
 }
