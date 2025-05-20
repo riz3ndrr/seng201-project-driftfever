@@ -1,17 +1,12 @@
 package seng201.team0.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,79 +14,75 @@ import seng201.team0.GameManager;
 import seng201.team0.models.GameStats;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+
 
 public class StartScreenController extends ParentController {
     @FXML
-    private Label gameTitle;
-    @FXML
-    private Label gameDesc;
-    @FXML
-    private Text diffLabel;
-    @FXML
     private Label diffDesc;
-
-    @FXML
-    private ImageView easyPic;
-    @FXML
-    private ImageView medPic;
-    @FXML
-    private ImageView hardPic;
-
-    @FXML
-    private ImageView leftArrow;
-    @FXML
-    private ImageView rightArrow;
-
     @FXML
     private Slider diffSlider;
     @FXML
+    private ImageView difficultyPic;
+    @FXML
     private Slider seasonSlider;
-
     @FXML
     private Label seasonCountLabel;
-
     @FXML
     private TextField inputNameArea;
     @FXML
     private Text whatNameLabel;
-
-    @FXML
-    private GridPane titleGridPane;
-    @FXML
-    private GridPane chooseDifficultyGridPane;
-    @FXML
-    private GridPane startMenuGridPane;
-    @FXML
-    private GridPane chooseCarGridPane;
-    @FXML
-    private GridPane finalSelectScreenGridPane;
-    @FXML
-    private GridPane chooseSeasonLengthGridPane;
-    @FXML
-    private GridPane chooseNameGridPane;
-
     @FXML
     private Label finishStartScreenLabel;
-
     @FXML
     private Pane selectAttributesPane;
     @FXML
     private Pane startingPane;
 
-    @FXML
-    private ImageView RArrow;
 
-    @FXML
-    private Label startLabel;
-
-    @FXML
-    private Text subtitleText;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    // Properties
     private GameStats gameDB = GameManager.getGameStats();
+
+
+    // Logic
+    public void initialize(Stage stage) {
+        finishStartScreenLabel.setVisible(false);
+        gameDB.setDifficulty(GameStats.Difficulty.REGULAR);
+        diffDesc.setText(getDifficultyDesc());
+        listenForChangeToSliders();
+        listenForChangeToUsername();
+    }
+
+    private void listenForChangeToSliders() {
+        diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            updateDifficulty((int) Math.round(newValue.doubleValue()));
+        });
+        seasonSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            updateSeasonCount((int) Math.round(newValue.doubleValue()));
+        });
+    }
+
+    private void listenForChangeToUsername() {
+        inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
+            if (isValidName(newText)) {
+                whatNameLabel.setVisible(false);
+                finishStartScreenLabel.setVisible(true);
+            } else {
+                String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
+                String color = newText.isEmpty() ? "white" : "gray";
+                whatNameLabel.setText(caption);
+                whatNameLabel.setVisible(true);
+                whatNameLabel.setStyle("-fx-fill: " + color);
+                finishStartScreenLabel.setVisible(false);
+            }
+        });
+    }
+
+    // Helper to validate name len and no special chars
+    private boolean isValidName(String name) {
+        return name != null && name.trim().matches("^[A-Za-z0-9 ]{3,15}$");
+    }
 
     private static final Map<GameStats.Difficulty,String> difficultyDescriptions =
             new EnumMap<>(GameStats.Difficulty.class);
@@ -101,45 +92,9 @@ public class StartScreenController extends ParentController {
         difficultyDescriptions.put(GameStats.Difficulty.HARD, "For the racers with something to prove, higher shop prices");
     }
 
-    private int raceCount = 3;
-
-    static int optionIndex = 0;
-
-    public void startSelecting() {
-        selectAttributesPane.setVisible(true);
-        startingPane.setVisible(false);
-        inputNameArea.requestFocus(); // Autofocus the name field
-    }
-
-    public void showNewOptionSlide() {
-//        List<GridPane> chooseOptions = Arrays.asList(startMenuGridPane, chooseNameGridPane, chooseDifficultyGridPane,chooseSeasonLengthGridPane);
-//        GridPane newPaneToShow = chooseOptions.get(optionIndex);
-//
-//        newPaneToShow.setVisible(true);
-//        // can make this more efficient
-//        for(GridPane option : chooseOptions) {
-//            if (option != newPaneToShow) {
-//                option.setVisible(false);
-//            }
-//        }
-
-    }
-
     public String getDifficultyDesc() {
         return difficultyDescriptions.get(gameDB.getDifficulty());
     }
-
-    private void updateSeasonCount(int newRaceCount) {
-        raceCount = newRaceCount;
-        seasonCountLabel.setText("Number of races: " + raceCount);
-    }
-
-    public int getRaceCount() {
-        return raceCount;
-    }
-
-    @FXML
-    private ImageView difficultyPic;
 
     private void updateDifficulty(int newDiffLevel) {
         GameStats.Difficulty diff;
@@ -156,30 +111,19 @@ public class StartScreenController extends ParentController {
         setDifficulty(diff);
         gameDB.setDifficulty(diff);
 
-        switch(diff) {
+        switch (diff) {
             case EASY:
                 selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/easy.png";
                 break;
-
             case REGULAR:
                 selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/med.png";
                 break;
-
             case HARD:
                 selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/hard.png";
                 break;
-
         }
-
         Image newDiffImg = new Image(selectedDiffImgDirectory);
-        System.out.println(newDiffImg);
         difficultyPic.setImage(newDiffImg);
-
-    }
-
-    // Helper to validate name len and no special chars
-    private boolean isValidName(String name) {
-        return name != null && name.trim().matches("^[A-Za-z0-9 ]{3,15}$");
     }
 
     public void setDifficulty(GameStats.Difficulty diff) {
@@ -187,44 +131,19 @@ public class StartScreenController extends ParentController {
         diffDesc.setText(difficultyDescriptions.get(diff));
     }
 
-    public void initialize(Stage stage) {
-        finishStartScreenLabel.setVisible(false);
-        gameDB.setDifficulty(GameStats.Difficulty.REGULAR);
-        diffDesc.setText(getDifficultyDesc());
+    public void startSelecting() {
+        selectAttributesPane.setVisible(true);
+        startingPane.setVisible(false);
+    }
 
-        showNewOptionSlide();
-        diffSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateDifficulty((int) Math.round(newValue.doubleValue()));
-        });
-        seasonSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateSeasonCount((int) Math.round(newValue.doubleValue()));
-        });
-
-        // Live validation on name input
-        inputNameArea.textProperty().addListener((observable, oldText, newText) -> {
-            if (isValidName(newText)) {
-                whatNameLabel.setVisible(false);
-                finishStartScreenLabel.setVisible(true);
-            }
-            else {
-                String caption = newText.isEmpty() ? "What is your name?" : "Enter 3-15 alphanumeric characters.";
-                String color = newText.isEmpty() ? "white" : "gray";
-                whatNameLabel.setText(caption);
-                whatNameLabel.setVisible(true);
-                whatNameLabel.setStyle("-fx-fill: " + color);
-
-                finishStartScreenLabel.setVisible(false);
-            }
-        });
-
-
-
+    private void updateSeasonCount(int newRaceCount) {
+        gameDB.setRaceCount(newRaceCount);
+        seasonCountLabel.setText("Number of races: " + newRaceCount);
     }
 
     public void saveSettingsAndGoToShop(MouseEvent event) throws IOException {
         // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
         // Proceed to the next scene
-        gameDB.setRaceCount(getRaceCount());
         gameDB.setUserName(inputNameArea.getText());
         gameDB.setBal(gameDB.getStartingBalance());
         switchToShopScene(event);

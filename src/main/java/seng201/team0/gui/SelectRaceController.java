@@ -140,7 +140,6 @@ public class SelectRaceController extends ParentController {
         } else {
             gameDB.setSelectedRace(selectedRace);
             gameDB.setSelectedRoute(selectedRoute);
-            System.out.println("GOING TO RACE ON " + selectedRace.getName() + " USING " + selectedCar.getName());
             switchToSimulatorScene(event);
         }
     }
