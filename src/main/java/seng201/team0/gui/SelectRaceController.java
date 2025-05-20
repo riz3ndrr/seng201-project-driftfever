@@ -120,6 +120,7 @@ public class SelectRaceController extends ParentController {
         raceDistanceLabel.setText(String.format("Distance:  %.2f km with %d %s", selectedRace.getDistanceKilometers(), selectedRace.getGasStopDistances().size(), gasStopCaption));
         raceCurvinessLabel.setText(String.format("Curviness: %.0f%%", 100.0 * selectedRace.getCurviness()));
         raceTimeLimitLabel.setText(String.format("Time Limit: %s", GameTimer.totalSecondsToStringHourMinSec(selectedRace.getTimeLimitHours() * 60.0 * 60.0)));
+        beginRaceLabel.setVisible(true);
     }
 
     private void displaySelectedCar() {
@@ -131,7 +132,6 @@ public class SelectRaceController extends ParentController {
         carFuelConsumptionLabel.setText(String.format("Fuel efficiency: %.0f L/100kms", 100.0 * selectedCar.calculateFuelConsumption()));
         fuelMeterLabel.setText(String.format("Fuel level: %.0f%% of %.0f L", selectedCar.calculateFuelPercentage(), selectedCar.calculateFuelTankCapacity()));
         fuelMeterLabel.setStyle("");
-        beginRaceLabel.setVisible(true);
     }
 
     public void beginRaceButtonClick(javafx.event.ActionEvent event) throws IOException {
