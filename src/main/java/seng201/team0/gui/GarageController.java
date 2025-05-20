@@ -1,25 +1,19 @@
 package seng201.team0.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import seng201.team0.GameManager;
 import seng201.team0.models.Car;
 import seng201.team0.models.GameStats;
 import seng201.team0.models.Upgrade;
 import seng201.team0.services.GarageService;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,77 +24,22 @@ public class GarageController extends ParentController {
     private Label balLabel;
     @FXML
     private Label racesLeftLabel;
-
-    @FXML
-    private Label viewShop;
-    // Player/Game Database
-    GameStats gameDB = GameManager.getGameStats();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    @FXML
-    private ImageView car1Img;
-
-    @FXML
-    private ImageView car2Img;
-
-    @FXML
-    private ImageView car3Img;
-
-    @FXML
-    private ImageView car4Img;
-
-    @FXML
-    private ImageView car5Img;
-
-    @FXML
-    private ImageView car6Img;
-
-    @FXML
-    private ImageView car7Img;
-
-    @FXML
-    private ImageView car8Img;
-
-
-
-    @FXML
-    private ImageView car9Img;
-
     @FXML
     private Label carNameLabel;
-
     @FXML
     private Label speedLabel;
-
     @FXML
     private Label handlingLabel;
-
     @FXML
     private Label reliabilityLabel;
-
     @FXML
     private Label fuelConsumptionLabel;
-
     @FXML
     private Label fuelTankCapacityLabel;
-
     @FXML
     private Label fuelMeterLabel;
-
     @FXML
     private Label fillTankLabel;
-
-
-    @FXML
-    private Pane upgradesLayer;
-
-    @FXML
-    private HBox carsLayer;
-
-
     @FXML
     private ImageView upgr0;
     @FXML
@@ -117,40 +56,34 @@ public class GarageController extends ParentController {
     private ImageView upgr6;
     @FXML
     private ImageView upgr7;
-
-
-
-    @FXML
-    private Label currentlySelectedLabel;
-
-    @FXML
-    private Label equipUpgrade;
-
-    @FXML
-    private Label unequipUpgrade;
-
     @FXML
     private Label switchUpgradesLabel;
-
     @FXML
     private Label upgradesHeaderLabel;
-
     @FXML
     private Label selectedCarTitle;
-
-
     @FXML
     private GridPane upgradesGridPane;
-
     @FXML
     private Label resultEquipMessage;
-
     @FXML
     private Label unequipOrEquipUpgradeLabel;
+    @FXML
+    private ImageView carImg;
+    @FXML
+    private Label selectCarLabel;
 
+
+    // Properties
+    GameStats gameDB = GameManager.getGameStats();
     GarageService garageService = new GarageService();
+    private int selectedCarIndex = 0;
+    private Car selectedCar;
+    private Upgrade selectedUpgrade;
+    private boolean showEquippedItems = false;
 
 
+    // Logic
     public void initialize(Stage stage) {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
@@ -158,9 +91,6 @@ public class GarageController extends ParentController {
         displaySelectedCar();
         displayAvailableUpgrades();
     }
-
-    private int selectedCarIndex = 0;
-    private Car selectedCar;
 
     public void displayCarStats(Car car) {
         String buttonCaption = String.format("Fill tank for $%.2f", garageService.payableCostToFillTank(selectedCar));
@@ -177,20 +107,7 @@ public class GarageController extends ParentController {
         fuelTankCapacityLabel.setText(String.format("Fuel tank: %.0f L", car.calculateFuelTankCapacity()));
     }
 
-    public void fillTank() {
-        garageService.fillTank(selectedCar);
-        balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
-        displayCarStats(selectedCar);
-    }
-
-    @FXML
-    private ImageView carImg;
-    @FXML
-    private Label selectCarLabel;
-
-
     public void displaySelectedCar() {
-        
         String selectedItemImgDirectory = "";
         selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
 
@@ -209,11 +126,14 @@ public class GarageController extends ParentController {
         displayCarStats(selectedCar);
     }
 
+    public void fillTank() {
+        garageService.fillTank(selectedCar);
+        balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
+        displayCarStats(selectedCar);
+    }
+
     public void moveRight() {
-        // get rid of unnecessary text
         resultEquipMessage.setVisible(false);
-
-
         if ((selectedCarIndex + 1) == gameDB.getCarCollectionSize()) {
             selectedCarIndex = 0;
         }
@@ -229,9 +149,7 @@ public class GarageController extends ParentController {
     }
 
     public void moveLeft() {
-        // get rid of unnecessary text
         resultEquipMessage.setVisible(false);
-
         if ((selectedCarIndex) == 0) {
             selectedCarIndex = gameDB.getCarCollectionSize() - 1;
         }
@@ -241,7 +159,6 @@ public class GarageController extends ParentController {
         displaySelectedCar();
 
         if (showEquippedItems) {
-            System.out.println("AHHH");
             //update the list of equipped items as it will change from car to car
             displayAvailableUpgrades();
         }
@@ -254,7 +171,6 @@ public class GarageController extends ParentController {
             switchUpgradesLabel.setText("Show Equipped Items");
             unequipOrEquipUpgradeLabel.setText("Equip Upgrade");
             upgradesHeaderLabel.setText("Available Upgrades:");
-
         }
         else {
             // going to show equipped items
@@ -262,7 +178,6 @@ public class GarageController extends ParentController {
             switchUpgradesLabel.setText("Show Unequipped Items");
             unequipOrEquipUpgradeLabel.setText("Unequip Upgrade");
             upgradesHeaderLabel.setText("Equipped Upgrades:");
-
         }
         displayAvailableUpgrades();
     }
@@ -270,8 +185,7 @@ public class GarageController extends ParentController {
     public void unequipOrEquipUpgrade() {
         if (showEquippedItems) {
             unequipUpgrade();
-        }
-        else {
+        } else {
             equipUpgrade();
         }
     }
@@ -285,7 +199,6 @@ public class GarageController extends ParentController {
                 resultEquipMessage.setVisible(true);
                 displayCarStats(selectedCar);
                 displayAvailableUpgrades();
-
                 break;
             case UPGRADE_NOT_SELECTED:
                 resultEquipMessage.setText("No upgrade is selected");
@@ -304,13 +217,11 @@ public class GarageController extends ParentController {
                 resultEquipMessage.setStyle("-fx-text-fill: red");
                 resultEquipMessage.setVisible(true);
                 break;
-
             case UPGRADE_ALREADY_EQUIPPED:
                 resultEquipMessage.setText("Upgrade already equipped");
                 resultEquipMessage.setStyle("-fx-text-fill: red");
                 resultEquipMessage.setVisible(true);
                 break;
-
             case SUCCESS:
                 resultEquipMessage.setStyle("-fx-text-fill: green");
                 resultEquipMessage.setText("Equipped " + selectedUpgrade.getName() + " successfully!");
@@ -330,64 +241,42 @@ public class GarageController extends ParentController {
     public void displaySelectedUpgrade(Upgrade selectedUpgrade) {
         if (showEquippedItems) {
             resultEquipMessage.setText("Selecting " + selectedUpgrade.getName());
-        }
-        else {
+        } else {
             resultEquipMessage.setText(String.format("Selecting %s, quantity: x%d", selectedUpgrade.getName(), selectedUpgrade.getNumPurchased()));
         }
         resultEquipMessage.setStyle("-fx-text-fill: grey");
         resultEquipMessage.setVisible(true);
     }
 
-    private Upgrade selectedUpgrade;
-
     public void selectUpgrade(MouseEvent event) {
-
         ImageView clickedUpgrade = (ImageView) event.getSource();
-
         String upgradeID = clickedUpgrade.getId();
-
 
         int id = Integer.parseInt(upgradeID.substring(4));
         selectedUpgrade = GameManager.getUpgradeWithID(id);
         displaySelectedUpgrade(selectedUpgrade);
     }
 
-    private boolean showEquippedItems = false;
-
     public void displayAvailableUpgrades() {
         List<Upgrade> availableUpgrades;
-
         if (showEquippedItems) {
             availableUpgrades = selectedCar.getEquippedUpgrades();
-
-        }
-        else {
+        } else {
             availableUpgrades = gameDB.getUpgradeCollection();
         }
 
-        for (Upgrade upr : availableUpgrades) {
-            System.out.println(upr);
-        }
-
-
         List<ImageView> upgradeImageList = Arrays.asList(upgr0, upgr1, upgr2, upgr3, upgr4, upgr5, upgr6, upgr7);
-
         // maybe optimise this later, used when upgrade is no longer available
         for (ImageView image : upgradeImageList) {
             image.setVisible(false);
         }
-
         int rowIndex = 0;
         int colIndex = 0;
-
-
         for (Upgrade u : availableUpgrades) {
             if (colIndex == 2) {
-
                 colIndex = 0;
                 rowIndex++;
             }
-
             ImageView currUpgradeImage = upgradeImageList.get(u.getItemID());
             upgradesGridPane.setColumnIndex(currUpgradeImage, colIndex);
             upgradesGridPane.setRowIndex(currUpgradeImage, rowIndex);
@@ -395,29 +284,4 @@ public class GarageController extends ParentController {
             colIndex++;
         }
     }
-
-//    public void switchToSelectRaceScene(MouseEvent event) throws IOException {
-//
-//        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/selectRace.fxml"));
-//        Parent root = baseLoader.load();
-//
-//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//        SelectRaceController baseController = baseLoader.getController();
-//        baseController.initialize(stage);
-//    }
-//
-//    public void switchToShopScene(MouseEvent event) throws IOException {
-//        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/shop.fxml"));
-//        Parent root = baseLoader.load();
-//
-//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//        ShopController baseController = baseLoader.getController();
-//        baseController.initialize(stage);
-//    }
 }

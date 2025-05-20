@@ -15,7 +15,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="/css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team0.gui.GarageController">
    <children>
-      <HBox fx:id="carsLayer" prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Pane prefHeight="800.0" prefWidth="220.0">
                <children>
@@ -225,7 +225,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="equipUpgrade" fx:id="unequipOrEquipUpgradeLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#unequipOrEquipUpgrade" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="70.0" prefWidth="262.0" text="Equip Upgrade" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                  <Label fx:id="unequipOrEquipUpgradeLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#unequipOrEquipUpgrade" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="70.0" prefWidth="262.0" text="Equip Upgrade" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -260,7 +260,7 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
-                  <Label id="equipUpgrade" fx:id="selectCarLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#updateSelectedCar" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="70.0" prefWidth="264.0" text="Select Car" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <Label fx:id="selectCarLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#updateSelectedCar" onMouseEntered="#scaleUpText" onMouseExited="#scaleDownText" onMousePressed="#pressedText" onMouseReleased="#unpressedText" prefHeight="70.0" prefWidth="264.0" text="Select Car" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
                         <Font size="28.0" />
                      </font>
