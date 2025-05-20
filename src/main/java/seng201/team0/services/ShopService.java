@@ -13,6 +13,7 @@ public class ShopService {
         SUCCESS,
         ALREADY_OWNED,
         INSUFFICIENT_FUNDS,
+        EXCEEDED_CAR_OWNED_LIMIT
     }
     public enum SellResult {
         SUCCESS,
@@ -36,9 +37,15 @@ public class ShopService {
     public PurchaseResult buyItem(Purchasable selectedItem) {
         boolean isCar = selectedItem instanceof Car;
         boolean canPay = gameDB.getBal() >= selectedItem.getBuyingPrice(gameDB.getDifficulty().getCostMultiplier());
-        if (isCar && selectedItem.isPurchased()) {
-            return PurchaseResult.ALREADY_OWNED;
+        if (isCar) {
+            if (selectedItem.isPurchased()) {
+                return PurchaseResult.ALREADY_OWNED;
+            }
+            if (gameDB.getCarCollectionSize() == 5) {
+                return PurchaseResult.EXCEEDED_CAR_OWNED_LIMIT;
+            }
         }
+
         if (canPay) {
             gameDB.setBal(gameDB.getBal() - selectedItem.getBuyingPrice(gameDB.getDifficulty().getCostMultiplier()));
             if (isCar) {

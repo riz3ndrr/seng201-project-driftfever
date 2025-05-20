@@ -110,6 +110,9 @@ public class ShopController extends ParentController {
             case INSUFFICIENT_FUNDS:
                 shopSubtitle.setText("Insufficient funds");
                 break;
+            case EXCEEDED_CAR_OWNED_LIMIT:
+                shopSubtitle.setText("The garage can only hold up to 5 cars");
+                break;
         }
     }
 

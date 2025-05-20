@@ -190,6 +190,7 @@ enum PurchaseResult {
     SUCCESS
     ALREADY_OWNED
     INSUFFICIENT_FUNDS
+    EXCEEDED_CAR_OWNED_LIMIT
 }
 
 enum SellResult {
