@@ -74,6 +74,13 @@ public class Race {
         return result;
     }
 
+    /**
+     * Determine whether a car is within the bounds of a gas stop and have the opportunity
+     * of refueling their car
+     * @param startDistance
+     * @param endDistance
+     * @return true or false depending on the car's location
+     */
     public boolean isGasStopWithinBounds(double startDistance, double endDistance) {
         for (Double gasStop : gasStopDistances) {
             if (gasStop >= startDistance && gasStop < endDistance) {
@@ -83,6 +90,12 @@ public class Race {
         return false;
     }
 
+    /**
+     * Calculate the prize money earnings won by the top 3 cars.
+     * 1st place gets 60% of the total prize pool, 2nd place gets 30% and 3rd gets 10%.
+     * @param position
+     * @return the prize money won depending on the positiion on the podium the car earned.
+     */
     public double prizeMoneyForPosition(int position) {
         switch (position) {
             case 1: return prizeMoney * 0.6;
@@ -109,6 +122,11 @@ public class Race {
         participants.clear();
     }
 
+
+    /**
+     * Sort the participants by their finish time. If the two participants didn't finish the race,
+     * they are ranked based on the total amount of distance travelled.
+     */
     public void sortParticipantsByFinishTime() {
         Collections.sort(participants, new Comparator<RaceParticipant>() {
             @Override

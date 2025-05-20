@@ -50,12 +50,19 @@ public class GameTimer {
         handler.handle(null);
     }
 
+
+    /**
+     * Pause the timer
+     */
     public void pause() {
         if (timeline != null) {
             timeline.pause();
         }
     }
 
+    /**
+     * Resume the timer
+     */
     public void resume() {
         if (timeline != null) {
             long now = System.currentTimeMillis();
@@ -64,12 +71,19 @@ public class GameTimer {
         }
     }
 
+
     public void stop() {
         if (timeline != null) {
             timeline.stop();
         }
     }
 
+    /**
+     * Convert the elapsed time in seconds into hours, minutes and seconds for
+     * better reading.
+     * @param totalTimeInSeconds
+     * @return a string of the format hours:minutes:seconds
+     */
     public static String totalSecondsToStringHourMinSec(double totalTimeInSeconds) {
         if (totalTimeInSeconds < 0) {
             return "None";
@@ -80,6 +94,12 @@ public class GameTimer {
         return String.format("%d:%02d:%02d", hours, minutes, seconds);
     }
 
+    /**
+     * Convert the elapsed time in seconds into minutes and seconds for
+     * better reading.
+     * @param totalTimeInSeconds
+     * @return a string of the format minutes:seconds
+     */
     public static String totalSecondsToStringMinSec(double totalTimeInSeconds) {
         if (totalTimeInSeconds < 0) {
             return "None";

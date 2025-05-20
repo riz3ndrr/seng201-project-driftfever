@@ -36,7 +36,7 @@ public class Upgrade extends Purchasable {
     // Logic
 
     /**
-     * @param multiplier is the stat multiplier that a upgrade has for a particular stat
+     * @param multiplier is the stat multiplier that an upgrade has for a particular stat
      * @return a string so that we can display the effect an upgrade has for a particular stat
      */
     public String displayForMultiplier(double multiplier) {

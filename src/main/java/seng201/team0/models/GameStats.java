@@ -184,35 +184,34 @@ public class GameStats {
 
     /**
      * Returns the index of a car in the user's array collection
-     * @param i
-     * @return
+     * @param i which is the index of the list we are curious about
+     * @return the car at index i of the list
      */
     public Car searchCarAtIndex(int i) {
         return carCollection.get(i);
     }
 
-    public void printCars() {
-        System.out.println("You have these cars in your collection");
-        for (Car car : carCollection) {
-            System.out.println(car.getName() + " is purchased: " + car.isPurchased());
-        }
-    }
-
-    public void printUpgrades() {
-        System.out.println("You have purchased these upgrades");
-        for (Upgrade upgrade : upgradeCollection) {
-            System.out.println(String.format("%s quantity: x%d", upgrade.getName(), upgrade.getNumPurchased()));
-        }
-    }
-
+    /**
+     * Calculate the cost of fixing a broken vehicle which is a random value.
+     * @return the repair cost
+     */
     public double calculateRandomRepairCost() {
         return minRepairCost + Math.random() * (maxRepairCost - minRepairCost);
     }
 
+    /**
+     * Calculate the time it takes to repair a broken vehicle which is random.
+     * @return the time in seconds to repair.
+     */
     public double calculateRandomRepairTime() {
         return minRepairTimeSeconds + Math.random() * (maxRepairTimeSeconds - minRepairTimeSeconds);
     }
-
+    /**
+     *
+     * Create a random value which will be used as the amount of money a person gets for
+     * picking up a hitchhiker.
+     * @return the money reward
+     */
     public double calculateRandomHitchhikerReward() {
         return minHitchhikerReward + Math.random() * (maxHitchhikerReward - minHitchhikerReward);
     }

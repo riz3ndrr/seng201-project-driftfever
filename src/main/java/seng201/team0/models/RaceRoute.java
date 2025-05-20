@@ -21,6 +21,10 @@ public enum RaceRoute {
     // Getters and setters
     public String getName() { return name; }
 
+    /**
+     * Obtain the description of a particular route
+     * @return the description of that particular route
+     */
     public String getDescription() {
         switch (this) {
             case MOUNTAIN_ROUTE:
@@ -34,6 +38,11 @@ public enum RaceRoute {
         }
         return "";
     }
+
+    /**
+     * Return the unfortunate event message associated with that particular route.
+     * @return
+     */
 
     public String getMessage() {
         switch (this) {
@@ -49,6 +58,10 @@ public enum RaceRoute {
         return "";
     }
 
+    /**
+     * Obtain a random route to be used by the opponent.
+     * @return RaceRoute
+     */
 
     // Logic
     public static RaceRoute getRandomRoute() {

@@ -14,6 +14,12 @@ public class RaceCommentary {
         comments.add(comment);
     }
 
+    /**
+     * Collect a list of race comments of a particular player to be displayed in the commentary box.
+     * If no participant is selected, it will display the comments relating to ALL players.
+     * @param participant which is the participant the user wishes to know news about.
+     * @return a list of race comments regarding that player's updates on the race.
+     */
     public List<RaceComment> getCommentsForParticipant(RaceParticipant participant) {
         if (participant == null) {
             return comments;
