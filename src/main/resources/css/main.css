@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
-/*.root {*/
-/*    -fx-background-image: url("../designs/BG2.png");*/
-/*}*/
-
 Label, Text, TextArea, ListView, TreeView, Button {
     -fx-font-family: "Jersey 15", sans-serif;
 }
@@ -20,26 +16,15 @@ ListView, TreeView {
     -fx-font-size: 40px;
 }
 
-
-
 #switchUpgradesLabel {
     -fx-background-color: #ababab;
-    /*-fx-border-radius: 3px;*/
     -fx-label-padding: 5px;
 }
 
-#buyItem, #sellItem, #viewCarsLabel, #viewUpgradesLabel, #equipUpgrade, #unequipOrEquipUpgradeLabel, #selectCarLabel, #fillTankLabel, #button  {
+#buyItem, #sellItem, #viewUpgradesLabel, #equipUpgrade, #unequipOrEquipUpgradeLabel, #selectCarLabel, #fillTankLabel, #button  {
     -fx-background-color: #ababab;
-    /*-fx-border-radius: 3px;*/
     -fx-label-padding: 5px;
-
 }
-
-
-
-/*#buyItem:pressed, #sellItem:pressed, #viewUpgradesLabel:pressed, #viewCarsLabel:pressed, #fillTankLabel:pressed, #button:pressed, #switchUpgradesLabel:pressed {*/
-/*    -fx-background-color: #969696*/
-/*}*/
 
 #gasStopLines {
     -fx-background-color: white;

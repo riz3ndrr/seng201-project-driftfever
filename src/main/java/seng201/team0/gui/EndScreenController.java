@@ -1,20 +1,13 @@
 package seng201.team0.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import seng201.team0.GameManager;
 import seng201.team0.models.GameStats;
 
-import java.io.IOException;
-
 public class EndScreenController extends ParentController {
-
     @FXML
     private Label seasonLabel;
     @FXML
@@ -22,8 +15,11 @@ public class EndScreenController extends ParentController {
     @FXML
     private Label prizeMoneyLabel;
 
+    // Properties
     GameStats gameDB = GameManager.getGameStats();
 
+
+    // Logic
     public void initialize(Stage stage) {
         String userName = gameDB.getUserName();
         if (Character.toString(userName.charAt(userName.length() - 1)).equals("s")) {

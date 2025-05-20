@@ -15,7 +15,6 @@ import seng201.team0.models.GameStats;
 import seng201.team0.models.GameTimer;
 import seng201.team0.models.Race;
 import seng201.team0.models.RaceRoute;
-import seng201.team0.services.SimulatorService;
 
 import java.io.IOException;
 
