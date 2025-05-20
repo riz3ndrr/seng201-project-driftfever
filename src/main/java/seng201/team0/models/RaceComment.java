@@ -27,6 +27,12 @@ public class RaceComment {
 
 
     // Logic
+
+    /**
+     * Display a message regarding a particular player and an event involving them e.g. "Driver has stop to refuel"
+     *
+     * @return an HBox which contains the player's name, entry number and their specialised message.
+     */
     public HBox createUI() {
         HBox parent = new HBox();
         parent.setSpacing(5);
