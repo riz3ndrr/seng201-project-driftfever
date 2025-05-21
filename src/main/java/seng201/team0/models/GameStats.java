@@ -34,7 +34,7 @@ public class GameStats {
     private final double startingBalance = 5000000; //TODO revert, changed bal for testing!!
     private double bal = startingBalance;
     private double prizeMoneyWon = 0;
-    private double fuelCostPerLitre = 2.5;
+    private double fuelCostPerLitre = 1.5;
     private double minimumSecondsForGasStop = 3.0 * 60.0;; // Time for driver to get out, pay, etc
     private double secondsToPumpLitreOfGas = 10.0; // Time for a single litre of fuel to be pumped
 
