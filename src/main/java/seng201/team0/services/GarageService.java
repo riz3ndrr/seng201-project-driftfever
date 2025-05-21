@@ -26,6 +26,17 @@ public class GarageService {
 
     // Logic
 
+    public boolean fixCar(Car car) {
+        if (gameDB.getBal() >= 500) {
+            gameDB.setBal(gameDB.getBal() - 500);
+            car.setBrokenDown(false);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     /**
      * Figure out the cost to fill up a car's tank.
      * If the amount to fully fill up a car's tank is greater than the current

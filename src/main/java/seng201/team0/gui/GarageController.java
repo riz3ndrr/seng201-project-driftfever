@@ -72,6 +72,8 @@ public class GarageController extends ParentController {
     private ImageView carImg;
     @FXML
     private Label selectCarLabel;
+    @FXML
+    private Label fixCarLabel;
 
 
     // Properties
@@ -130,6 +132,8 @@ public class GarageController extends ParentController {
         Image newItemImg = new Image(selectedItemImgDirectory);
         carImg.setImage(newItemImg);
 
+
+
         if ((gameDB.getSelectedCar().getName()).equals(selectedCar.getName())) {
             selectedCarTitle.setVisible(true);
             selectCarLabel.setVisible(false);
@@ -139,6 +143,13 @@ public class GarageController extends ParentController {
             selectCarLabel.setVisible(true);
         }
         displayCarStats(selectedCar);
+
+        if (selectedCar.isBrokenDown()) {
+            fixCarLabel.setVisible(true);
+        }
+        else {
+            fixCarLabel.setVisible(false);
+        }
     }
 
 
@@ -205,6 +216,7 @@ public class GarageController extends ParentController {
      * Likewise if we are currently showing the available items.
      */
     public void switchUpgrades() {
+
         if (showEquippedItems) {
             // going to show available items
             showEquippedItems = false;
@@ -220,6 +232,23 @@ public class GarageController extends ParentController {
             upgradesHeaderLabel.setText("Equipped Upgrades:");
         }
         displayAvailableUpgrades();
+    }
+
+    public void fixCar() {
+        boolean isFixed = garageService.fixCar(selectedCar);
+        if (isFixed) {
+            resultEquipMessage.setText("Successfully fixed " + selectedCar.getName());
+            resultEquipMessage.setStyle("-fx-text-fill: green");
+            resultEquipMessage.setVisible(true);
+            balLabel.setText("Balance: $" + String.format("%,.2f", gameDB.getBal()));
+            fixCarLabel.setVisible(false);
+        }
+        else {
+            resultEquipMessage.setText("Insufficient funds");
+            resultEquipMessage.setStyle("-fx-text-fill: red");
+            resultEquipMessage.setVisible(true);
+        }
+
     }
 
     /**

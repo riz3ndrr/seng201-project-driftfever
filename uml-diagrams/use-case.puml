@@ -29,7 +29,8 @@ Player --> (View shop)
 Player --> (Begin game)
 (Begin game) .-left.> (Select a race) : <include>
 (Begin game) <.. (Retire from race) : <extends>
-(Begin game) <.. (Pickup hitchhiker) : <extends>
+(Begin game) <.. (Pickup hitchhiker during race) : <extends>
+(Begin game) <.. (Fill up fuel tank during race) : <extends>
 
 
 Time --> (Update race animation)

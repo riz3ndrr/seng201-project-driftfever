@@ -21,6 +21,8 @@ public class EndScreenController extends ParentController {
     private Label raceStatsLabel;
     @FXML
     private Label prizeMoneyLabel;
+    @FXML
+    private Label failMsgLabel;
 
     GameStats gameDB = GameManager.getGameStats();
 
@@ -38,6 +40,14 @@ public class EndScreenController extends ParentController {
         else {
             seasonLabel.setText(userName + "'s Season Summary");
         }
+
+        if (!gameDB.canContinuePlaying()) {
+            failMsgLabel.setVisible(true);
+        }
+        else {
+            failMsgLabel.setVisible(false);
+        }
+
         raceStatsLabel.setText(String.format("You have competed in %d races this season.", gameDB.getRaceCount()));
         prizeMoneyLabel.setText(String.format("From those races, you have earned $%,.2f in prize money.", gameDB.getPrizeMoneyWon()));
     }

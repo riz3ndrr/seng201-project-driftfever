@@ -267,7 +267,7 @@ public class SimulatorController extends ParentController {
     }
 
 
-    // Logic - Simulation
+    //Simulation
     private void progressSimulation() {
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         boolean isRaceRouteBlocked = Math.random() < gameDB.getChanceOfRaceRouteBlockage() * secondsSinceLastTick;
@@ -471,6 +471,7 @@ public class SimulatorController extends ParentController {
                 } else {
                     title = "Oh No!";
                     question = String.format("You have broken down and don't have enough funds to cover the $%.2f repair bill.\nYou're out of the race.", participant.getRepairCost());
+                    gameDB.selectedCar.setBrokenDown(true);
                     yesCaption = null;
                     noCaption = "OK";
                 }
@@ -529,8 +530,10 @@ public class SimulatorController extends ParentController {
                 break;
             case BROKEN_DOWN:
                 if (didChooseYes) {
+
                     repairBreakdownOrRetire(participant);
                 } else {
+                    gameDB.selectedCar.setBrokenDown(true);
                     addAndDisplayComment(new RaceComment(participant, "Broke down and opted not to repair, retired from race."));
                 }
                 timer.resume();

@@ -128,7 +128,7 @@ public class LeaderboardController extends ParentController {
 
     public void continueClicked(MouseEvent event) {
         try {
-            if (gameDB.getRacesDone() >= gameDB.getRaceCount()) {
+            if (gameDB.getRacesDone() >= gameDB.getRaceCount() || !gameDB.canContinuePlaying())  {
                 switchToEndScreenScene(event);
             } else {
                 switchToSelectRaceScene(event);

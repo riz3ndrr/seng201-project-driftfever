@@ -335,11 +335,12 @@ public class ShopController extends ParentController {
             showCarOrUpgrade = "Car";
             selectedItem = availableCars.get(selectedItemIndex);
 
-            shopSubtitle.setText("FInd a new vehicle to drive you to victory");
+            shopSubtitle.setText("Find a new vehicle to drive you to victory");
             itemStatsLabel.setText("Car Stats:");
             viewItemLabel.setText("View upgrades");
         }
         displaySelectedItem();
+
     }
 
     /**
@@ -351,7 +352,12 @@ public class ShopController extends ParentController {
         nameLabel.setText("Name: " + gameDB.getUserName());
         balLabel.setText(String.format("Balance: $%,.2f", gameDB.getBal()));
         racesLeftLabel.setText(String.format("Races left: %d", gameDB.getRaceCount() - gameDB.getRacesDone()));
-
+        if (gameDB.getRacesDone() >= 1 && !gameDB.areAllCarsBrokenDown()) {
+            viewItemLabel.setVisible(true);
+        }
+        else {
+            viewItemLabel.setVisible(false);
+        }
         displaySelectedItem();
     }
 

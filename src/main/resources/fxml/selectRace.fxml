@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -205,6 +205,11 @@
                   <Label fx:id="garageTitle1" prefHeight="46.0" prefWidth="567.0" text="Choose your race and route" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="brokenDownLabel" prefHeight="46.0" prefWidth="825.0" text="Car is broken down and can't be used for racing" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="28.0" />
                      </font>
                   </Label>
                </children>
