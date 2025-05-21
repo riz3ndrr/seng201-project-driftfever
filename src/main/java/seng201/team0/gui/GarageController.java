@@ -128,8 +128,8 @@ public class GarageController extends ParentController {
         String selectedItemImgDirectory = "";
         selectedCar = gameDB.searchCarAtIndex(selectedCarIndex);
 
-        selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;
-        Image newItemImg = new Image(selectedItemImgDirectory);
+        selectedItemImgDirectory = "/designs/car-icon/car" + (selectedCar.getItemID() + 1) + ".png" ;
+        Image newItemImg = new Image(getClass().getResourceAsStream(selectedItemImgDirectory));
         carImg.setImage(newItemImg);
 
 
