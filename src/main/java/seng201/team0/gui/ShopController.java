@@ -276,17 +276,17 @@ public class ShopController extends ParentController {
         int imgWidth;
         int imgHeight;
         if (isCar) {
-            selectedItemImgDirectory = "file:src/main/resources/designs/car-icon/car" + (selectedItem.getItemID() + 1) + ".png" ;
+            selectedItemImgDirectory = "/designs/car-icon/car" + (selectedItem.getItemID() + 1) + ".png" ;
             imgWidth = 400;
             imgHeight = 200;
         } else {
-            selectedItemImgDirectory = "file:src/main/resources/designs/upgrade-icons/upgrade" + (selectedItem.getItemID()+ 1) + ".png" ;
+            selectedItemImgDirectory = "/designs/upgrade-icons/upgrade" + (selectedItem.getItemID()+ 1) + ".png" ;
             Upgrade upgrade = (Upgrade) selectedItem;
             currentlyOwnLabel.setText(String.format("You currently own %d", upgrade.getNumPurchased()));
             imgWidth = 200;
             imgHeight = 200;
         }
-        Image newItemImg = new Image(selectedItemImgDirectory);
+        Image newItemImg = new Image(getClass().getResourceAsStream(selectedItemImgDirectory));
         itemImg.setFitWidth(imgWidth);
         itemImg.setFitHeight(imgHeight);
         itemImg.setImage(newItemImg);

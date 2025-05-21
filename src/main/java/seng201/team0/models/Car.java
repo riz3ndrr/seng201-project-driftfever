@@ -246,8 +246,8 @@ public class Car extends Purchasable {
 
     public Image getIcon() {
         String carIcon = "car" + (getItemID() + 1) + ".png";
-        String iconFolder = "file:src/main/resources/designs/car-icon/";
-        return new Image(iconFolder + carIcon);
+        String iconFolder = "/designs/car-icon/";
+        return new Image(getClass().getResourceAsStream("/designs/car-icon/car" + (getItemID() + 1) + ".png"));
     }
 
 

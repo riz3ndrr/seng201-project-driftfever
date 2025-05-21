@@ -109,7 +109,7 @@ public class SimulatorController extends ParentController {
         double gasStopWidth = 45;
         double gasStopHeight = 45;
         double pixelsPerKilometre = areaWidth / race.getDistanceKilometers();
-        Image gasStopIcon = new Image("file:src/main/resources/designs/fuelStopIcon.png");
+        Image gasStopIcon = new Image(getClass().getResourceAsStream("/designs/fuelStopIcon.png"));
 
         for (int i = 0; i < race.getGasStopDistances().size(); i++) {
             double gasStopPositionKM = race.getGasStopDistances().get(i);
