@@ -102,13 +102,14 @@ public class GarageTest {
      */
     @Test
     void fillTankWhenYouDontHaveEnoughMoneyToFullyFill() {
-        // Fill tank to 50%
-        float ogBal = 50;
+        float ogBal = 10;
         gameDB.setBal(ogBal);
-        assertEquals(gameDB.getBal(), 50);
+        assertEquals(gameDB.getBal(), 10);
+        // Fill tank to 50%
+        selectedCar.setFuelInTank(0.5 * selectedCar.getFuelTankCapacity());
 
         garageService.fillTank(selectedCar);
-        assertEquals(selectedCar.getFuelInTank(), selectedCar.getFuelTankCapacity() * 0.5 + ogBal / gameDB.getFuelCostPerLitre());
+        assertEquals(selectedCar.getFuelInTank(), (selectedCar.getFuelTankCapacity()) * 0.5 + ogBal / gameDB.getFuelCostPerLitre());
 
         assertEquals(gameDB.getBal(), 0);
 
@@ -162,6 +163,51 @@ public class GarageTest {
         assertEquals(GarageService.UnequipResult.UPGRADE_NOT_SELECTED, result1);
         assertEquals(ogAmountOfEquippedUpgrades, newAmountOfEquippedUpgrades);
 
+    }
+
+    /**
+     * Test to attempt to fix the selected car if the user has sufficient funds
+     */
+    @Test
+    void fixCarWithSufficientFunds() {
+        selectedCar.setBrokenDown(true);
+        assertTrue(selectedCar.isBrokenDown());
+        // repair cost is $500
+        gameDB.setBal(600);
+        assertEquals(600, gameDB.getBal());
+        boolean result = garageService.fixCar(selectedCar);
+        assertTrue(result);
+        assertFalse(selectedCar.isBrokenDown());
+    }
+
+    /**
+     * Test to attempt to fix the selected car if the user's balance is equal to the repair cost ($500)
+     */
+    @Test
+    void fixCarWithJustEnoughFunds() {
+        selectedCar.setBrokenDown(true);
+        assertTrue(selectedCar.isBrokenDown());
+        // repair cost is $500
+        gameDB.setBal(500);
+        assertEquals(500, gameDB.getBal());
+        boolean result = garageService.fixCar(selectedCar);
+        assertTrue(result);
+        assertFalse(selectedCar.isBrokenDown());
+    }
+
+    /**
+     * Test to attempt to fix the selected car if the user's balance is just under the repair cost of $500
+     */
+    @Test
+    void fixCarWithJustBarelyNotHavingEnoughFunds() {
+        selectedCar.setBrokenDown(true);
+        assertTrue(selectedCar.isBrokenDown());
+        // repair cost is $500
+        gameDB.setBal(499);
+        assertEquals(499, gameDB.getBal());
+        boolean result = garageService.fixCar(selectedCar);
+        assertFalse(result);
+        assertTrue(selectedCar.isBrokenDown());
     }
 
     /**

@@ -104,6 +104,10 @@ public class GameStats {
 
     // Logic
 
+    /**
+     * Check if all cars are broken down.
+     * @return true if all the cars are broken down
+     */
     public boolean areAllCarsBrokenDown() {
         for (Car car : carCollection) {
             if (!car.isBrokenDown()) {
@@ -113,13 +117,24 @@ public class GameStats {
         return true;
     }
 
+    /**
+     * Check if the user can continue playing. The game checks this by first checking if all cars are broken
+     * down, if not, return true. Otherwise, if the user has only one car left, return false. Otherwise,
+     * if the cost of repairing + the cost of refueling is greater than the cars selling price + the user's balance,
+     * return true, or else return false.
+     * @return true or false depending on if the user is able to continue playing
+     */
     public boolean canContinuePlaying() {
         double costToPlay = 500; // TODO undo for testing
         if (areAllCarsBrokenDown()) {
+            if (getCarCollection().size() == 1) {
+                return false;
+            }
             for (Car car : carCollection) {
                 costToPlay -= car.getSellingPrice();
                 costToPlay += car.costToFillTank(getFuelCostPerLitre());
             }
+            costToPlay -= getBal();
 
             if (costToPlay <= 0) {
                 return true;

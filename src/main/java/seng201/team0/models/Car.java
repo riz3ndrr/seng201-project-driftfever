@@ -232,10 +232,6 @@ public class Car extends Purchasable {
     public double costToFillTank(double costPerLitre) {
         double litresNeeded = calculateFuelTankCapacity() - fuelInTankLitres;
 
-        //commented out as no scenario where current fuel in tank will be greater than capacity
-//        if (litresNeeded < 0.0) {
-//            litresNeeded = 0.0;
-//        }
         return litresNeeded * costPerLitre;
     }
 

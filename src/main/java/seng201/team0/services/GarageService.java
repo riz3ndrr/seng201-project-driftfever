@@ -26,6 +26,12 @@ public class GarageService {
 
     // Logic
 
+    /**
+     * Fix the car if the user has enough money to pay the repair cost ($500)
+     * If the car is able to be fixed, it will return true, otherwise false.
+     * @param car that is trying to fixed.
+     * @return true or false depending on if the player has sufficient funds
+     */
     public boolean fixCar(Car car) {
         if (gameDB.getBal() >= 500) {
             gameDB.setBal(gameDB.getBal() - 500);
