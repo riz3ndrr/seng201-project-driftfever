@@ -85,6 +85,10 @@ public class SimulatorController extends ParentController {
 
 
     // Logic - Setup Race and Create UI
+    /**
+     * Initializes the simulator UI and game logic.
+     * @param stage the primary stage on which the simulator scene is set
+     */
     public void initialize(Stage stage) {
         player = new RaceParticipant(gameDB.getSelectedCar(), gameDB.getUserName(), 1, true);
         player.setRoute(gameDB.getSelectedRoute());
@@ -102,6 +106,9 @@ public class SimulatorController extends ParentController {
         timer.start();
     }
 
+    /**
+     * Creates icons and dotted lines to mark gas stop locations.
+     */
     private void createGasStopIconsAndLines() {
         double paneWidth = headerPane.getWidth();
         double carWidth = 50;
@@ -131,6 +138,9 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Creates UI lines for each participant in the race and adds them to the race area container.
+     */
     private void createRaceArea() {
         for (RaceParticipant participant : race.getParticipants()) {
             Pane raceLine = createRaceLineUI(participant);
@@ -138,6 +148,11 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Creates a single race line UI element for a given participant.
+     * @param participant the race participant for whom the UI line is created
+     * @return a Pane representing the participant’s race line, including their name label and car icon
+     */
     private Pane createRaceLineUI(RaceParticipant participant) {
         double height = 70.0;
         Pane pane = new Pane();
@@ -168,12 +183,21 @@ public class SimulatorController extends ParentController {
         return pane;
     }
 
+    /**
+     * Handles user clicks on a car icon.
+     * Selects the clicked participant, updates the stats display, and filters commentary.
+     * @param participant the race participant whose car was clicked
+     */
     private void carWasClicked(RaceParticipant participant) {
         selectedParticipant = participant;
         displayParticipantStats(participant);
         filterCommentary();
     }
 
+    /**
+     * Handles user clicks on the race area outside of any car.
+     * Deselects any participant, updates the stats display, and filters commentary.
+     */
     public void raceAreaWasClicked() {
         selectedParticipant = null;
         displayParticipantStats(null);
@@ -181,11 +205,17 @@ public class SimulatorController extends ParentController {
     }
 
     // Logic - Update UI
+    /**
+     * Updates the remaining time and player's balance labels in the header.
+     */
     private void displayTimerAndBalance() {
         remainingTimeLabel.setText("Time left: " + GameTimer.totalSecondsToStringHourMinSec(remainingRaceTimeSeconds));
         balanceLabel.setText(String.format("$%,.2f", gameDB.getBal()));
     }
 
+    /**
+     * Updates the race statistics labels (name, distance, time limit, prize pool) in the UI.
+     */
     private void displayRaceStats() {
         raceNameLabel.setText(String.format("Name: %s", race.getName()));
         raceDistanceLabel.setText(String.format("Distance: %.0f km", race.getDistanceKilometers()));
@@ -193,6 +223,11 @@ public class SimulatorController extends ParentController {
         racePrizePoolLabel.setText(String.format("Prize pool: $%,.2f", race.getPrizeMoney()));
     }
 
+    /**
+     * Updates the participant statistics labels in the UI.
+     * If the given participant is null, resets the display to prompt the user to click a car.
+     * @param participant the race participant whose stats should be displayed, or null to clear
+     */
     private void displayParticipantStats(RaceParticipant participant) {
         if (participant == null) {
             driverNameLabel.setStyle("-fx-text-fill: orange;");
@@ -222,6 +257,9 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Positions each car icon along its race line based on the distance traveled.
+     */
     private void positionCars() {
         double paneWidth = raceAreaVBox.getWidth();
         double carWidth = 66;
@@ -238,6 +276,10 @@ public class SimulatorController extends ParentController {
 
 
     // Logic - Display and Filter Commentary
+    /**
+     * Adds a new comment to the race commentary list.
+     * @param comment the race comment to add and display
+     */
     private void addAndDisplayComment(RaceComment comment) {
         race.getCommentary().add(comment);
         if (selectedParticipant == null || comment.getParticipant() == selectedParticipant) {
@@ -245,11 +287,18 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Creates and displays a single commentary row in the commentary box.
+     * @param comment the race comment to display
+     */
     private void displayComment(RaceComment comment) {
         HBox row = comment.createUI();
         commentaryVBox.getChildren().add(row);
     }
 
+    /**
+     * Clears and repopulates the commentary box with comments only from the selected participant.
+     */
     private void filterCommentary() {
         commentaryVBox.getChildren().clear();
         List<RaceComment> comments = race.getCommentary().getCommentsForParticipant(selectedParticipant);
@@ -258,16 +307,21 @@ public class SimulatorController extends ParentController {
         }
     }
 
-    //Listens for changes to the height property of the vbox which happens when a commentary row is added/removed.
-    //and scroll to the bottom when this happens so that the most recent commentary is scrolled into view.
+    /**
+     * Locks the commentary scroll pane to keep the newest comment visible at the bottom.
+     * Adds a listener to the commentary container’s height property to auto-scroll to the bottom on content changes.
+     */
     private void lockCommentaryScrollToBottom() {
         commentaryVBox.heightProperty().addListener((obs, oldVal, newVal) -> {
             commentaryScrollPane.setVvalue(1.0); // Scroll to bottom when the vbox height changes.
         });
     }
 
-
     //Simulation
+    /**
+     * Advances the simulation by seconds since the last timer tick: updates each participant’s state,
+     * checks for race end conditions, and refreshes the UI accordingly.
+     */
     private void progressSimulation() {
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
         boolean isRaceRouteBlocked = Math.random() < gameDB.getChanceOfRaceRouteBlockage() * secondsSinceLastTick;
@@ -285,6 +339,13 @@ public class SimulatorController extends ParentController {
         displayParticipantStats(selectedParticipant);
     }
 
+    /**
+     * Advances the simulation for a single participant by the given elapsed game time.
+     * Handles pausing, finishing, fuel consumption, breakdowns, hitchhikers, gas stops, and blocked routes.
+     * @param participant the race participant to update
+     * @param elapsedGameTimeSeconds the amount of simulated time elapsed in seconds
+     * @param blockedRoute the route that is currently blocked, or null if none
+     */
     public void progressSimulationForParticipant(RaceParticipant participant, double elapsedGameTimeSeconds, RaceRoute blockedRoute) {
         // If paused reduce the timer and wait.
         boolean didFinishPausing = waitIfPaused(participant, elapsedGameTimeSeconds);
@@ -315,6 +376,12 @@ public class SimulatorController extends ParentController {
         checkForBlockedRoute(participant, blockedRoute);
     }
 
+    /**
+     * Decrements the participant’s paused time and returns true if they have just finished pausing.
+     * @param participant the race participant whose paused time is to be updated
+     * @param elapsedGameTimeSeconds the amount of simulated time elapsed in seconds
+     * @return true if the participant’s pause period has ended this tick, false otherwise
+     */
     private boolean waitIfPaused(RaceParticipant participant, double elapsedGameTimeSeconds) {
         if (participant.getSecondsPaused() > 0.0) {
             participant.setSecondsPaused(participant.getSecondsPaused() - elapsedGameTimeSeconds);
@@ -326,6 +393,12 @@ public class SimulatorController extends ParentController {
         return false;
     }
 
+    /**
+     * Consumes fuel for the participant based on the distance traveled in elapsed seconds.
+     * If fuel runs out, the participant is out of the race.
+     * @param participant the race participant whose fuel to consume
+     * @param distanceInElapsedTime the distance traveled in this tick, in kilometers
+     */
     private void consumeFuel(RaceParticipant participant, double distanceInElapsedTime) {
         // Calculate remaining fuel in tank
         double fuelConsumptionLitresPerKilometer = participant.getCar().calculateFuelConsumption();
@@ -337,6 +410,11 @@ public class SimulatorController extends ParentController {
         participant.getCar().setFuelInTank(newFuelLitres);
     }
 
+    /**
+     * Checks if a hitchhiker is waiting, initiates a pick-up interaction if so.
+     * @param participant the race participant potentially encountering a hitchhiker
+     * @param distanceInElapsedTime the distance traveled in this tick, in kilometers
+     */
     private void checkForHitchhiker(RaceParticipant participant, double distanceInElapsedTime) {
         boolean isHitchhikerWaiting = Math.random() < gameDB.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
         if (isHitchhikerWaiting) {
@@ -351,6 +429,10 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Pauses the participant to pick up a hitchhiker, awards the player if applicable, and logs a commentary message.
+     * @param participant the race participant picking up the hitchhiker
+     */
     private void pickupHitchhiker(RaceParticipant participant) {
         double delay = gameDB.getHitchhikerPickUpTimeSeconds();
         participant.setSecondsPaused(participant.getSecondsPaused() + delay);
@@ -361,6 +443,12 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Checks if the participant has passed a gas stop within the bounds of where they were previously compared to now.
+     * initiates a refueling interaction if so.
+     * @param participant the race participant potentially passing a gas stop
+     * @param distanceInElapsedTime the distance traveled in this tick, in kilometers
+     */
     private void checkForGasStop(RaceParticipant participant, double distanceInElapsedTime) {
         double toDistance = participant.getDistanceTraveledKilometers();
         double fromDistance = toDistance - distanceInElapsedTime;
@@ -377,6 +465,10 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Pauses the participant for refueling, refills their tank, deducts cost, and logs a commentary message.
+     * @param participant the race participant stopping for gas
+     */
     private void stopForGas(RaceParticipant participant) {
         Car car = participant.getCar();
         double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
@@ -392,6 +484,12 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Checks if the participant’s car breaks down.
+     * Initiates repair or retirement logic if a breakdown occurs.
+     * @param participant the race participant potentially breaking down
+     * @param distanceInElapsedTime the distance traveled in this tick, in kilometers
+     */
     private void checkForBreakdown(RaceParticipant participant, double distanceInElapsedTime) {
         double chanceOfBreakdown = (1.0 - participant.getCar().getReliability()) * distanceInElapsedTime;
         boolean didBreakdown = Math.random() < chanceOfBreakdown;
@@ -406,6 +504,10 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Handles repair or permanent retirement for a broken-down car, including pause time and cost deduction.
+     * @param participant the race participant requiring repair or retirement
+     */
     private void repairBreakdownOrRetire(RaceParticipant participant) {
         if (participant.getCanRepairBreakdown()) {
             double randomRepairTime = gameDB.calculateRandomRepairTime();
@@ -420,15 +522,24 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Checks if the participant’s assigned route is currently blocked. If so, marks them as DNF and
+     * logs a commentary message. Prompts the player if applicable.
+     * @param participant the race participant whose route may be blocked
+     * @param blockedRoute the currently blocked route, or null if none
+     */
     private void checkForBlockedRoute(RaceParticipant participant, RaceRoute blockedRoute) {
         if (blockedRoute != null) {
             boolean routeMatchesParticipant = participant.getRoute() == blockedRoute;
+
             if (routeMatchesParticipant) {
                 boolean participantAlreadyFinished = participant.getDistanceTraveledKilometers() >= race.getDistanceKilometers();
+
                 if (!participantAlreadyFinished) {
                     participant.setIsBrokenDown(true);
                     participant.setCanRepairBreakdown(false);
                     addAndDisplayComment(new RaceComment(participant, blockedRoute.getMessage() + " DNF"));
+
                     if (participant.getIsPlayer()) {
                         promptForUserInteraction(participant, Race.RaceInteractionType.ROUTE_BLOCKED);
                     }
@@ -437,6 +548,12 @@ public class SimulatorController extends ParentController {
         }
     }
 
+    /**
+     * Pauses the simulation and displays a popup ui for interactions such as
+     * picking up hitchhikers, refueling, breakdown repairs, race timeout, or blocked routes.
+     * @param participant the race participant requiring user interaction
+     * @param type the type of interaction to prompt
+     */
     private void promptForUserInteraction(RaceParticipant participant, Race.RaceInteractionType type) {
         timer.pause();
         String title;
@@ -491,6 +608,7 @@ public class SimulatorController extends ParentController {
             default:
                 return;
         }
+        // Display popup ui
         Image carIcon = participant.getCar().getIcon();
         UserPromptPane popup = new UserPromptPane(carIcon, title, question, yesCaption, noCaption);
         StackPane pane = popup.show();
@@ -509,6 +627,14 @@ public class SimulatorController extends ParentController {
         } );
     }
 
+    /**
+     * Handles the user’s response to a popup ui, executes the appropriate action
+     * (e.g., pick up hitchhiker, refuel, repair, retire, or proceed to leaderboard).
+     * @param event the event triggered by the user’s choice
+     * @param participant the race participant for whom the interaction was prompted
+     * @param type the type of interaction that was prompted
+     * @param didChooseYes true if the user selected the affirmative option, false otherwise
+     */
     private void userInteractionResponse(Event event, RaceParticipant participant, Race.RaceInteractionType type, boolean didChooseYes) {
         switch (type) {
             case PASSING_HITCHHIKER:
