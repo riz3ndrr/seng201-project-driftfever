@@ -48,7 +48,7 @@ public class EndScreenController extends ParentController {
             failMsgLabel.setVisible(false);
         }
 
-        raceStatsLabel.setText(String.format("You have competed in %d races this season.", gameDB.getRaceCount()));
+        raceStatsLabel.setText(String.format("You have competed in %d races this season.", gameDB.getRacesDone()));
         prizeMoneyLabel.setText(String.format("From those races, you have earned $%,.2f in prize money.", gameDB.getPrizeMoneyWon()));
     }
 
@@ -58,6 +58,7 @@ public class EndScreenController extends ParentController {
      */
     public void playAgainClicked(MouseEvent event) {
         try {
+            gameDB.reset();
             switchToStartScreenScene(event);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

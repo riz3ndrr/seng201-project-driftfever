@@ -200,17 +200,12 @@ public class SelectRaceController extends ParentController {
      */
 
     public void beginRaceButtonClick(javafx.event.ActionEvent event) throws IOException {
-        boolean isFuelLow = selectedCar.getFuelInTank() < 0.5 * selectedCar.calculateFuelTankCapacity();
-        if (isFuelLow) {
-            fuelMeterLabel.setStyle("-fx-text-fill: red;");
+        if (!selectedCar.isBrokenDown()) {
+            gameDB.setSelectedRace(selectedRace);
+            gameDB.setSelectedRoute(selectedRoute);
+            switchToSimulatorScene(event);
         }
-        else {
-            if (!selectedCar.isBrokenDown()) {
-                gameDB.setSelectedRace(selectedRace);
-                gameDB.setSelectedRoute(selectedRoute);
-                switchToSimulatorScene(event);
-            }
 
         }
-    }
+
 }

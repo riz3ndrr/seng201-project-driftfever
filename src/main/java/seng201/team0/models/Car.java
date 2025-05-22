@@ -16,8 +16,7 @@ public class Car extends Purchasable {
     private double reliability; // Chance of not breaking down every kilometre (eg: 0.99 = 1% chance of breakdown per kilometre)
     private List<Upgrade> equippedUpgrades = new ArrayList<>();
     private GameStats gameDB = GameManager.getGameStats();
-    private boolean isBrokenDown = true;
-
+    private boolean isBrokenDown = false;
 
     // Constructor
     public Car(int itemID, String name, String desc, double buyingPrice, double sellingPrice,
@@ -26,7 +25,7 @@ public class Car extends Purchasable {
         this.speedKilometresPerHour = speedKilometresPerHour;
         this.fuelConsumptionLitresPerKilometer = fuelConsumption;
         this.fuelTankCapacityLitres = fuelTankCapacity;
-        this.fuelInTankLitres = 0.0;
+        this.fuelInTankLitres = fuelTankCapacityLitres;
         this.handlingScaleFactor = handling;
         this.reliability = reliability;
     }

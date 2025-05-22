@@ -138,10 +138,11 @@ public class ShopController extends ParentController {
                 shopSubtitle.setText("You do not own this item");
                 break;
 
-            case LAST_CAR_OWNED:
-                shopSubtitle.setText("Must own at least 1 car");
+            case REQUIRE_ONE_FUNCTIONING_CAR:
+                shopSubtitle.setText("Must own at least 1 functioning car");
                 break;
         }
+
     }
 
 
@@ -162,20 +163,6 @@ public class ShopController extends ParentController {
 
           }
 
-
-    public void end(MouseEvent event) throws IOException {
-        // Upload all the input (name, difficulty and season length) onto the GameStats "DB"
-        // Proceed to the next scene
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/leaderboard.fxml"));
-        Parent root = baseLoader.load();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        LeaderboardController baseController = baseLoader.getController();
-        baseController.initialize(null);
-    }
 
     /**When the "show garage" button is clicked, it will switch to the "garage" scene
      * if the user has selected 3 cars as that is the minimum number of cars a user will need
@@ -257,11 +244,6 @@ public class ShopController extends ParentController {
             selectedItem = availableUpgrades.get(selectedItemIndex);
         }
         displaySelectedItem();
-    }
-
-    public void debug(MouseEvent mouseEvent) {
-        System.out.println(selectedItem.getName());
-        System.out.println(selectedItem instanceof Car);
     }
 
     /**
@@ -346,6 +328,10 @@ public class ShopController extends ParentController {
     /**
      * Show the user's name, the amount of races they have left to compete and their current balance.
      * Proceed to display the default selected item.
+     *
+     * Only be able to show upgrades if the user has done at least one race and owns at least one functional car.
+     *
+     * Player will only be able to sell items if they own at least two functional cars.
      * @param stage
      */
     public void initialize(Stage stage) {

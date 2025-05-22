@@ -18,7 +18,8 @@ public class ShopService {
     public enum SellResult {
         SUCCESS,
         ITEM_NOT_OWNED,
-        LAST_CAR_OWNED
+        REQUIRE_ONE_FUNCTIONING_CAR
+
     }
 
 
@@ -80,8 +81,8 @@ public class ShopService {
         if (canSell) {
 
             if (isCar) {
-                if (gameDB.getCarCollectionSize() == 1) {
-                    return SellResult.LAST_CAR_OWNED;
+                if (gameDB.getCarCollectionSize() == 1 || gameDB.checkIfOneCarNotBrokenDown()) {
+                    return SellResult.REQUIRE_ONE_FUNCTIONING_CAR;
                 }
 
                 selectedItem.setPurchased(false);

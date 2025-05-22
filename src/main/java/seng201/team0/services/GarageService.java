@@ -52,7 +52,7 @@ public class GarageService {
      * @return the cost to fully fill up the car's tank
      */
     public double payableCostToFillTank(Car car) {
-        double payable = car.costToFillTank(gameDB.getFuelCostPerLitre());
+        double payable = car.costToFillTank(GameManager.getFuelCostPerLitre());
         if (payable > gameDB.getBal()) {
             payable = gameDB.getBal();
         }
@@ -66,7 +66,7 @@ public class GarageService {
 
     public void fillTank(Car car) {
         double fuelCost = payableCostToFillTank(car);
-        double litres = fuelCost / gameDB.getFuelCostPerLitre();
+        double litres = fuelCost / GameManager.getFuelCostPerLitre();
         car.setFuelInTank(litres + car.getFuelInTank());
         gameDB.setBal(gameDB.getBal() - fuelCost);
     }

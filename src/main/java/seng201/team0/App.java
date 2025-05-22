@@ -16,6 +16,6 @@ public class App {
      * @param args program arguments from command line
      */
     public static void main(String[] args) {
-        GameManager.startGame(args);
+        MainWindow.launchWrapper(args);;
     }
 }
