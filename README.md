@@ -42,3 +42,6 @@ IntelliJ has built-in support for Gradle. To import your project:
 
 # Dependencies:
 * JUnit 5
+
+# Use of AI Declaration
+We have used ChatGPT to generate some background images for our project. We’ve also used it to generate inspiration for our game (such as for creating upgrades) and have it create random values for the stats of cars.
