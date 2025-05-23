@@ -17,7 +17,7 @@ the season is over, acruing as much prize money as possible.
 
 
 # Building the application through a jar
-Open the `INPUT FOLDER NAME` in IntelliJ and run this command in the terminal './gradlew jar'
+Open the `team-050` in IntelliJ and run this command in the terminal './gradlew jar'
 
 # Running the Application via Jar
 To run application, you can simply double click the file `ble73_dra131_driftfever.jar`. However, if that does not work, to run it on a linux terminal, open a terminal in the directory as the jar file (it should be in the build/libs directory) and run the following command: `java -jar ble73_dra131_driftfever.jar`
