@@ -24,8 +24,8 @@ public class SimulatorServiceTest {
 
     @BeforeEach
     void setUp() {
-        gameDB.setNumOpponents(3);
-        gameDB.setOpponentUpgradeProbability(0.0);
+        GameManager.setNumOpponents(3);
+        GameManager.setOpponentUpgradeProbability(0.0);
     }
 
     @AfterEach
@@ -102,7 +102,7 @@ public class SimulatorServiceTest {
      */
     @Test
     void generateRandomCarMaxUpgrades() {
-        gameDB.setOpponentUpgradeProbability(1.0);
+        GameManager.setOpponentUpgradeProbability(1.0);
 
         Car randomCar = simulator.generateRandomCar();
 

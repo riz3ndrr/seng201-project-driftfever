@@ -270,7 +270,9 @@ public class GameManager {
     public static double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
     public static double getSecondsToPumpLitreOfGas() { return secondsToPumpLitreOfGas; }
     public static int getNumOpponents() { return numOpponents; }
+    public static void setNumOpponents(int value) { numOpponents = value; }
     public static double getOpponentUpgradeProbability() { return opponentUpgradeProbability; }
+    public static void setOpponentUpgradeProbability(double value) { opponentUpgradeProbability = value; }
     public static double getOpponentRefuelProbability() { return opponentRefuelProbability; }
     public static double getOpponentRepairProbability() { return opponentRepairProbability; }
     public static double getOpponentPickUpHitchhikerProbability() { return opponentPickUpHitchhikerProbability; }
