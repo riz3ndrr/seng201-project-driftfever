@@ -14,6 +14,25 @@ public class GameManager {
     private static List<Race> raceArray = createRaces();
     private static List<Car> carsArray = createCars();
     private static List<Upgrade> upgradeArray = createUpgrades();
+    private static double fuelCostPerLitre = 1.5;
+    private static double minimumSecondsForGasStop = 3.0 * 60.0; // Time for driver to get out, pay, etc
+    private static double secondsToPumpLitreOfGas = 10.0; // Time for a single litre of fuel to be pumped
+
+    private static int numOpponents = 8;
+    private static double opponentUpgradeProbability = 0.15;
+    private static double opponentRefuelProbability = 0.8;
+    private static double opponentRepairProbability = 0.75; // Chance that an opponent breaking down can be repaired
+    private static double opponentPickUpHitchhikerProbability = 0.5; // Chance that if a hitchhiker is available the opponent will stop and pick them up
+    private static double chanceOfHitchhikerPerKilometre = 0.005; // Chance that in any given kilometre a hitchhiker is available for pickup
+    private static double hitchhikerPickUpTimeSeconds = 5.0 * 60.0; // If stopping this is how long it takes to pick up a hitchhiker.
+    private static double minHitchhikerReward = 50.0;
+    private static double maxHitchhikerReward = 300.0;
+    private static double minRepairTimeSeconds = 10.0 * 60.0; // Repairs will take at least 10 minutes
+    private static double maxRepairTimeSeconds = 20.0 * 60.0; // Repairs will take at most 20 minutes
+    private static double minRepairCost = 200.0;
+    private static double maxRepairCost = 800.0;
+    private static double chanceOfRaceRouteBlockage = 0.000037; // Chance that in any given second a route is blocked, around 50/50 chance of happening per 2 hours
+
 
 
     // Constructor
@@ -144,8 +163,8 @@ public class GameManager {
                 new Car(8,
                         "Bumblebee",
                         "Legend says this car has a mind of its own",
-                        5000,
-                        1300,
+                        5400,
+                        4300,
                         195,
                         0.42,
                         55,
@@ -247,6 +266,18 @@ public class GameManager {
 
 
     // Getters and setters
+    public static double getFuelCostPerLitre() { return fuelCostPerLitre; }
+    public static double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
+    public static double getSecondsToPumpLitreOfGas() { return secondsToPumpLitreOfGas; }
+    public static int getNumOpponents() { return numOpponents; }
+    public static double getOpponentUpgradeProbability() { return opponentUpgradeProbability; }
+    public static double getOpponentRefuelProbability() { return opponentRefuelProbability; }
+    public static double getOpponentRepairProbability() { return opponentRepairProbability; }
+    public static double getOpponentPickUpHitchhikerProbability() { return opponentPickUpHitchhikerProbability; }
+    public static double getHitchhikerPickUpTimeSeconds() { return hitchhikerPickUpTimeSeconds; }
+    public static double getChanceOfHitchhikerPerKilometre() { return chanceOfHitchhikerPerKilometre; }
+    public static double getChanceOfRaceRouteBlockage() { return chanceOfRaceRouteBlockage; }
+
     public static GameStats getGameStats() { return gameDB; }
     public static List<Race> getRaces() {return raceArray; }
     public static Race getRaceAtIndex(int index) {
@@ -269,23 +300,31 @@ public class GameManager {
 
 
     // Logic
-    public static void startGame(String [] args) {
-        //TODO This code pre buys some things for testing, delete later!!
-        ShopService shopService = new ShopService();
-        shopService.buyItem(carsArray.get(0));
-        shopService.buyItem(carsArray.get(1));
-        shopService.buyItem(carsArray.get(2));
-        shopService.buyItem(upgradeArray.get(0));
-        shopService.buyItem(upgradeArray.get(1));
-        shopService.buyItem(upgradeArray.get(1));
-        shopService.buyItem(upgradeArray.get(2));
-        shopService.buyItem(upgradeArray.get(3));
-        for (Car car : carsArray) {
-            car.setFuelInTank(car.calculateFuelTankCapacity());
-        }
-
-        MainWindow.launchWrapper(args);
+    /**
+     * Calculate the cost of fixing a broken vehicle which is a random value.
+     * @return the repair cost
+     */
+    public static double calculateRandomRepairCost() {
+        return minRepairCost + Math.random() * (maxRepairCost - minRepairCost);
     }
+
+    /**
+     * Calculate the time it takes to repair a broken vehicle which is random.
+     * @return the time in seconds to repair.
+     */
+    public static double calculateRandomRepairTime() {
+        return minRepairTimeSeconds + Math.random() * (maxRepairTimeSeconds - minRepairTimeSeconds);
+    }
+    /**
+     *
+     * Create a random value which will be used as the amount of money a person gets for
+     * picking up a hitchhiker.
+     * @return the money reward
+     */
+    public static double calculateRandomHitchhikerReward() {
+        return minHitchhikerReward + Math.random() * (maxHitchhikerReward - minHitchhikerReward);
+    }
+
 
 }
 

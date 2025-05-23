@@ -27,7 +27,7 @@ public class SimulatorService {
      * @param player which refers to the main player
      */
     public void prepareRace(Race race, RaceParticipant player) {
-        generateOpponents(race, gameDB.getNumOpponents());
+        generateOpponents(race, GameManager.getNumOpponents());
         race.addParticipant(player);
     }
 
@@ -83,7 +83,7 @@ public class SimulatorService {
         Random rand = new Random();
         int randomIndex = rand.nextInt(cars.size());
         Car randomCar = cars.get(randomIndex).makeCopy();
-        double chanceOfUpgrade = gameDB.getOpponentUpgradeProbability();
+        double chanceOfUpgrade = GameManager.getOpponentUpgradeProbability();
         for (Upgrade upgrade : GameManager.getUpgrades()) {
             boolean awarded = Math.random() <= chanceOfUpgrade;
             if (awarded) {

@@ -324,7 +324,7 @@ public class SimulatorController extends ParentController {
      */
     private void progressSimulation() {
         double secondsSinceLastTick = timer.getElapsedSecondsInGameTime();
-        boolean isRaceRouteBlocked = Math.random() < gameDB.getChanceOfRaceRouteBlockage() * secondsSinceLastTick;
+        boolean isRaceRouteBlocked = Math.random() < GameManager.getChanceOfRaceRouteBlockage() * secondsSinceLastTick;
         RaceRoute blockedRoute = isRaceRouteBlocked ? RaceRoute.getRandomRoute() : null;
         for (RaceParticipant participant : race.getParticipants()) {
             progressSimulationForParticipant(participant, secondsSinceLastTick, blockedRoute);
@@ -416,12 +416,12 @@ public class SimulatorController extends ParentController {
      * @param distanceInElapsedTime the distance traveled in this tick, in kilometers
      */
     private void checkForHitchhiker(RaceParticipant participant, double distanceInElapsedTime) {
-        boolean isHitchhikerWaiting = Math.random() < gameDB.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
+        boolean isHitchhikerWaiting = Math.random() < GameManager.getChanceOfHitchhikerPerKilometre() * distanceInElapsedTime;
         if (isHitchhikerWaiting) {
             if (participant.getIsPlayer()) {
                 promptForUserInteraction(participant, Race.RaceInteractionType.PASSING_HITCHHIKER);
             } else {
-                boolean didPickUpHitchhiker = Math.random() < gameDB.getOpponentPickUpHitchhikerProbability();
+                boolean didPickUpHitchhiker = Math.random() < GameManager.getOpponentPickUpHitchhikerProbability();
                 if (didPickUpHitchhiker) {
                     pickupHitchhiker(participant);
                 }
@@ -434,11 +434,11 @@ public class SimulatorController extends ParentController {
      * @param participant the race participant picking up the hitchhiker
      */
     private void pickupHitchhiker(RaceParticipant participant) {
-        double delay = gameDB.getHitchhikerPickUpTimeSeconds();
+        double delay = GameManager.getHitchhikerPickUpTimeSeconds();
         participant.setSecondsPaused(participant.getSecondsPaused() + delay);
         addAndDisplayComment(new RaceComment(participant, String.format("Spent %s picking up a hitchhiker.", GameTimer.totalSecondsToStringMinSec(delay))));
         if (participant.getIsPlayer()) {
-            double randomReward = gameDB.calculateRandomHitchhikerReward();
+            double randomReward = GameManager.calculateRandomHitchhikerReward();
             gameDB.setBal(gameDB.getBal() + randomReward);
         }
     }
@@ -457,7 +457,7 @@ public class SimulatorController extends ParentController {
             if (participant.getIsPlayer()) {
                 promptForUserInteraction(participant, Race.RaceInteractionType.PASSING_GAS_STOP);
             } else {
-                double chanceOfRefueling = gameDB.getOpponentRefuelProbability();
+                double chanceOfRefueling = GameManager.getOpponentRefuelProbability();
                 if (Math.random() <= chanceOfRefueling) {
                     stopForGas(participant);
                 }
@@ -472,14 +472,14 @@ public class SimulatorController extends ParentController {
     private void stopForGas(RaceParticipant participant) {
         Car car = participant.getCar();
         double fuelRequiredLitres = car.calculateFuelTankCapacity() - car.getFuelInTank();
-        double secondsForGasStop = gameDB.getMinimumSecondsForGasStop() + gameDB.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
+        double secondsForGasStop = GameManager.getMinimumSecondsForGasStop() + GameManager.getSecondsToPumpLitreOfGas() * fuelRequiredLitres;
         participant.setSecondsPaused(secondsForGasStop);
         car.setFuelInTank(car.calculateFuelTankCapacity());
         String message = String.format("Stopping for %s to refuel %.0f litres.",
                 GameTimer.totalSecondsToStringMinSec(secondsForGasStop), fuelRequiredLitres);
         addAndDisplayComment(new RaceComment(participant, message));
         if (participant.getIsPlayer()) {
-            double cost = fuelRequiredLitres * gameDB.getFuelCostPerLitre();
+            double cost = fuelRequiredLitres * GameManager.getFuelCostPerLitre();
             gameDB.setBal(gameDB.getBal() - cost);
         }
     }
@@ -498,7 +498,7 @@ public class SimulatorController extends ParentController {
             if (participant.getIsPlayer()) {
                 promptForUserInteraction(participant, Race.RaceInteractionType.BROKEN_DOWN);
             } else {
-                participant.setCanRepairBreakdown(Math.random() < gameDB.getOpponentRepairProbability());
+                participant.setCanRepairBreakdown(Math.random() < GameManager.getOpponentRepairProbability());
                 repairBreakdownOrRetire(participant);
             }
         }
@@ -510,7 +510,7 @@ public class SimulatorController extends ParentController {
      */
     private void repairBreakdownOrRetire(RaceParticipant participant) {
         if (participant.getCanRepairBreakdown()) {
-            double randomRepairTime = gameDB.calculateRandomRepairTime();
+            double randomRepairTime = GameManager.calculateRandomRepairTime();
             participant.setSecondsPaused(randomRepairTime);
             addAndDisplayComment(new RaceComment(participant, String.format("Car has broken down and will take %s to fix.", GameTimer.totalSecondsToStringMinSec(participant.getSecondsPaused()))));
             if (participant.getIsPlayer()) {
@@ -572,12 +572,12 @@ public class SimulatorController extends ParentController {
                 question = String.format("You're passing a gas stop and you have %.0f/%.0fL in your tank.\nWould you like to refill in exchange for valuable time and $%.2f?",
                         participant.getCar().getFuelInTank(),
                         participant.getCar().calculateFuelTankCapacity(),
-                        participant.getCar().costToFillTank(gameDB.getFuelCostPerLitre()));
+                        participant.getCar().costToFillTank(GameManager.getFuelCostPerLitre()));
                 yesCaption = "Yes, fill 'er up";
                 noCaption = "No, I like walking";
                 break;
             case BROKEN_DOWN:
-                participant.setRepairCost(gameDB.calculateRandomRepairCost());
+                participant.setRepairCost(GameManager.calculateRandomRepairCost());
                 boolean canAffordRepairs = gameDB.getBal() >= participant.getRepairCost();
                 participant.setCanRepairBreakdown(canAffordRepairs);
                 if (canAffordRepairs) {

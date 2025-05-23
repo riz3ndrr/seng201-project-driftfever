@@ -61,7 +61,7 @@ public class ShopTest {
         assertTrue(selectedCar.isPurchased());
 
         ShopService.SellResult result3 = shopService.sellItem(selectedCar);
-        assertEquals(ShopService.SellResult.LAST_CAR_OWNED, result3);
+        assertEquals(ShopService.SellResult.REQUIRE_ONE_FUNCTIONING_CAR, result3);
         assertEquals(1700, gameDB.getBal());
         assertTrue(gameDB.selectedItemInCollection(selectedCar));
 
