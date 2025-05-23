@@ -71,13 +71,6 @@ public class GameTimer {
         }
     }
 
-
-    public void stop() {
-        if (timeline != null) {
-            timeline.stop();
-        }
-    }
-
     /**
      * Convert the elapsed time in seconds into hours, minutes and seconds for
      * better reading.

@@ -86,7 +86,9 @@ public class GameStats {
     public double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
     public double getSecondsToPumpLitreOfGas() { return secondsToPumpLitreOfGas; }
     public int getNumOpponents() { return numOpponents; }
+    public void setNumOpponents(int numOpponents) { this.numOpponents = numOpponents; }
     public double getOpponentUpgradeProbability() { return opponentUpgradeProbability; }
+    public void setOpponentUpgradeProbability(double opponentUpgradeProbability) { this.opponentUpgradeProbability = opponentUpgradeProbability; }
     public double getOpponentRefuelProbability() { return opponentRefuelProbability; }
     public double getOpponentRepairProbability() { return opponentRepairProbability; }
     public double getOpponentPickUpHitchhikerProbability() { return opponentPickUpHitchhikerProbability; }
