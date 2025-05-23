@@ -6,6 +6,11 @@ import seng201.team0.GameManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Car class represents a car and its capabilities, such as
+ * fuel consumption and capacity, which is affected by any
+ * upgrades that have been equipped.
+ */
 public class Car extends Purchasable {
     // Properties
     private double speedKilometresPerHour;

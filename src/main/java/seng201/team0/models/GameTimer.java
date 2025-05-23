@@ -6,6 +6,12 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
+/**
+ * GameTimer is a class that runs at given framerate and maps
+ * real-world time to game time. Game time runs much faster.
+ * The class calls a handler many times per second and passes
+ * the number of seconds that have elapsed since the last frame.
+ */
 public class GameTimer {
     // Properties
 

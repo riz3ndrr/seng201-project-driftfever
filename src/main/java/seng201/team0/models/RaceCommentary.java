@@ -4,6 +4,11 @@ package seng201.team0.models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RaceCommentary is the list of events that have happened to race
+ * participants throughout a race.
+ * Commentary can be filtered down to a can by clicking it.
+ */
 public class RaceCommentary {
     // Properties
     List<RaceComment> comments = new ArrayList<>();

@@ -1,5 +1,9 @@
 package seng201.team0.models;
 
+/**
+ * A Purchasable is item that can be bought in the game, such as a
+ * car or an upgrade
+ */
 public class Purchasable {
     // Properties
     private int itemID;

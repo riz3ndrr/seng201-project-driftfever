@@ -8,7 +8,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-
+/**
+ * A RaceComment is a description of an event that has happened to a
+ * participant in a race
+ * For example, a message that a car has broken down
+ */
 public class RaceComment {
     // Properties
     RaceParticipant participant;

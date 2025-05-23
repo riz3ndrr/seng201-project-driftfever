@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
+/**
+ * Represents a single race, and has properties like the race length
+ * how curvy it is and therefore its affect on cars speed.
+ */
 public class Race {
     // Enums
     public enum RaceInteractionType {

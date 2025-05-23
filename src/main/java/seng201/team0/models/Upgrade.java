@@ -1,5 +1,10 @@
 package seng201.team0.models;
 
+/**
+ * An upgrade improves the performance of a car, by increasing
+ * its fuel tank, improving reliabilty, etc.
+ * Upgrades can be purchased and equipped on cars.
+ */
 public class Upgrade extends Purchasable {
     // Properties
     private double speedMultiplier;

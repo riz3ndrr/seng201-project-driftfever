@@ -6,6 +6,9 @@ import seng201.team0.GameManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Base settings for the game
+ */
 public class GameStats {
     // Enums
     public enum Difficulty {
@@ -33,7 +36,7 @@ public class GameStats {
     private Difficulty difficulty = Difficulty.REGULAR;
 
     private String userName;
-    private final double startingBalance = 5000; //TODO revert, changed bal for testing!!
+    private final double startingBalance = 5000;
     private double bal = startingBalance;
     private double prizeMoneyWon = 0;
 

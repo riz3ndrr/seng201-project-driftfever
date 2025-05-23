@@ -1,5 +1,9 @@
 package seng201.team0.models;
 
+/**
+ * A RaceParticipant is made of a car, info about the driver, their chosen
+ * route and stats about their progress through a race.
+ */
 public class RaceParticipant {
     // Properties
     private Car car;

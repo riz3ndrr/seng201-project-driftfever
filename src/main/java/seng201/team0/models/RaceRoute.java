@@ -2,6 +2,10 @@ package seng201.team0.models;
 
 import java.util.Random;
 
+/**
+ * There are 4 RaceRoutes, each having a random chance of a race-ending
+ * event, such as a landslide on the mountain route.
+ */
 public enum RaceRoute {
     MOUNTAIN_ROUTE("Mountain route"),
     DIRT_ROUTE("Dirt route"),

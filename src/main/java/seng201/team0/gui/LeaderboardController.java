@@ -36,12 +36,13 @@ public class LeaderboardController extends ParentController {
             "DNF: You brought speed, passion, and amateur skills. Good call on the first two.",
             "DNF: Unfortunately, your GPS malfunctioned and drove you into a pit of emotional despair." };
 
+
+    // Logic
     /**
      * Initializes the leaderboard UI by sorting race participants by finish time
      * and displaying the results.
      * @param race the race whose results are to be displayed
      */
-    // Logic
     public void initialize(Race race) {
         this.race = race;
         this.race.sortParticipantsByFinishTime();
