@@ -19,7 +19,7 @@ public class GameManager {
     private static double secondsToPumpLitreOfGas = 10.0; // Time for a single litre of fuel to be pumped
 
     private static int numOpponents = 8;
-    private static double opponentUpgradeProbability = 0.15;
+    private static double opponentUpgradeProbability = 0.03;
     private static double opponentRefuelProbability = 0.8;
     private static double opponentRepairProbability = 0.75; // Chance that an opponent breaking down can be repaired
     private static double opponentPickUpHitchhikerProbability = 0.5; // Chance that if a hitchhiker is available the opponent will stop and pick them up
@@ -29,8 +29,8 @@ public class GameManager {
     private static double maxHitchhikerReward = 300.0;
     private static double minRepairTimeSeconds = 10.0 * 60.0; // Repairs will take at least 10 minutes
     private static double maxRepairTimeSeconds = 20.0 * 60.0; // Repairs will take at most 20 minutes
-    private static double minRepairCost = 200.0;
-    private static double maxRepairCost = 800.0;
+    private static double minRepairCost = 50.0;
+    private static double maxRepairCost = 200.0;
     private static double chanceOfRaceRouteBlockage = 0.000037; // Chance that in any given second a route is blocked, around 50/50 chance of happening per 2 hours
 
 
@@ -89,7 +89,7 @@ public class GameManager {
                         0.6,
                         55,
                         0.8,
-                        0.9931),
+                        0.998275),
                 new Car(1,
                         "Red Rover",
                         "A great car perfect for a rookie racer",
@@ -99,7 +99,7 @@ public class GameManager {
                         0.72,
                         60,
                         0.9,
-                        0.9927),
+                        0.998175),
                 new Car(2,
                         "Lime Wheels",
                         "A versatile car with equal balance between speed and handling.",
@@ -109,7 +109,7 @@ public class GameManager {
                         0.54,
                         50,
                         0.75,
-                        0.9964),
+                        0.999105),
                 new Car(3,
                         "Yellow Car",
                         "Light and agile, perfect for quick turns and smooth drifting.",
@@ -119,7 +119,7 @@ public class GameManager {
                         0.48,
                         45,
                         0.95,
-                        0.9943),
+                        0.998575),
                 new Car(4,
                         "Azure",
                         "Durable with solid control and good handling on various surfaces.",
@@ -129,7 +129,7 @@ public class GameManager {
                         0.66,
                         70,
                         0.7,
-                        0.9992),
+                        0.9998),
                 new Car(5,
                         "Crosswind",
                         "High-performance with fast acceleration and responsive handling.",
@@ -139,7 +139,7 @@ public class GameManager {
                         0.84,
                         50,
                         0.95,
-                        0.9928),
+                        0.9982),
                 new Car(6,
                         "Thunder McKing",
                         "Was used to win 7 Piston Cups. Kablow!",
@@ -149,7 +149,7 @@ public class GameManager {
                         1.1,
                         70,
                         0.9,
-                        0.9963),
+                        0.999075),
                 new Car(7,
                         "Icarus' Wings",
                         "The world's fastest car. Although not renowned for its reliability.",
@@ -159,7 +159,7 @@ public class GameManager {
                         1.25,
                         70,
                         0.5,
-                        0.9821),
+                        0.994525),
                 new Car(8,
                         "Bumblebee",
                         "Legend says this car has a mind of its own",
@@ -169,7 +169,7 @@ public class GameManager {
                         0.42,
                         55,
                         0.3,
-                        0.9975)
+                        0.998875)
         ));
     }
 
