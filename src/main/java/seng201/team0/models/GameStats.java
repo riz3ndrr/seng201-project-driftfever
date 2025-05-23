@@ -79,7 +79,6 @@ public class GameStats {
 
 
     // Logic
-
     /**
      * Reset all the variables for a new playthrough
      */
@@ -194,7 +193,6 @@ public class GameStats {
      * @param upgrade
      * @return
      */
-
     public boolean selectedItemInCollection(Upgrade upgrade) {
         for (Upgrade u : upgradeCollection) {
             if (u.getName().equals(upgrade.getName())) {
@@ -220,7 +218,6 @@ public class GameStats {
      * Add an item to the user's respective collection
      * @param item
      */
-
     public void addItem(Purchasable item) {
         if (item instanceof Car) {
             carCollection.add((Car) item);
@@ -233,7 +230,6 @@ public class GameStats {
      * Removes an item from its respective collection
      * @param item
      */
-
     public void removeItem(Purchasable item) {
         if (item instanceof Car) {
             carCollection.remove((Car) item);
@@ -250,6 +246,4 @@ public class GameStats {
     public Car searchCarAtIndex(int i) {
         return carCollection.get(i);
     }
-
-
 }

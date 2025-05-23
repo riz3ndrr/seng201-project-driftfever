@@ -22,22 +22,20 @@ import seng201.team0.services.ShopService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for displaying the shop scene.
+ * Manages the display and interaction of available cars and upgrades ot buy.
+ * Handles between switching between upgrade and car view.
+ */
 public class ShopController extends ParentController {
-
     @FXML
     private Label nameLabel;
     @FXML
     private Label balLabel;
     @FXML
     private Label racesLeftLabel;
-
-    @FXML
-    private Label shopItem;
-    @FXML
-    private Label shopCar;
     @FXML
     private Label itemStatsLabel;
-
     @FXML
     private Label itemNameLabel;
     @FXML
@@ -52,25 +50,16 @@ public class ShopController extends ParentController {
     private Label itemFuelEcoLabel;
     @FXML
     private Label itemFuelTankCapacityLabel;
-
     @FXML
     private Label buyItem;
     @FXML
     private Label sellItem;
-
     @FXML
     private Label shopSubtitle;
-
-    private Stage stage;
-    private Scene scene;
-
-
     @FXML
     private ImageView itemImg;
-
     @FXML
     private Label viewItemLabel;
-
     @FXML
     private Label currentlyOwnLabel;
 
@@ -86,7 +75,6 @@ public class ShopController extends ParentController {
 
 
     // Logic
-
     /**
      * Buy a selected item and updates the GUI depending on if the
      * item is successfully purchased or not.

@@ -23,6 +23,7 @@ public class Car extends Purchasable {
     private GameStats gameDB = GameManager.getGameStats();
     private boolean isBrokenDown = false;
 
+
     // Constructor
     public Car(int itemID, String name, String desc, double buyingPrice, double sellingPrice,
                double speedKilometresPerHour, double fuelConsumption, double fuelTankCapacity, double handling, double reliability) {
@@ -55,10 +56,7 @@ public class Car extends Purchasable {
     }
 
 
-
-
     // Logic
-
     /**
      * A helper function used by the car class to unequip all of its equipped upgrades.
      * Whenever an upgrade is unequipped, the variable, NumPurchased, which tracks the quantity of how much
@@ -79,7 +77,6 @@ public class Car extends Purchasable {
      * car's icon.
      * @return a string of the form: upgrade1, upgrade2, ... lastUpgrade
      */
-
     public String upgradesToString() {
         List<String> items = new ArrayList<>();
         for (Upgrade upgrade : equippedUpgrades) {
@@ -226,13 +223,11 @@ public class Car extends Purchasable {
         return false;
     }
 
-
     /**
      * Calculate the litres needed to fill up the tank, if it is below 0, it will set it to 0.
      * * @param costPerLitre
      * @return the total cost for how many litres it needs to fill up a tank.
      */
-
     public double costToFillTank(double costPerLitre) {
         double litresNeeded = calculateFuelTankCapacity() - fuelInTankLitres;
 
@@ -249,6 +244,4 @@ public class Car extends Purchasable {
         String iconFolder = "/designs/car-icon/";
         return new Image(getClass().getResourceAsStream("/designs/car-icon/car" + (getItemID() + 1) + ".png"));
     }
-
-
 }

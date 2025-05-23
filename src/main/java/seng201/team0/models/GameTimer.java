@@ -67,7 +67,6 @@ public class GameTimer {
         handler.handle(null);
     }
 
-
     /**
      * Pause the timer
      */

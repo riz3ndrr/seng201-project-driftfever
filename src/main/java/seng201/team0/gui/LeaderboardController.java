@@ -17,6 +17,11 @@ import seng201.team0.models.RaceParticipant;
 
 import java.util.Random;
 
+/**
+ * Controller for the leaderboard screen that appears after a race.
+ * Displays all cars ranked and sorted first by time then by distance if DNF.
+ * Handles prize money calculation.
+ */
 public class LeaderboardController extends ParentController {
     @FXML
     private Label leaderboardHeadingLabel;

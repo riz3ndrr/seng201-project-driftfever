@@ -17,7 +17,12 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
-
+/**
+ * Displays the start screen on app start.
+ * Has two views, first displays start button and title.
+ * Secondly, displays UI for the player to choose game difficulty,
+ * length of season (amount of races), and a player name.
+ */
 public class StartScreenController extends ParentController {
     @FXML
     private Label diffDesc;

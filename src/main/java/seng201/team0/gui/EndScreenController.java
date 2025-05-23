@@ -13,8 +13,12 @@ import seng201.team0.models.GameStats;
 
 import java.io.IOException;
 
+/**
+ * Controls the end of season summary screen displayed when the player has no more races left.
+ * Displays the performance stats of races entered and prize money earned.
+ * Handles restart logic if the player chooses to play again.
+ */
 public class EndScreenController extends ParentController {
-
     @FXML
     private Label seasonLabel;
     @FXML
@@ -24,12 +28,16 @@ public class EndScreenController extends ParentController {
     @FXML
     private Label failMsgLabel;
 
+
+    // Properties
     GameStats gameDB = GameManager.getGameStats();
 
+
+    // Logic
     /**
      * Display the user's name, the number of races they have completed in the season along with the
      * total amount of prize money they have earned.
-     * @param stage
+     * @param stage game stage
      */
     public void initialize(Stage stage) {
         String userName = gameDB.getUserName();
@@ -53,7 +61,7 @@ public class EndScreenController extends ParentController {
 
     /**
      * Attempt to switch to the start screen scene to restart the game barring any exceptions occur.
-     * @param event
+     * @param event when mouse is clicked event
      */
     public void playAgainClicked(MouseEvent event) {
         try {

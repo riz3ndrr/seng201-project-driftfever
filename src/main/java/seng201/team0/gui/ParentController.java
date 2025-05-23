@@ -11,15 +11,24 @@ import seng201.team0.models.Race;
 
 import java.io.IOException;
 
+/**
+ * ParentController provides common functionality for managing scene
+ * transitions. It serves as a bas controller for other controllers to handle
+ * navigations between different scenes defined by their respective FXML files.
+ */
 public class ParentController {
-
+    // Properties
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+
+    // Getters and setters
     public Stage getStage() { return stage; }
     public void setStage(Stage stage) { this.stage = stage; }
 
+
+    // Logic
     /**
      * Call the scaleUp() method in the TextEffect class to scale up a certain element of the UI.
      * @param event which is the UI element the user is interacting with.

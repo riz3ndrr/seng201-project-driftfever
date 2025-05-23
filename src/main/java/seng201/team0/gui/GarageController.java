@@ -17,6 +17,12 @@ import seng201.team0.services.GarageService;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Controller for the garage scene.
+ * Manages upgrading cars, cars can be selected by moving through left/right arrows.
+ * Bought upgrades can be equipped and unequipped for cars.
+ * Upgrades boost or reduce cars stats.
+ */
 public class GarageController extends ParentController {
     @FXML
     private Label nameLabel;
@@ -86,7 +92,6 @@ public class GarageController extends ParentController {
 
 
     // Logic
-
     /**
      * Upon initialization, will display the player's name, their balance and amount of races left to complete on the
      * left. It will also display the currently selected car for racing along with the upgrades available to be used.

@@ -25,6 +25,8 @@ public enum RaceRoute {
     // Getters and setters
     public String getName() { return name; }
 
+
+    // Logic
     /**
      * Obtain the description of a particular route
      * @return the description of that particular route
@@ -47,7 +49,6 @@ public enum RaceRoute {
      * Return the unfortunate event message associated with that particular route.
      * @return
      */
-
     public String getMessage() {
         switch (this) {
             case MOUNTAIN_ROUTE:
@@ -66,8 +67,6 @@ public enum RaceRoute {
      * Obtain a random route to be used by the opponent.
      * @return RaceRoute
      */
-
-    // Logic
     public static RaceRoute getRandomRoute() {
         Random rand = new Random();
         int index = rand.nextInt(RaceRoute.values().length);

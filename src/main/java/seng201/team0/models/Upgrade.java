@@ -39,7 +39,6 @@ public class Upgrade extends Purchasable {
 
 
     // Logic
-
     /**
      * @param multiplier is the stat multiplier that an upgrade has for a particular stat
      * @return a string so that we can display the effect agetGameStats()n upgrade has for a particular stat

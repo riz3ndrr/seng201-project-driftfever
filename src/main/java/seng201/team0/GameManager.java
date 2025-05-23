@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Handles the central game logic and data for races, cars, upgrades, and opponents.
+ * Initializes game elements and provides access to settings and utilities
+ * used throughout gameplay.
+ */
 public class GameManager {
     // Properties
     private static GameStats gameDB = new GameStats();
@@ -19,7 +24,7 @@ public class GameManager {
     private static double secondsToPumpLitreOfGas = 10.0; // Time for a single litre of fuel to be pumped
 
     private static int numOpponents = 8;
-    private static double opponentUpgradeProbability = 0.03;
+    private static double opponentUpgradeProbability = 0.1;
     private static double opponentRefuelProbability = 0.8;
     private static double opponentRepairProbability = 0.75; // Chance that an opponent breaking down can be repaired
     private static double opponentPickUpHitchhikerProbability = 0.5; // Chance that if a hitchhiker is available the opponent will stop and pick them up
@@ -32,7 +37,6 @@ public class GameManager {
     private static double minRepairCost = 50.0;
     private static double maxRepairCost = 200.0;
     private static double chanceOfRaceRouteBlockage = 0.000037; // Chance that in any given second a route is blocked, around 50/50 chance of happening per 2 hours
-
 
 
     // Constructor
@@ -57,7 +61,7 @@ public class GameManager {
                         "A short, moderately curvy track perfect for quick sprints.",
                         100,
                         0.5,
-                        1,
+                        2,
                         1700,
                         1.25),
                 new Race("The Iron Road",
@@ -71,12 +75,11 @@ public class GameManager {
                         "A smooth ride with almost no curves and limited gas stops.",
                         180,
                         0.1,
-                        1,
+                        2,
                         2300,
                         2)
         ));
     }
-
 
     private static List<Car> createCars() {
         return new ArrayList<>(Arrays.asList(
@@ -173,7 +176,6 @@ public class GameManager {
         ));
     }
 
-
     private static List<Upgrade> createUpgrades() {
         return new ArrayList<>(Arrays.asList(
                 new Upgrade(0,
@@ -264,7 +266,6 @@ public class GameManager {
     }
 
 
-
     // Getters and setters
     public static double getFuelCostPerLitre() { return fuelCostPerLitre; }
     public static double getMinimumSecondsForGasStop() { return minimumSecondsForGasStop; }
@@ -326,7 +327,4 @@ public class GameManager {
     public static double calculateRandomHitchhikerReward() {
         return minHitchhikerReward + Math.random() * (maxHitchhikerReward - minHitchhikerReward);
     }
-
-
 }
-

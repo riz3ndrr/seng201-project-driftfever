@@ -3,7 +3,10 @@ package seng201.team0.gui;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
-
+/**
+ * Utility class providing static methods to apply visual effects
+ * to JavaFX ui elements such as Nodes and Labels.
+ */
 public class TextEffect {
 
     /**

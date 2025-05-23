@@ -27,6 +27,11 @@ import seng201.team0.models.GameTimer;
 
 import java.util.List;
 
+/**
+ * Handles and displays the simulation ui.
+ * Runs a simulation with the players car and opponent cars.
+ * Upgrades are taken into account for fuel tank size, speed, etc.
+ */
 public class SimulatorController extends ParentController {
     @FXML
     private GridPane simulatorGridPane;
@@ -549,7 +554,7 @@ public class SimulatorController extends ParentController {
     }
 
     /**
-     * Pauses the simulation and displays a popup ui for interactions such as
+     * Pauses the simulation and displays a popup UI for interactions such as
      * picking up hitchhikers, refueling, breakdown repairs, race timeout, or blocked routes.
      * @param participant the race participant requiring user interaction
      * @param type the type of interaction to prompt
@@ -608,7 +613,7 @@ public class SimulatorController extends ParentController {
             default:
                 return;
         }
-        // Display popup ui
+        // Display popup UI
         Image carIcon = participant.getCar().getIcon();
         UserPromptPane popup = new UserPromptPane(carIcon, title, question, yesCaption, noCaption);
         StackPane pane = popup.show();
@@ -628,7 +633,7 @@ public class SimulatorController extends ParentController {
     }
 
     /**
-     * Handles the user’s response to a popup ui, executes the appropriate action
+     * Handles the user’s response to a popup UI, executes the appropriate action
      * (e.g., pick up hitchhiker, refuel, repair, retire, or proceed to leaderboard).
      * @param event the event triggered by the user’s choice
      * @param participant the race participant for whom the interaction was prompted

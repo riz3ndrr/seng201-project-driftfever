@@ -18,6 +18,12 @@ import seng201.team0.models.RaceRoute;
 
 import java.io.IOException;
 
+/**
+ * Displays the race selection screen.
+ * Manages the display and interaction of available races and routes.
+ * Shows details about the player's selected car, and handles starting the
+ * race with the chosen race and route.
+ */
 public class SelectRaceController extends ParentController {
     @FXML
     private TreeView<String> raceListView;
@@ -67,7 +73,6 @@ public class SelectRaceController extends ParentController {
 
 
     // Logic
-
     /**
      * Display the user's name, their balance and the amount of races left to complete.
      * Additionally, also display the user's selected car for racing and add the list of races and their routes.
