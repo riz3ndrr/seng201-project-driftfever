@@ -20,6 +20,11 @@ public class GameTimer {
 
 
     // Constructor
+    /**
+     * Create a timer that runs faster than real time based on a scale factor
+     * @param timeSpeedFactor Controls how much faster the game timer is compared to real time
+     * @param handler This is the code that is called whenever the timer ticks
+     */
     public GameTimer(double timeSpeedFactor, EventHandler<Event> handler) {
         this.timeSpeedFactor = timeSpeedFactor;
         this.handler = handler;
@@ -31,6 +36,9 @@ public class GameTimer {
 
 
     // Logic
+    /**
+     * Start the timer
+     */
     public void start() {
         timeAtLastTick = System.currentTimeMillis();
         Duration interval = Duration.millis(1000.0 / framerate);
@@ -40,6 +48,9 @@ public class GameTimer {
         timeline.play();
     }
 
+    /**
+     * Called when the timer fires, at a rate determined by the FPS
+     */
     private void onTick() {
         long now = System.currentTimeMillis();
         long elapsedSinceLastTick = now - timeAtLastTick;
@@ -74,7 +85,7 @@ public class GameTimer {
     /**
      * Convert the elapsed time in seconds into hours, minutes and seconds for
      * better reading.
-     * @param totalTimeInSeconds
+     * @param totalTimeInSeconds a number of seconds
      * @return a string of the format hours:minutes:seconds
      */
     public static String totalSecondsToStringHourMinSec(double totalTimeInSeconds) {
@@ -90,7 +101,7 @@ public class GameTimer {
     /**
      * Convert the elapsed time in seconds into minutes and seconds for
      * better reading.
-     * @param totalTimeInSeconds
+     * @param totalTimeInSeconds a number of seconds
      * @return a string of the format minutes:seconds
      */
     public static String totalSecondsToStringMinSec(double totalTimeInSeconds) {
