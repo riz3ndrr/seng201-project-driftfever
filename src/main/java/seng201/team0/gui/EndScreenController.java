@@ -31,7 +31,6 @@ public class EndScreenController extends ParentController {
      * total amount of prize money they have earned.
      * @param stage
      */
-
     public void initialize(Stage stage) {
         String userName = gameDB.getUserName();
         if (Character.toString(userName.charAt(userName.length() - 1)).equals("s")) {
