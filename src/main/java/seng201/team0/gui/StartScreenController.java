@@ -138,13 +138,13 @@ public class StartScreenController extends ParentController {
 
         switch (diff) {
             case EASY:
-                selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/easy.png";
+                selectedDiffImgDirectory = "/designs/difficulty/easy.png";
                 break;
             case REGULAR:
-                selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/med.png";
+                selectedDiffImgDirectory = "/designs/difficulty/med.png";
                 break;
             case HARD:
-                selectedDiffImgDirectory = "file:src/main/resources/designs/difficulty/hard.png";
+                selectedDiffImgDirectory = "/designs/difficulty/hard.png";
                 break;
         }
         Image newDiffImg = new Image(selectedDiffImgDirectory);
