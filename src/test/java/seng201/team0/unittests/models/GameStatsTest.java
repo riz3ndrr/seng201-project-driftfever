@@ -157,7 +157,10 @@ public class GameStatsTest {
     void checkIfCanContinuePlayingIfOnlyOwnOneCarWhichIsBroken() {
         gameDB.clearCarCollection();
         assertEquals(0, gameDB.getCarCollectionSize());
-        shopService.buyItem(Cars.get(0));
+        selectedCar = Cars.get(0);
+        selectedCar.setBrokenDown(true);
+        shopService.buyItem(selectedCar);
+
         gameDB.setBal(50);
         assertEquals(50, gameDB.getBal());
         boolean result = gameDB.canContinuePlaying();

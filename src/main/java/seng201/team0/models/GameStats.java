@@ -86,6 +86,7 @@ public class GameStats {
         setPrizeMoneyWon(0);
         setRacesDone(0);
         setRaceCount(3);
+        selectedCar = null;
     }
 
     /**

@@ -147,7 +147,7 @@ public class SelectRaceController extends ParentController {
         String gasStopCaption = String.format("gas %s", selectedRace.getGasStopDistances().size() == 1 ? "stop" : "stops");
         raceNameLabel.setText(String.format("%s: %s", selectedRace.getName(), selectedRoute.getName()));
         raceDescLabel.setText(selectedRace.getDesc() + "\n" + selectedRoute.getDescription());
-        racePrizeLabel.setText(String.format("Prize for 1st: $%,.2f", selectedRace.getPrizeMoney()));
+        racePrizeLabel.setText(String.format("Prize pool: $%,.2f", selectedRace.getPrizeMoney()));
         raceDistanceLabel.setText(String.format("Distance:  %.2f km with %d %s", selectedRace.getDistanceKilometers(), selectedRace.getGasStopDistances().size(), gasStopCaption));
         raceCurvinessLabel.setText(String.format("Curviness: %.0f%%", 100.0 * selectedRace.getCurviness()));
         raceTimeLimitLabel.setText(String.format("Time Limit: %s", GameTimer.totalSecondsToStringHourMinSec(selectedRace.getTimeLimitHours() * 60.0 * 60.0)));

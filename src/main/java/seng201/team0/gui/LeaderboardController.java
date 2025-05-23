@@ -57,6 +57,7 @@ public class LeaderboardController extends ParentController {
                 playerPosition = i + 1;
                 double prizeMoney = race.prizeMoneyForPosition(playerPosition);
                 gameDB.setPrizeMoneyWon(gameDB.getPrizeMoneyWon() + prizeMoney);
+                gameDB.setBal(gameDB.getBal() + prizeMoney);
             }
         }
 

@@ -109,7 +109,7 @@ public class GarageTest {
         selectedCar.setFuelInTank(0.5 * selectedCar.getFuelTankCapacity());
 
         garageService.fillTank(selectedCar);
-        assertEquals(selectedCar.getFuelInTank(), (selectedCar.getFuelTankCapacity()) * 0.5 + ogBal / gameDB.getFuelCostPerLitre());
+        assertEquals(selectedCar.getFuelInTank(), (selectedCar.getFuelTankCapacity()) * 0.5 + ogBal / GameManager.getFuelCostPerLitre());
 
         assertEquals(gameDB.getBal(), 0);
 
@@ -129,7 +129,7 @@ public class GarageTest {
 
         garageService.fillTank(selectedCar);
         assertEquals(selectedCar.getFuelInTank(), selectedCar.getFuelTankCapacity());
-        assertEquals(gameDB.getBal(), ogBal - selectedCar.getFuelTankCapacity() * 0.5 * gameDB.getFuelCostPerLitre());
+        assertEquals(gameDB.getBal(), ogBal - selectedCar.getFuelTankCapacity() * 0.5 * GameManager.getFuelCostPerLitre());
 
     }
 
