@@ -1,4 +1,5 @@
 # SENG201 25S1 Group 50 Project
+*98% grade*
 This project's repository can be found on git here:
 https://eng-git.canterbury.ac.nz/seng201-2025/team-050
 
